@@ -11,5 +11,7 @@ namespace BusBooking_Project.Repository.IRepository
     public interface IAccountRepo : IGenericRepo<Account>
     {
         bool CheckIsExists(Account account);
+
+        AccountView Login(Account account);
     }
 }

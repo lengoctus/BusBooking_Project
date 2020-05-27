@@ -32,14 +32,10 @@ namespace BusBooking_Project.Repository.EFCore
         {
             try
             {
-                if (!Checkvalue)
-                {
                     await _db.Set<T>().AddAsync(entity);
                     await _db.SaveChangesAsync();
 
                     return await Task.FromResult(entity);
-                }
-                return await Task.FromResult<T>(null);
             }
             catch (Exception e)
             {

@@ -17,7 +17,13 @@ namespace BusBooking_Project.Models.Entities
 
         public virtual DbSet<Account> Account { get; set; }
 
-
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer("Server=.;Database=BusBooking;UID=sa;PWD=123456;Trusted_Connection=True;");
+            }
+        }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Account>(entity =>

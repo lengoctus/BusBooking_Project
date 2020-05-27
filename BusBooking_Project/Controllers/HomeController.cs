@@ -26,7 +26,7 @@ namespace BusBooking_Project.Controllers
 
         public IActionResult Index()
         {
-            var acc_view = new AccountView
+            AccountView acc_view = new AccountView
             {
                 Email = "ngoctu",
                 Phone = "ahi",
@@ -36,12 +36,11 @@ namespace BusBooking_Project.Controllers
 
             var acc = new Account
             {
-                Id = 1,
                 Email = acc_view.Email,
                 Phone = acc_view.Phone
             };
 
-            var res = _IAcc.GetById(acc.Id).Result;
+            var res =  _IAcc.Create(acc, true).Result;
 
             return View();
         }

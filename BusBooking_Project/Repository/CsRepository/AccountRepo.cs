@@ -36,5 +36,14 @@ namespace BusBooking_Project.Repository.CsRepository
                 return false;
             }
         }
+
+        public AccountView Login(Account account)
+        {
+            return GetAll().Result.Where(s => s.Email.ToLower().Trim() == account.Email.ToLower().Trim() && s.Password.ToLower().Trim() == account.Password.ToLower().Trim()).Select(s => new AccountView
+            {
+                Id = s.Id,
+                Name = s.Name
+            }).SingleOrDefault();
+        }
     }
 }
