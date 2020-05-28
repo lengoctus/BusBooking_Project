@@ -97,19 +97,20 @@
             //ít nhất 1 chữ hoá
             //ít nhất 1 số
             //chuỗi ít nhất 8 ký tự
-            if (!rgEmail.test(emailip) || !rgPassword.test(pwip)) {
-                console.log('Email or password in valid. Please check again');
-                return;
-            };
-            var account = {
+            //if (!rgEmail.test(emailip) || !rgPassword.test(pwip)) {
+            //    console.log('Email or password in valid. Please check again');
+            //    return;
+            //};
+            var accountView = {
                 Email: emailip,
-                Pw: pwip
+                Password: pwip
             };
+
             $.ajax({
                 url: '/admin/login',
                 method: 'POST',
                 dataType: 'json',
-                data: { 'account': account },
+                data: { 'accountView': accountView },
                 success: function (data) {
                     if (data == "500") {
                         alertError('Email or password in valid. Please check again');
