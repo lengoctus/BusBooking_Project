@@ -15,6 +15,7 @@ namespace BusBooking_Project.Repository.CsRepository
 
         public AccountRepo(ConnectDbContext db) : base(db)
         {
+
         }
 
 
