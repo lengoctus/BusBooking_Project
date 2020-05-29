@@ -1,0 +1,73 @@
+﻿<div>
+    <!-- Nav tabs -->
+    <ul class="v-tabs clearfix" role="tablist">
+        <li role="presentation" class="active"><a href="#booking" aria-controls="home" role="tab" data-toggle="tab">Mua vé trực tuyến</a></li>
+        <li><a href="/vi-VN/ve-xe-phuong-trang-huong-dan-dat-ve.html" class="text-default">Hướng dẫn đặt vé</a></li>
+
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="booking">
+            <form class="form" name="bookingPartialForm">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-ms-12">
+                        <div class="form-group">
+                            <label for="">Điểm khởi hành</label>
+                            <div class="controls">
+                                <i class="fa fa-bus text-primary"></i>
+
+                                <select name="idOrigin" id="idOrigin" class="form-control selectpicker">
+                                    <option value="">Chọn điểm khởi hành</option>
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-ms-12">
+                        <div class="form-group">
+                            <label for="">Điểm đến</label>
+                            <div class="controls">
+                                <i class="fa fa-bus text-primary"></i>
+
+                                <select name="idDest" id="idDest" class="form-control  selectpicker">
+                                    <option value="">Chọn điểm đến</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-ms-12">
+                        <div class="form-group">
+                            <label for="">Ngày khởi hành</label>
+                            <div class="controls">
+                                <i class="fa fa-clock-o text-primary"></i>
+
+                                <input type="text" name="dDate" placeholder=" dd/mm/yyyy" class="form-control dDate date-readonly" value="30-05-2020" readonly="">
+                                <small><em>Định dạng: dd-mm-yyyy</em></small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-ms-12">
+                        <div class="form-group">
+                            <label for="">Số lượng vé</label>
+                            <div class="controls">
+                                <i class="fa fa-ticket text-primary"></i>
+
+                                <input type="number" name="numOfTicket" placeholder="1" value="1" class="form-control" min="1" max="5">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-5 col-md-5 col-sm-6 col-xs-6 col-ms-12">
+                        <button type="button" class="btn btn-primary btn-block btn-flat btn-booking"><i class="fa fa-ticket icon-flat bg-btn-actived"></i>Mua vé</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="profile">
+
+        </div>
+    </div>
+</div>

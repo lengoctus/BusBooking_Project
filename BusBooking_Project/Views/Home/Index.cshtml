@@ -1,8 +1,27 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿
+@{
+    ViewData["Title"] = "index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<section id="body-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 col-ms-12">
+                <div>
+                    @await Component.InvokeAsync("BookingPartialForm")
+                </div>
+            </div>
+            <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12 col-ms-12">
+                <div id="slider-home" class="flexslider">
+                    <ul class="slides">
+                        <li><a href="/vi-VN/2/ve-xe-phuong-trang-le-truyen-thong-futa-bus-lines-tri-an-bac-tai-nam-2020-279.html"><img src="~/customer/uploads/useravatar/Thong-cao-Khai-Truong-Phan-Rang-BXMĐ.png" /></a></li>
+                        <li><a href="/vi-VN/2/ve-xe-phuong-trang-phuong-trang-futa-bus-lines-khai-truong-tuyen-ben-xe-mien-dong-di-ben-xe-phan-rang-va-nguoc-lai-269.html"><img src="~/customer/uploads/useravatar/Thong-cao-Khai-Truong-Phan-Rang-BXMĐ.png" /></a></li>
+                        <li><a href="javascript:;"><img src="~/customer/uploads/useravatar/thongbaonapas.jpg" /></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

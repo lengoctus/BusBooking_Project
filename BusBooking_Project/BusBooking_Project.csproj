@@ -16,6 +16,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="wwwroot\customer\bower_components\bootstrap-select\css\bootstrap-select.min.css" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="3.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.0" />
@@ -32,6 +36,58 @@
     <Folder Include="Areas\Employee\Data\" />
     <Folder Include="Areas\Employee\Models\" />
     <Folder Include="Areas\Employee\Views\" />
+    <Folder Include="wwwroot\customer\font-awesome\fonts\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\customer\bower_components\bootstrap-select\js\bootstrap-select.min.js" />
+    <None Include="wwwroot\customer\bower_components\moment\min\moment-with-locales.min.js" />
+    <None Include="wwwroot\customer\connect.facebook.net\vi_VN\sdk.js#xfbml=1&amp;version=v2.5" />
+    <None Include="wwwroot\customer\Content\css\bootstrap\fonts\glyphicons-halflings-regular.svg#glyphicons-halflingsregular" />
+    <None Include="wwwroot\customer\Content\js\booking-partials.js" />
+    <None Include="wwwroot\customer\Content\js\bootstrap-datepicker\js\bootstrap-datepicker.min.js" />
+    <None Include="wwwroot\customer\Content\js\bootstrap-datepicker\locales\bootstrap-datepicker.vi.min.js" />
+    <None Include="wwwroot\customer\Content\js\bootstrap.min.js" />
+    <None Include="wwwroot\customer\Content\js\helper.min.js" />
+    <None Include="wwwroot\customer\Content\js\jquery-1.11.3.min.js" />
+    <None Include="wwwroot\customer\Content\js\jquery.barrating.es5.js" />
+    <None Include="wwwroot\customer\Content\js\jquery.bootstrap.newsbox.min.js" />
+    <None Include="wwwroot\customer\Content\js\jquery.counterup.min.js" />
+    <None Include="wwwroot\customer\Content\js\main.js" />
+    <None Include="wwwroot\customer\Content\js\modernizr.js" />
+    <None Include="wwwroot\customer\Content\js\moment.min.js" />
+    <None Include="wwwroot\customer\Content\js\waypoints.min.js" />
+    <None Include="wwwroot\customer\Content\js\wow.js" />
+    <None Include="wwwroot\customer\Content\plugins\flexslider\fonts\flexslider-icon.svg#flexslider-icon" />
+    <None Include="wwwroot\customer\Content\plugins\flexslider\jquery.flexslider-min.js" />
+    <None Include="wwwroot\customer\Content\plugins\sidebar\slidebars.js" />
+    <None Include="wwwroot\customer\Content\plugins\sliderTabs\jquery.sliderTabs.min.js" />
+    <None Include="wwwroot\customer\nhap_ma_tra_cuu\Flaticon.0a9cd90d8b330052c672.svg#Flaticon" />
+    <None Include="wwwroot\customer\nhap_ma_tra_cuu\main.e92741257e619f9d79ca.js" />
+    <None Include="wwwroot\customer\nhap_ma_tra_cuu\Metronic_fda1334c35d0f5fe2afb3afebbb6774a.6b6feb61813dddd403e6.svg#Metronic" />
+    <None Include="wwwroot\customer\nhap_ma_tra_cuu\polyfills.338697878cd376033a50.js" />
+    <None Include="wwwroot\customer\nhap_ma_tra_cuu\poppins-v5-devanagari_latin-ext_latin-300.01860d964547bc9d93cf.woff2" />
+    <None Include="wwwroot\customer\nhap_ma_tra_cuu\poppins-v5-devanagari_latin-ext_latin-300.70e4020c8c2da472b5ce.svg#Poppins" />
+    <None Include="wwwroot\customer\nhap_ma_tra_cuu\poppins-v5-devanagari_latin-ext_latin-500.70e9051c6ebce0ffe149.svg#Poppins" />
+    <None Include="wwwroot\customer\nhap_ma_tra_cuu\poppins-v5-devanagari_latin-ext_latin-500.93553e98363f8e91ea2f.woff2" />
+    <None Include="wwwroot\customer\nhap_ma_tra_cuu\poppins-v5-devanagari_latin-ext_latin-600.0d49524ae3304f2876fb.woff2" />
+    <None Include="wwwroot\customer\nhap_ma_tra_cuu\poppins-v5-devanagari_latin-ext_latin-600.437844ee60c122bea4be.svg#Poppins" />
+    <None Include="wwwroot\customer\nhap_ma_tra_cuu\poppins-v5-devanagari_latin-ext_latin-700.82b5580c33900775f45b.svg#Poppins" />
+    <None Include="wwwroot\customer\nhap_ma_tra_cuu\poppins-v5-devanagari_latin-ext_latin-700.fa4ee371c37a0738f29b.woff2" />
+    <None Include="wwwroot\customer\nhap_ma_tra_cuu\poppins-v5-devanagari_latin-ext_latin-regular.74955fcba4d3cb051de3.svg#Poppins" />
+    <None Include="wwwroot\customer\nhap_ma_tra_cuu\poppins-v5-devanagari_latin-ext_latin-regular.76e766753becb2b7da20.woff2" />
+    <None Include="wwwroot\customer\nhap_ma_tra_cuu\roboto-v18-vietnamese_latin-ext_latin_greek_cyrillic-ext_greek-ext_cyrillic-300.3ae203c62a7ae5684c02.svg#Roboto" />
+    <None Include="wwwroot\customer\nhap_ma_tra_cuu\roboto-v18-vietnamese_latin-ext_latin_greek_cyrillic-ext_greek-ext_cyrillic-300.d26871e8149b5759f814.woff2" />
+    <None Include="wwwroot\customer\nhap_ma_tra_cuu\roboto-v18-vietnamese_latin-ext_latin_greek_cyrillic-ext_greek-ext_cyrillic-500.6b235824a45f55c12ecc.svg#Roboto" />
+    <None Include="wwwroot\customer\nhap_ma_tra_cuu\roboto-v18-vietnamese_latin-ext_latin_greek_cyrillic-ext_greek-ext_cyrillic-500.90d1676003d9c28c0499.woff2" />
+    <None Include="wwwroot\customer\nhap_ma_tra_cuu\roboto-v18-vietnamese_latin-ext_latin_greek_cyrillic-ext_greek-ext_cyrillic-700.90b12e163d7a549300a7.svg#Roboto" />
+    <None Include="wwwroot\customer\nhap_ma_tra_cuu\roboto-v18-vietnamese_latin-ext_latin_greek_cyrillic-ext_greek-ext_cyrillic-700.b52fac2bb93c5858f3f2.woff2" />
+    <None Include="wwwroot\customer\nhap_ma_tra_cuu\roboto-v18-vietnamese_latin-ext_latin_greek_cyrillic-ext_greek-ext_cyrillic-regular.3ce3e2e315625e095524.svg#Roboto" />
+    <None Include="wwwroot\customer\nhap_ma_tra_cuu\roboto-v18-vietnamese_latin-ext_latin_greek_cyrillic-ext_greek-ext_cyrillic-regular.73f0a88bbca1bec19fb1.woff2" />
+    <None Include="wwwroot\customer\nhap_ma_tra_cuu\runtime.1b4c6116f6e84acec8e4.js" />
+    <None Include="wwwroot\customer\nhap_ma_tra_cuu\scripts.5c33fadf7d1dff460529.js" />
+    <None Include="wwwroot\customer\nhap_ma_tra_cuu\socicon.a35b65744f557fab5424.svg#socicon" />
+    <None Include="wwwroot\customer\www.googletagmanager.com\gtm.js" />
   </ItemGroup>
 
 
