@@ -7,12 +7,16 @@
   <ItemGroup>
     <Compile Remove="Areas\Admin\Data\**" />
     <Compile Remove="Areas\Admin\Models\**" />
+    <Compile Remove="wwwroot\lib\font-awesome\**" />
     <Content Remove="Areas\Admin\Data\**" />
     <Content Remove="Areas\Admin\Models\**" />
+    <Content Remove="wwwroot\lib\font-awesome\**" />
     <EmbeddedResource Remove="Areas\Admin\Data\**" />
     <EmbeddedResource Remove="Areas\Admin\Models\**" />
+    <EmbeddedResource Remove="wwwroot\lib\font-awesome\**" />
     <None Remove="Areas\Admin\Data\**" />
     <None Remove="Areas\Admin\Models\**" />
+    <None Remove="wwwroot\lib\font-awesome\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,6 +36,7 @@
     <Folder Include="Areas\Employee\Data\" />
     <Folder Include="Areas\Employee\Models\" />
     <Folder Include="Areas\Employee\Views\" />
+    <Folder Include="wwwroot\employee\" />
   </ItemGroup>
 
 
