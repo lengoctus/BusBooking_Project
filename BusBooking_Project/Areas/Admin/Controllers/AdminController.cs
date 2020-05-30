@@ -28,15 +28,6 @@ namespace BusBooking_Project.Areas.Admin.Controllers
             return View();
         }
 
-        [HttpPost("login")]
-        public IActionResult Login(AccountView accountView)
-        {
-            AccountView accountView1 = _IAcc.Login(new Models.Entities.Account { Email = accountView.Email, Password = accountView.Password });
-            if (accountView1 == null)
-            {
-                return Json("500");
-            }
-            return Json("200");
-        }
+
     }
 }
