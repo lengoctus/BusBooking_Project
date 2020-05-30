@@ -60,13 +60,7 @@
                     <!-- /.col -->
                 </div>
                 <div class="social-auth-links text-center mb-3">
-                    <p>- OR -</p>
-                    <a href="#" class="btn btn-block btn-primary">
-                        <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
-                    </a>
-                    <a href="#" class="btn btn-block btn-danger">
-                        <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
-                    </a>
+                    <a href="#">Forgot password</a>
                 </div>
                 <!-- /.social-auth-links -->
 
@@ -93,14 +87,15 @@
             var rgPassword = new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/);
             var emailip = $('#ipEmail').val();
             var pwip = $('#ipPw').val();
+            //Pw: Aa1234567
             //ít nhất 1 chữ thường
             //ít nhất 1 chữ hoá
             //ít nhất 1 số
             //chuỗi ít nhất 8 ký tự
-            //if (!rgEmail.test(emailip) || !rgPassword.test(pwip)) {
-            //    console.log('Email or password in valid. Please check again');
-            //    return;
-            //};
+            if (!rgEmail.test(emailip) || !rgPassword.test(pwip)) {
+                console.log('Email or password in valid. Please check again');
+                return;
+            };
             var accountView = {
                 Email: emailip,
                 Password: pwip

@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using BusBooking_Project.Models.Entities;
 using BusBooking_Project.Repository.CsRepository;
 using BusBooking_Project.Repository.IRepository;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,9 +30,27 @@ namespace BusBooking_Project
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddSession();
             services.AddScoped<IAccountRepo, AccountRepo>();
             services.AddDbContext<ConnectDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ConnectDb")));
+            services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = "SCHEME_AD";
+            })
+            .AddCookie("SCHEME_AD", option =>
+            {
+                option.LoginPath = "/admin/login";
+                option.AccessDeniedPath = "/admin/accessDenied";
+                option.LogoutPath = "/admin/logout";
+                option.Cookie.Name = "acecookie";
+            })
+            .AddCookie("SCHEME_EMP", option =>
+            {
+                option.LoginPath = "";
+                option.AccessDeniedPath = "";
+                option.LogoutPath = "";
+                option.Cookie.Name = "";
+            });
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,9 +70,24 @@ namespace BusBooking_Project
             app.UseStaticFiles();
             app.UseSession();
             app.UseRouting();
-
+            app.Use(async (context, next) =>
+            {
+                ClaimsPrincipal principal = new ClaimsPrincipal();
+                var result = await context.AuthenticateAsync("SCHEME_AD");
+                if (result?.Principal != null)
+                {
+                    principal.AddIdentities(result.Principal.Identities);
+                }
+                var result3 = await context.AuthenticateAsync("SCHEME_EMP");
+                if (result3?.Principal != null)
+                {
+                    principal.AddIdentities(result3.Principal.Identities);
+                }
+                context.User = principal;
+                await next();
+            });
+            app.UseAuthentication();
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

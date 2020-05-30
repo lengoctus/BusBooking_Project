@@ -1,4 +1,5 @@
-﻿using BusBooking_Project.Repository.EFCore;
+﻿using BusBooking_Project.Models.Entities;
+using BusBooking_Project.Repository.EFCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace BusBooking_Project.Models.ModelsView
         public byte Gender { get; set; }
         public DateTime DayCreate { get; set; }
         public DateTime DayEdited { get; set; }
-        public int EditerId { get; set; }
+        public Account Editer { get; set; }
         public bool Stastus { get; set; }
         public byte Role { get; set; }
         public bool Active { get; set; }
