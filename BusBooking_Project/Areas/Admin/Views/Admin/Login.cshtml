@@ -1,13 +1,8 @@
 ﻿@model BusBooking_Project.Models.ModelsView.AccountView
-<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>AdminLTE 3 | Log in</title>
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <!-- Font Awesome -->
     <link rel="stylesheet" href="~/admin/plugins/fontawesome-free/css/all.min.css">
     <!-- Ionicons -->
@@ -22,14 +17,14 @@
 <body class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
-            <a href="../../index2.html"><b>Admin</b>LTE</a>
+            <b>Admin</b>LTE
         </div>
         <!-- /.login-logo -->
         <div class="card">
             <div class="card-body login-card-body">
                 <p class="login-box-msg">Sign in to start your session</p>
                 <div class="input-group mb-3">
-                    <input type="email" class="form-control" placeholder="Email" id="ipEmail">
+                    <input type="email" class="form-control" placeholder="Email" id="ipEmail" value="nguyenngocsang0868@gmail.com">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-envelope"></span>
@@ -37,7 +32,7 @@
                     </div>
                 </div>
                 <div class="input-group mb-3">
-                    <input type="password" class="form-control" placeholder="Password" id="ipPw">
+                    <input type="password" class="form-control" placeholder="Password" id="ipPw" value="Aa12345678">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-lock"></span>
@@ -60,16 +55,8 @@
                     <!-- /.col -->
                 </div>
                 <div class="social-auth-links text-center mb-3">
-                    <a href="#">Forgot password</a>
+                    <a asp-area="admin" asp-controller="admin" asp-action="forgotpw">Forgot password</a>
                 </div>
-                <!-- /.social-auth-links -->
-
-                <p class="mb-1">
-                    <a href="forgot-password.html">I forgot my password</a>
-                </p>
-                <p class="mb-0">
-                    <a href="register.html" class="text-center">Register a new membership</a>
-                </p>
             </div>
             <!-- /.login-card-body -->
         </div>
