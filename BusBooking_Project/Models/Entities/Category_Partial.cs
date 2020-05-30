@@ -7,10 +7,13 @@ using System.Threading.Tasks;
 
 namespace BusBooking_Project.Models.Entities
 {
-    public class Account_Partial
+    public class Category_Partial
     {
     }
 
-    [ModelMetadataType(typeof(Account_Partial))]
-    public partial class Account : IEntity { }
+    [ModelMetadataType(typeof(Category_Partial))]
+    public partial class Category : IEntity
+    {
+
+    }
 }
