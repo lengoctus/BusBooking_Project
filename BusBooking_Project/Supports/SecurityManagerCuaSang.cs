@@ -27,7 +27,7 @@ namespace Supports
             claims.Add(new Claim("id", user.Id + ""));
             claims.Add(new Claim(ClaimTypes.Name, user.Name));
             claims.Add(new Claim(ClaimTypes.Email, user.Email));
-            claims.Add(new Claim(ClaimTypes.Role, user.Role + ""));
+            claims.Add(new Claim(ClaimTypes.Role, user.Role.Name));
             return claims;
         }
     }

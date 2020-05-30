@@ -1,16 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using BusBooking_Project.Models.Entities;
 using BusBooking_Project.Models.ModelsView;
 using BusBooking_Project.Repository.IRepository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Supports;
 
 namespace BusBooking_Project.Areas.Admin.Controllers
 {
+    [AllowAnonymous]
     [Area("admin")]
     [Route("admin")]
     public class AdminController : Controller
@@ -35,12 +38,11 @@ namespace BusBooking_Project.Areas.Admin.Controllers
         {
             if (accountView != null)
             {
-                AccountView accountView1 = _IAcc.Login(new Account { Email = accountView.Email, Password = accountView.Password });
-                if (accountView1 == null)
+                if (CheckLogin(accountView))
                 {
-                    return Json("500");
+                    return Json("200");
                 }
-                return Json("200");
+                return Json("500");
             }
             return View();
         }
@@ -49,7 +51,7 @@ namespace BusBooking_Project.Areas.Admin.Controllers
         [HttpGet("logout")]
         public IActionResult Logout()
         {
-            SercurityManagerCuaSang.Logout(HttpContext, "SCHEME_ADMIN");
+            SercurityManagerCuaSang.Logout(HttpContext, "SCHEME_AD");
             return RedirectToAction("login");
         }
 
@@ -117,6 +119,25 @@ namespace BusBooking_Project.Areas.Admin.Controllers
             //    return Json("404");
             //}
             return null;
+        }
+
+        private bool CheckLogin(AccountView accountView)
+        {
+            try
+            {
+                AccountView accountLogin = _IAcc.Login(new Account { Email = accountView.Email, Password = accountView.Password });
+                if (accountLogin == null)
+                {
+                    return false;
+                }
+                SercurityManagerCuaSang.Login(HttpContext, accountLogin, "SCHEME_AD");
+                return true;
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+                return false;
+            }
         }
 
         [HttpGet("accessDenied")]

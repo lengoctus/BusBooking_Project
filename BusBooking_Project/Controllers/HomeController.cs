@@ -26,22 +26,6 @@ namespace BusBooking_Project.Controllers
 
         public IActionResult Index()
         {
-            AccountView acc_view = new AccountView
-            {
-                Email = "ngoctu",
-                Phone = "ahi",
-
-            };
-
-
-            var acc = new Account
-            {
-                Email = acc_view.Email,
-                Phone = acc_view.Phone
-            };
-
-            var res =  _IAcc.Create(acc, true).Result;
-
             return View();
         }
 
