@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -90,6 +90,13 @@ namespace BusBooking_Project
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
+                //Của sáng
+                endpoints.MapControllerRoute(
+                    name: "admin_route",
+                    pattern: "admin/{controller}/{action}/{id?}",
+                    defaults: new { area = "admin" },
+                    constraints: new { area = "admin" });
+                //Của sáng//
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
