@@ -42,14 +42,14 @@ namespace BusBooking_Project
                 option.AccessDeniedPath = "/admin/accessDenied";
                 option.LogoutPath = "/admin/logout";
                 option.Cookie.Name = "acecookie";
-            })
-            .AddCookie("SCHEME_EMP", option =>
-            {
-                option.LoginPath = "";
-                option.AccessDeniedPath = "";
-                option.LogoutPath = "";
-                option.Cookie.Name = "";
             });
+            //.AddCookie("SCHEME_EMP", option =>
+            //{
+            //    option.LoginPath = "";
+            //    option.AccessDeniedPath = "";
+            //    option.LogoutPath = "";
+            //    option.Cookie.Name = "";
+            //});
             services.AddSession();
         }
 
@@ -78,11 +78,11 @@ namespace BusBooking_Project
                 {
                     principal.AddIdentities(result.Principal.Identities);
                 }
-                var result3 = await context.AuthenticateAsync("SCHEME_EMP");
-                if (result3?.Principal != null)
-                {
-                    principal.AddIdentities(result3.Principal.Identities);
-                }
+                //var result3 = await context.AuthenticateAsync("SCHEME_EMP");
+                //if (result3?.Principal != null)
+                //{
+                //    principal.AddIdentities(result3.Principal.Identities);
+                //}
                 context.User = principal;
                 await next();
             });

@@ -31,5 +31,17 @@ namespace BusBooking_Project.Repository.CsRepository
                 return false;
             }
         }
+
+        public Task<IQueryable<Category>> Search(string keyword)
+        {
+            try
+            {
+            }
+            catch (Exception e)
+            {
+                var error = e.Message;
+                throw;
+            }
+        }
     }
 }

@@ -9,5 +9,6 @@ namespace BusBooking_Project.Repository.IRepository
 {
     public interface ICategoryRepo : IGenericRepo<Category>
     {
+        public Task<IQueryable<Category>> Search(string keyword);
     }
 }
