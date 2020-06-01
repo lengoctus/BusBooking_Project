@@ -129,7 +129,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a asp-area="admin" asp-controller="user" asp-action="index" class="nav-link item_menu">
+                            <a href="/admin/user/index" class="nav-link item_menu">
                                 <i class="nav-icon fas fa-users"></i>
                                 <p>
                                     USER
@@ -140,7 +140,10 @@
                 </nav>
             </div>
         </aside>
-        @RenderBody()
+        <div class="content-wrapper">
+            @RenderBody()
+        </div>
+        <div class="clear"></div>
         <aside class="control-sidebar control-sidebar-dark">
         </aside>
         <footer class="main-footer">
@@ -166,6 +169,7 @@
     <script src="~/admin/js/sweetalert2@9.js"></script>
     <script src="~/admin/js/jquery.simplePagination.js"></script>
     <script src="~/admin/js/ACE.js"></script>
+    <script src="~/admin/js/bootstrap-toggle.min.js"></script>
     @RenderSection("script", required: false)
 </body>
 </html>

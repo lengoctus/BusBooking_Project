@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace Supports
 {
-    public class PaypalConfiguration
+    public class PaypalConfigurationACE
     {
         public IConfiguration Configuration;
         private string ClientId;
         private string ClientSecrect;
 
-        public PaypalConfiguration(IConfiguration _Configuration)
+        public PaypalConfigurationACE(IConfiguration _Configuration)
         {
             Configuration = _Configuration;
             ClientId = Configuration["Paypal:ClientID"];

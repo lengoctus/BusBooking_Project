@@ -96,7 +96,7 @@ function alertSuccess(text) {
     );
 }
 
-function alertSuccessRedirect(location) {
+function alertSuccessRedirect(text, location) {
     Swal.fire({
         title: 'Successfully.',
         text: text,
@@ -124,7 +124,7 @@ function alertError() {
     Swal.fire({
         icon: 'error',
         title: 'Failed...',
-        text: 'Something went wrong!',
+        text: 'Something went wrong! Please again',
     });
 }
 
@@ -155,6 +155,31 @@ function alertWarning() {
         cancelButtonColor: '#d33',
         confirmButtonText: 'Yes, delete it!'
     });
+}
+
+
+function ErrorMode(text, target) {
+    var str = "";
+    str += '<div class="card bg-danger">';
+    str += '<div class="card-header">';
+    str += '<span>' + text + '</span>';
+    str += '<div class="card-tools">';
+    str += '<button type="button" class="btn btn-tool" data-card-widget="remove">';
+    str += '<i class="fas fa-times" style="color:white !important"></i>';
+    str += '</button></div></div></div>';
+    target.append(str);
+}
+
+function SuccessMode(text, target) {
+    var str = "";
+    str += '<div class="card bg-success">';
+    str += '<div class="card-header">';
+    str += '<span>' + text + '</span>';
+    str += '<div class="card-tools">';
+    str += '<button type="button" class="btn btn-tool" data-card-widget="remove">';
+    str += '<i class="fas fa-times" style="color:white !important"></i>';
+    str += '</button></div></div></div>';
+    target.append(str);
 }
 
 
