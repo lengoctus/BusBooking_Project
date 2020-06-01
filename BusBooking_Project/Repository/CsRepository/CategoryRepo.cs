@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BusBooking_Project.Repository.CsRepository
 {
-    public class CategoryRepo : GenericRepo<Category>, ICategoryRepo
+    public class CategoryRepo : GenericRepo<Category>//, ICategoryRepo
     {
         public CategoryRepo(ConnectDbContext db) : base(db)
         {
@@ -32,16 +32,16 @@ namespace BusBooking_Project.Repository.CsRepository
             }
         }
 
-        public Task<IQueryable<Category>> Search(string keyword)
-        {
-            try
-            {
-            }
-            catch (Exception e)
-            {
-                var error = e.Message;
-                throw;
-            }
-        }
+        //public Task<IQueryable<Category>> Search(string keyword)
+        //{
+        //    try
+        //    {
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        var error = e.Message;
+        //        throw;
+        //    }
+        //}
     }
 }
