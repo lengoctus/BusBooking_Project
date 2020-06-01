@@ -31,6 +31,7 @@ namespace BusBooking_Project
         {
             services.AddControllersWithViews();
             services.AddScoped<IAccountRepo, AccountRepo>();
+            services.AddScoped<ICategoryRepo, CategoryRepo>();
             services.AddDbContext<ConnectDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ConnectDb")));
             services.AddAuthentication(options =>
             {
@@ -100,11 +101,6 @@ namespace BusBooking_Project
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
-
-                endpoints.MapAreaControllerRoute(
-                    name: "Admin",
-                    areaName: "Admin",
-                    pattern: "Admin/{controller=Home}/{action=Index}/{id?}");
 
                 endpoints.MapAreaControllerRoute(
                     name: "Employee",

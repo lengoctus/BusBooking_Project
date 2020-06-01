@@ -9,6 +9,7 @@ namespace BusBooking_Project.Repository.IRepository
 {
     public interface ICategoryRepo : IGenericRepo<Category>
     {
+        bool CheckIsExists(Category entity);
         public Task<IQueryable<Category>> Search(string keyword);
     }
 }

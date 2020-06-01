@@ -9,6 +9,7 @@
     <link href="~/admin/css/select2.min.css" rel="stylesheet" />
     <link href="~/admin/css/simplePagination.css" rel="stylesheet" />
     <link href="~/admin/css/ACE.css" rel="stylesheet" />
+    <link href="~/admin/css/styleNTU.css" rel="stylesheet" />
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
     <div class="wrapper">
@@ -136,6 +137,15 @@
                                 </p>
                             </a>
                         </li>
+
+                        <li class="nav-item">
+                            <a asp-area="admin" asp-controller="home" asp-action="manager" class="nav-link item_menu">
+                                <i class="nav-icon fas fa-tasks"></i>
+                                <p>
+                                    MANAGER
+                                </p>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
             </div>
@@ -162,10 +172,12 @@
     <script src="~/admin/plugins/jquery-mapael/maps/usa_states.min.js"></script>
     <script src="~/admin/plugins/chart.js/Chart.min.js"></script>
     <script src="~/admin/dist/js/pages/dashboard2.js"></script>
+
     <script src="~/admin/js/select2.min.js"></script>
     <script src="~/admin/js/sweetalert2@9.js"></script>
     <script src="~/admin/js/jquery.simplePagination.js"></script>
     <script src="~/admin/js/ACE.js"></script>
+    <script src="~/admin/js/scriptNTU.js"></script>
     @RenderSection("script", required: false)
 </body>
 </html>

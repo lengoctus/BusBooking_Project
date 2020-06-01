@@ -36,11 +36,12 @@ namespace BusBooking_Project.Repository.CsRepository
         {
             try
             {
+                return Task.FromResult<IQueryable<Category>>(null);
             }
             catch (Exception e)
             {
                 var error = e.Message;
-                throw;
+                return Task.FromResult<IQueryable<Category>>(null);
             }
         }
     }
