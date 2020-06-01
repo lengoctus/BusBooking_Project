@@ -11,10 +11,10 @@ using System.Threading.Tasks;
 
 namespace Supports
 {
-    public class SendMail
+    public class SendMailACE
     {
         private IConfiguration configuration;
-        public SendMail(IConfiguration _configuration)
+        public SendMailACE(IConfiguration _configuration)
         {
             configuration = _configuration;
         }

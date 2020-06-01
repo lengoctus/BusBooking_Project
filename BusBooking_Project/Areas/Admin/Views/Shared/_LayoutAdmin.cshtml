@@ -130,7 +130,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a asp-area="admin" asp-controller="user" asp-action="index" class="nav-link item_menu">
+                            <a href="/admin/user/index" class="nav-link item_menu">
                                 <i class="nav-icon fas fa-users"></i>
                                 <p>
                                     USER
@@ -150,7 +150,10 @@
                 </nav>
             </div>
         </aside>
-        @RenderBody()
+        <div class="content-wrapper">
+            @RenderBody()
+        </div>
+        <div class="clear"></div>
         <aside class="control-sidebar control-sidebar-dark">
         </aside>
         <footer class="main-footer">

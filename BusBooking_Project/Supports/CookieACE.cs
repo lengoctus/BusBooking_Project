@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Supports
 {
-    public class CookieCuaSang
+    public class CookieACE
     {
         public static void Set(HttpContext httpContext, string key, string value, int? expireTime)
         {

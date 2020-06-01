@@ -151,5 +151,15 @@ namespace BusBooking_Project.Repository.EFCore
                 return await Task.FromResult(false);
             }
         }
+
+        public IQueryable<T> GetDataRawSqlACE(string query)
+        {
+            return _db.Set<T>().FromSqlRaw(query).AsNoTracking();
+        }
+
+        public IQueryable<T> GetDataACE()
+        {
+            return _db.Set<T>().AsNoTracking();
+        }
     }
 }
