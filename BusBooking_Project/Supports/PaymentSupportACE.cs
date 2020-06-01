@@ -6,14 +6,14 @@ using System.Collections.Generic;
 
 namespace Supports
 {
-    public class PaymentSupport
+    public class PaymentSupportACE
     {
         private Payment payment;
         private ItemList itemList;
         private HttpContext httpContext;
         private IConfiguration Configuration;
 
-        public PaymentSupport(ItemList _itemList, HttpContext _httpContext, IConfiguration _configuration)
+        public PaymentSupportACE(ItemList _itemList, HttpContext _httpContext, IConfiguration _configuration)
         {
             itemList = _itemList;
             httpContext = _httpContext;
@@ -77,7 +77,7 @@ namespace Supports
         {
             try
             {
-                APIContext aPIContext = new PaypalConfiguration(Configuration).GetApiConetxt();
+                APIContext aPIContext = new PaypalConfigurationACE(Configuration).GetApiConetxt();
                 string payerId = httpContext.Request.Query["payerId"];
                 if (string.IsNullOrEmpty(payerId))
                 {

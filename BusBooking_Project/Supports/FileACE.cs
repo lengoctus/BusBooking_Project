@@ -6,7 +6,7 @@ using System.IO;
 
 namespace Supports
 {
-    public class FileCuaSang
+    public class FileACE
     {
         public static string SaveFile(IWebHostEnvironment webHostEnvironment, IFormFile fileupload, string location)
         {

@@ -32,10 +32,9 @@ namespace BusBooking_Project.Repository.EFCore
         {
             try
             {
-                    await _db.Set<T>().AddAsync(entity);
-                    await _db.SaveChangesAsync();
-
-                    return await Task.FromResult(entity);
+                await _db.Set<T>().AddAsync(entity);
+                await _db.SaveChangesAsync();
+                return await Task.FromResult(entity);
             }
             catch (Exception e)
             {
@@ -146,6 +145,16 @@ namespace BusBooking_Project.Repository.EFCore
                 var error = e.Message;
                 return await Task.FromResult(false);
             }
+        }
+
+        public IQueryable<T> GetDataRawSqlACE(string query)
+        {
+            return _db.Set<T>().FromSqlRaw(query).AsNoTracking();
+        }
+
+        public IQueryable<T> GetDataACE()
+        {
+            return _db.Set<T>().AsNoTracking();
         }
     }
 }

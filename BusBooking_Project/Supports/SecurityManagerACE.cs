@@ -7,7 +7,7 @@ using BusBooking_Project.Models.ModelsView;
 
 namespace Supports
 {
-    public class SercurityManagerCuaSang
+    public class SercurityManagerACE
     {
         public static void Login(HttpContext httpContext, AccountView user, string cheme)
         {
@@ -27,7 +27,7 @@ namespace Supports
             claims.Add(new Claim("id", user.Id + ""));
             claims.Add(new Claim(ClaimTypes.Name, user.Name));
             claims.Add(new Claim(ClaimTypes.Email, user.Email));
-            claims.Add(new Claim(ClaimTypes.Role, user.Role.Name));
+            claims.Add(new Claim(ClaimTypes.Role, user.RoleName));
             return claims;
         }
     }

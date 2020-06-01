@@ -78,11 +78,6 @@ namespace BusBooking_Project
                 {
                     principal.AddIdentities(result.Principal.Identities);
                 }
-                //var result3 = await context.AuthenticateAsync("SCHEME_EMP");
-                //if (result3?.Principal != null)
-                //{
-                //    principal.AddIdentities(result3.Principal.Identities);
-                //}
                 context.User = principal;
                 await next();
             });
@@ -93,7 +88,7 @@ namespace BusBooking_Project
                 //Của sáng
                 endpoints.MapControllerRoute(
                     name: "admin_route",
-                    pattern: "admin/{controller}/{action}/{id?}",
+                    pattern: "{controller}/{action}/{id?}",
                     defaults: new { area = "admin" },
                     constraints: new { area = "admin" });
                 //Của sáng//
@@ -102,9 +97,9 @@ namespace BusBooking_Project
                     pattern: "{controller=Home}/{action=Index}/{id?}");
 
                 endpoints.MapAreaControllerRoute(
-                    name: "Admin",
-                    areaName: "Admin",
-                    pattern: "Admin/{controller=Home}/{action=Index}/{id?}");
+                    name: "admin",
+                    areaName: "admin",
+                    pattern: "admin/{controller=Home}/{action=Index}/{id?}");
 
                 endpoints.MapAreaControllerRoute(
                     name: "Employee",

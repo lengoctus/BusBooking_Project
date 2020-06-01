@@ -24,5 +24,12 @@ namespace BusBooking_Project.Repository.EFCore
 
 
         Task<bool> Delete(int Id);
+
+        /// Của Sáng ở here
+        IQueryable<T> GetDataRawSqlACE(string query);
+
+        IQueryable<T> GetDataACE();
+        //Của Sáng ở here
+
     }
 }
