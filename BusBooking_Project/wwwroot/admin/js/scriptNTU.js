@@ -40,14 +40,21 @@
                     dataType: 'json',
                     success: function (data) {
                         modal.modal('hide');
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Your work has been saved',
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
-
-                        location.reload();
+                        if (data == "1") {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Your work has been saved',
+                                showConfirmButton: false,
+                                timer: 2100
+                            });
+                            location.reload();
+                        } else if (data == "0") {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Failed',
+                                text: 'Item already exists !'
+                            })
+                        }
                     }
                 })
             }

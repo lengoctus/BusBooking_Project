@@ -18,7 +18,7 @@ namespace BusBooking_Project.Repository.CsRepository
         {
             try
             {
-                var category = GetAll().Result.SingleOrDefault(p => p.Code.ToLower() == entity.Code.ToLower().Trim());
+                var category = GetAll().Result.FirstOrDefault(p => p.Code.ToLower() == entity.Code.ToLower().Trim());
                 if (category != null)
                 {
                     return true;

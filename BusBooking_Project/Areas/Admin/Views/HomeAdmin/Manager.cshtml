@@ -81,7 +81,19 @@
                                             <th>Active</th>
                                         </tr>
                                     </thead>
-                                    <tbody></tbody>
+                                    <tbody>
+                                        @if (ViewBag.listCate != null)
+                                        {
+                                            foreach (var item in ViewBag.listCate)
+                                            {
+                                                <tr>
+                                                    <td>@item.Code</td>
+                                                    <td>@item.Name</td>
+                                                    <td>@item.Active</td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
                                 </table>
                             </div>
                         </div>

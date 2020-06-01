@@ -43,9 +43,9 @@ namespace BusBooking_Project.Areas.Admin.Controllers
 
             if (await _CateRepo.Create(category, check) != null)
             {
-                return Json("Success");
+                return Json("1");
             }
-            return Json("Error");
+            return Json("0");
         }
 
     }
