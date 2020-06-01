@@ -1,0 +1,190 @@
+﻿<div class="row" id="step2">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-ms-12">
+        <div class="panel" style="min-height: 390px;">
+            <p class="text-center text-primary text-uppercase">
+                <strong>Thông tin hành khách</strong>
+            </p>
+            <form id="form-steps" name="form" novalidate="" class="ng-dirty ng-valid-parse ng-valid-maxlength ng-invalid ng-invalid-required ng-valid-email">
+                <fieldset>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-ms-12">
+                            <div class="form-group clearfix">
+                                <label for="">Họ tên <span class="text-primary">*</span></label>
+                                <div class="controls no-icon">
+                                    <input type="text" class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-maxlength invalid" name="CustName" placeholder="Họ tên của hành khách" required="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-ms-12">
+                            <div class="form-group clearfix">
+                                <label for="">Email <span class="text-primary">*</span></label>
+                                <div class="controls no-icon">
+                                    <input type="email" class="form-control ng-pristine ng-untouched ng-valid-email ng-invalid ng-invalid-required invalid" name="CustEmail" placeholder="Địa chỉ email" required="">
+                                </div>
+                            </div>
+                        </div>
+                        <!--<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-ms-12">
+                            <div class="form-group clearfix">
+                                <label for="">CMND</label>
+                                <div class="controls no-icon">
+                                    <input ng-model="info.CustSN" type="text" class="form-control" ng-class="(form.$submitted || form.$dirty) ? (form.CustSN.$valid ? 'valid': 'invalid'): ''" name="CustSN" placeholder="Số chứng minh thư" ng-maxlength="30" sn-number >
+                                </div>
+                            </div>
+                        </div>-->
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-ms-12">
+                            <div class="form-group clearfix">
+                                <label for="">Ngày sinh</label>
+                                <div class="controls no-icon">
+                                    <input type="text" class="form-control ng-untouched ng-valid ng-dirty ng-valid-parse ng-valid-maxlength valid" name="CustBirthDay" placeholder="dd-mm-yyyy" data-maxdate="01-06-2020" ng-maxlength="30" dateselect="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-ms-12">
+                            <div class="form-group clearfix">
+                                <label for="">Di động <span class="text-primary">*</span></label>
+                                <div class="controls no-icon">
+                                    <input type="text" class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-maxlength invalid" name="CustMobile" placeholder="Số di động" required="" vietnam-phone="">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-ms-12">
+                            <div class="form-group clearfix">
+                                <label for="">Tỉnh/TP <span class="text-primary">*</span></label>
+                                <div class="controls no-icon">
+                                    <select class="form-control ng-pristine ng-untouched ng-valid valid" name="CustProvince" select-required="">
+                                        <option value="0" label="Chọn tỉnh/tp" selected="selected">Chọn tỉnh/tp</option>
+                                        <option value="1" label="An Giang">An Giang</option>
+                                        <option value="2" label="Bà Rịa - Vũng Tàu">Bà Rịa - Vũng Tàu</option>
+                                        <option value="5" label="Bắc Giang">Bắc Giang</option>
+                                        <option value="4" label="Bắc Kạn">Bắc Kạn</option>
+                                        <option value="3" label="Bạc Liêu">Bạc Liêu</option>
+                                        <option value="6" label="Bắc Ninh">Bắc Ninh</option>
+                                        <option value="7" label="Bến Tre">Bến Tre</option>
+                                        <option value="9" label="Bình Định">Bình Định</option>
+                                        <option value="8" label="Bình Dương">Bình Dương</option>
+                                        <option value="10" label="Bình Phước">Bình Phước</option>
+                                        <option value="11" label="Bình Thuận">Bình Thuận</option>
+                                        <option value="12" label="Cà Mau">Cà Mau</option>
+                                        <option value="14" label="Cần Thơ">Cần Thơ</option>
+                                        <option value="13" label="Cao Bằng">Cao Bằng</option>
+                                        <option value="15" label="Đà Nẵng">Đà Nẵng</option>
+                                        <option value="16" label="Đắk Lắk">Đắk Lắk</option>
+                                        <option value="17" label="Đắk Nông">Đắk Nông</option>
+                                        <option value="20" label="Điện Biên">Điện Biên</option>
+                                        <option value="18" label="Đồng Nai">Đồng Nai</option>
+                                        <option value="19" label="Đồng Tháp">Đồng Tháp</option>
+                                        <option value="21" label="Gia Lai">Gia Lai</option>
+                                        <option value="22" label="Hà Giang">Hà Giang</option>
+                                        <option value="23" label="Hà Nam">Hà Nam</option>
+                                        <option value="24" label="Hà Nội">Hà Nội</option>
+                                        <option value="25" label="Hà Tĩnh">Hà Tĩnh</option>
+                                        <option value="26" label="Hải Dương">Hải Dương</option>
+                                        <option value="27" label="Hải Phòng">Hải Phòng</option>
+                                        <option value="29" label="Hậu Giang">Hậu Giang</option>
+                                        <option value="28" label="Hòa Bình">Hòa Bình</option>
+                                        <option value="30" label="Hưng Yên">Hưng Yên</option>
+                                        <option value="32" label="Khánh Hòa">Khánh Hòa</option>
+                                        <option value="33" label="Kiên Giang">Kiên Giang</option>
+                                        <option value="34" label="Kon Tum">Kon Tum</option>
+                                        <option value="35" label="Lai Châu">Lai Châu</option>
+                                        <option value="38" label="Lâm Đồng">Lâm Đồng</option>
+                                        <option value="37" label="Lạng Sơn">Lạng Sơn</option>
+                                        <option value="36" label="Lào Cai">Lào Cai</option>
+                                        <option value="39" label="Long An">Long An</option>
+                                        <option value="40" label="Nam Định">Nam Định</option>
+                                        <option value="41" label="Nghệ An">Nghệ An</option>
+                                        <option value="42" label="Ninh Bình">Ninh Bình</option>
+                                        <option value="43" label="Ninh Thuận">Ninh Thuận</option>
+                                        <option value="44" label="Phú Thọ">Phú Thọ</option>
+                                        <option value="45" label="Phú Yên">Phú Yên</option>
+                                        <option value="46" label="Quảng Bình">Quảng Bình</option>
+                                        <option value="47" label="Quảng Nam">Quảng Nam</option>
+                                        <option value="48" label="Quảng Ngãi">Quảng Ngãi</option>
+                                        <option value="49" label="Quảng Ninh">Quảng Ninh</option>
+                                        <option value="50" label="Quảng Trị">Quảng Trị</option>
+                                        <option value="51" label="Sóc Trăng">Sóc Trăng</option>
+                                        <option value="52" label="Sơn La">Sơn La</option>
+                                        <option value="53" label="Tây Ninh">Tây Ninh</option>
+                                        <option value="54" label="Thái Bình">Thái Bình</option>
+                                        <option value="55" label="Thái Nguyên">Thái Nguyên</option>
+                                        <option value="56" label="Thanh Hóa">Thanh Hóa</option>
+                                        <option value="57" label="Thừa Thiên - Huế">Thừa Thiên - Huế</option>
+                                        <option value="58" label="Tiền Giang">Tiền Giang</option>
+                                        <option value="31" label="TP. Hồ Chí Minh">TP. Hồ Chí Minh</option>
+                                        <option value="59" label="Trà Vinh">Trà Vinh</option>
+                                        <option value="60" label="Tuyên Quang">Tuyên Quang</option>
+                                        <option value="61" label="Vĩnh Long">Vĩnh Long</option>
+                                        <option value="62" label="Vĩnh Phúc">Vĩnh Phúc</option>
+                                        <option value="63" label="Yên Bái">Yên Bái</option>
+                                    </select>
+                                    <!--<input ng-model="info.CustCity" type="text" class="form-control" ng-class="(form.$submitted || form.$dirty) ? (form.CustCity.$valid ? 'valid': 'invalid'): ''" name="CustCity" placeholder="Enter your billing city" required ng-maxlength="80">-->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-ms-12">
+                            <div class="form-group clearfix">
+                                <label for="">Quận/Huyện <span class="text-primary">*</span></label>
+                                <div class="controls no-icon">
+                                    <select class="form-control ng-pristine ng-untouched ng-valid valid" name="CustCity2" select-required=""><option value="0" label="Chọn quận/huyện" selected="selected">Chọn quận/huyện</option></select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-ms-12">
+                            <div class="form-group clearfix">
+                                <div class="controls no-icon">
+                                    <input name="AcceptCondition" value="1" type="checkbox" required="" class="ng-pristine ng-untouched ng-invalid ng-invalid-required invalid"> Chấp nhận <a class="view-policy" title="Xem điều khoản">điều khoản</a> đặt vé của SRC
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12 col-ms-12">
+                            <a class="btn btn-primary btn-flat"><i class="fa fa-arrow-left icon-flat bg-btn-actived"></i> Quay lại</a>
+                            <button type="submit" class="btn btn-success  btn-flat"><i class="fa fa-arrow-right icon-flat bg-success"></i>Tiếp tục</button>
+
+                        </div>
+                    </div>
+
+
+
+                </fieldset>
+
+            </form>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-ms-12">
+        <div class="panel" style="min-height: 390px;">
+            <p class="text-center text-uppercase text-primary">
+                <strong>Điều khoản &amp; Lưu ý</strong>
+            </p>
+            <div>
+                <p class="text-justify">(*) Quý khách vui lòng mang email có chứa mã vé đến văn phòng để đổi vé lên xe trước giờ xuất bến ít nhất <strong class="text-primary">60 phút</strong> để chúng tôi trung chuyển.</p>
+                <p class="text-justify">(*) Thông tin hành khách phải chính xác, nếu không sẽ không thể lên xe hoặc hủy/đổi vé</p>
+                <p class="text-justify">(*) Quý khách không được đổi / trả vé vào các ngày Lễ Tết ( ngày thường qúy khách được quyền chuyển đổi hoặc hủy vé <strong class="text-primary">một lần</strong> duy nhất trước giờ xe chạy 24 giờ), phí hủy vé 10%. </p>
+                <p class="text-justify">
+                    (*) Nếu quý khách có nhu cầu trung chuyển, vui lòng liên hệ số điện thoại<br>
+                    <strong class="text-primary" style="font-size: 1.2em;">1900 6067</strong>
+                    trước khi đặt vé. Chúng tôi sẽ không đón/ trung chuyển tại những điểm xe trung chuyển không thể tới được.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

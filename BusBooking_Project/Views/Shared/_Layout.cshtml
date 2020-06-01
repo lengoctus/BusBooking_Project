@@ -108,11 +108,11 @@
                 </nav>
             </div>
 
+            <section id="body-top" style="margin-bottom: 50px">
+                @RenderBody()
+            </section>
 
-
-            @RenderBody()
-
-            <footer>
+                <footer>
 
                     <div id="footer-body">
                         <div class="f-body-wrap container">
@@ -182,7 +182,7 @@
                     </div>
 
                 </footer>
-        
+
         </div>
     </div>
 
@@ -343,6 +343,14 @@
                         }
                     });
                 });
+            });
+
+            $('.seat').on('click', function () {
+                if ($(this).hasClass('selected')) {
+                    $(this).removeClass('selected');
+                } else if ($(this).hasClass('selected') == false && $(this).hasClass('choosed') == false) {
+                    $(this).addClass("selected");
+                }
             });
         })
             //$(window).load(function () {
