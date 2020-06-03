@@ -45,9 +45,10 @@
                                 icon: 'success',
                                 title: 'Your work has been saved',
                                 showConfirmButton: false,
-                                timer: 2100
+                                timer: 1500
                             });
-                            location.reload();
+
+                            setTimeout(function () { location.reload(); }, 1600);
                         } else if (data == "0") {
                             Swal.fire({
                                 icon: 'error',
@@ -62,4 +63,76 @@
     })
 
 
-})
+    $('#editCate').on('show.bs.modal', function (event) {
+        var btn = $(event.relatedTarget);
+
+        var idCate = btn.data('id');  // mã id của category 
+
+        var code = $(this).find('.modal-body #editCategory .EditCode');     // mã code loại sản phẩm
+        var name = $(this).find('.modal-body #editCategory .EditName');     // Tên loai sản phẩm
+        var active = $(this).find('.modal-body #editCategory .EditActive');     // Active loại sản phẩm
+        var modal = $(this);
+
+        $.ajax({
+            type: 'post',
+            url: '/admin/category/getbyid',
+            cache: false,
+            contentType: 'application/json, charset=UTF-8',
+            dataType: 'json',
+            data: JSON.stringify(idCate),
+            success: function (data) {
+                var modal = $('#editCate');
+                if (data != 'Error') {
+                    code.prop('readonly', false);
+                    code.val(data.code);
+                    //code.prop('readonly', true);
+                    name.val(data.name);
+                    active.prop('checked', data.active);
+                };
+            }, error: function (data) {
+                console.log(data)
+            }
+        });
+
+
+
+        $(this).find('#btnEdit').on('click', function () {
+            var categoryView = {
+                Code: code.val(),
+                Id: idCate,
+                Name: name.val(),
+                Active: active.is(':checked')
+            };
+
+
+            $.ajax({
+                type: 'POST',
+                url: '/admin/category/update',
+                cache: false,
+                contentType: 'application/json, charset=UTF-8',
+                dataType: 'json',
+                data: JSON.stringify(categoryView),
+                success: function (data) {
+                    modal.modal('hide');
+
+                    if (data == "1") {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Your work has been updated',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+
+                        setTimeout(function () { location.reload(); }, 1600);
+                    } else if (data == "0") {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Failed',
+                            text: 'Update failed. Please check again!'
+                        })
+                    }
+                }
+            })
+        })
+    })
+});

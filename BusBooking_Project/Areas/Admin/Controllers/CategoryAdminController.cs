@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using BusBooking_Project.Models.Entities;
 using BusBooking_Project.Models.ModelsView;
 using BusBooking_Project.Repository.IRepository;
+using Castle.Core.Logging;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -45,6 +47,33 @@ namespace BusBooking_Project.Areas.Admin.Controllers
             {
                 return Json("1");
             }
+            return Json("0");
+        }
+
+        [HttpPost("getbyid")]
+        public IActionResult GetById([FromBody]int idCate)
+        {
+            if (idCate > 0)
+            {
+                var category = _CateRepo.GetById(Convert.ToInt32(idCate)).Result;
+                if (category != null)
+                {
+                    return Json(category);
+                }
+            }
+            return Json("Error");
+
+        }
+
+        [HttpPost("update")]
+        public IActionResult Update([FromBody]CategoryView categoryView)
+        {
+            var rs = _CateRepo.Update(categoryView.Id, new Category { Id = categoryView.Id, Name = categoryView.Name, Active = categoryView.Active }).Result;
+            if (rs)
+            {
+                return Json("1");
+            }
+
             return Json("0");
         }
 

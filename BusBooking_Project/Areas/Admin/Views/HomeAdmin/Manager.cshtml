@@ -3,7 +3,7 @@
     ViewData["Title"] = "Manager";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
-<div class="content-wrapper" style="min-height: 608px;">
+<div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="container-fluid">
@@ -68,17 +68,18 @@
                         <div class="row">
                             <div class="col-md-7"></div>
                             <div class="col-md-5">
-                                <input type="button" class="btn btn-primary" data-toggle="modal" data-target="#addform" data-whatever="@@mdo" value="New Category" style="float: right" />
+                                <input type="button" class="btn btn-primary" data-toggle="modal" data-target="#addform" value="New Category" style="float: right" />
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
                                 <table class="table table-striped">
                                     <thead>
-                                        <tr>
+                                        <tr style="text-align: center">
                                             <th>Code</th>
                                             <th>Name</th>
                                             <th>Active</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -86,10 +87,16 @@
                                         {
                                             foreach (var item in ViewBag.listCate)
                                             {
-                                                <tr>
+                                                <tr style="text-align: center">
                                                     <td>@item.Code</td>
                                                     <td>@item.Name</td>
                                                     <td>@item.Active</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-info" data-id="@item.Id" data-toggle="modal" data-target="#editCate">
+                                                            <i class="fas fa-edit"></i>
+                                                            Edit
+                                                        </button>
+                                                    </td>
                                                 </tr>
                                             }
                                         }
@@ -116,7 +123,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
-                <form id="addCategory" method="post">
+                <form method="post" id="addCategory">
                     <div class="form-group">
                         <label for="CodeCategory" class="control-label">Code:</label>
                         <input type="text" class="form-control" id="CodeCategory">
@@ -136,7 +143,41 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" id="send" class="btn btn-primary">Send message</button>
+                <button type="button" id="send" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editCate" tabindex="-1" role="dialog" aria-labelledby="ModalEdit">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="ModalEdit">Edit</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" id="editCategory">
+                    <div class="form-group">
+                        <label for="EditCode" class="control-label">Code:</label>
+                        <input type="text" readonly class="form-control EditCode">
+                    </div>
+                    <div class="form-group">
+                        <label for="NameCategory" class="control-label">Name:</label>
+                        <input type="text" class="form-control EditName"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="custom-control teleport-switch">
+                            <span class="teleport-switch-control-description">Active:</span>
+                            <input type="checkbox" checked class="teleport-switch-control-input EditActive">
+                            <span class="teleport-switch-control-indicator"></span>
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" id="btnEdit" class="btn btn-primary">Edit</button>
             </div>
         </div>
     </div>
