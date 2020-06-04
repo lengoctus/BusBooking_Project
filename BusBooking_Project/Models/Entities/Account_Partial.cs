@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace BusBooking_Project.Models.Entities
 {
     public class Account_Partial
-    {   
+    {
     }
 
     [ModelMetadataType(typeof(Account_Partial))]

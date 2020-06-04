@@ -11,6 +11,7 @@
     <link href="~/admin/css/jquery-ui.css" rel="stylesheet" />
     <link href="~/admin/css/bootstrap-toggle.min.css" rel="stylesheet" />
     <link href="~/admin/css/ACE.css" rel="stylesheet" />
+    <link href="~/admin/css/styleNTU.css" rel="stylesheet" />
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
     <div class="wrapper">
@@ -131,10 +132,19 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/admin/user/index" class="nav-link item_menu">
+                            <a asp-area="admin" asp-controller="user" asp-action="index" class="nav-link item_menu">
                                 <i class="nav-icon fas fa-users"></i>
                                 <p>
                                     USER
+                                </p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a asp-area="admin" asp-controller="home" asp-action="manager" class="nav-link item_menu">
+                                <i class="nav-icon fas fa-tasks"></i>
+                                <p>
+                                    MANAGER
                                 </p>
                             </a>
                         </li>
@@ -142,9 +152,9 @@
                 </nav>
             </div>
         </aside>
-        <div class="content-wrapper">
+     
             @RenderBody()
-        </div>
+   
         <div class="clear"></div>
         <aside class="control-sidebar control-sidebar-dark">
         </aside>
@@ -167,6 +177,7 @@
     <script src="~/admin/plugins/jquery-mapael/maps/usa_states.min.js"></script>
     <script src="~/admin/plugins/chart.js/Chart.min.js"></script>
     <script src="~/admin/dist/js/pages/dashboard2.js"></script>
+
     <script src="~/admin/js/select2.min.js"></script>
     <script src="~/admin/js/sweetalert2@9.js"></script>
     <script src="~/admin/js/jquery.simplePagination.js"></script>
@@ -174,6 +185,7 @@
     <script src="~/admin/js/bootstrap-toggle.min.js"></script>
     <script src="~/admin/ckeditor/ckeditor.js"></script>
     <script src="~/admin/js/ACE.js"></script>
+    <script src="~/admin/js/scriptNTU.js"></script>
     @RenderSection("script", required: false)
 </body>
 </html>

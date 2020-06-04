@@ -32,8 +32,13 @@ namespace BusBooking_Project.Repository.EFCore
         {
             try
             {
+                if (Checkvalue)
+                {
+                    return await Task.FromResult<T>(null);
+                }
                 await _db.Set<T>().AddAsync(entity);
                 await _db.SaveChangesAsync();
+
                 return await Task.FromResult(entity);
             }
             catch (Exception e)
@@ -106,7 +111,7 @@ namespace BusBooking_Project.Repository.EFCore
             try
             {
                 var test1 = Thread.CurrentThread.ManagedThreadId;
-                var entity = await _db.Set<T>().SingleOrDefaultAsync(p => p.Id == Id);
+                var entity = await _db.Set<T>().FirstOrDefaultAsync(p => p.Id == Id);
 
                 var test2 = Thread.CurrentThread.ManagedThreadId;
                 return await Task.FromResult(entity);
@@ -133,10 +138,14 @@ namespace BusBooking_Project.Repository.EFCore
         {
             try
             {
-                _db.Set<T>().Update(entity);
-                await _db.SaveChangesAsync();
+                if (await _db.Set<T>().AsNoTracking().FirstOrDefaultAsync(p => p.Id == Id) != null)
+                {
+                    _db.Set<T>().Update(entity);
+                    await _db.SaveChangesAsync();
 
-                return await Task.FromResult(true);
+                    return await Task.FromResult(true);
+                }
+                return await Task.FromResult(false);
             }
             catch (Exception e)
             {

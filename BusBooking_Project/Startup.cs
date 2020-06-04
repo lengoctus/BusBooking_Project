@@ -31,6 +31,7 @@ namespace BusBooking_Project
         {
             services.AddControllersWithViews();
             services.AddScoped<IAccountRepo, AccountRepo>();
+            services.AddScoped<ICategoryRepo, CategoryRepo>();
             services.AddDbContext<ConnectDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ConnectDb")));
             services.AddAuthentication(options =>
             {
@@ -43,6 +44,13 @@ namespace BusBooking_Project
                 option.LogoutPath = "/admin/logout";
                 option.Cookie.Name = "acecookie";
             });
+            //.AddCookie("SCHEME_EMP", option =>
+            //{
+            //    option.LoginPath = "";
+            //    option.AccessDeniedPath = "";
+            //    option.LogoutPath = "";
+            //    option.Cookie.Name = "";
+            //});
             services.AddSession();
         }
 
@@ -81,18 +89,16 @@ namespace BusBooking_Project
                 //Của sáng
                 endpoints.MapControllerRoute(
                     name: "admin_route",
-                    pattern: "admin/{controller}/{action}/{id?}",
+                    pattern: "{area:exists}/{controller}/{action}/{id?}",
                     defaults: new { area = "admin" },
                     constraints: new { area = "admin" });
                 //Của sáng//
+
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-                endpoints.MapAreaControllerRoute(
-                    name: "admin",
-                    areaName: "admin",
-                    pattern: "admin/{controller=Home}/{action=Index}/{id?}");
 
                 endpoints.MapAreaControllerRoute(
                     name: "Employee",

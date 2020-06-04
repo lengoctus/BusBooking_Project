@@ -30,6 +30,7 @@ namespace BusBooking_Project.Models.Entities
         {
             if (!optionsBuilder.IsConfigured)
             {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseSqlServer("Server=.;Database=BusBooking;user id=sa;password=123456");
             }
         }
@@ -116,6 +117,11 @@ namespace BusBooking_Project.Models.Entities
                     .WithMany(p => p.BookingUserId2Navigation)
                     .HasForeignKey(d => d.UserId2)
                     .HasConstraintName("FK_Booking_Account1");
+
+                entity.HasOne(d => d.UserId21)
+                    .WithMany(p => p.InverseUserId21)
+                    .HasForeignKey(d => d.UserId2)
+                    .HasConstraintName("FK_Booking_Booking");
             });
 
             modelBuilder.Entity<Bus>(entity =>

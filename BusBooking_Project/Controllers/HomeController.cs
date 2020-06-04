@@ -16,12 +16,11 @@ namespace BusBooking_Project.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IAccountRepo _IAcc;
-
-        public HomeController(ILogger<HomeController> logger, IAccountRepo iAcc)
+     
+        public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-            _IAcc = iAcc;
+            
         }
 
         public IActionResult Index()
