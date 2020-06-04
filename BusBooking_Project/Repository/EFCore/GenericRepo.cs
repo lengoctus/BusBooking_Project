@@ -151,7 +151,7 @@ namespace BusBooking_Project.Repository.EFCore
             }
             catch (Exception e)
             {
-                var error = e.Message;
+                var error = e.InnerException.Message;
                 return await Task.FromResult(false);
             }
         }

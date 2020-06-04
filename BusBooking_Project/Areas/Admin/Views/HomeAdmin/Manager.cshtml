@@ -73,12 +73,17 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <table class="table table-striped">
+                                <table class="table table-striped" id="tableCate">
                                     <thead>
                                         <tr style="text-align: center">
+                                            <th>
+                                                <input type="checkbox" />
+                                            </th>
                                             <th>Code</th>
                                             <th>Name</th>
+                                            <th>Price</th>
                                             <th>Active</th>
+                                            <th>Status</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -88,9 +93,14 @@
                                             foreach (var item in ViewBag.listCate)
                                             {
                                                 <tr style="text-align: center">
+                                                    <td>
+                                                        <input type="checkbox" value="@item.Id" class="cbCate"/>
+                                                    </td>
                                                     <td>@item.Code</td>
                                                     <td>@item.Name</td>
+                                                    <td>@item.Price</td>
                                                     <td>@item.Active</td>
+                                                    <td>@item.Status</td>
                                                     <td>
                                                         <button type="button" class="btn btn-info" data-id="@item.Id" data-toggle="modal" data-target="#editCate">
                                                             <i class="fas fa-edit"></i>
@@ -103,6 +113,14 @@
                                     </tbody>
                                 </table>
                             </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <button type="button" class="btn btn-danger"><i class="fas fa-trash"></i> &nbsp; Remove</button>
+                            </div>
+                            <div class="col-md-6"></div>
                         </div>
                     </div>
                     <!-- /.card -->
@@ -133,9 +151,20 @@
                         <input type="text" id="NameCategory" class="form-control" />
                     </div>
                     <div class="form-group">
+                        <label for="PriceCategory" class="control-label">Price:</label>
+                        <input type="text" id="PriceCategory" class="form-control" />
+                    </div>
+                    <div class="form-group">
                         <label class="custom-control teleport-switch">
                             <span class="teleport-switch-control-description">Active:</span>
                             <input type="checkbox" checked id="ActiveCategory" class="teleport-switch-control-input">
+                            <span class="teleport-switch-control-indicator"></span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label class="custom-control teleport-switch">
+                            <span class="teleport-switch-control-description">Status:</span>
+                            <input type="checkbox" checked id="StatusCategory" class="teleport-switch-control-input">
                             <span class="teleport-switch-control-indicator"></span>
                         </label>
                     </div>
@@ -164,12 +193,23 @@
                     </div>
                     <div class="form-group">
                         <label for="NameCategory" class="control-label">Name:</label>
-                        <input type="text" class="form-control EditName"/>
+                        <input type="text" class="form-control EditName" />
+                    </div>
+                    <div class="form-group">
+                        <label for="PriceCategory" class="control-label">Price:</label>
+                        <input type="text" class="form-control EditPrice" />
                     </div>
                     <div class="form-group">
                         <label class="custom-control teleport-switch">
                             <span class="teleport-switch-control-description">Active:</span>
                             <input type="checkbox" checked class="teleport-switch-control-input EditActive">
+                            <span class="teleport-switch-control-indicator"></span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label class="custom-control teleport-switch">
+                            <span class="teleport-switch-control-description">Status:</span>
+                            <input type="checkbox" checked class="teleport-switch-control-input EditStatus">
                             <span class="teleport-switch-control-indicator"></span>
                         </label>
                     </div>

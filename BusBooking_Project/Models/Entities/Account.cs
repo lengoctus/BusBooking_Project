@@ -15,7 +15,7 @@ namespace BusBooking_Project.Models.Entities
         public string Email { get; set; }
         public string Password { get; set; }
         public string Name { get; set; }
-        public DateTime? Dob { get; set; }
+        public DateTime Dob { get; set; }
         public string Address { get; set; }
         public string Phone { get; set; }
         public string Images { get; set; }
@@ -28,7 +28,7 @@ namespace BusBooking_Project.Models.Entities
         public bool? Active { get; set; }
         public string Description { get; set; }
         public string ForgotPass { get; set; }
-        public int? StationId { get; set; }
+        public int StationId { get; set; }
         public string Code { get; set; }
 
         public virtual Role Role { get; set; }

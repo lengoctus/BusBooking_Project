@@ -7,7 +7,6 @@ namespace BusBooking_Project.Models.Entities
     {
         public Booking()
         {
-            InverseUserId21 = new HashSet<Booking>();
             Ticket = new HashSet<Ticket>();
         }
 
@@ -27,9 +26,7 @@ namespace BusBooking_Project.Models.Entities
 
         public virtual Bus Bus { get; set; }
         public virtual Account User { get; set; }
-        public virtual Booking UserId21 { get; set; }
         public virtual Account UserId2Navigation { get; set; }
-        public virtual ICollection<Booking> InverseUserId21 { get; set; }
         public virtual ICollection<Ticket> Ticket { get; set; }
     }
 }

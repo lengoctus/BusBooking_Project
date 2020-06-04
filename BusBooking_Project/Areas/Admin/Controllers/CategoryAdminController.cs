@@ -34,18 +34,24 @@ namespace BusBooking_Project.Areas.Admin.Controllers
         [HttpPost("add")]
         public async Task<IActionResult> Add([FromBody]CategoryView categoryView)
         {
-            var category = new Category
+            if (categoryView != null)
             {
-                Code = categoryView.Code,
-                Name = categoryView.Name,
-                Active = categoryView.Active
-            };
+                var category = new Category
+                {
+                    Code = categoryView.Code,
+                    Name = categoryView.Name,
+                    Price = categoryView.Price,
+                    Active = categoryView.Active,
+                    Status = categoryView.Status
+                };
 
-            var check = _CateRepo.CheckIsExists(category);
+                var check = _CateRepo.CheckIsExists(category);
 
-            if (await _CateRepo.Create(category, check) != null)
-            {
-                return Json("1");
+                if (await _CateRepo.Create(category, check) != null)
+                {
+                    return Json("1");
+                }
+                return Json("0");
             }
             return Json("0");
         }
@@ -61,20 +67,27 @@ namespace BusBooking_Project.Areas.Admin.Controllers
                     return Json(category);
                 }
             }
-            return Json("Error");
+            return Json("0");
 
         }
 
         [HttpPost("update")]
         public IActionResult Update([FromBody]CategoryView categoryView)
         {
-            var rs = _CateRepo.Update(categoryView.Id, new Category { Id = categoryView.Id, Name = categoryView.Name, Active = categoryView.Active }).Result;
+            var rs = _CateRepo.Update(categoryView.Id, new Category { Id = categoryView.Id, Name = categoryView.Name, Active = categoryView.Active, Status = categoryView.Status, Code = categoryView.Code, Price = categoryView.Price }).Result;
             if (rs)
             {
                 return Json("1");
             }
 
             return Json("0");
+        }
+
+
+        [HttpPost("remove")]
+        public async Task<IActionResult> Remove()
+        {
+
         }
 
     }
