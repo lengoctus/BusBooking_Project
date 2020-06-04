@@ -37,4 +37,13 @@ CKEDITOR.editorConfig = function( config ) {
 	config.removeDialogTabs = 'image:advanced;link:advanced';
 
 	config.filebrowserUploadMethod = "form";
+
+	config.extraPlugins = 'emoji';
+	config.extraPlugins = 'autocomplete';
+	config.extraPlugins = 'textmatch';
+	config.extraPlugins = 'ajax';
+	config.extraPlugins = 'panelbutton';
+	config.extraPlugins = 'xml';
+	config.extraPlugins = 'button';
+	config.extraPlugins = 'textwatcher';
 };

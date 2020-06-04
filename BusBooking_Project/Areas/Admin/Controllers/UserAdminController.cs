@@ -94,11 +94,10 @@ namespace BusBooking_Project.Areas.Admin.Controllers
         {
             ViewBag.StationList = new List<Station>
             {
-                new Station{ Id=1,Name="Station 1"},
-                new Station{ Id=2,Name="Station 2"},
-                new Station{ Id=3,Name="Station 3"},
-                new Station{ Id=4,Name="Station 4"},
-                new Station{ Id=5,Name="Station 5"}
+                new Station{ Id=3,Name="Station 1"},
+                new Station{ Id=5,Name="Station 2"},
+                new Station{ Id=6,Name="Station 3"},
+                new Station{ Id=7,Name="Station 4"}
             };
             return View(new AccountView { Images = "dui.jpg", Active = true });
         }
@@ -153,24 +152,55 @@ namespace BusBooking_Project.Areas.Admin.Controllers
             AccountView account = accountRepository.GetByIdACE(id);
             ViewBag.StationList = new List<Station>
             {
+                new Station{ Id=3,Name="Station 1"},
+                new Station{ Id=5,Name="Station 2"},
+                new Station{ Id=6,Name="Station 3"},
+                new Station{ Id=7,Name="Station 4"},
+            };
+            return View(account);
+        }
+
+        [HttpPost("modify")]
+        public IActionResult Modify(AccountView accountView, IFormFile inputphoto)
+        {
+            accountView.DayCreate = DateTime.Now;
+            accountView.DayEdited = DateTime.Now;
+            accountView.Status = true;
+            string FileNameSave = "dui.jpg";
+            if (inputphoto != null)
+            {
+                FileNameSave = FileACE.SaveFile(webHostEnvironment, inputphoto, "admin/image");
+                FileACE.RemoveFile(webHostEnvironment, $"admin\\image\\{accountRepository.GetByIdACE(accountView.Id).Images}");
+            }
+            accountView.Images = FileNameSave;
+            int id = 0;
+            if (ModelState.IsValid)
+            {
+                id = accountRepository.ModifyACE(accountView, Convert.ToInt32(User.FindFirst("id").Value));
+            }
+            switch (id)
+            {
+                case (int)CheckError.AlreadyEmail:
+                    ViewBag.Result = CheckError.AlreadyEmail;
+                    break;
+                case (int)CheckError.AlreadyPhone:
+                    ViewBag.Result = CheckError.AlreadyPhone;
+                    break;
+                case (int)CheckError.ErrorOrther:
+                    ViewBag.Result = CheckError.ErrorOrther;
+                    break;
+                default:
+                    return RedirectToAction("index");
+            }
+            ViewBag.StationList = new List<Station>
+            {
                 new Station{ Id=1,Name="Station 1"},
                 new Station{ Id=2,Name="Station 2"},
                 new Station{ Id=3,Name="Station 3"},
                 new Station{ Id=4,Name="Station 4"},
                 new Station{ Id=5,Name="Station 5"}
             };
-            return View(account);
-        }
-
-        [HttpPost("modify")]
-        public IActionResult Modify(AccountView accountView)
-        {
-            //Account account = new Account
-            //{
-
-            //};
-            //accountRepository.ModifyACE(account, Convert.ToInt32(User.FindFirst("id").Value));
-            return View();
+            return View(accountView);
         }
 
 

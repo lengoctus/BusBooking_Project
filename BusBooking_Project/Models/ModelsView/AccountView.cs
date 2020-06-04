@@ -20,7 +20,7 @@ namespace BusBooking_Project.Models.ModelsView
         public int Gender { get; set; }
         public DateTime DayCreate { get; set; }
         public DateTime DayEdited { get; set; }
-        public int EditerId { get; set; }
+        public int? EditerId { get; set; }
         public Account Editer { get; set; }
         public bool Status { get; set; }
         public int RoleId { get; set; }
