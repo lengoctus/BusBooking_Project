@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using BusBooking_Project.Models.Entities;
@@ -8,6 +9,7 @@ using BusBooking_Project.Repository.IRepository;
 using Castle.Core.Logging;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -90,14 +92,85 @@ namespace BusBooking_Project.Areas.Admin.Controllers
         [HttpGet("create")]
         public IActionResult Create()
         {
-            return View("AddEdit", new Account());
+            ViewBag.StationList = new List<Station>
+            {
+                new Station{ Id=1,Name="Station 1"},
+                new Station{ Id=2,Name="Station 2"},
+                new Station{ Id=3,Name="Station 3"},
+                new Station{ Id=4,Name="Station 4"},
+                new Station{ Id=5,Name="Station 5"}
+            };
+            return View(new AccountView { Images = "dui.jpg", Active = true });
         }
 
-        [HttpGet("modify/{id}")]
-        public IActionResult Modify(int id)
+        [HttpPost("create")]
+        public IActionResult Create(AccountView accountView, IFormFile inputphoto)
         {
-            Account account = accountRepository.GetById(id).Result;
-            return View("AddEdit", account);
+            accountView.DayCreate = DateTime.Now;
+            accountView.DayEdited = DateTime.Now;
+            accountView.Status = true;
+            string FileNameSave = "dui.jpg";
+            if (inputphoto != null)
+            {
+                FileNameSave = FileACE.SaveFile(webHostEnvironment, inputphoto, "admin/image");
+            }
+            accountView.Images = FileNameSave;
+            int id = 0;
+            if (ModelState.IsValid)
+            {
+                id = accountRepository.CreateACE(accountView);
+
+            }
+            switch (id)
+            {
+                case (int)CheckError.AlreadyEmail:
+                    ViewBag.Result = CheckError.AlreadyEmail;
+                    break;
+                case (int)CheckError.AlreadyPhone:
+                    ViewBag.Result = CheckError.AlreadyPhone;
+                    break;
+                case (int)CheckError.ErrorOrther:
+                    ViewBag.Result = CheckError.ErrorOrther;
+                    break;
+                default:
+                    return RedirectToAction("index");
+            }
+            ViewBag.StationList = new List<Station>
+            {
+                new Station{ Id=1,Name="Station 1"},
+                new Station{ Id=2,Name="Station 2"},
+                new Station{ Id=3,Name="Station 3"},
+                new Station{ Id=4,Name="Station 4"},
+                new Station{ Id=5,Name="Station 5"}
+            };
+            return View(accountView);
+        }
+
+        [HttpGet("detail")]
+        public IActionResult Modify()
+        {
+            int id = Convert.ToInt32(HttpContext.Request.Query["id"].ToString());
+            AccountView account = accountRepository.GetByIdACE(id);
+            ViewBag.StationList = new List<Station>
+            {
+                new Station{ Id=1,Name="Station 1"},
+                new Station{ Id=2,Name="Station 2"},
+                new Station{ Id=3,Name="Station 3"},
+                new Station{ Id=4,Name="Station 4"},
+                new Station{ Id=5,Name="Station 5"}
+            };
+            return View(account);
+        }
+
+        [HttpPost("modify")]
+        public IActionResult Modify(AccountView accountView)
+        {
+            //Account account = new Account
+            //{
+
+            //};
+            //accountRepository.ModifyACE(account, Convert.ToInt32(User.FindFirst("id").Value));
+            return View();
         }
 
 
@@ -131,5 +204,22 @@ namespace BusBooking_Project.Areas.Admin.Controllers
             }
             return Json("500");
         }
+
+        #region editor
+        [HttpPost("upload_ckeditor")]
+        public IActionResult Upload(IFormFile upload)
+        {
+            string filename = FileACE.SaveFile(webHostEnvironment, upload, "/admin/image");
+            return Json("/admin/image/" + filename);
+        }
+
+        [HttpGet("file_browser")]
+        public IActionResult FileBrowser()
+        {
+            DirectoryInfo dir = new DirectoryInfo($"{webHostEnvironment.WebRootPath}\\" + "admin\\image\\");
+            ViewBag.FileInfor = dir.GetFiles();
+            return View();
+        }
+        #endregion
     }
 }

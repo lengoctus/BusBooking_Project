@@ -20,6 +20,7 @@ namespace BusBooking_Project.Repository.CsRepository
         {
             return false;
         }
+
         private string search = ConstantACE.search;
         private int size = ConstantACE.size;
         //int start = size * (page - 1);
@@ -139,6 +140,31 @@ namespace BusBooking_Project.Repository.CsRepository
             return GetDataACE()
                 .Where(s => (bool)s.Status)
                 .Count();
+        }
+
+        public AccountView GetByIdACE(int id)
+        {
+            Account account = GetById(id).Result;
+            return new AccountView
+            {
+                Id = account.Id,
+                Address = account.Address,
+                Code = account.Code,
+                DayCreate = (DateTime)account.DayCreate,
+                DayEdited = (DateTime)account.DayEdited,
+                Description = account.Description,
+                Dob = (DateTime)account.Dob,
+                EditerId = account.EditerId??0,
+                //Editer = account.EditerId != null ? GetById((int)account.EditerId).Result : null,
+                Email = account.Email,
+                Gender = (int)account.Gender,
+                Name = account.Name,
+                Images = account.Images,
+                Password = account.Password,
+                Phone = account.Phone,
+                Active = (bool)account.Active,
+                Status = (bool)account.Status
+            };
         }
 
         #endregion

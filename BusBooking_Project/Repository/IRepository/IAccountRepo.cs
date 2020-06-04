@@ -14,6 +14,8 @@ namespace BusBooking_Project.Repository.IRepository
 
         AccountView Login(Account account);
 
+        AccountView GetByIdACE(int id);
+
         int CountSearchData(string textsearch, int search_case);
 
         List<AccountView> GetData(int page);

@@ -81,7 +81,7 @@ namespace BusBooking_Project
                 //Của sáng
                 endpoints.MapControllerRoute(
                     name: "admin_route",
-                    pattern: "{controller}/{action}/{id?}",
+                    pattern: "admin/{controller}/{action}/{id?}",
                     defaults: new { area = "admin" },
                     constraints: new { area = "admin" });
                 //Của sáng//
