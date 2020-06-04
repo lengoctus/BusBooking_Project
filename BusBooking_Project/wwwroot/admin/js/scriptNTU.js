@@ -183,18 +183,54 @@
     })
 
     $('.btnRemove').on('click', function () {
-        if (arr.length > 0) {
-            $.ajax({
-                type: 'POST',
-                url: '/admin/category/remove',
-                cache: false,
-                contentType: 'application/json, charset=UTF-8',
-                dataType: 'json',
-                data: JSON.stringify(arr),
-                success: function (data) {
 
+
+        if (arr.length > 0) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.value) {
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '/admin/category/getidremove',
+                        cache: false,
+                        contentType: 'application/json, charset=UTF-8',
+                        dataType: 'json',
+                        data: JSON.stringify(arr),
+                        success: function (data) {
+                            if (data == "1") {
+                                Swal.fire(
+                                    'Deleted!',
+                                    'Category has been deleted.',
+                                    'success'
+                                )
+
+                                setTimeout(function () { location.reload() }, 1550);
+                            }
+                            else if (data == "0") {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error !!',
+                                    text: 'Please check again!',
+                                })
+                            }
+
+                        }
+                    });
+
+
+                    console.log(result.value)
+                } else {
+                    console.log(result.dismiss)
                 }
             })
-        }
-    })
+        };
+    });
 });

@@ -69,12 +69,13 @@ namespace BusBooking_Project.Repository.EFCore
         {
             try
             {
-                //if (await _db.Set<T>().SingleOrDefaultAsync())
-                //{
+                if (await _db.Set<T>().FirstOrDefaultAsync(p => p.Id == Id) != null)
+                {
+                    _db.Set<T>().Remove(_db.Set<T>().FirstOrDefault(p => p.Id == Id));
+                    return await Task.FromResult(true);
 
-                //}
-                _db.Set<T>().Remove(_db.Set<T>().SingleOrDefault(p => p.Id == Id));
-                return await Task.FromResult(true);
+                }
+                return await Task.FromResult(false);
             }
             catch (Exception e)
             {

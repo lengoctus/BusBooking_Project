@@ -9,6 +9,7 @@ using BusBooking_Project.Repository.IRepository;
 using Castle.Core.Logging;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace BusBooking_Project.Areas.Admin.Controllers
 {
@@ -84,10 +85,10 @@ namespace BusBooking_Project.Areas.Admin.Controllers
         }
 
 
-        [HttpPost("remove")]
-        public async Task<IActionResult> Remove()
+        [HttpPost("getidremove")]
+        public async Task<IActionResult> GetIdRemove([FromBody]string[] arr)
         {
-
+            return Json("0");
         }
 
     }
