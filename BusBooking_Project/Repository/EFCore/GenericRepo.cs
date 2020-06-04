@@ -71,6 +71,7 @@ namespace BusBooking_Project.Repository.EFCore
                 if (await _db.Set<T>().FirstOrDefaultAsync(p => p.Id == Id) != null)
                 {
                     _db.Set<T>().Remove(_db.Set<T>().FirstOrDefault(p => p.Id == Id));
+                    await _db.SaveChangesAsync();
                     return await Task.FromResult(true);
 
                 }
@@ -81,6 +82,33 @@ namespace BusBooking_Project.Repository.EFCore
                 return await Task.FromResult(false);
             }
         }
+
+
+        /// <summary>
+        /// Remove multi entity using Id array
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns>bool</returns>
+        public async Task<bool> DeleteMulti(int[] Id)
+        {
+            try
+            {
+                var listEntity = _db.Set<T>().Where(p => Id.Contains(p.Id));
+                if (listEntity.Count() > 0)
+                {
+                    _db.Set<T>().RemoveRange(listEntity);
+                    await _db.SaveChangesAsync();
+                    return await Task.FromResult(true);
+                }
+                return await Task.FromResult(false);
+            }
+            catch (Exception e)
+            {
+                var error = e.InnerException.Message;
+                return await Task.FromResult(false);
+            }
+        }
+
 
         /// =============================================== Get All ======================================
         /// <summary>
@@ -155,6 +183,9 @@ namespace BusBooking_Project.Repository.EFCore
             }
         }
 
+
+
+
         public IQueryable<T> GetDataRawSqlACE(string query)
         {
             return _db.Set<T>().FromSqlRaw(query).AsNoTracking();
@@ -164,5 +195,7 @@ namespace BusBooking_Project.Repository.EFCore
         {
             return _db.Set<T>().AsNoTracking();
         }
+
+
     }
 }

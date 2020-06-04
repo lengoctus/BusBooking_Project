@@ -85,9 +85,10 @@ namespace BusBooking_Project.Areas.Admin.Controllers
         }
 
 
-        [HttpPost("getidremove")]
-        public async Task<IActionResult> GetIdRemove([FromBody]string[] arr)
+        [HttpPost("delete")]
+        public async Task<IActionResult> Delete([FromBody]string[] arr)
         {
+            int[] idCate = Array.ConvertAll(arr, s => Convert.ToInt32(s));
             return Json("0");
         }
 

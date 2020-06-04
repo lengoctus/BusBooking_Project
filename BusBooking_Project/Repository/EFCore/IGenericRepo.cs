@@ -16,12 +16,9 @@ namespace BusBooking_Project.Repository.EFCore
 
         Task<T> GetById(int Id);
 
-
-        //Task<bool> Check
-
-
         Task<bool> Update(int Id, T entity);
 
+        Task<bool> DeleteMulti(int[] Id);
 
         Task<bool> Delete(int Id);
 

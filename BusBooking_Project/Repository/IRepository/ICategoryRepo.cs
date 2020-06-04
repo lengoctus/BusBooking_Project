@@ -10,7 +10,5 @@ namespace BusBooking_Project.Repository.IRepository
     public interface ICategoryRepo : IGenericRepo<Category>
     {
         bool CheckIsExists(Category entity);
-
-        //Task<bool> DeleteMultiCategory(int[] idCate);
     }
 }

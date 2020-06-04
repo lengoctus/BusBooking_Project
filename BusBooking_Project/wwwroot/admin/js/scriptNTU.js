@@ -199,7 +199,7 @@
 
                     $.ajax({
                         type: 'POST',
-                        url: '/admin/category/getidremove',
+                        url: '/admin/category/delete',
                         cache: false,
                         contentType: 'application/json, charset=UTF-8',
                         dataType: 'json',
