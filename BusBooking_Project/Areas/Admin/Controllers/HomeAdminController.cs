@@ -36,8 +36,9 @@ namespace BusBooking_Project.Areas.Admin.Controllers
             ViewBag.listCate = _Cate.GetAll().Result.Select(p => new CategoryView { 
                 Id = p.Id,
                 Name = p.Name,
-                Active = p.Active,
-                Status = p.Status,
+                Price = p.Price,
+                Active = p.Active ?? false,
+                Status = p.Status ?? false,
                 Code = p.Code
             }).ToList();
             return View();
