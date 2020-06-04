@@ -33,7 +33,8 @@ namespace BusBooking_Project.Areas.Admin.Controllers
         [HttpGet("manager")]
         public IActionResult Manager()
         {
-            ViewBag.listCate = _Cate.GetAll().Result.Select(p => new CategoryView { 
+            ViewBag.listCate = _Cate.GetAll().Result.Select(p => new CategoryView
+            {
                 Id = p.Id,
                 Name = p.Name,
                 Price = p.Price,

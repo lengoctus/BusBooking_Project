@@ -26,15 +26,18 @@ namespace BusBooking_Project.Areas.Admin.Controllers
         private readonly IWebHostEnvironment webHostEnvironment;
         private readonly ILogger<UserAdminController> logger;
         private readonly IAccountRepo accountRepository;
+        private readonly IStationRepo stationRepository;
 
         public UserAdminController(
             IWebHostEnvironment _webHostEnvironment,
             ILogger<UserAdminController> _logger,
-            IAccountRepo _accountRepository)
+            IAccountRepo _accountRepository,
+            IStationRepo _stationRepository)
         {
             webHostEnvironment = _webHostEnvironment;
             logger = _logger;
             accountRepository = _accountRepository;
+            stationRepository = _stationRepository;
         }
         #endregion
 
@@ -49,7 +52,6 @@ namespace BusBooking_Project.Areas.Admin.Controllers
             ViewBag.Rows = accountRepository.CountData();
             return View(list);
         }
-
 
         [HttpGet("search")]
         public IActionResult Search()
@@ -92,13 +94,7 @@ namespace BusBooking_Project.Areas.Admin.Controllers
         [HttpGet("create")]
         public IActionResult Create()
         {
-            ViewBag.StationList = new List<Station>
-            {
-                new Station{ Id=3,Name="Station 1"},
-                new Station{ Id=5,Name="Station 2"},
-                new Station{ Id=6,Name="Station 3"},
-                new Station{ Id=7,Name="Station 4"}
-            };
+            ViewBag.StationList = stationRepository.GetDataACE();
             return View(new AccountView { Images = "dui.jpg", Active = true });
         }
 
@@ -134,14 +130,7 @@ namespace BusBooking_Project.Areas.Admin.Controllers
                 default:
                     return RedirectToAction("index");
             }
-            ViewBag.StationList = new List<Station>
-            {
-                new Station{ Id=1,Name="Station 1"},
-                new Station{ Id=2,Name="Station 2"},
-                new Station{ Id=3,Name="Station 3"},
-                new Station{ Id=4,Name="Station 4"},
-                new Station{ Id=5,Name="Station 5"}
-            };
+            ViewBag.StationList = stationRepository.GetDataACE();
             return View(accountView);
         }
 
@@ -150,13 +139,7 @@ namespace BusBooking_Project.Areas.Admin.Controllers
         {
             int id = Convert.ToInt32(HttpContext.Request.Query["id"].ToString());
             AccountView account = accountRepository.GetByIdACE(id);
-            ViewBag.StationList = new List<Station>
-            {
-                new Station{ Id=3,Name="Station 1"},
-                new Station{ Id=5,Name="Station 2"},
-                new Station{ Id=6,Name="Station 3"},
-                new Station{ Id=7,Name="Station 4"},
-            };
+            ViewBag.StationList = stationRepository.GetDataACE();
             return View(account);
         }
 
@@ -192,14 +175,7 @@ namespace BusBooking_Project.Areas.Admin.Controllers
                 default:
                     return RedirectToAction("index");
             }
-            ViewBag.StationList = new List<Station>
-            {
-                new Station{ Id=1,Name="Station 1"},
-                new Station{ Id=2,Name="Station 2"},
-                new Station{ Id=3,Name="Station 3"},
-                new Station{ Id=4,Name="Station 4"},
-                new Station{ Id=5,Name="Station 5"}
-            };
+            ViewBag.StationList = stationRepository.GetDataACE();
             return View(accountView);
         }
 

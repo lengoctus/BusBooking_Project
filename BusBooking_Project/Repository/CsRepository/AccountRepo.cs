@@ -55,7 +55,14 @@ namespace BusBooking_Project.Repository.CsRepository
                     Status = true,
                     Active = true,
                 };
-                Add(account);
+                try
+                {
+                    Add(account);
+                }
+                catch (Exception e)
+                {
+                    return (int)CheckError.ErrorOrther;
+                }
                 return (int)CheckError.Success;
             }
             else
@@ -63,7 +70,6 @@ namespace BusBooking_Project.Repository.CsRepository
                 return check;
             }
         }
-
         private int CheckCreate(AccountView accountView)
         {
             try
@@ -86,9 +92,6 @@ namespace BusBooking_Project.Repository.CsRepository
                 return (int)CheckError.ErrorOrther;
             }
         }
-
-
-
         private string GetCode()
         {
             Account acc = GetDataACE().OrderByDescending(s => s.Id).FirstOrDefault();
@@ -137,14 +140,12 @@ namespace BusBooking_Project.Repository.CsRepository
                     StationName = s.Station.Name
                 }).ToList();
         }
-
         public int CountData()
         {
             return GetDataACE()
                 .Where(s => (bool)s.Status)
                 .Count();
         }
-
         public AccountView GetByIdACE(int id)
         {
             Account account = GetById(id).Result;

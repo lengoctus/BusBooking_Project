@@ -13,5 +13,9 @@ namespace BusBooking_Project.Models.ModelsView
         public string Phone { get; set; }
         public bool Active { get; set; }
         public bool Status { get; set; }
+        public int City { get; set; }
+        public string CityName { get; set; }
+        public int District { get; set; }
+        public string DistrictName { get; set; }
     }
 }
