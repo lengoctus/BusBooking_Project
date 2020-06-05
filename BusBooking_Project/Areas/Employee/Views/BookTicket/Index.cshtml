@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewData["Title"] = "SendMail";
+    ViewData["Title"] = "Index";
     Layout = "~/Areas/Employee/Views/Shared/_LayoutAdmin.cshtml";
 }
 
@@ -10,12 +10,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1></h1>
+                    <h1> Booking</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">General Form</li>
+                        <li class="breadcrumb-item active">Booking</li>
                     </ol>
                 </div>
             </div>
@@ -25,267 +25,59 @@
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
-            <div class="row">              
-                <div class="col-md-10">
-                    <!-- general form elements disabled -->
-                    <div class="card card-success">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Đặt Vé</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <form role="form">
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <!-- text input -->
-                                        <div class="form-group">
-                                            <label>Họ Tên</label>
-                                            <input type="text" class="form-control" placeholder="Nguyễn Văn A">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label>Nhập SĐT</label>
-                                            <input type="text" class="form-control" placeholder="090-XXX-XXXX">
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- input states -->
-                                <div class="form-group">
-                                    <label class="col-form-label" for="inputSuccess">
-                                        <i class="fas fa-check"></i> Nhập Email
-                                    </label>
-                                    <input type="text" class="form-control is-valid" id="inputSuccess" placeholder="abc@gmail.com">
-                                </div>
+                            <table id="example2" class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Code Booking</th>
+                                        <th>User Code</th>
+                                        <th>Day Create</th>
+                                        <th>Day Start</th>
+                                        <th>Bus ID</th>
+                                        <th>From Address</th>
+                                        <th>To Address</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>B01</td>
+                                        <td>U01</td>
+                                        <td>
+                                            6/5/2020
+                                        </td>
+                                        <td>7/5/2020</td>
+                                        <td>XE 1</td>
+                                        <td> Hà Nội</td>
+                                        <td>Hồ Chí Minh</td>
+                                        <td>
+                                            <button type="submit"> Booking</button>
 
+                                        </td>
 
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <!-- select -->
-                                        <div class="form-group">
-                                            <label>Loại Vé</label>
-                                            <select class="form-control">
-                                                <option>Trẻ Em</option>
-                                                <option>Người Lớn</option>
-                                                <option>Người Già</option>
-                                                
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label>Tuyến</label>
-                                            <select class="form-control" disabled>
-                                                <option>HCM-HN</option>
-                                                <option>ĐN-ĐL</option>
-                                                <option>HCM-CT</option>
-                                                
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>                            
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <!-- checkbox -->
-                                        <div class="form-group">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox">
-                                                <label class="form-check-label">01</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" checked>
-                                                <label class="form-check-label">02</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" disabled>
-                                                <label class="form-check-label">03</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" disabled>
-                                                <label class="form-check-label">04</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" disabled>
-                                                <label class="form-check-label">05</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" disabled>
-                                                <label class="form-check-label">06</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" disabled>
-                                                <label class="form-check-label">07</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" disabled>
-                                                <label class="form-check-label">08</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" disabled>
-                                                <label class="form-check-label">09</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" disabled>
-                                                <label class="form-check-label">10</label>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <!-- checkbox -->
-                                        <div class="form-group">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox">
-                                                <label class="form-check-label">01</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" checked>
-                                                <label class="form-check-label">02</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" disabled>
-                                                <label class="form-check-label">03</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" disabled>
-                                                <label class="form-check-label">04</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" disabled>
-                                                <label class="form-check-label">05</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" disabled>
-                                                <label class="form-check-label">06</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" disabled>
-                                                <label class="form-check-label">07</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" disabled>
-                                                <label class="form-check-label">08</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" disabled>
-                                                <label class="form-check-label">09</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" disabled>
-                                                <label class="form-check-label">10</label>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <!-- checkbox -->
-                                        <div class="form-group">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox">
-                                                <label class="form-check-label">01</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" checked>
-                                                <label class="form-check-label">02</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" disabled>
-                                                <label class="form-check-label">03</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" disabled>
-                                                <label class="form-check-label">04</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" disabled>
-                                                <label class="form-check-label">05</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" disabled>
-                                                <label class="form-check-label">06</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" disabled>
-                                                <label class="form-check-label">07</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" disabled>
-                                                <label class="form-check-label">08</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" disabled>
-                                                <label class="form-check-label">09</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" disabled>
-                                                <label class="form-check-label">10</label>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <!-- checkbox -->
-                                        <div class="form-group">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox">
-                                                <label class="form-check-label">01</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" checked>
-                                                <label class="form-check-label">02</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" disabled>
-                                                <label class="form-check-label">03</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" disabled>
-                                                <label class="form-check-label">04</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" disabled>
-                                                <label class="form-check-label">05</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" disabled>
-                                                <label class="form-check-label">06</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" disabled>
-                                                <label class="form-check-label">07</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" disabled>
-                                                <label class="form-check-label">08</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" disabled>
-                                                <label class="form-check-label">09</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" disabled>
-                                                <label class="form-check-label">10</label>
-                                            </div>
-
-                                        </div>
-                                    </div>
-
-
-                                    <div class="card-footer">
-                                        <button type="submit" class="btn btn-primary" asp-area="employee" asp-controller="sendemail" asp-action="index">Tiếp Tục</button>
-                                    </div>
-                                </div>
-
-
-                            </form>
+                                    </tr>
+                                   
+                                </tbody>
+                            </table>
                         </div>
                         <!-- /.card-body -->
-                    </div>                  
+                    </div>
+                    <!-- /.card -->
+
+                   
+                    <!-- /.card -->
                 </div>
-                <!--/.col (right) -->
+                <!-- /.col -->
             </div>
             <!-- /.row -->
-        </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.container-fluid -->
     </section>
     <!-- /.content -->
 </div>

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BusBooking_Project.Repository.CsRepository
 {
-    public class CategoryRepo : GenericRepo<Category>//, ICategoryRepo
+    public class CategoryRepo : GenericRepo<Category>, ICategoryRepo
     {
         public CategoryRepo(ConnectDbContext db) : base(db)
         {

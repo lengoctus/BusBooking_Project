@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BusBooking_Project.Areas.Employee.Controllers
 {
     [Area("employee")]
-    [Route("employee/sendmail")]
+    [Route("sendmail")]
 
     public class SendMailController : Controller
     {
