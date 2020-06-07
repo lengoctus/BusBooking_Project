@@ -19,11 +19,11 @@ namespace BusBooking_Project.Repository.CsRepository
         {
             try
             {
-                //var category = GetAll().Result.AsNoTracking().FirstOrDefault(p => p.Code.ToLower() == entity.Code.ToLower().Trim());
-                //if (category != null)
-                //{
-                //    return true;
-                //}
+                var category = GetAll().Result.AsNoTracking().FirstOrDefault(p => p.Code.ToLower() == entity.Code.ToLower().Trim());
+                if (category != null)
+                {
+                    return true;
+                }
                 return false;
             }
             catch (Exception e)
@@ -32,18 +32,5 @@ namespace BusBooking_Project.Repository.CsRepository
                 return false;
             }
         }
-
-        //public async Task<bool> DeleteMultiCategory(int[] idCate)
-        //{
-        //    try
-        //    {
-
-        //    }
-        //    catch (Exception)
-        //    {
-
-        //        throw;
-        //    }
-        //}
     }
 }

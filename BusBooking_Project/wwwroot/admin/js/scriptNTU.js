@@ -15,24 +15,30 @@
 
             var regexName = new RegExp(/^[a-z0-9_]+(\s){0,1}?[a-z0-9_]*$/i);
             var regexCode = new RegExp(/^[a-z0-9_]+$/i);
-            var regexPrice = new RegExp(/^[0-9\\.]+$/);
+            var regexPrice = new RegExp(/^[0-9]+$/);
 
             if (regexCode.test(code.val()) == false) {
                 code.next('span').remove();
                 code.after('<span style="color: red">Code Category is Invalid!!</span>');
+            } else {
+                code.next('span').remove();
             }
 
             if (regexName.test(name.val()) == false) {
                 name.next('span').remove();
                 name.after('<span style="color: red">Name Category is Invalid!!</span>');
+            } else {
+                name.next('span').remove();
             }
 
-            if (regexPrice.test(price.val()) == false) {
+            if (regexPrice.test(price.val()) == false || parseFloat(price.val()) <= 10000) {
                 price.next('span').remove();
                 price.after('<span style="color: red">Price Category is Invalid!!</span>');
+            } else {
+                price.next('span').remove();
             }
 
-            if (regexCode.test(code.val()) == true && regexName.test(name.val()) == true) {
+            if (regexCode.test(code.val()) && regexName.test(name.val()) && regexPrice.test(price.val()) && parseFloat(price.val()) > 10000) {
                 var categoryView = {
                     Code: code.val(),
                     Name: name.val(),
@@ -41,7 +47,6 @@
                     Status: status.is(':checked')
                 };
 
-                console.log(JSON.stringify(categoryView));
                 $.ajax({
                     type: 'POST',
                     url: '/admin/category/add',
@@ -184,11 +189,10 @@
 
     $('.btnRemove').on('click', function () {
 
-
         if (arr.length > 0) {
             Swal.fire({
                 title: 'Are you sure?',
-                text: "You won't be able to revert this!",
+                text: 'Remove ' + arr.length + ' Category permanently !!',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -196,10 +200,9 @@
                 confirmButtonText: 'Yes, delete it!'
             }).then((result) => {
                 if (result.value) {
-
                     $.ajax({
                         type: 'POST',
-                        url: '/admin/category/getidremove',
+                        url: '/admin/category/delete',
                         cache: false,
                         contentType: 'application/json, charset=UTF-8',
                         dataType: 'json',
@@ -218,19 +221,75 @@
                                 Swal.fire({
                                     icon: 'error',
                                     title: 'Error !!',
-                                    text: 'Please check again!',
+                                    text: 'Category is active. Please check again!!',
                                 })
                             }
 
                         }
                     });
-
-
-                    console.log(result.value)
-                } else {
-                    console.log(result.dismiss)
                 }
             })
         };
     });
-});
+
+    $('#AllCbCategory').on('change', function () {
+        if ($(this).is(':checked') == true) {
+            $('.cbCate').prop('checked', true);
+            arr = $('.cbCate:checked').map(function () {
+                return this.value;
+            }).get();
+        } else if ($(this).is(':checked') == false) {
+            $('.cbCate').prop('checked', false);
+            arr = [];
+        }
+    })
+
+    $('.manager-category').on('click', function () {
+        window.location.replace('/admin/category')
+    });
+
+    $('.manager-car').on('click', function () {
+        window.location.replace('/admin/cars')
+    });
+
+    $('.manager-seat').on('click', function () {
+        window.location.replace('/admin/seats')
+    })
+
+    //$('.buschecked').on('change', function () {
+    //    var idbus = $(this).val();
+
+    //    if (idbus.trim()) {
+    //        $.ajax({
+    //            type: 'post',
+    //            url: '/admin/seats/GetByBusId',
+    //            cache: false,
+    //            contentType: 'application/json, charset=UTF-8',
+    //            dataType: 'json',
+    //            data: JSON.stringify(idbus),
+    //            success: function (data) {
+                    
+    //            }
+    //        })
+    //    }
+    //})
+
+    
+    var elem = $('.paginate');       // Đối tượng cần được phân trang
+    var totalPage = elem.length;    // Tổng số trang
+    var numberRow = 3;          // Số dòng mỗi trang
+
+
+    elem.slice(numberRow).hide();
+    $('#page-nav').pagination({
+        items: totalPage,       
+        itemsOnPage: numberRow,       
+        onPageClick: function (pageNum) {
+            var start = numberRow * (pageNum - 1);      // PageNum = 2 => start = 3
+            var end = start + numberRow;             // end = 6
+
+            elem.hide().slice(start, end).show();
+        }
+    })
+    
+})

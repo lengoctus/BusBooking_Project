@@ -29,6 +29,15 @@ namespace BusBooking_Project.Areas.Admin.Controllers
         [HttpGet("index")]
         public IActionResult Index()
         {
+            ViewBag.listCate = _CateRepo.GetAll().Result.Where(p => p.Status == true).Select(p => new CategoryView
+            {
+                Id = p.Id,
+                Name = p.Name,
+                Price = p.Price,
+                Active = p.Active ?? false,
+                Status = p.Status ?? false,
+                Code = p.Code
+            }).ToList();
             return View();
         }
 
@@ -85,9 +94,15 @@ namespace BusBooking_Project.Areas.Admin.Controllers
         }
 
 
-        [HttpPost("getidremove")]
-        public async Task<IActionResult> GetIdRemove([FromBody]string[] arr)
+        [HttpPost("delete")]
+        public async Task<IActionResult> Delete([FromBody]string[] arr)
         {
+            int[] idCate = Array.ConvertAll(arr, s => Convert.ToInt32(s));
+            var rs = await _CateRepo.DeleteMulti(idCate);
+            if (rs)
+            {
+                return Json("1");
+            }
             return Json("0");
         }
 

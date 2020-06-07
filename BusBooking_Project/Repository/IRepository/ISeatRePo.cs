@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace BusBooking_Project.Repository.IRepository
 {
-    public interface ICategoryRepo : IGenericRepo<Category>
+    public interface ISeatRePo : IGenericRepo<Seat>
     {
-        bool CheckIsExists(Category entity);
+        bool CheckIsExists(Seat entity);
+        Task<IQueryable<Seat>> GetByBusId(int idBus);
     }
 }
