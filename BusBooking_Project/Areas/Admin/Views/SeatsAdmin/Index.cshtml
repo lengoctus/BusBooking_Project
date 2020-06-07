@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewData["Title"] = "Manager";
+    ViewData["Title"] = "Seats Manager";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 <div class="content-wrapper">
@@ -30,64 +30,67 @@
 
             <div class="row">
                 <div class="col-md-12">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-7"></div>
-                            <div class="col-md-5">
-                                <input type="button" class="btn btn-primary" data-toggle="modal" data-target="#addform" value="New Category" style="float: right" />
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <table class="table table-striped" id="tableCate">
-                                    <thead>
-                                        <tr style="text-align: center">
-                                            <th>
-                                                <input type="checkbox" id="AllCbCategory" />
-                                            </th>
-                                            <th>Code</th>
-                                            <th>Name</th>
-                                            <th>Price</th>
-                                            <th>Active</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @if (ViewBag.listCate != null)
-                                        {
-                                            foreach (var item in ViewBag.listCate)
-                                            {
-                                                <tr style="text-align: center">
-                                                    <td>
-                                                        <input type="checkbox" value="@item.Id" class="cbCate" />
-                                                    </td>
-                                                    <td>@item.Code</td>
-                                                    <td>@item.Name</td>
-                                                    <td>@item.Price</td>
-                                                    <td>@item.Active</td>
-                                                    <td>@item.Status</td>
-                                                    <td>
-                                                        <button type="button" class="btn btn-info" data-id="@item.Id" data-toggle="modal" data-target="#editCate">
-                                                            <i class="fas fa-edit"></i>
-                                                            Edit
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                            }
-                                        }
-                                    </tbody>
-                                </table>
-                            </div>
+                    <div class="container-fluid">
+                        <table border="2">
+                            <tr>
+                                <th>Year</th>
+                                <th>IE</th>
+                                <th>FF</th>
+                                <th>Chrome</th>
+                                <th>Safari</th>
+                                <th>Opera</th>
+                            </tr>
+                            <tr class="paginate">
+                                <td>2013</td>
+                                <td>10.5%</td>
+                                <td>26.8%</td>
+                                <td>54.8%</td>
+                                <td>4.0%</td>
+                                <td>1.8%</td>
+                            </tr>
+                            <tr class="paginate">
+                                <td>2012</td>
+                                <td>14.7%</td>
+                                <td>31.1%</td>
+                                <td>46.9%</td>
+                                <td>4.2%</td>
+                                <td>2.1%</td>
+                            </tr>
+                            <tr class="paginate">
+                                <td>2011</td>
+                                <td>20.2%</td>
+                                <td>37.7%</td>
+                                <td>34.6%</td>
+                                <td>4.2%</td>
+                                <td>2.5%</td>
+                            </tr>
+                            <tr class="paginate">
+                                <td>2010</td>
+                                <td>27.5%</td>
+                                <td>43.5%</td>
+                                <td>22.4%</td>
+                                <td>3.8%</td>
+                                <td>2.2%</td>
+                            </tr>
+                            <tr class="paginate">
+                                <td>2009</td>
+                                <td>37.2%</td>
+                                <td>46.4%</td>
+                                <td>9.8%</td>
+                                <td>3.6%</td>
+                                <td>2.3%</td>
+                            </tr>
+                            <tr class="paginate">
+                                <td>2008</td>
+                                <td>46.0%</td>
+                                <td>44.4%</td>
+                                <td>3.6%</td>
+                                <td>2.7%</td>
+                                <td>2.4%</td>
+                            </tr>
+                        </table>
 
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <button type="button" class="btn btn-danger btnRemove"><i class="fas fa-trash"></i> &nbsp; Remove</button>
-                            </div>
-                            <div class="col-md-6"></div>
-                        </div>
+                        <div id="page-nav"></div>
                     </div>
                     <!-- /.card -->
                 </div>

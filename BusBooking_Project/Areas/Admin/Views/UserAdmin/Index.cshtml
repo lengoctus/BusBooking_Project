@@ -1,5 +1,10 @@
-﻿@{ ViewData["Title"] = "Index";
-                Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml"; }
+﻿@model IEnumerable<AccountView>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="content-wrapper">
     <section class="content-header">
         <div class="mx-5">
             <div class="row mb-2">
