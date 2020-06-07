@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using BusBooking_Project.Models.Entities;
 using BusBooking_Project.Models.ModelsView;
 using BusBooking_Project.Repository.IRepository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Supports;
 
@@ -18,14 +20,24 @@ namespace BusBooking_Project.Areas.Admin.Controllers
     [Route("admin")]
     public class AdminController : Controller
     {
-        private readonly ILogger<AdminController> _logger;
-        private readonly IAccountRepo _IAcc;
 
-        public AdminController(ILogger<AdminController> logger, IAccountRepo iAcc)
+        #region ctor
+        private readonly ILogger<AdminController> _logger;
+        private readonly IAccountRepo accountRepository;
+        private IConfiguration configuration;
+
+        public AdminController(
+            ILogger<AdminController> logger,
+            IAccountRepo _accountRepository,
+            IConfiguration _configuration)
         {
             _logger = logger;
-            _IAcc = iAcc;
+            accountRepository = _accountRepository;
+            configuration = _configuration;
         }
+        #endregion
+
+        #region Login
 
         [HttpGet("login")]
         public IActionResult Login()
@@ -46,15 +58,39 @@ namespace BusBooking_Project.Areas.Admin.Controllers
             }
             return View();
         }
+        #endregion
 
-
+        #region Logout
         [HttpGet("logout")]
         public IActionResult Logout()
         {
-            SercurityManagerCuaSang.Logout(HttpContext, "SCHEME_AD");
+            SercurityManagerACE.Logout(HttpContext, "SCHEME_AD");
             return RedirectToAction("login");
         }
 
+        private bool CheckLogin(AccountView accountView)
+        {
+            try
+            {
+                AccountView accountLogin = accountRepository.Login(new Account { Email = accountView.Email, Password = accountView.Password });
+                if (accountLogin == null)
+                {
+                    return false;
+                }
+                SercurityManagerACE.Login(HttpContext, accountLogin, "SCHEME_AD");
+                return true;
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+                return false;
+            }
+        }
+
+
+        #endregion
+
+        #region Forgotpw
         [HttpGet("forgotpw")]
         public IActionResult ForgotPassword()
         {
@@ -68,82 +104,68 @@ namespace BusBooking_Project.Areas.Admin.Controllers
         [HttpPost("forgotpw")]
         public IActionResult ForgotPassword(string email)
         {
-            //string resultCode = UserBus.ForgorPassword(email); // mail +"-"+chuỗi mã hoá: khi lấy ra thì slipt cái "-" rồi lấy chuỗi so khớp
-            //if (resultCode != null)
-            //{
-            //    string link = "https://localhost:44307/admin/changePW?pwId=" + Convert.ToBase64String(Encoding.ASCII.GetBytes(resultCode));
-            //    if (new SendMail(configuration).Send(email, "Change password", "Click the following link: " + link))
-            //    {
-            //        TempData["Result"] = "0";
-            //        return RedirectToAction("forgotpassword", "admin", new { area = "admin" });
-            //    }
-            //    else
-            //    {
-            //        ViewBag.Error = "[Network error please try again later]";
-            //        return View();
-            //    }
-            //}
-            ViewBag.Error = "[Email invalid. Please check again]";
+            string resultCode = accountRepository.InsertCodeForgotPW(email);
+            // mail +"-"+ chuỗi mã hoá: khi lấy ra thì slipt cái "-" rồi lấy chuỗi so khớp
+            if (resultCode != null)
+            {
+                string link = "https://localhost:44304/admin/changepw?pwId=" + Convert.ToBase64String(Encoding.ASCII.GetBytes(resultCode));
+                if (new SendMailACE(configuration).Send(email, "Change password", "Click the following link: " + link))
+                {
+                    TempData["Result"] = "0";
+                    return RedirectToAction("forgotpassword", "admin", new { area = "admin" });
+                }
+                else
+                {
+                    ViewBag.Error = "[Network error please try again later]";
+                    return View();
+                }
+            }
+            ViewBag.Error = "[Email not exists. Please check again]";
             return View();
         }
 
-        [HttpGet("changePW")]
+        [HttpGet("changepw")]
         public IActionResult ChangePW()
         {
             try
             {
-                //string result = Encoding.ASCII.GetString(Convert.FromBase64String(HttpContext.Request.Query["pwId"].ToString()));
-                //string[] splits = result.Split(new char[] { '-' });
-                //string email = splits[0];
-                //string code = splits[1];
-                //UserView userView = UserBus.CompareCodeChangePW(email, code);
-                //if (userView != null)
-                //{
-                //    return View(userView);
-                //}
+                string result = Encoding.ASCII.GetString(Convert.FromBase64String(HttpContext.Request.Query["pwId"].ToString()));
+                string[] splits = result.Split(new char[] { '-' });
+                string email = splits[0];
+                string code = splits[1];
+                AccountView accountView = accountRepository.CompareCodeChangePW(email, code);
+                if (accountView != null)
+                {
+                    return View(accountView);
+                }
             }
             catch { }
             return RedirectToAction("accessDenied");
         }
 
-        [HttpPost("changePW")]
-        public IActionResult ChangePW(AccountView userView)
+        [HttpPost("changepw")]
+        public IActionResult ChangePW(AccountView account)
         {
 
-            //if (UserBus.UpdatePassword(userView))
-            //{
-            //    return Json("200");
-            //}
-            //else
-            //{
-            //    return Json("404");
-            //}
-            return null;
-        }
-
-        private bool CheckLogin(AccountView accountView)
-        {
-            try
+            if (accountRepository.UpdatePassword(account))
             {
-                AccountView accountLogin = _IAcc.Login(new Account { Email = accountView.Email, Password = accountView.Password });
-                if (accountLogin == null)
-                {
-                    return false;
-                }
-                SercurityManagerCuaSang.Login(HttpContext, accountLogin, "SCHEME_AD");
-                return true;
+                return Json("200");
             }
-            catch (Exception e)
+            else
             {
-                Debug.WriteLine(e.Message);
-                return false;
+                return Json("500");
             }
         }
 
+        #endregion
+
+        #region AccessDenied
         [HttpGet("accessDenied")]
         public IActionResult AccessDenied()
         {
             return View();
         }
+
+        #endregion
     }
 }

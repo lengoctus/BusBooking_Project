@@ -28,17 +28,12 @@ namespace Supports
             }
         }
 
-        public static bool RemoveFile(IWebHostEnvironment webHostEnvironment, string filename)
+        public static bool RemoveFile(IWebHostEnvironment webHostEnvironment, string pathfile)
         {
             try
             {
-                string pathName = $"{webHostEnvironment.WebRootPath}\\assets\\imageUser\\{filename}";
+                string pathName = $"{webHostEnvironment.WebRootPath}\\{pathfile}";
                 File.Delete(pathName);
-                //using (FileStream fs = new FileStream(pathName, FileMode.Open))
-                //{
-                //    File.Delete(pathName);
-                //    fs.Flush();
-                //}
                 return true;
             }
             catch (Exception e)

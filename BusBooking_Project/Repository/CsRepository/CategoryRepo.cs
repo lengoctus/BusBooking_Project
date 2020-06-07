@@ -1,6 +1,7 @@
 ﻿using BusBooking_Project.Models.Entities;
 using BusBooking_Project.Repository.EFCore;
 using BusBooking_Project.Repository.IRepository;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,11 +19,11 @@ namespace BusBooking_Project.Repository.CsRepository
         {
             try
             {
-                var category = GetAll().Result.SingleOrDefault(p => p.Code.ToLower() == entity.Code.ToLower().Trim());
-                if (category != null)
-                {
-                    return true;
-                }
+                //var category = GetAll().Result.AsNoTracking().FirstOrDefault(p => p.Code.ToLower() == entity.Code.ToLower().Trim());
+                //if (category != null)
+                //{
+                //    return true;
+                //}
                 return false;
             }
             catch (Exception e)
@@ -32,14 +33,15 @@ namespace BusBooking_Project.Repository.CsRepository
             }
         }
 
-        //public Task<IQueryable<Category>> Search(string keyword)
+        //public async Task<bool> DeleteMultiCategory(int[] idCate)
         //{
         //    try
         //    {
+
         //    }
-        //    catch (Exception e)
+        //    catch (Exception)
         //    {
-        //        var error = e.Message;
+
         //        throw;
         //    }
         //}

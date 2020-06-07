@@ -14,4 +14,3 @@ namespace BusBooking_Project.Models.Entities
     [ModelMetadataType(typeof(Station_Partial))]
     public partial class Station : IEntity { }
 }
-

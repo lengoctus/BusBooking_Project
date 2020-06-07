@@ -20,11 +20,16 @@ namespace BusBooking_Project.Models.ModelsView
         public int Gender { get; set; }
         public DateTime DayCreate { get; set; }
         public DateTime DayEdited { get; set; }
-        public int EditerId { get; set; }
-        public bool Stastus { get; set; }
-        public Role Role { get; set; }
+        public int? EditerId { get; set; }
+        public Account Editer { get; set; }
+        public bool Status { get; set; }
+        public int RoleId { get; set; }
+        public string RoleName { get; set; }
         public bool Active { get; set; }
         public string Description { get; set; }
         public string ForgotPass { get; set; }
+        public int StationId { get; set; }
+        public string StationName { get; set; }
+        public string Code { get; set; }
     }
 }

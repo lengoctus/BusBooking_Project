@@ -1,0 +1,70 @@
+﻿<html>
+<head>
+    <title>Files Browser</title>
+    <style type="text/css">
+        body {
+            font-family: 'Segoe UI', Verdana, Helvetica, sans-serif;
+            font-size: 80%;
+        }
+
+        #form {
+            width: 600px;
+        }
+
+        #folderExplorer {
+            float: left;
+            width: 100px;
+        }
+
+        #fileExplorer {
+            float: left;
+            width: 680px;
+            border-left: 1px solid #dff0ff;
+        }
+
+        .thumbnail {
+            float: left;
+            margin: 3px;
+            padding: 3px;
+            border: 1px solid #dff0ff;
+        }
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            padding: 0;
+        }
+    </style>
+
+    <script src="~/admin/js/jquery.min.js"></script>
+    <script src="~/admin/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var funcNum = @(Context.Request.Query["CKEditorFuncNum"] + ";")
+            $('#fileExplorer').on('click', 'img', function () {
+                var fileUrl = '/admin/image/' + $(this).attr('title');
+                window.opener.CKEDITOR.tools.callFunction(funcNum, fileUrl);
+                window.close();
+            }).hover(function() {
+                $(this).css('cursor', 'pointer');
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="fileExplorer">
+        @foreach (var fileInfo in ViewBag.FileInfor)
+        {
+            <div class="thumbnail">
+                <img src="~/admin/image/@fileInfo.Name" alt="@fileInfo.Name" title="@fileInfo.Name" width="120" height="100" />
+                <br />
+                @fileInfo.Name
+            </div>
+        }
+    </div>
+</body>
+</html>

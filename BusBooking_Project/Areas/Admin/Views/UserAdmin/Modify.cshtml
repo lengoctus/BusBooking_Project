@@ -1,0 +1,163 @@
+﻿@{
+    ViewData["Title"] = "Modify";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@model BusBooking_Project.Models.ModelsView.AccountView
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="container-fluid mt-2">
+    <section class="content-header">
+        <div class="mx-5">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Details</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a asp-area="admin" asp-controller="user" asp-action="index">USER</a></li>
+                        <li class="breadcrumb-item active">DETAIL</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="content mx-5">
+        <div id="result"></div>
+        
+        <form asp-controller="user" asp-area="admin" asp-action="modify" method="post" enctype="multipart/form-data">
+            <input type="hidden" asp-for="@Model.Id" />
+            <div class="row">
+                <div class="col-sm-12 col-md-2">
+                    <img width="250" height="250" id="photo" src="~/admin/image/@Model.Images" /> <br /> <br />
+                    <input type="file" class="input-ace" asp-for="Images" id="inputphoto" name="inputphoto" onchange="change()" />
+                </div>
+                <div class="col-sm-12 col-md-9 offset-1">
+                    <div class="form-group row">
+                        <label class="col-sm-1 col-form-label" align="right">Station: </label>
+                        <div class="col-sm-10">
+                            <select asp-for="StationId" class="input-ace form-control">
+                                @foreach (Station item in ViewBag.StationList)
+                                {
+                                    <option value="@item.Id">@item.Name</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-1 col-form-label" align="right">Email: </label>
+                        <div class="col-sm-10">
+                            <input type="email" asp-for="Email" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-1 col-form-label" align="right">Password: </label>
+                        <div class="col-sm-10">
+                            <input type="password" asp-for="Password" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-1 col-form-label" align="right">Name: </label>
+                        <div class="col-sm-10">
+                            <input type="text" asp-for="Name" class="form-control" maxlength="50" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-1 col-form-label" align="right">Birthday: </label>
+                        <div class="col-sm-10">
+                            <input type="text" asp-for="Dob" class="form-control" id="datepicker">
+                        </div>
+                    </div><div class="form-group row">
+                        <label class="col-sm-1 col-form-label" align="right">Gender: </label>
+                        <div class="col-sm-10">
+                            <select asp-for="Gender" class="input-ace form-control">
+                                <option value="0">Female</option>
+                                <option value="1">Male</option>
+                                <option value="2">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-1 col-form-label" align="right">Address: </label>
+                        <div class="col-sm-10">
+                            <input type="text" asp-for="Address" class="form-control" maxlength="200">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-1 col-form-label" align="right">Phone: </label>
+                        <div class="col-sm-10">
+                            <input type="text" asp-for="Phone" class="form-control" maxlength="11">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-1 col-form-label" align="right">Role: </label>
+                        <div class="col-sm-10">
+                            <select asp-for="RoleId" class="input-ace form-control">
+                                <option value="1">Admin</option>
+                                <option value="2">Employee</option>
+                                <option value="3">Customer</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-1 col-form-label" align="right">Description: </label>
+                        <div class="col-sm-10">
+                            <textarea asp-for="Description" class="form-control" id="textDescription"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-1 col-form-label" align="right">Active: </label>
+                        <div class="col-sm-10">
+                            <input type="checkbox" asp-for="Active" data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-on="on" data-off="off" data-size="small">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="offset-1 col-sm-4">
+                            <button type="submit" class="btn btn-block btn-info"><i class="fas fa-save"></i> &nbsp;SUBMIT</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </section>
+</div>
+
+@section script{
+    <script>
+
+        $(document).ready(function () {
+            $("#datepicker").val(new Date().getDate() + '/' + (new Date().getMonth() + 1) + '/' + new Date().getFullYear());
+            switch ('@ViewBag.Result') {
+                case '@(CheckError.AlreadyEmail)':
+                    ErrorMode('Email already. Please choose email orther.',$('#result'));
+                    break;
+                 case '@(CheckError.AlreadyPhone)':
+                    alertError('Phone already. Please choose phone orther.', $('#result'));
+                    break;
+                 case '@(CheckError.ErrorOrther)':
+                    alertError('Can not connect Internet', $('#result'));
+                    break;
+            }
+
+            CKEDITOR.replace('textDescription', {
+                height:200,
+                filebrowserUploadUrl:'/admin/user/upload_ckeditor',
+                filebrowserBrowseUrl:'/admin/user/file_browser'
+            });
+        })
+
+        function change() {
+            $('#photo').attr("src", URL.createObjectURL($('#inputphoto')[0].files[0]));
+        }
+
+        $(function () {
+            $("#datepicker").datepicker({
+                changeMonth: true,
+                changeYear: true
+            });
+        });
+    </script>
+}
+
