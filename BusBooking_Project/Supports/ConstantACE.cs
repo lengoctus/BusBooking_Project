@@ -21,13 +21,21 @@ namespace Supports
         Address = 5
     }
 
+    public enum SearchStation
+    {
+        Name = 1,
+        Location = 2,
+        Phone = 3
+    }
+
     public enum CheckError
     {
-        Success = 0,
+        Success = 1,
         AlreadyEmail = -1,
         AlreadyPhone = -2,
         AlreadyCode = -3,
-        ErrorOrther = -4
+        AlreadyName = -4,
+        ErrorOrther = -5
     }
 
     public enum BooleanACE

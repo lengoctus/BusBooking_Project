@@ -26,7 +26,9 @@
     </section>
     <section class="content mx-5">
         <div id="result"></div>
-        <form asp-controller="user" asp-area="admin" asp-action="create" method="post" enctype="multipart/form-data">
+        
+        <form asp-controller="user" asp-area="admin" asp-action="modify" method="post" enctype="multipart/form-data">
+            <input type="hidden" asp-for="@Model.Id" />
             <div class="row">
                 <div class="col-sm-12 col-md-2">
                     <img width="250" height="250" id="photo" src="~/admin/image/@Model.Images" /> <br /> <br />

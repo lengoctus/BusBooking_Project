@@ -21,6 +21,9 @@ function activeMenu() {
         case 'user':
             $($('.item_menu')[1]).addClass('active');
             break;
+        case 'station':
+            $($('.item_menu')[2]).addClass('active');
+            break;
     }
 }
 

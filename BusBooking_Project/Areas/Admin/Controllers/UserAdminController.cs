@@ -26,15 +26,18 @@ namespace BusBooking_Project.Areas.Admin.Controllers
         private readonly IWebHostEnvironment webHostEnvironment;
         private readonly ILogger<UserAdminController> logger;
         private readonly IAccountRepo accountRepository;
+        private readonly IStationRepo stationRepository;
 
         public UserAdminController(
             IWebHostEnvironment _webHostEnvironment,
             ILogger<UserAdminController> _logger,
-            IAccountRepo _accountRepository)
+            IAccountRepo _accountRepository,
+            IStationRepo _stationRepository)
         {
             webHostEnvironment = _webHostEnvironment;
             logger = _logger;
             accountRepository = _accountRepository;
+            stationRepository = _stationRepository;
         }
         #endregion
 
@@ -43,13 +46,16 @@ namespace BusBooking_Project.Areas.Admin.Controllers
         [HttpGet("index")]
         public IActionResult Index()
         {
+            if (TempData["ModifySuccess"] != null)
+            {
+                ViewBag.ModifySuccess = CheckError.Success;
+            }
             string strPage = HttpContext.Request.Query["page"].ToString();
             int page = Convert.ToInt32(strPage == "" ? "1" : strPage);
             List<AccountView> list = accountRepository.GetData(page);
             ViewBag.Rows = accountRepository.CountData();
             return View(list);
         }
-
 
         [HttpGet("search")]
         public IActionResult Search()
@@ -92,14 +98,7 @@ namespace BusBooking_Project.Areas.Admin.Controllers
         [HttpGet("create")]
         public IActionResult Create()
         {
-            ViewBag.StationList = new List<Station>
-            {
-                new Station{ Id=1,Name="Station 1"},
-                new Station{ Id=2,Name="Station 2"},
-                new Station{ Id=3,Name="Station 3"},
-                new Station{ Id=4,Name="Station 4"},
-                new Station{ Id=5,Name="Station 5"}
-            };
+            ViewBag.StationList = stationRepository.GetDataACE();
             return View(new AccountView { Images = "dui.jpg", Active = true });
         }
 
@@ -115,7 +114,7 @@ namespace BusBooking_Project.Areas.Admin.Controllers
                 FileNameSave = FileACE.SaveFile(webHostEnvironment, inputphoto, "admin/image");
             }
             accountView.Images = FileNameSave;
-            int id = 0;
+            int id = (int)CheckError.ErrorOrther;
             if (ModelState.IsValid)
             {
                 id = accountRepository.CreateACE(accountView);
@@ -135,14 +134,7 @@ namespace BusBooking_Project.Areas.Admin.Controllers
                 default:
                     return RedirectToAction("index");
             }
-            ViewBag.StationList = new List<Station>
-            {
-                new Station{ Id=1,Name="Station 1"},
-                new Station{ Id=2,Name="Station 2"},
-                new Station{ Id=3,Name="Station 3"},
-                new Station{ Id=4,Name="Station 4"},
-                new Station{ Id=5,Name="Station 5"}
-            };
+            ViewBag.StationList = stationRepository.GetDataACE();
             return View(accountView);
         }
 
@@ -151,26 +143,45 @@ namespace BusBooking_Project.Areas.Admin.Controllers
         {
             int id = Convert.ToInt32(HttpContext.Request.Query["id"].ToString());
             AccountView account = accountRepository.GetByIdACE(id);
-            ViewBag.StationList = new List<Station>
-            {
-                new Station{ Id=1,Name="Station 1"},
-                new Station{ Id=2,Name="Station 2"},
-                new Station{ Id=3,Name="Station 3"},
-                new Station{ Id=4,Name="Station 4"},
-                new Station{ Id=5,Name="Station 5"}
-            };
+            ViewBag.StationList = stationRepository.GetDataACE();
             return View(account);
         }
 
         [HttpPost("modify")]
-        public IActionResult Modify(AccountView accountView)
+        public IActionResult Modify(AccountView accountView, IFormFile inputphoto)
         {
-            //Account account = new Account
-            //{
-
-            //};
-            //accountRepository.ModifyACE(account, Convert.ToInt32(User.FindFirst("id").Value));
-            return View();
+            accountView.DayCreate = DateTime.Now;
+            accountView.DayEdited = DateTime.Now;
+            accountView.Status = true;
+            string FileNameSave = "dui.jpg";
+            if (inputphoto != null)
+            {
+                FileNameSave = FileACE.SaveFile(webHostEnvironment, inputphoto, "admin/image");
+                FileACE.RemoveFile(webHostEnvironment, $"admin\\image\\{accountRepository.GetByIdACE(accountView.Id).Images}");
+            }
+            accountView.Images = FileNameSave;
+            int id = (int)CheckError.ErrorOrther;
+            if (ModelState.IsValid)
+            {
+                id = accountRepository.ModifyACE(accountView, Convert.ToInt32(User.FindFirst("id").Value));
+            }
+            switch (id)
+            {
+                case (int)CheckError.AlreadyEmail:
+                    ViewBag.Result = CheckError.AlreadyEmail;
+                    break;
+                case (int)CheckError.AlreadyPhone:
+                    ViewBag.Result = CheckError.AlreadyPhone;
+                    break;
+                case (int)CheckError.ErrorOrther:
+                    ViewBag.Result = CheckError.ErrorOrther;
+                    break;
+                default:
+                    TempData["ModifySuccess"] = CheckError.Success;
+                    return RedirectToAction("index");
+            }
+            ViewBag.StationList = stationRepository.GetDataACE();
+            return View(accountView);
         }
 
 

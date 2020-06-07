@@ -1,8 +1,5 @@
-﻿@{
-    ViewData["Title"] = "Index";
-    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
-}
-<div class="content-wrapper">
+﻿@{ ViewData["Title"] = "Index";
+                Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml"; }
     <section class="content-header">
         <div class="mx-5">
             <div class="row mb-2">
@@ -59,28 +56,27 @@
                 <tbody>
                     @foreach (AccountView item in Model)
                     {
-                        <tr>
-                            <td class="item-record"><input type="checkbox" name="check_id[]" value="@item.Id"></td>
-                            <td class="item-record">
-                                <img src="~/admin/img/@item.Images" alt="@item.Images" width="50" height="50" />
-                            </td>
-                            <td class="item-record">@item.Code</td>
-                            <td class="item-record">@item.Name</td>
-                            <td class="item-record">@item.Email</td>
-                            <td class="item-record">@item.Phone</td>
-                            <td class="item-record">@(item.Gender ==1?"Male":"Female")</td>
-                            <td class="item-record">
-                                <input type="checkbox" @(item.Active ? "checked" : "") data-user-id="@item.Id" onchange="ActiveUser(this);">
-                            </td>
-                            <td style="width:160px" class="item-record">
-                                <a class="btn btn-info btn-sm" href="/admin/user/detail?id=@item.Id">
-                                    <i class="fas fa-pencil-alt">
-                                    </i> &nbsp;
-                                    <span class="view-edit" style="font-size:1rem;">View/Edit</span>
-                                </a>
-                            </td>
-                        </tr>
-                    }
+        <tr>
+            <td class="item-record"><input type="checkbox" name="check_id[]" value="@item.Id"></td>
+            <td class="item-record">
+                <img src="~/admin/image/@item.Images" alt="@item.Images" width="50" height="50" />
+            </td>
+            <td class="item-record">@item.Code</td>
+            <td class="item-record">@item.Name</td>
+            <td class="item-record">@item.Email</td>
+            <td class="item-record">@item.Phone</td>
+            <td class="item-record">@(item.Gender ==1?"Male":"Female")</td>
+            <td class="item-record">
+                <input type="checkbox" @(item.Active ? "checked" : "") data-user-id="@item.Id" onchange="ActiveUser(this);">
+            </td>
+            <td style="width:160px" class="item-record">
+                <a class="btn btn-info btn-sm" href="/admin/user/detail?id=@item.Id">
+                    <i class="fas fa-pencil-alt">
+                    </i> &nbsp;
+                    <span class="view-edit" style="font-size:1rem;">View/Edit</span>
+                </a>
+            </td>
+        </tr>}
                 </tbody>
             </table>
         </div>
@@ -97,13 +93,20 @@
             </div>
         </div>
     </section>
-</div>
 
 @section script{
     <script>
+
+        if ('@ViewBag.ModifySuccess' == @CheckError.Success) {
+            alertSuccessNonReload();
+        }
+
         $(document).ready(function () {
             phantrangCurrentPage();
             $(".js-example-disabled-results").select2();
+
+            $('.input-ace').val(new URL(document.URL).searchParams.get("textsearch"));
+            $('#selectSearch').val(new URL(document.URL).searchParams.get("propertysearch")).trigger('change');
         })
 
         function phantrangCurrentPage() {

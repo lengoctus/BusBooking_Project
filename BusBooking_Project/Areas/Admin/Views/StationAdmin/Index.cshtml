@@ -1,0 +1,197 @@
+﻿@{ ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<section class="content-header">
+    <div class="mx-5">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>User</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item active">STATION</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="content mx-5">
+    <div class="row my-2">
+        <div class="col-10">
+            <div class="row">
+                <div class="col-5 px-0">
+                    <div class="input-group">
+                        <div class="form-group col-md-4 select-ace-padding">
+                            <select id="selectSearch" class="form-control select-2">
+                                <option class="select-ace" selected value="@((int)SearchStation.Name)">Name</option>
+                                <option class="select-ace" value="@((int)SearchStation.Location)">Location</option>
+                                <option class="select-ace" value="@((int)SearchStation.Phone)">Phone</option>
+                            </select>
+                        </div>
+                        <input type="text" class="form-control input-ace" placeholder="Search" onkeyup="searchWithSelect(event,this,'selectSearch')">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-2">
+            <button type="button" class="btn btn-block bg-gradient-success" onclick="window.location='/admin/station/create'"><i class="fas fa-plus"></i>&nbsp; Add</button>
+        </div>
+    </div>
+    <div>
+        <table class="table table-hover">
+            <thead class="thead-light">
+                <tr>
+                    <th><input type="checkbox" id="selectAll"></th>
+                    <th>Name</th>
+                    <th>Location</th>
+                    <th>Phone</th>
+                    <th>District</th>
+                    <th>City</th>
+                    <th>Action</th>
+                    <th>View</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (StationView item in Model)
+                {
+                    <tr>
+                        <td class="item-record"><input type="checkbox" name="check_id[]" value="@item.Id"></td>
+                        <td class="item-record">@item.Name</td>
+                        <td class="item-record">@item.Location</td>
+                        <td class="item-record">@item.Phone</td>
+                        <td class="item-record">@item.DistrictName</td>
+                        <td class="item-record">@item.CityName</td>
+                        <td class="item-record">
+                            <input type="checkbox" @(item.Active ? "checked" : "") data-station-id="@item.Id" onchange="ActiveTarget(this);">
+                        </td>
+                        <td style="width:160px" class="item-record">
+                            <a class="btn btn-info btn-sm" href="/admin/station/detail?id=@item.Id">
+                                <i class="fas fa-pencil-alt">
+                                </i> &nbsp;
+                                <span class="view-edit" style="font-size:1rem;">View/Edit</span>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="row my-3">
+        <div class="col-md-6">
+            <button type="button" class="btn btn-danger" id="removeTargetSelected">
+                <i class="fas fa-trash">
+                </i>
+                Remove
+            </button>
+        </div>
+        <div class="col-sm-12 col-md-6 page">
+            <ul id="pagination" class="pagination-sm float-right"></ul>
+        </div>
+    </div>
+</section>
+
+@section script{
+    <script>
+        if ('@ViewBag.ModifySuccess' == @CheckError.Success) {
+            alertSuccessNonReload();
+        }
+
+        $(document).ready(function () {
+            phantrangCurrentPage();
+            $(".js-example-disabled-results").select2();
+
+            $('.input-ace').val(new URL(document.URL).searchParams.get("textsearch"));
+            $('#selectSearch').val(new URL(document.URL).searchParams.get("propertysearch")).trigger('change');
+        })
+
+        function phantrangCurrentPage() {
+            let propertysearch = new URL(document.URL).searchParams.get("propertysearch");
+            let textsearch = new URL(document.URL).searchParams.get("textsearch");
+            if (!window.location.pathname.includes("/search")) {
+                phantrang('#pagination', @(ViewBag.Rows), '/admin/station?page=');
+            } else {
+                $('#selectSearch').val(propertysearch).trigger('change');
+                $('.input-ace').val(textsearch);
+                phantrang('#pagination', @(ViewBag.Rows), '/admin/station/search?propertysearch=' + propertysearch + '&textsearch=' + textsearch + '&page=');
+            };
+        }
+
+        $('#selectAll').click(function (e) {
+            var table = $(e.target).closest('table');
+            $('td input:checkbox', table).prop('checked', this.checked);
+        });
+
+        $('#removeTargetSelected').click(function () { //Xoá những dòng đã được checked
+            alertWarning().then((result) => {
+                if (result.value) {
+                    removeSelected();
+                }
+            });
+        })
+
+        function removeSelected() {
+            if (GetTarGetSelected().length > 0) {
+                $.ajax({
+                    method: 'GET',
+                    url: '/admin/station/remove',
+                    dataType: 'json',
+                    data: { listID: JSON.stringify(GetTarGetSelected()) },
+                    success: function (data) {
+                        if (data != '') {
+                            alertSuccess();
+                        } else {
+                            alertError();
+                        }
+                    },
+                    error: function (a, b, c) {
+                        console.log(a);
+                        console.log(b);
+                        console.log(c);
+                    }
+                })
+            }
+        }
+
+        function GetTarGetSelected() {
+            let list =
+                $("input[name='check_id[]']:checked").map(function () {
+                    return this.value;
+                }).get();
+            return Array.from(list.values());
+        }
+
+        function searchWithSelect(event, input, sl) {
+            let textsearch = input.value;
+            if (event.keyCode === 13) {
+                if (textsearch) {
+                    let select = $('#' + sl);
+                    window.location.href = '/admin/station/search?propertysearch=' + select.val() + '&textsearch=' + textsearch;
+                } else {
+                    window.location.href = '/admin/station/index';
+                }
+            }
+        }
+
+        function ActiveTarget(input) {
+            let idStation = input.getAttribute("data-station-id");
+            $.ajax({
+                method: 'GET',
+                url: '/admin/station/active',
+                data: { id: idStation},
+                dataType: 'json',
+                success: function (data) {
+                    if (data == '200') {
+                        alertSuccess('Change success.');
+                    } else {
+                        alertError();
+                    }
+                },
+                error: function (a, b, c) {
+                    console.log(a);
+                    console.log(b);
+                    console.log(c);
+                }
+            });
+        }
+    </script>
+}
