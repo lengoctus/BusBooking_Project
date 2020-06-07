@@ -142,7 +142,8 @@ namespace BusBooking_Project.Repository.CsRepository
                 };
                 try
                 {
-                    Add(station);
+                    Station station_1 = Add(station).Result;
+                    if (station_1 == null) return (int)CheckError.ErrorOrther;
                 }
                 catch (Exception e)
                 {

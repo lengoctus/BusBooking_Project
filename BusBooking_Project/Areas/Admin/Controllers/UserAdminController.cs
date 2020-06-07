@@ -46,6 +46,10 @@ namespace BusBooking_Project.Areas.Admin.Controllers
         [HttpGet("index")]
         public IActionResult Index()
         {
+            if (TempData["ModifySuccess"] != null)
+            {
+                ViewBag.ModifySuccess = CheckError.Success;
+            }
             string strPage = HttpContext.Request.Query["page"].ToString();
             int page = Convert.ToInt32(strPage == "" ? "1" : strPage);
             List<AccountView> list = accountRepository.GetData(page);
@@ -110,7 +114,7 @@ namespace BusBooking_Project.Areas.Admin.Controllers
                 FileNameSave = FileACE.SaveFile(webHostEnvironment, inputphoto, "admin/image");
             }
             accountView.Images = FileNameSave;
-            int id = 0;
+            int id = (int)CheckError.ErrorOrther;
             if (ModelState.IsValid)
             {
                 id = accountRepository.CreateACE(accountView);
@@ -156,7 +160,7 @@ namespace BusBooking_Project.Areas.Admin.Controllers
                 FileACE.RemoveFile(webHostEnvironment, $"admin\\image\\{accountRepository.GetByIdACE(accountView.Id).Images}");
             }
             accountView.Images = FileNameSave;
-            int id = 0;
+            int id = (int)CheckError.ErrorOrther;
             if (ModelState.IsValid)
             {
                 id = accountRepository.ModifyACE(accountView, Convert.ToInt32(User.FindFirst("id").Value));
@@ -173,6 +177,7 @@ namespace BusBooking_Project.Areas.Admin.Controllers
                     ViewBag.Result = CheckError.ErrorOrther;
                     break;
                 default:
+                    TempData["ModifySuccess"] = CheckError.Success;
                     return RedirectToAction("index");
             }
             ViewBag.StationList = stationRepository.GetDataACE();

@@ -57,7 +57,8 @@ namespace BusBooking_Project.Repository.CsRepository
                 };
                 try
                 {
-                    Add(account);
+                    Account account_1 = Add(account).Result;
+                    if (account_1 == null) return (int)CheckError.ErrorOrther;
                 }
                 catch (Exception e)
                 {

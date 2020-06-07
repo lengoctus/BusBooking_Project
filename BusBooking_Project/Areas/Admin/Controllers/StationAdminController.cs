@@ -38,6 +38,10 @@ namespace BusBooking_Project.Areas.Admin.Controllers
         [Route("index")]
         public IActionResult Index()
         {
+            if (TempData["ModifySuccess"] != null)
+            {
+                ViewBag.ModifySuccess = CheckError.Success;
+            }
             string strPage = HttpContext.Request.Query["page"].ToString();
             int page = Convert.ToInt32(strPage == "" ? "1" : strPage);
             List<StationView> list = stationRepository.GetData(page);
@@ -83,17 +87,25 @@ namespace BusBooking_Project.Areas.Admin.Controllers
         [HttpGet("create")]
         public IActionResult Create()
         {
-            return View(new StationView { });
+            return View(new StationView { Active = true });
+        }
+
+        [HttpGet("getdistric/{cityId}")]
+        public IActionResult GetDistrictByCity(int cityId)
+        {
+            return Json(JsonConvert.SerializeObject(HelperACE.GetDataDistrict(cityId).ToList()));
         }
 
         [HttpPost("create")]
         public IActionResult Create(StationView stationView)
         {
-            int id = 0;
+            int id = (int)CheckError.ErrorOrther;
             if (ModelState.IsValid)
             {
+                string city = HelperACE.GetDataCity()[stationView.City];
+                string district = HelperACE.GetDataDistrict(stationView.City)[stationView.District];
+                stationView.Location = $"{city} - {district}";
                 id = stationRepository.CreateACE(stationView);
-
             }
             switch (id)
             {
@@ -117,15 +129,19 @@ namespace BusBooking_Project.Areas.Admin.Controllers
         {
             int id = Convert.ToInt32(HttpContext.Request.Query["id"].ToString());
             StationView station = stationRepository.GetByIdACE(id);
+            ViewBag.ListDistrict = HelperACE.GetDataDistrict(station.City);
             return View(station);
         }
 
         [HttpPost("modify")]
         public IActionResult Modify(StationView stationView)
         {
-            int id = 0;
+            int id = (int)CheckError.ErrorOrther;
             if (ModelState.IsValid)
             {
+                string city = HelperACE.GetDataCity()[stationView.City];
+                string district = HelperACE.GetDataDistrict(stationView.City)[stationView.District];
+                stationView.Location = $"{city} - {district}";
                 id = stationRepository.ModifyACE(stationView);
             }
             switch (id)
@@ -140,8 +156,10 @@ namespace BusBooking_Project.Areas.Admin.Controllers
                     ViewBag.Result = CheckError.ErrorOrther;
                     break;
                 default:
+                    TempData["ModifySuccess"] = CheckError.Success;
                     return RedirectToAction("index");
             }
+            ViewBag.ListDistrict = HelperACE.GetDataDistrict(stationView.City);
             return View(stationView);
         }
 

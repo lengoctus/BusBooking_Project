@@ -96,9 +96,17 @@
 
 @section script{
     <script>
+
+        if ('@ViewBag.ModifySuccess' == @CheckError.Success) {
+            alertSuccessNonReload();
+        }
+
         $(document).ready(function () {
             phantrangCurrentPage();
             $(".js-example-disabled-results").select2();
+
+            $('.input-ace').val(new URL(document.URL).searchParams.get("textsearch"));
+            $('#selectSearch').val(new URL(document.URL).searchParams.get("propertysearch")).trigger('change');
         })
 
         function phantrangCurrentPage() {

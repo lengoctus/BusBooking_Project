@@ -92,9 +92,16 @@
 
 @section script{
     <script>
+        if ('@ViewBag.ModifySuccess' == @CheckError.Success) {
+            alertSuccessNonReload();
+        }
+
         $(document).ready(function () {
             phantrangCurrentPage();
             $(".js-example-disabled-results").select2();
+
+            $('.input-ace').val(new URL(document.URL).searchParams.get("textsearch"));
+            $('#selectSearch').val(new URL(document.URL).searchParams.get("propertysearch")).trigger('change');
         })
 
         function phantrangCurrentPage() {
@@ -103,7 +110,7 @@
             if (!window.location.pathname.includes("/search")) {
                 phantrang('#pagination', @(ViewBag.Rows), '/admin/station?page=');
             } else {
-                $('#selectSearch').val(propertysearch).trigger('change');;
+                $('#selectSearch').val(propertysearch).trigger('change');
                 $('.input-ace').val(textsearch);
                 phantrang('#pagination', @(ViewBag.Rows), '/admin/station/search?propertysearch=' + propertysearch + '&textsearch=' + textsearch + '&page=');
             };
