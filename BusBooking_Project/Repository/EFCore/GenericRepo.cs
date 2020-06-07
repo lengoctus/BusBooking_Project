@@ -32,14 +32,16 @@ namespace BusBooking_Project.Repository.EFCore
         {
             try
             {
-                    await _db.Set<T>().AddAsync(entity);
-                    await _db.SaveChangesAsync();
-
-                    return await Task.FromResult(entity);
+                if (Checkvalue)
+                {
+                    return await Task.FromResult<T>(null);
+                }
+                await _db.Set<T>().AddAsync(entity);
+                await _db.SaveChangesAsync();
+                return await Task.FromResult(entity);
             }
             catch (Exception e)
             {
-                var error = e.Message;
                 return await Task.FromResult<T>(null);
             }
         }
@@ -65,16 +67,16 @@ namespace BusBooking_Project.Repository.EFCore
         {
             try
             {
-                //if (await _db.Set<T>().SingleOrDefaultAsync())
-                //{
+                if (await _db.Set<T>().FirstOrDefaultAsync(p => p.Id == Id) != null)
+                {
+                    _db.Set<T>().Remove(_db.Set<T>().FirstOrDefault(p => p.Id == Id));
+                    return await Task.FromResult(true);
 
-                //}
-                _db.Set<T>().Remove(_db.Set<T>().SingleOrDefault(p => p.Id == Id));
-                return await Task.FromResult(true);
+                }
+                return await Task.FromResult(false);
             }
             catch (Exception e)
             {
-                var error = e.Message;
                 return await Task.FromResult(false);
             }
         }
@@ -109,7 +111,7 @@ namespace BusBooking_Project.Repository.EFCore
             try
             {
                 var test1 = Thread.CurrentThread.ManagedThreadId;
-                var entity = await _db.Set<T>().SingleOrDefaultAsync(p => p.Id == Id);
+                var entity = await _db.Set<T>().FirstOrDefaultAsync(p => p.Id == Id);
 
                 var test2 = Thread.CurrentThread.ManagedThreadId;
                 return await Task.FromResult(entity);
@@ -136,16 +138,45 @@ namespace BusBooking_Project.Repository.EFCore
         {
             try
             {
-                _db.Set<T>().Update(entity);
-                await _db.SaveChangesAsync();
+                if (await _db.Set<T>().AsNoTracking().FirstOrDefaultAsync(p => p.Id == Id) != null)
+                {
+                    _db.Set<T>().Update(entity);
+                    await _db.SaveChangesAsync();
 
-                return await Task.FromResult(true);
+                    return await Task.FromResult(true);
+                }
+                return await Task.FromResult(false);
             }
             catch (Exception e)
             {
-                var error = e.Message;
+                var error = e.InnerException.Message;
                 return await Task.FromResult(false);
+            }
+        }
+
+        public IQueryable<T> GetDataRawSqlACE(string query)
+        {
+            return _db.Set<T>().FromSqlRaw(query).AsNoTracking();
+        }
+
+        public IQueryable<T> GetDataACE()
+        {
+            return _db.Set<T>().AsNoTracking();
+        }
+
+        public async Task<T> Add(T entity)
+        {
+            try
+            {
+                await _db.Set<T>().AddAsync(entity);
+                await _db.SaveChangesAsync();
+                return await Task.FromResult(entity);
+            }
+            catch (Exception e)
+            {
+                return await Task.FromResult<T>(null);
             }
         }
     }
 }
+
