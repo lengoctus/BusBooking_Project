@@ -17,4 +17,3 @@ namespace BusBooking_Project.Models.Entities
         public virtual Spacing Spacing { get; set; }
     }
 }
-

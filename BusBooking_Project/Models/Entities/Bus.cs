@@ -25,4 +25,3 @@ namespace BusBooking_Project.Models.Entities
         public virtual ICollection<Seat> Seat { get; set; }
     }
 }
-

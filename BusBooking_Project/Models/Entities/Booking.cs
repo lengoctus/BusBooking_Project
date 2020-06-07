@@ -30,4 +30,3 @@ namespace BusBooking_Project.Models.Entities
         public virtual ICollection<Ticket> Ticket { get; set; }
     }
 }
-
