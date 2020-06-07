@@ -17,8 +17,13 @@ namespace BusBooking_Project.Areas.Employee.Controllers
         {
             return View("Index");
         }
-        
-       
+        [Route("buyticket")]
+        public IActionResult Byticket()
+        {
+            return View("BuyTicket");
+        }
+
+
         [Route("login")]
         public IActionResult Login()    
         {

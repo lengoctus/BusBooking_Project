@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -31,8 +32,14 @@ namespace BusBooking_Project
         {
             services.AddControllersWithViews();
             services.AddScoped<IAccountRepo, AccountRepo>();
+
             services.AddScoped<ICategoryRepo, CategoryRepo>();
-            services.AddDbContext<ConnectDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ConnectDb")));
+
+            //string serverName = Environment.MachineName + @"\SQLExpress";
+            //string connectString = "Server=" + (serverName == null ? "." : serverName) + ";Database=BusBooking;user id=sa;password=123;Trusted_Connection=false;MultipleActiveResultSets=true";
+            var connectionString = Configuration.GetConnectionString("ConnectDb");  
+            services.AddDbContext<ConnectDbContext>(options => options.UseLazyLoadingProxies().UseSqlServer(connectionString));
+
             services.AddAuthentication(options =>
             {
                 options.DefaultScheme = "SCHEME_AD";

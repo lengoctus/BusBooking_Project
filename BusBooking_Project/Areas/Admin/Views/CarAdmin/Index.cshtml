@@ -1,9 +1,8 @@
 ﻿
 @{
     ViewData["Title"] = "Index";
-    Layout = "~/Areas/Employee/Views/Shared/_LayoutAdmin.cshtml";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
-
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -35,45 +34,44 @@
                             <table id="example2" class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
-                                        <th>Code Booking</th>
-                                        <th>User Code</th>
-                                        <th>Day Create</th>
-                                        <th>Day Start</th>
-                                        <th>Bus ID</th>
-                                        <th>From Address</th>
-                                        <th>To Address</th>
+                                        <th>Code</th>
+                                        <th>Active</th>
+                                        <th>Status</th>
+                                        <th>TotalSeat</th>
+                                        <th>image</th>
+                                        <th>SeatEmpty</th>
+                                        <th>CateId</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>B01</td>
-                                        <td>U01</td>
-                                        <td>
-                                            6/5/2020
-                                        </td>
-                                        <td>7/5/2020</td>
-                                        <td>XE 1</td>
-                                        <td> Hà Nội</td>
-                                        <td>Hồ Chí Minh</td>
-                                        <td>
+                                    @foreach (var item in ViewBag.cars)
+                                    {
+                                        <tr>
+                                            <td>@item.Code</td>
+                                            <td>@item.Active</td>
+                                            <td>
+                                                @item.Status
+                                            </td>
+                                            <td>@item.TotalSeat</td>
+                                            <td><p>Images</p></td>
+                                            <td>@item.SeatEmpty</td>
+                                            <td>@item.CateId</td>
+                                            <td align="center">
 
-                                           
-                                                <button asp-area="employee" asp-controller="sendmail" asp-action="index" type="button" class="btn btn-primary">Tiếp Tục</button>
-                                           
+                                                <button>Edit</button>
+                                                <a asp-area="admin" asp-controller="car" asp-action="edit" asp-route-id="@item.Code">Edit<i class='fa fa-refresh' style='font-size:24px'> </a>
+                                            </td>
 
-                                        </td>
+                                        </tr>
+                                    }
 
-                                    </tr>
-                                   
                                 </tbody>
                             </table>
                         </div>
                         <!-- /.card-body -->
                     </div>
                     <!-- /.card -->
-
-                   
                     <!-- /.card -->
                 </div>
                 <!-- /.col -->
@@ -84,3 +82,5 @@
     </section>
     <!-- /.content -->
 </div>
+
+
