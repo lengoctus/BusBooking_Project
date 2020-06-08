@@ -1,0 +1,123 @@
+﻿@model Bus
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit</title>
+
+    <link href="~/css/StyleSheet1.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>Edit Product</h1>
+    <br />
+    <br />
+    <form method="post" asp-area="admin" asp-controller="car" asp-action="edit">
+        <table>
+            <tr>
+                <td>Code</td>
+                <td>
+                    <input type="text" value="@Model.Code" readonly asp-for="@Model.Code" />
+                </td>
+            </tr>
+            <tr>
+                <td>Active</td>
+                <td>
+                    <input type="checkbox" asp-for="@Model.Active" value="@Model.Active" checked="@Model.Active" />
+                </td>
+            </tr>
+            <tr>
+                <td>Status</td>
+                <td>
+                    <input type="checkbox" asp-for="@Model.Status" value="@Model.Status" checked="@Model.Status" />
+                </td>
+            </tr>
+            <tr>
+                <td>Total Seat</td>
+                <td>
+                    <input type="text" asp-for="@Model.TotalSeat" />
+                </td>
+            </tr>
+            <tr>
+                <td>Images</td>
+                <td>
+                    <div>
+                        <img width="200" height="200" id="photo" src="~/admin/image/@Model.Image" /> <br /> <br />
+                        <input type="file" name="inputphoto" onchange="change()" />
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Seat Empty</td>
+                <td>
+                    <input type="text" asp-for="@Model.SeatEmpty" />
+                </td>
+            </tr>
+            <tr>
+                <td>Cate Id</td>
+                <td>
+                    <select asp-for="CateId" class="input-ace form-control">
+                        <option value="0">Express</option>
+                        <option value="1">Luxury</option>
+                        <option value="2">Volvo(NAC)</option>
+                        <option value="3">Volvo(AC)</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>
+                    <input type="submit" value="Save" />
+                    <input type="hidden" asp-for="@Model.Id" />
+                </td>
+            </tr>
+
+
+        </table>
+
+
+
+    </form>
+    @section script{
+        <script>
+
+        $(document).ready(function () {
+            $("#datepicker").val(new Date().getDate() + '/' + (new Date().getMonth() + 1) + '/' + new Date().getFullYear());
+            switch ('@ViewBag.Result') {
+                case '@(CheckError.AlreadyEmail)':
+                    ErrorMode('Email already. Please choose email orther.',$('#result'));
+                    break;
+                 case '@(CheckError.AlreadyPhone)':
+                    alertError('Phone already. Please choose phone orther.', $('#result'));
+                    break;
+                 case '@(CheckError.ErrorOrther)':
+                    alertError('Can not connect Internet', $('#result'));
+                    break;
+            }
+
+            CKEDITOR.replace('textDescription', {
+                height:200,
+                filebrowserUploadUrl:'/admin/user/upload_ckeditor',
+                filebrowserBrowseUrl:'/admin/user/file_browser'
+            });
+        })
+
+        function change() {
+            $('#photo').attr("src", URL.createObjectURL($('#inputphoto')[0].files[0]));
+        }
+
+        $(function () {
+            $("#datepicker").datepicker({
+                changeMonth: true,
+                changeYear: true
+            });
+        });
+        </script>
+    }
+
+
+</body>
+</html>
+
+

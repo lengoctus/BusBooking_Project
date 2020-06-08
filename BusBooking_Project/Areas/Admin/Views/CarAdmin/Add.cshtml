@@ -1,4 +1,4 @@
-﻿@model BusBooking_Project.Models.Entities.Bus
+﻿@model Bus
 
 <!DOCTYPE html>
 
@@ -18,19 +18,19 @@
             <tr>
                 <td>Active</td>
                 <td>
-                    <input type="checkbox" asp-for="Active" checked="checked" />
+                    <input type="checkbox"  value="@Model.Active" checked="@Model.Active"/>
                 </td>
             </tr>
             <tr>
                 <td>Status</td>
                 <td>
-                    <input type="checkbox" asp-for="Status" />
+                    <input type="checkbox"  value="@Model.Status" checked="@Model.Status"/>
                 </td>
             </tr>
             <tr>
                 <td>Total Seat</td>
                 <td>
-                    <input type="text" asp-for="TotalSeat" />
+                    <input type="text" asp-for="@Model.TotalSeat" />
                 </td>
             </tr>
             <tr>
@@ -42,20 +42,20 @@
             <tr>
                 <td>Seat Empty</td>
                 <td>
-                    <input type="checkbox" asp-for="SeatEmpty" />
+                    <input type="text" asp-for="@Model.SeatEmpty" />
                 </td>
             </tr>
             <tr>
                 <td>Cate Id</td>
                 <td>
-                    <input type="checkbox" asp-for="Cate" />
+                    <input type="text" asp-for="@Model.Cate.Id" />
                 </td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
                 <td>
-                    <input type="submit" value="Save" />
-                    <input type="hidden" asp-for="Code" />
+                    <input type="submit" value="Save"  />
+                    <input type="hidden" asp-for="@Model.Id" />
                 </td>
             </tr>
 

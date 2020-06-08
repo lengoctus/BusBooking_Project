@@ -35,7 +35,7 @@ namespace BusBooking_Project
 
             services.AddScoped<ICategoryRepo, CategoryRepo>();
 
-            //string serverName = Environment.MachineName + @"\SQLExpress";
+            //string serverName = Environment.MachineName;
             //string connectString = "Server=" + (serverName == null ? "." : serverName) + ";Database=BusBooking;user id=sa;password=123;Trusted_Connection=false;MultipleActiveResultSets=true";
             var connectionString = Configuration.GetConnectionString("ConnectDb");  
             services.AddDbContext<ConnectDbContext>(options => options.UseLazyLoadingProxies().UseSqlServer(connectionString));

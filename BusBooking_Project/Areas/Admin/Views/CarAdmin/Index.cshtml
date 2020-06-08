@@ -1,4 +1,4 @@
-﻿
+﻿@model Bus
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
@@ -47,23 +47,25 @@
                                 <tbody>
                                     @foreach (var item in ViewBag.cars)
                                     {
-                                        <tr>
-                                            <td>@item.Code</td>
-                                            <td>@item.Active</td>
-                                            <td>
-                                                @item.Status
-                                            </td>
-                                            <td>@item.TotalSeat</td>
-                                            <td><p>Images</p></td>
-                                            <td>@item.SeatEmpty</td>
-                                            <td>@item.CateId</td>
-                                            <td align="center">
+                                    <tr>
+                                        <td>@item.Code</td>
+                                        <td>@item.Active</td>
+                                        <td>
+                                            @item.Status
+                                        </td>
+                                        <td>@item.TotalSeat</td>
+                                        <td>
+                                            <img width="75" height="75" id="photo" src="~/admin/image/@item.Image" />
+                                        </td>
+                                        <td>@item.SeatEmpty</td>
+                                        <td>@item.CateId</td>
+                                        <td>
 
-                                                <button>Edit</button>
-                                                <a asp-area="admin" asp-controller="car" asp-action="edit" asp-route-id="@item.Code">Edit<i class='fa fa-refresh' style='font-size:24px'> </a>
-                                            </td>
 
-                                        </tr>
+                                            <a asp-area="admin" asp-controller="car" asp-action="edit" asp-route-id="@item.Id">Edit</a>
+                                        </td>
+
+                                    </tr>
                                     }
 
                                 </tbody>
