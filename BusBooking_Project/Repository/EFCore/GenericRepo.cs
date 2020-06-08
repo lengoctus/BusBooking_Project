@@ -43,6 +43,7 @@ namespace BusBooking_Project.Repository.EFCore
             }
             catch (Exception e)
             {
+                var error = e.Message;
                 return await Task.FromResult<T>(null);
             }
         }
@@ -79,6 +80,7 @@ namespace BusBooking_Project.Repository.EFCore
             }
             catch (Exception e)
             {
+                var error = e.Message;
                 return await Task.FromResult(false);
             }
         }
