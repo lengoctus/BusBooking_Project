@@ -33,7 +33,7 @@ namespace BusBooking_Project.Repository.CsRepository
         #region Create
         public int CreateACE(AccountView accountView)
         {
-            int check = Check(accountView);
+            int check = CheckCreate(accountView);
             if (check == (int)CheckError.Success)
             {
                 Account account = new Account
@@ -55,15 +55,23 @@ namespace BusBooking_Project.Repository.CsRepository
                     Status = true,
                     Active = true,
                 };
-                return Create(account, true).Result.Id;
+                try
+                {
+                    Account account_1 = Add(account).Result;
+                    if (account_1 == null) return (int)CheckError.ErrorOrther;
+                }
+                catch (Exception e)
+                {
+                    return (int)CheckError.ErrorOrther;
+                }
+                return (int)CheckError.Success;
             }
             else
             {
                 return check;
             }
         }
-
-        private int Check(AccountView accountView)
+        private int CheckCreate(AccountView accountView)
         {
             try
             {
@@ -85,7 +93,6 @@ namespace BusBooking_Project.Repository.CsRepository
                 return (int)CheckError.ErrorOrther;
             }
         }
-
         private string GetCode()
         {
             Account acc = GetDataACE().OrderByDescending(s => s.Id).FirstOrDefault();
@@ -134,14 +141,12 @@ namespace BusBooking_Project.Repository.CsRepository
                     StationName = s.Station.Name
                 }).ToList();
         }
-
         public int CountData()
         {
             return GetDataACE()
                 .Where(s => (bool)s.Status)
                 .Count();
         }
-
         public AccountView GetByIdACE(int id)
         {
             Account account = GetById(id).Result;
@@ -154,8 +159,8 @@ namespace BusBooking_Project.Repository.CsRepository
                 DayEdited = (DateTime)account.DayEdited,
                 Description = account.Description,
                 Dob = (DateTime)account.Dob,
-                EditerId = account.EditerId??0,
-                //Editer = account.EditerId != null ? GetById((int)account.EditerId).Result : null,
+                EditerId = account.EditerId ?? 0,
+                Editer = account.EditerId != null ? GetById((int)account.EditerId).Result : null,
                 Email = account.Email,
                 Gender = (int)account.Gender,
                 Name = account.Name,
@@ -163,7 +168,8 @@ namespace BusBooking_Project.Repository.CsRepository
                 Password = account.Password,
                 Phone = account.Phone,
                 Active = (bool)account.Active,
-                Status = (bool)account.Status
+                Status = (bool)account.Status,
+                StationId = (int)account.StationId,
             };
         }
 
@@ -203,7 +209,7 @@ namespace BusBooking_Project.Repository.CsRepository
         #region Modify
         public int ModifyACE(AccountView accountView, int EditerId)
         {
-            int check = Check(accountView);
+            int check = CheckModify(accountView);
             if (check == (int)CheckError.Success)
             {
                 Account account = GetById(accountView.Id).Result;
@@ -222,6 +228,29 @@ namespace BusBooking_Project.Repository.CsRepository
                 return (int)CheckError.ErrorOrther;
             }
             return check;
+        }
+
+        private int CheckModify(AccountView accountView)
+        {
+            try
+            {
+                Account accountEmail = GetDataACE().SingleOrDefault(s => s.Id != accountView.Id && s.Email.Trim().ToLower() == accountView.Email.Trim().ToLower());
+                if (accountEmail != null)
+                {
+                    return (int)CheckError.AlreadyEmail;
+                }
+                Account accountPhone = GetDataACE().SingleOrDefault(s => s.Id != accountView.Id && s.Phone.Trim() == accountView.Phone.Trim());
+                if (accountPhone != null)
+                {
+                    return (int)CheckError.AlreadyPhone;
+                }
+                return (int)CheckError.Success;
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+                return (int)CheckError.ErrorOrther;
+            }
         }
 
         public bool SetStatus(int id)

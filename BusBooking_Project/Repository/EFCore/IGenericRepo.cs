@@ -13,6 +13,8 @@ namespace BusBooking_Project.Repository.EFCore
 
         Task<T> Create(T entity, bool Checkvalue);
 
+        Task<T> Add(T entity);
+
 
         Task<T> GetById(int Id);
 

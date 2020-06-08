@@ -1,0 +1,140 @@
+﻿<div class="row" id="step1">
+    <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12 col-ms-12">
+        <div class="panel">
+            <p class="text-center text-primary text-uppercase">
+                <strong>Chọn tuyến</strong>
+            </p>
+            <form id="form-steps" name="form" novalidate="" style="min-height: 260px;" class="ng-dirty ng-valid-parse ng-valid ng-valid-required ng-valid-min ng-valid-max">
+                <fieldset>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-ms-12">
+                            <div class="form-group">
+                                <label for="">Điểm khởi hành <span class="text-primary">*</span></label>
+                                <div class="controls">
+                                    <i class="fa fa-bus text-primary"></i>
+                                    <p class="form-control">
+                                        <span class="f-left">Châu Đốc</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-ms-12">
+                            <div class="form-group">
+                                <label for="">Điểm đến <span class="text-primary">*</span></label>
+                                <div class="controls">
+                                    <i class="fa fa-bus text-primary"></i>
+                                    <p class="form-control">
+                                        <span class="f-left">Cần Thơ</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-ms-12">
+                            <div class="form-group">
+                                <label for="">Ngày khởi hành <span class="text-primary">*</span></label>
+                                <div class="controls">
+                                    <i class="fa fa-calendar text-primary"></i>
+                                    <input type="text" name="dDate" placeholder="dd/mm/yyyy" class="form-control dDate date-readonly" value="30-05-2020" readonly="" data-mindate="01-06-2020" data-maxdate="30-06-2020" required="" dateselect="" >
+                                    <small><em>Định dạng: dd-mm-yyyy</em></small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-ms-12">
+                            <div class="form-group">
+                                <label for="">Số lượng vé</label>
+                                <div class="controls">
+                                    <i class="fa fa-ticket text-primary"></i>
+                                    <input type="number" name="numOfTicket" placeholder="1" value="1" min="1" max="5" class="form-control ng-pristine ng-untouched ng-valid valid ng-valid-min ng-valid-max">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-section">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-ms-12">
+                            <a href="/" class="btn btn-primary btn-flat">
+                                <i class="fa fa-close icon-flat bg-btn-actived"></i> Hủy
+                            </a>
+                            <button type="submit" class="btn btn-success btn-flat">
+                                <i class="fa fa-arrow-right icon-flat bg-success"></i>Tiếp tục
+                            </button>
+                        </div>
+                    </div>
+                </fieldset>
+
+            </form>
+
+        </div>
+    </div>
+    <div class="col-lg-7 col-md-7 col-sm-6 col-xs-12 col-ms-12">
+        <div class="route-info">
+            <ul class="nav nav-tabs nav-justified">
+                <li class="active"><a href="#tab0" data-toggle="tab" aria-expanded="true">Thông tin chung</a></li>
+                <li class=""><a href="#tab1" data-toggle="tab" aria-expanded="false">Điểm đón xe</a></li>
+                <li class=""><a href="#tab2" data-toggle="tab" aria-expanded="false">Điểm trung chuyển</a></li>
+            </ul>
+            <div class="tab-content" style="height: auto; padding-left: 25px; padding-right: 25px;">
+                <!--270px-->
+                <div id="tab0" class="tab-pane active">
+                    <div class="row mg-t10">
+                        <div class="col-xs-12">
+                            <h5><strong>Chau Doc ⇒ Can Tho</strong> - Khoảng cách:&nbsp;<strong>116 Km</strong> - Thời gian:&nbsp;<strong>4 giờ</strong></h5>
+                            <div ng-repeat="s in r.RouteStops" ng-if="s.Type == 0">
+                                <span><i class="fa fa-dot-circle-o"></i>&nbsp;&nbsp;Bến đi:&nbsp;VP Châu Đốc: 69 Phan Văn Vàng, P.Châu Phú A , TP.Châu Đốc (TERMINAL BUS STATION)</span>
+                            </div>
+                            <div ng-repeat="s in r.RouteStops" ng-if="s.Type == 0">
+                                <span><i class="fa fa-dot-circle-o"></i>&nbsp;&nbsp;Bến đi:&nbsp;VP BX Châu Đốc, Đường Tôn Đức Thắng , P.Vĩnh Mỹ , TP.Châu Đốc (TERMINAL BUS STATION)</span>
+                            </div>
+                        </div>
+                    </div><!-- end ngRepeat: r in matchRoutes -->
+                    <p class="text-primary mg-t10">* Lưu ý: thời gian đón và trung chuyển xe có thể thay đổi phụ thuộc vào mật độ giao thông tại từng thời điểm. Kính mong quý hành khách thông cảm !</p>
+                </div>
+                <div id="tab1" class="tab-pane">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-fixed ng-hide">
+                            <thead>
+                                <tr>
+                                    <th class="col-ms-1">#</th>
+                                    <th class="col-ms-7">Điểm đón</th>
+                                    <!--<th class="col-ms-3">Khoảng cách<sup>Km</sup></th>-->
+                                    <th class="col-ms-4">Thời gian</th>
+                                </tr>
+                            </thead>
+                            <tbody style="height: 175px;">
+                                <!-- ngRepeat: s in pickUpPoints track by $index -->
+                            </tbody>
+                        </table>
+                        <p class="">Đang cập nhật ...</p>
+                    </div>
+                </div>
+                <div id="tab2" class="tab-pane">
+                    <table class="table table-striped table-fixed ng-hide">
+                        <thead>
+                            <tr>
+                                <th class="col-ms-1">#</th>
+                                <th class="col-ms-8">Điểm trung chuyển</th>
+                                <th class="col-ms-3">Xe đón trước<sup>phút</sup></th>
+                            </tr>
+                        </thead>
+                        <tbody style="height: 175px;">
+                            <!-- ngRepeat: s in shipPoints track by $index -->
+                        </tbody>
+                    </table>
+                    <p class="">Đang cập nhật ...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-ms-12">
+        <p class="text-center">
+            <a onclick="jQuery('#maps').slideDown()" class="text-uppercase" style="cursor: pointer;"><i class="fa fa-map"></i> Xem bản đồ <i class="fa fa-caret-down"></i> </a>
+            <a onclick="jQuery('#maps').slideUp()" class="text-uppercase" style="cursor: pointer;">Thu gọn <i class="fa fa-caret-up"></i></a>
+        </p>
+        <div id="maps">
+            <div class="map-canvas" style="width: 100%; height: 447px; position: relative; background-color: rgb(229, 227, 223); overflow: hidden;"></div>
+        </div>
+    </div>
+</div>

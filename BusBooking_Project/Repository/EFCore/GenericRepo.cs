@@ -38,7 +38,6 @@ namespace BusBooking_Project.Repository.EFCore
                 }
                 await _db.Set<T>().AddAsync(entity);
                 await _db.SaveChangesAsync();
-
                 return await Task.FromResult(entity);
             }
             catch (Exception e)
@@ -198,6 +197,23 @@ namespace BusBooking_Project.Repository.EFCore
             return _db.Set<T>().AsNoTracking();
         }
 
+<<<<<<< HEAD
 
+=======
+        public async Task<T> Add(T entity)
+        {
+            try
+            {
+                await _db.Set<T>().AddAsync(entity);
+                await _db.SaveChangesAsync();
+                return await Task.FromResult(entity);
+            }
+            catch (Exception e)
+            {
+                return await Task.FromResult<T>(null);
+            }
+        }
+>>>>>>> origin/hongson
     }
 }
+
