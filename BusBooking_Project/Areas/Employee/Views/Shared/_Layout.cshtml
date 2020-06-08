@@ -1,6 +1,4 @@
-﻿
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi-VN">
 <head>
     <meta charset="UTF-8">
@@ -55,7 +53,7 @@
     </noscript>
     <!-- End Google Tag Manager -->
 
-    
+    <img src="~/customer/Content/img/private/button-19006067-03.png" class="hotlinebutton-fixed" alt="hotline futabus" />
 
     <div id="br-cover-content">
         <div id="myModal" class="modal fade" role="dialog">
@@ -68,12 +66,12 @@
                 <div id="top-nav" class="hidden-xs">
                     <div class="container">
                         <ul class="clearfix">
-                            <li class="pull-right diff"><a href="/en-US"><img src="~/customer/Content/res/GB.png" style="padding-bottom: 2px;" alt="English" />&nbsp;<span class="hidden-xs">English</span></a></li>
+                            @*<li class="pull-right diff"><a href="/en-US"><img src="~/customer/Content/res/GB.png" style="padding-bottom: 2px;" alt="English" />&nbsp;<span class="hidden-xs">English</span></a></li>
                             <li class="pull-right">
                                 <a target="_blank" href="https://www.facebook.com/xephuongtrang">
                                     <i class="fa fa-facebook-square"></i>&ensp;Fanpage
                                 </a>
-                            </li>
+                            </li>*@
                         </ul>
                     </div>
                 </div>
@@ -93,113 +91,17 @@
                             </button>
 
                         </div>
-                        <ul class="pull-right hidden-xs">
-                            <li><a href="/vi-VN/ve-xe-phuong-trang-lich-trinh.html">Lịch trình</a></li>
-                            <li><a href="/vi-VN/ve-xe-phuong-trang-tin-tuc.html">Tin tức</a></li>
-                            <li><a href="/vi-VN/ve-xe-phuong-trang-lien-he.html">Liên hệ</a></li>
-
-                            <li><a target="_blank" href="https://hoadon.futabus.vn/">Hóa đơn</a></li>
-
-                        </ul>
+                        
                     </div>
                 </nav>
             </div>
 
-            <section id="body-top" style="margin-bottom: 50px">
-                @RenderBody()
-            </section>
 
-            <section class="br-download-v2"></section>
 
-            <div class="sb-slidebar sb-left">
+            @RenderBody()
 
-                <ul>
-                    <li class="first text-center">
-                        <a href="/">
-                            <img width="200" src="Content/img/logo.png" alt="">
-                        </a>
-                    </li>
-                    <li><a href="/en-US"><img src="~/customer/Content/res/GB.png" style="padding-bottom: 2px;" alt="English" />&nbsp;<span>English</span></a></li>
-                    <li><a href="/vi-VN/ve-xe-phuong-trang-lich-trinh.html">Giá vé</a></li>
-                    <li><a href="/vi-VN/cac-chuong-trinh-khuyen-mai.html">Khuyến mãi</a></li>
-                    <li><a href="/vi-VN/ve-xe-phuong-trang-tin-tuc.html">Tin tức</a></li>
-                    <li><a href="/vi-VN/ve-xe-phuong-trang-lien-he.html">Liên hệ</a></li>
-                    <li><a href="https://id.futabus.vn">Đăng nhập</a></li>
-                    <li><a target="_blank" href="https://hoadon.futabus.vn/">Hóa đơn</a></li>               
-                    <li><a href="#cd-nav" class="cd-nav-trigger-mobile">Khuyến mãi mới</a></li>
-                </ul>
-
-            </div>
-            <footer>
-
-                <div id="footer-body">
-                    <div class="f-body-wrap container">
-
-                        <nav id="nav-f">
-                            <ul>
-                                <li><a href="/vi-VN/ve-xe-phuong-trang-lich-trinh.html">Lịch trình</a></li>
-                                <li><a href="/vi-VN/ve-xe-phuong-trang-ve-chung-toi.html">Về chúng tôi</a></li>
-                                <li><a href="/vi-VN/ve-xe-phuong-trang-dieu-khoan-su-dung.html">Điều khoản sử dụng</a></li>
-
-                                <li><a href="/vi-VN/ve-xe-phuong-trang-tin-tuc.html">Tin tức</a></li>
-                                <li><a href="/vi-VN/cau-hoi-thuong-gap.html">Hỏi &amp; Đáp</a></li>
-                            </ul>
-                        </nav>
-
-                        <div id="f-info" class="row">
-                            <div class="col-md-5 col-md-offset-2">
-                                <div id="download_btn">
-                                    <ul>
-                                        <li>Tải app SRCBUS tại</li>
-                                        <li>
-                                            <a href="https://itunes.apple.com/us/app/futa/id1049039667" target="_blank">
-                                                <img src="~/customer/Content/img/app-store.png">
-                                            </a>
-                                            <a href="https://play.google.com/store/apps/details?id=com.futabus.activity" target="_blank">
-                                                <img src="~/customer/Content/img/an-droid.png">
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div id="social">
-                                    <ul style="text-align:left">
-                                        <li>Kết nối với chúng tôi</li>
-                                        <li>
-                                            <a target="_blank" href="https://www.facebook.com/xephuongtrang">
-                                                <i class="fa fa-facebook-square"></i>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="">
-                                                <i class="fa fa-google-plus-square"></i>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="">
-                                                <i class="fa fa-twitter-square"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div class="col-md-5 text-left">
-                                <a target="_blank" href="http://www.online.gov.vn/CustomWebsiteDisplay.aspx?DocId=14037">
-                                    <img src="~/customer/Content/img/private/dathongbao-bocongthuong.png" class="logo-bocongthuong">
-                                </a>
-                            </div>
-
-                        </div>
-
-                        <div class="f-copy">
-
-                            <p>&copy; 2001-2016 | Bản quyền thuộc về Công ty Cổ Phần Xe Khách SRC| <a href="/">www.srcbus.vn</a></p>
-                        </div>
-                    </div>
-                </div>
-
-            </footer>
-
+            
+        
         </div>
     </div>
 
@@ -222,7 +124,6 @@
     </script>
 
     <script>
-
         (function ($) {
             $(document).ready(function () {
                 $.slidebars({
@@ -235,6 +136,10 @@
         })(jQuery);
 
     </script>
+
+
+
+
 
 
 
@@ -358,32 +263,14 @@
                     });
                 });
             });
-
-            var seats = [];
-            var selectedSeat = [];
-            $('.seat').click(function (e) {
-                if ($(this).hasClass('selected') == false && $(this).hasClass('choosed') == false) {
-                    $(this).addClass("selected");
-                    e.preventDefault();
-                    seats.push($(this).attr('data-id'));
-                    selectedSeat.push($(this).text());
-                    $('.ng-show').text(selectedSeat.toString());
-                    console.log(seats);
-                }
-                else if ($(this).hasClass('selected')) {
-                    $(this).removeClass('selected');
-
-                    seats.splice($.inArray($(this).attr('data-id'), seats), 1);
-                    selectedSeat.splice($.inArray($(this).text(), selectedSeat), 1);
-                    $('.ng-show').text(selectedSeat.toString());
-                    console.log(seats);
-                }
-            });
-        });
+        })
             //$(window).load(function () {
             //    setCookie('showPop', '0');
             //});
     </script>
+
+
+
 
 
     <!-- GA Tracking -->

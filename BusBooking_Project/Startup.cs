@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -32,6 +33,7 @@ namespace BusBooking_Project
         {
             services.AddControllersWithViews();
             services.AddScoped<IAccountRepo, AccountRepo>();
+
             services.AddScoped<ICategoryRepo, CategoryRepo>();
             services.AddScoped<IBusRePo, BusRepo>();
             services.AddScoped<ISeatRePo, SeatRepo>();

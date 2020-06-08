@@ -30,10 +30,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Employee\Controllers\" />
     <Folder Include="Areas\Employee\Data\" />
     <Folder Include="Areas\Employee\Models\" />
-    <Folder Include="Areas\Employee\Views\" />
     <Folder Include="wwwroot\customer\font-awesome\fonts\" />
   </ItemGroup>
 
@@ -342,6 +340,13 @@
     <None Include="wwwroot\customer\nhap_ma_tra_cuu\scripts.5c33fadf7d1dff460529.js" />
     <None Include="wwwroot\customer\nhap_ma_tra_cuu\socicon.a35b65744f557fab5424.svg#socicon" />
     <None Include="wwwroot\customer\www.googletagmanager.com\gtm.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Areas\Employee\Views\BookTicket\Buyticket.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
 

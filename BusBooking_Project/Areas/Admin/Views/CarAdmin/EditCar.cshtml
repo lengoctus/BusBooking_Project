@@ -1,0 +1,73 @@
+﻿@model BusBooking_Project.Models.Entities.Bus
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit</title>
+
+    <link href="~/css/StyleSheet1.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>Edit Product</h1>
+    <br />
+    <br />
+    <form method="post" asp-area="admin" asp-controller="car" asp-action="edit">
+        <table>
+            <tr>
+                <td>Active</td>
+                <td>
+                    <input type="checkbox" asp-for="Active" checked="checked" />
+                </td>
+            </tr>
+            <tr>
+                <td>Status</td>
+                <td>
+                    <input type="checkbox" asp-for="Status" />
+                </td>
+            </tr>
+            <tr>
+                <td>Total Seat</td>
+                <td>
+                    <input type="text" asp-for="TotalSeat" />
+                </td>
+            </tr>
+            <tr>
+                <td>Images</td>
+                <td>
+                    <p>abc.jpg</p>
+                </td>
+            </tr>
+            <tr>
+                <td>Seat Empty</td>
+                <td>
+                    <input type="checkbox" asp-for="SeatEmpty" />
+                </td>
+            </tr>
+            <tr>
+                <td>Cate Id</td>
+                <td>
+                    <input type="checkbox" asp-for="Cate" />
+                </td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>
+                    <input type="submit" value="Save" />
+                    <input type="hidden" asp-for="Code" />
+                </td>
+            </tr>
+
+
+        </table>
+
+
+
+    </form>
+
+
+</body>
+</html>
+
+
