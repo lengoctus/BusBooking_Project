@@ -1,193 +1,95 @@
-﻿
-@{
-    ViewData["Title"] = "Seats Manager";
+﻿@{
+    ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
-<div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Dashboard v2</h1>
-                </div><!-- /.col -->
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Dashboard v2</li>
-                    </ol>
-                </div><!-- /.col -->
-            </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
-    <!-- Main content -->
-    <section class="content">
-        <div class="container-fluid">
-            <!-- Info boxes -->
-            @await Component.InvokeAsync("MenuManager")
-            <!-- /.row -->
 
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="container-fluid">
-                        <table border="2">
-                            <tr>
-                                <th>Year</th>
-                                <th>IE</th>
-                                <th>FF</th>
-                                <th>Chrome</th>
-                                <th>Safari</th>
-                                <th>Opera</th>
-                            </tr>
-                            <tr class="paginate">
-                                <td>2013</td>
-                                <td>10.5%</td>
-                                <td>26.8%</td>
-                                <td>54.8%</td>
-                                <td>4.0%</td>
-                                <td>1.8%</td>
-                            </tr>
-                            <tr class="paginate">
-                                <td>2012</td>
-                                <td>14.7%</td>
-                                <td>31.1%</td>
-                                <td>46.9%</td>
-                                <td>4.2%</td>
-                                <td>2.1%</td>
-                            </tr>
-                            <tr class="paginate">
-                                <td>2011</td>
-                                <td>20.2%</td>
-                                <td>37.7%</td>
-                                <td>34.6%</td>
-                                <td>4.2%</td>
-                                <td>2.5%</td>
-                            </tr>
-                            <tr class="paginate">
-                                <td>2010</td>
-                                <td>27.5%</td>
-                                <td>43.5%</td>
-                                <td>22.4%</td>
-                                <td>3.8%</td>
-                                <td>2.2%</td>
-                            </tr>
-                            <tr class="paginate">
-                                <td>2009</td>
-                                <td>37.2%</td>
-                                <td>46.4%</td>
-                                <td>9.8%</td>
-                                <td>3.6%</td>
-                                <td>2.3%</td>
-                            </tr>
-                            <tr class="paginate">
-                                <td>2008</td>
-                                <td>46.0%</td>
-                                <td>44.4%</td>
-                                <td>3.6%</td>
-                                <td>2.7%</td>
-                                <td>2.4%</td>
-                            </tr>
-                        </table>
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>DataTables Seat</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">DataTables</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
 
-                        <div id="page-nav"></div>
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-3">
+                            <!-- select -->
+                            <div class="form-group">
+                                <label>Select Bus</label>
+                                <select class="form-control">
+                                    <option>option 1</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-6"></div>
+                        <div class="col-3">
+                            <button type="button" class="btn btn-block bg-gradient-success">
+                                <i class="fas fa-plus"></i>&nbsp; Add
+                            </button>
+                        </div>
                     </div>
-                    <!-- /.card -->
                 </div>
-                <!-- /.col -->
-            </div>
-            <!-- /.row -->
-            <!-- /.row -->
-        </div><!--/. container-fluid -->
-    </section>
-    <!-- /.content -->
-</div>
-<div class="modal fade" id="addform" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="exampleModalLabel">New Category</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            </div>
-            <div class="modal-body">
-                <form method="post" id="addCategory">
-                    <div class="form-group">
-                        <label for="CodeCategory" class="control-label">Code:</label>
-                        <input type="text" class="form-control" id="CodeCategory">
-                    </div>
-                    <div class="form-group">
-                        <label for="NameCategory" class="control-label">Name:</label>
-                        <input type="text" id="NameCategory" class="form-control" />
-                    </div>
-                    <div class="form-group">
-                        <label for="PriceCategory" class="control-label">Price:</label>
-                        <input type="text" id="PriceCategory" class="form-control" />
-                    </div>
-                    <div class="form-group">
-                        <label class="custom-control teleport-switch">
-                            <span class="teleport-switch-control-description">Active:</span>
-                            <input type="checkbox" checked id="ActiveCategory" class="teleport-switch-control-input">
-                            <span class="teleport-switch-control-indicator"></span>
-                        </label>
-                    </div>
-                    <div class="form-group">
-                        <label class="custom-control teleport-switch">
-                            <span class="teleport-switch-control-description">Status:</span>
-                            <input type="checkbox" checked id="StatusCategory" class="teleport-switch-control-input">
-                            <span class="teleport-switch-control-indicator"></span>
-                        </label>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" id="send" class="btn btn-primary">Submit</button>
-            </div>
-        </div>
-    </div>
-</div>
+                <!-- /.card-header -->
+                <div class="card-body">
 
-<div class="modal fade" id="editCate" tabindex="-1" role="dialog" aria-labelledby="ModalEdit">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="ModalEdit">Edit</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <table id="example2" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Code Seat</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>a</td>
+                                <td class="item-record">
+                                    <a class="btn btn-info btn-sm">
+                                        <i class="fas fa-pencil-alt">
+                                        </i> &nbsp;
+                                        <span class="view-edit" style="font-size:1rem;">View/Edit</span>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Code Seat</th>
+                                <th>Action</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    <div class="row my-3">
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-danger" id="removeTargetSelected">
+                                <i class="fas fa-trash">
+                                </i>
+                                Remove
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card-body -->
+                
             </div>
-            <div class="modal-body">
-                <form method="post" id="editCategory">
-                    <div class="form-group">
-                        <label for="EditCode" class="control-label">Code:</label>
-                        <input type="text" readonly class="form-control EditCode">
-                    </div>
-                    <div class="form-group">
-                        <label for="NameCategory" class="control-label">Name:</label>
-                        <input type="text" class="form-control EditName" />
-                    </div>
-                    <div class="form-group">
-                        <label for="PriceCategory" class="control-label">Price:</label>
-                        <input type="text" class="form-control EditPrice" />
-                    </div>
-                    <div class="form-group">
-                        <label class="custom-control teleport-switch">
-                            <span class="teleport-switch-control-description">Active:</span>
-                            <input type="checkbox" checked class="teleport-switch-control-input EditActive">
-                            <span class="teleport-switch-control-indicator"></span>
-                        </label>
-                    </div>
-                    <div class="form-group">
-                        <label class="custom-control teleport-switch">
-                            <span class="teleport-switch-control-description">Status:</span>
-                            <input type="checkbox" checked class="teleport-switch-control-input EditStatus">
-                            <span class="teleport-switch-control-indicator"></span>
-                        </label>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" id="btnEdit" class="btn btn-primary">Edit</button>
-            </div>
+            <!-- /.card -->
         </div>
+        <!-- /.col -->
     </div>
-</div>
+    
+    <!-- /.row -->
+</section>
+<!-- /.content -->
