@@ -1,9 +1,9 @@
 ﻿
 @{
-    ViewData["Title"] = "Category Manager";
+    ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
-<div class="content-wrapper">
+
     <!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="container-fluid">
@@ -24,8 +24,7 @@
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
-            <!-- Info boxes -->
-            @await Component.InvokeAsync("MenuManager")
+     
             <!-- /.row -->
 
             <div class="row">
@@ -98,7 +97,7 @@
         </div><!--/. container-fluid -->
     </section>
     <!-- /.content -->
-</div>
+
 <div class="modal fade" id="addform" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

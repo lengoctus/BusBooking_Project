@@ -148,10 +148,18 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a asp-area="admin" asp-controller="home" asp-action="manager" class="nav-link item_menu">
+                            <a asp-area="admin" asp-controller="category" asp-action="index" class="nav-link item_menu">
                                 <i class="nav-icon fas fa-tasks"></i>
                                 <p>
-                                    MANAGER
+                                    CATEGORY
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-area="admin" asp-controller="seats" asp-action="index" class="nav-link item_menu">
+                                <i class="nav-icon fas fa-tasks"></i>
+                                <p>
+                                    SEAT
                                 </p>
                             </a>
                         </li>
@@ -159,12 +167,11 @@
                 </nav>
             </div>
         </aside>
+      
         <div class="content-wrapper">
             @RenderBody()
         </div>
-        <div class="clear"></div>
-        <aside class="control-sidebar control-sidebar-dark">
-        </aside>
+
         <footer class="main-footer">
             <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong>
             All rights reserved.

@@ -28,26 +28,30 @@ namespace BusBooking_Project.Areas.Admin.Controllers
         [HttpGet("index")]
         public IActionResult Index()
         {
-            ViewBag.listBus = _IBus.GetAll().Result.Where(p => p.Status == true).ToList();
-
+            
+            return View();
+        }
+        
+        [HttpGet]
+        [Route("create")]
+        public IActionResult Create()
+        {
             return View();
         }
 
-        [HttpPost("GetByBusId")]
-        public IActionResult GetByBusId([FromBody]string idbus)
-        {
-            var listSeat = _ISeat.GetByBusId(Convert.ToInt32(idbus)).Result.Select(p => new SeatView { 
-                Id = p.Id,
-                BusId = p.BusId,
-                Code = p.Code
-            }).ToList();
 
-            if (listSeat.Count() > 0)
-            {
-             
-                return Json(listSeat);
-            }
-            return Json("0");
+        [HttpPost]
+        [Route("create")]
+        /*public IActionResult Create()
+        {
+            return View();
+        }*/
+
+        [HttpGet]
+        [Route("modify")]
+        public IActionResult Modify()
+        {
+            return View();
         }
     }
 }

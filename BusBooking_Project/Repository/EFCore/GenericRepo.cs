@@ -197,9 +197,6 @@ namespace BusBooking_Project.Repository.EFCore
             return _db.Set<T>().AsNoTracking();
         }
 
-<<<<<<< HEAD
-
-=======
         public async Task<T> Add(T entity)
         {
             try
@@ -213,7 +210,6 @@ namespace BusBooking_Project.Repository.EFCore
                 return await Task.FromResult<T>(null);
             }
         }
->>>>>>> origin/hongson
     }
 }
 

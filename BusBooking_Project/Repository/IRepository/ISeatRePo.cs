@@ -10,6 +10,6 @@ namespace BusBooking_Project.Repository.IRepository
     public interface ISeatRePo : IGenericRepo<Seat>
     {
         bool CheckIsExists(Seat entity);
-        Task<IQueryable<Seat>> GetByBusId(int idBus);
+        
     }
 }
