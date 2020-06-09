@@ -23,6 +23,7 @@ namespace BusBooking_Project.Controllers
             
         }
 
+        [HttpGet("~/")]
         public IActionResult Index()
         {
             return View();

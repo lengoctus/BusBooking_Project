@@ -36,6 +36,7 @@ namespace BusBooking_Project
 
             services.AddScoped<ICategoryRepo, CategoryRepo>();
             services.AddScoped<IBusRePo, BusRepo>();
+            services.AddScoped<IRoutesRepo, RoutesRepo>();
             services.AddScoped<ISeatRePo, SeatRepo>();
             services.AddScoped<IStationRepo, StationRepo>();
             string serverName = Environment.MachineName;
@@ -120,10 +121,7 @@ namespace BusBooking_Project
                     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 
-                endpoints.MapAreaControllerRoute(
-                    name: "Employee",
-                    areaName: "Employee",
-                    pattern: "Employee/{controller=Home}/{action=Index}/{id?}");
+               
             });
         }
     }
