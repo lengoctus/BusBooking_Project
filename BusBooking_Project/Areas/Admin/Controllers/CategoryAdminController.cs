@@ -29,20 +29,12 @@ namespace BusBooking_Project.Areas.Admin.Controllers
         [HttpGet("index")]
         public IActionResult Index()
         {
-            ViewBag.listCate = _CateRepo.GetAll().Result.Where(p => p.Status == true).Select(p => new CategoryView
-            {
-                Id = p.Id,
-                Name = p.Name,
-                Price = p.Price,
-                Active = p.Active ?? false,
-                Status = p.Status ?? false,
-                Code = p.Code
-            }).ToList();
+            ViewBag.listCate = _CateRepo.GetAllCategory();
             return View();
         }
 
         [HttpPost("add")]
-        public async Task<IActionResult> Add([FromBody]CategoryView categoryView)
+        public IActionResult Add([FromBody]CategoryView categoryView)
         {
             if (categoryView != null)
             {
@@ -55,13 +47,10 @@ namespace BusBooking_Project.Areas.Admin.Controllers
                     Status = categoryView.Status
                 };
 
-                var check = _CateRepo.CheckIsExists(category);
-
-                if (await _CateRepo.Create(category, check) != null)
+                if (_CateRepo.CreateCate(category) != null)
                 {
                     return Json("1");
                 }
-                return Json("0");
             }
             return Json("0");
         }
@@ -71,7 +60,7 @@ namespace BusBooking_Project.Areas.Admin.Controllers
         {
             if (idCate > 0)
             {
-                var category = _CateRepo.GetById(Convert.ToInt32(idCate)).Result;
+                var category = _CateRepo.GetByidCate(Convert.ToInt32(idCate));
                 if (category != null)
                 {
                     return Json(category);
@@ -84,7 +73,7 @@ namespace BusBooking_Project.Areas.Admin.Controllers
         [HttpPost("update")]
         public IActionResult Update([FromBody]CategoryView categoryView)
         {
-            var rs = _CateRepo.Update(categoryView.Id, new Category { Id = categoryView.Id, Name = categoryView.Name, Active = categoryView.Active, Status = categoryView.Status, Code = categoryView.Code, Price = categoryView.Price }).Result;
+            var rs = _CateRepo.UpdateCategory(categoryView.Id, categoryView);
             if (rs)
             {
                 return Json("1");
@@ -95,10 +84,10 @@ namespace BusBooking_Project.Areas.Admin.Controllers
 
 
         [HttpPost("delete")]
-        public async Task<IActionResult> Delete([FromBody]string[] arr)
+        public IActionResult Delete([FromBody]string[] arr)
         {
             int[] idCate = Array.ConvertAll(arr, s => Convert.ToInt32(s));
-            var rs = await _CateRepo.DeleteMulti(idCate);
+            var rs = _CateRepo.DeleteMultiCategory(idCate);
             if (rs)
             {
                 return Json("1");
