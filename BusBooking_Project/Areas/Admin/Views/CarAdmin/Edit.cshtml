@@ -1,123 +1,128 @@
-﻿@model Bus
+﻿
+@{
+    ViewData["Title"] = "GtTicket";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+}
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+           
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1></h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
 
-<!DOCTYPE html>
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-10">
+                    <!-- general form elements disabled -->
+                    <div class="card card-warning">
+                        <div class="card-header">
+                            <h3 class="card-title">Edit Car</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <form role="form">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <!-- text input -->
+                                        <div class="form-group">
+                                            <label>Name</label>
+                                            <input type="text" class="form-control" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <!-- select -->
+                                        <div class="form-group">
+                                            <label>Category</label>
+                                            <select class="form-control">
+                                                <option>Express</option>
+                                                <option>Volvo</option>
+                                                <option>
+                                                    Luxury
+                                                </option>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Edit</title>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- input states -->
+                                <label>Image</label>
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="exampleInputFile">
+                                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                    </div>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" id="">Upload</span>
+                                    </div>
+                                </div>
 
-    <link href="~/css/StyleSheet1.css" rel="stylesheet" />
-</head>
-<body>
-    <h1>Edit Product</h1>
-    <br />
-    <br />
-    <form method="post" asp-area="admin" asp-controller="car" asp-action="edit">
-        <table>
-            <tr>
-                <td>Code</td>
-                <td>
-                    <input type="text" value="@Model.Code" readonly asp-for="@Model.Code" />
-                </td>
-            </tr>
-            <tr>
-                <td>Active</td>
-                <td>
-                    <input type="checkbox" asp-for="@Model.Active" value="@Model.Active" checked="@Model.Active" />
-                </td>
-            </tr>
-            <tr>
-                <td>Status</td>
-                <td>
-                    <input type="checkbox" asp-for="@Model.Status" value="@Model.Status" checked="@Model.Status" />
-                </td>
-            </tr>
-            <tr>
-                <td>Total Seat</td>
-                <td>
-                    <input type="text" asp-for="@Model.TotalSeat" />
-                </td>
-            </tr>
-            <tr>
-                <td>Images</td>
-                <td>
-                    <div>
-                        <img width="200" height="200" id="photo" src="~/admin/image/@Model.Image" /> <br /> <br />
-                        <input type="file" name="inputphoto" onchange="change()" />
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <!-- text input -->
+                                        <div class="form-group">
+                                            <label>Total Seat</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Seat Empty</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <!-- checkbox -->
+                                        <div class="form-group">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox">
+                                                <label>Active</label>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <!-- checkbox -->
+                                        <div class="form-group">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox">
+                                                <label>Status</label>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <input type="submit" class="btn btn-warning" value="Edit"/>
+                                </div>
+                                    
+
+
+
+                            </form>
+                        </div>
+                        <!-- /.card-body -->
                     </div>
-                </td>
-            </tr>
-            <tr>
-                <td>Seat Empty</td>
-                <td>
-                    <input type="text" asp-for="@Model.SeatEmpty" />
-                </td>
-            </tr>
-            <tr>
-                <td>Cate Id</td>
-                <td>
-                    <select asp-for="CateId" class="input-ace form-control">
-                        <option value="0">Express</option>
-                        <option value="1">Luxury</option>
-                        <option value="2">Volvo(NAC)</option>
-                        <option value="3">Volvo(AC)</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td>
-                    <input type="submit" value="Save" />
-                    <input type="hidden" asp-for="@Model.Id" />
-                </td>
-            </tr>
-
-
-        </table>
-
-
-
-    </form>
-    @section script{
-        <script>
-
-        $(document).ready(function () {
-            $("#datepicker").val(new Date().getDate() + '/' + (new Date().getMonth() + 1) + '/' + new Date().getFullYear());
-            switch ('@ViewBag.Result') {
-                case '@(CheckError.AlreadyEmail)':
-                    ErrorMode('Email already. Please choose email orther.',$('#result'));
-                    break;
-                 case '@(CheckError.AlreadyPhone)':
-                    alertError('Phone already. Please choose phone orther.', $('#result'));
-                    break;
-                 case '@(CheckError.ErrorOrther)':
-                    alertError('Can not connect Internet', $('#result'));
-                    break;
-            }
-
-            CKEDITOR.replace('textDescription', {
-                height:200,
-                filebrowserUploadUrl:'/admin/user/upload_ckeditor',
-                filebrowserBrowseUrl:'/admin/user/file_browser'
-            });
-        })
-
-        function change() {
-            $('#photo').attr("src", URL.createObjectURL($('#inputphoto')[0].files[0]));
-        }
-
-        $(function () {
-            $("#datepicker").datepicker({
-                changeMonth: true,
-                changeYear: true
-            });
-        });
-        </script>
-    }
-
-
-</body>
-</html>
-
+                </div>
+                <!--/.col (right) -->
+            </div>
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
 
