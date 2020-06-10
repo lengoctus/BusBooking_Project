@@ -13,23 +13,31 @@ using BusBooking_Project.Models.Entities;
 
 namespace BusBooking_Project.Controllers
 {
+    [Route("home")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-     
+
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-            
-        }
 
+        }
+        [Route("index")]
         [HttpGet("~/")]
         public IActionResult Index()
         {
             return View();
+
+
+
+
+
         }
-        
-
-
+        [Route("bookticket")]
+        public IActionResult BookTicket()
+        {
+            return View();
+        }
     }
 }

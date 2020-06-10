@@ -13,7 +13,7 @@
 //Active menu item
 function activeMenu() {
     var href = window.location.pathname;
-    var currentItemMenu = href.split('/')[2];
+    var currentItemMenu = href.split('/')[3];
     switch (currentItemMenu) {
         case 'home':
             $($('.item_menu')[0]).addClass('active');
@@ -23,7 +23,7 @@ function activeMenu() {
             break;
         case 'station':
             $($('.item_menu')[2]).addClass('active');
-            break;
+            break;       
     }
 }
 

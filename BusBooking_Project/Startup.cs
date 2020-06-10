@@ -39,7 +39,7 @@ namespace BusBooking_Project
             services.AddScoped<ISeatRePo, SeatRepo>();
             services.AddScoped<IStationRepo, StationRepo>();
             string serverName = Environment.MachineName;
-            string[] localServerName = { "LAPTOP-G7GQARUL" };
+            string[] localServerName = { "LAPTOP-G7GQARUL"};
             string connectionStrings = "";
 
             if (localServerName.Contains(serverName))
@@ -51,10 +51,8 @@ namespace BusBooking_Project
                 connectionStrings = "Server=.;Database=BusBooking;user id=sa;password=123456;Trusted_Connection=false;MultipleActiveResultSets=true";
             }
 
-            //string serverName = Environment.MachineName;
-            //string connectString = "Server=" + (serverName == null ? "." : serverName) + ";Database=BusBooking;user id=sa;password=123;Trusted_Connection=false;MultipleActiveResultSets=true";
-            var connectionString = Configuration.GetConnectionString("ConnectDb");  
-            services.AddDbContext<ConnectDbContext>(options => options.UseLazyLoadingProxies().UseSqlServer(connectionString));
+            
+            services.AddDbContext<ConnectDbContext>(options => options.UseLazyLoadingProxies().UseSqlServer(connectionStrings));
 
             services.AddAuthentication(options =>
             {

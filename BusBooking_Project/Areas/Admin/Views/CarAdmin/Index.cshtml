@@ -2,9 +2,7 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
-}
-    <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
+}   
         <section class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
@@ -18,7 +16,7 @@
                     <div class="col-sm-2">
                         <a asp-area="admin" asp-controller="car" asp-action="add" class="btn btn-success btn-sm" style="width:200px;height:35px">                           
                             &nbsp;
-                            <span class="view-edit" style="font-size:1rem;">Add New Car</span>
+                            <span class="view-edit" style="font-size:1rem;">Add New Bus</span>
                         </a>
                     </div>
                 </div>
@@ -49,7 +47,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach (var item in ViewBag.cars)
+                                            @foreach (var item in ViewBag.ListBus)
                                             {
                                                 <tr>
                                                     <td>@item.Code</td>
@@ -99,6 +97,6 @@
                 <!-- /.container-fluid -->
             </section>
             <!-- /.content -->
-        </div>
+       
 
 

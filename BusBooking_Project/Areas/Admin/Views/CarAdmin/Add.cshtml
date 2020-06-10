@@ -39,14 +39,14 @@
                                         <!-- text input -->
                                         <div class="form-group">
                                             <label>Code</label>
-                                            <input type="text" class="form-control" asp-for="Code" readonly>
+                                            <input type="text" class="form-control"value="@Model.Code" readonly asp-for="@Model.Code" readonly>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <!-- select -->
                                         <div class="form-group">
                                             <label>Category</label>
-                                            <select class="form-control">
+                                            <select class="form-control" asp-for="@Model.CateId">
                                                 <option>Express</option>
                                                 <option>Volvo</option>
                                                 <option>
@@ -61,7 +61,7 @@
                                 <label>Image</label>
                                 <div class="input-group">
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="exampleInputFile">
+                                        <input type="file" class="custom-file-input" asp-for="@Model.Image" id="exampleInputFile">
                                         <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                                     </div>
                                     <div class="input-group-append">
@@ -75,13 +75,13 @@
                                         <!-- text input -->
                                         <div class="form-group">
                                             <label>Total Seat</label>
-                                            <input type="text" class="form-control">
+                                            <input type="text" class="form-control" asp-for="@Model.TotalSeat">
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Seat Empty</label>
-                                            <input type="text" class="form-control">
+                                            <input type="text" class="form-control" asp-for="@Model.SeatEmpty">
                                         </div>
                                     </div>
                                 </div>
@@ -90,7 +90,7 @@
                                         <!-- checkbox -->
                                         <div class="form-group">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox">
+                                                <input type="checkbox" class="form-check-input" asp-for="@Model.Active" value="@Model.Active" checked="@Model.Active" />
                                                 <label>Active</label>
                                             </div>
 
@@ -100,7 +100,8 @@
                                         <!-- checkbox -->
                                         <div class="form-group">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox">
+                                                <input type="checkbox" class="form-check-input" asp-for="@Model.Active" value="@Model.Active" checked="@Model.Active" />
+                                                @*<input class="form-check-input" type="checkbox">*@
                                                 <label>Status</label>
                                             </div>
 

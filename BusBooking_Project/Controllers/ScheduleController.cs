@@ -23,6 +23,10 @@ namespace BusBooking_Project.Controllers
         public IActionResult Schedule_Detail()
         {
             return View("Schedule_Detail");
+
+
         }
+
     }
+       
 }
