@@ -11,7 +11,7 @@
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a asp-area="admin" asp-controller="home" asp-action="index">Home</a></li>
                     <li class="breadcrumb-item active">DataTables</li>
                 </ol>
             </div>
@@ -30,16 +30,23 @@
                             <!-- select -->
                             <div class="form-group">
                                 <label>Select Bus</label>
-                                <select class="form-control">
-                                    <option>option 1</option>
+                                <select class="form-control" id="comboboxBus">
+                                    @foreach (var b in ViewBag.buses)
+                                    {
+                                        <option value="@b.Id">@b.Code</option>
+                                    }
                                 </select>
+                                <div>&nbsp;</div>
+                                <input type="submit" class="btn btn-success" value="Search" />
                             </div>
                         </div>
-                        <div class="col-6"></div>
+                        <div class="col-3"></div>
+                        <div class="col-3"></div>
                         <div class="col-3">
-                            <button type="button" class="btn btn-block bg-gradient-success">
-                                <i class="fas fa-plus"></i>&nbsp; Add
-                            </button>
+                            <div class="form-group">
+                                <div>&nbsp;</div>
+                                <input type="button" class="btn btn-primary" data-toggle="modal" data-target="#addform" value="New Seat" style="float: right" />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -48,38 +55,41 @@
 
                     <table id="example2" class="table table-bordered table-hover">
                         <thead>
-                            <tr>
+                            <tr style="text-align: center">
+                                <th>
+                                    <input type="checkbox" id="AllCbSeat" />
+                                </th>
                                 <th>Code Seat</th>
+                                <th>Code Bus</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>a</td>
+                            @foreach (var s in ViewBag.seats)
+                            {
+                            <tr style="text-align: center">
+                                <td><input type="checkbox" class="CbSeat" /></td>
+                                <td>@s.Code</td>
+                                <td>@s.Status</td>
+                                <td>@s.BusCode</td>
                                 <td class="item-record">
-                                    <a class="btn btn-info btn-sm">
-                                        <i class="fas fa-pencil-alt">
-                                        </i> &nbsp;
-                                        <span class="view-edit" style="font-size:1rem;">View/Edit</span>
-                                    </a>
-                                </td>
+                                    <button type="button" class="btn btn-info" data-id="@s.Id" data-toggle="modal" data-target="#editSeat">
+                                        <i class="fas fa-edit"></i>
+                                        Edit
+                                    </button>
+                                </td>                               
                             </tr>
+                            }
                         </tbody>
                         <tfoot>
-                            <tr>
-                                <th>Code Seat</th>
-                                <th>Action</th>
-                            </tr>
+                            
                         </tfoot>
                     </table>
-                    <div class="row my-3">
+                    <div class="row my-3">                        
                         <div class="col-md-6">
-                            <button type="button" class="btn btn-danger" id="removeTargetSelected">
-                                <i class="fas fa-trash">
-                                </i>
-                                Remove
-                            </button>
+                            <button type="button" class="btn btn-danger btnRemove"><i class="fas fa-trash"></i> &nbsp; Remove</button>
                         </div>
+                        <div class="col-md-6"></div>                        
                     </div>
                 </div>
                 <!-- /.card-body -->
@@ -93,3 +103,84 @@
     <!-- /.row -->
 </section>
 <!-- /.content -->
+
+<div class="modal fade" id="addform" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">New Seat</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+
+                <form method="post" id="addSeat">
+                    <div class="form-group">
+                        <label for="CodeBus" class="control-label">Bus Code:</label>
+                        <select class="form-control" id="CodeBus">
+                            @foreach (var b in ViewBag.buses)
+                            {
+                                <option value="@b.Id">@b.Code</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="CodeSeat" class="control-label">Seat Code:</label>
+                        <input type="text" class="form-control" id="CodeSeat">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="custom-control teleport-switch">
+                            <span class="teleport-switch-control-description">Status:</span>
+                            <input type="checkbox" checked id="StatusSeat" class="teleport-switch-control-input">
+                            <span class="teleport-switch-control-indicator"></span>
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" id="send" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editSeat" tabindex="-1" role="dialog" aria-labelledby="ModalEdit">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="ModalEdit">Edit</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" id="editSeat">
+                    <div class="form-group">
+                        <label for="EditCodeBus" class="control-label">Bus Code:</label>
+                        <select class="form-control" id="EditCodeBus">
+                            <option value="" selected></option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="EditCodeSeat" class="control-label">Seat Code:</label>
+                        <input type="text" readonly class="form-control EditCodeSeat">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="custom-control teleport-switch">
+                            <span class="teleport-switch-control-description">Status:</span>
+                            <input type="checkbox" checked class="teleport-switch-control-input EditStatus">
+                            <span class="teleport-switch-control-indicator"></span>
+                        </label>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" id="btnEdit" class="btn btn-primary">Edit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
