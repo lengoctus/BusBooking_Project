@@ -159,7 +159,15 @@
                             <a asp-area="admin" asp-controller="seats" asp-action="index" class="nav-link item_menu">
                                 <i class="nav-icon fas fa-tasks"></i>
                                 <p>
-                                    SEAT
+                                    SEATS
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-area="admin" asp-controller="routes" asp-action="index" class="nav-link item_menu">
+                                <i class="nav-icon fas fa-tasks"></i>
+                                <p>
+                                    ROUTES
                                 </p>
                             </a>
                         </li>
@@ -167,7 +175,7 @@
                             <a asp-area="admin" asp-controller="car" asp-action="index" class="nav-link item_menu">
                                 <i class="nav-icon fa fa-car"></i>
                                 <p>
-                                    Car Manager
+                                    CARS
                                 </p>
                             </a>
                         </li>
@@ -175,7 +183,7 @@
                 </nav>
             </div>
         </aside>
-      
+
         <div class="content-wrapper">
             @RenderBody()
         </div>

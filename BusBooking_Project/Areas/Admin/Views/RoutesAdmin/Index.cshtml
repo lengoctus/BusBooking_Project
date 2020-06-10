@@ -1,0 +1,223 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">Routes</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Routes</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+
+        <!-- /.row -->
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="container">
+                    <form asp-controller="routes" asp-area="admin" asp-action="search" method="get">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div style="font-weight: bold">From:</div>
+                                <select class="form-control" style="width: 70%" name="FromStationId">
+                                    <option selected>Choose Station</option>
+                                    @if (ViewBag.StationFrom != null)
+                                    {
+                                        @foreach (var item in ViewBag.StationFrom)
+                                        {
+                                            <option value="@item.Id">@item.Name</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div style="font-weight: bold">To:</div>
+                                <select class="form-control" style="width: 70%" name="ToStationId">
+                                    <option selected>Choose Station</option>
+                                    @if (ViewBag.StationFrom != null)
+                                    {
+                                        @foreach (var item in ViewBag.StationFrom)
+                                        {
+                                            <option value="@item.Id">@item.Name</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div style="font-weight: bold">Category:</div>
+                                <select class="form-control" style="width: 70%" name="idCategory">
+                                    <option selected>Choose Category Bus</option>
+                                    @if (ViewBag.Category != null)
+                                    {
+                                        @foreach (var item in ViewBag.Category)
+                                        {
+                                            <option value="@item.Id">@item.Name</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div>&nbsp;</div>
+                                <input type="submit" class="btn btn-success" value="Search" style="float: left" />
+                            </div>
+
+
+                        </div>
+                    </form>
+
+                    <div class="row">
+                        <div class="col-md-7"></div>
+                        <div class="col-md-5">
+                            <input type="button" class="btn btn-primary" data-toggle="modal" data-target="#addform" value="New Routes" style="float: right" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-striped" id="tableCate">
+                                <thead>
+                                    <tr style="text-align: center">
+                                        <th>
+                                            <input type="checkbox" id="AllCbCategory" />
+                                        </th>
+                                        <th>STT</th>
+                                        <th>From</th>
+                                        <th>To</th>
+                                        <th>Distance</th>
+                                        <th>TimeGo</th>
+                                        <th>TimeRun</th>
+                                        <th>Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-danger btnRemove"><i class="fas fa-trash"></i> &nbsp; Remove</button>
+                        </div>
+                        <div class="col-md-6"></div>
+                    </div>
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+        <!-- /.row -->
+    </div><!--/. container-fluid -->
+</section>
+<!-- /.content -->
+
+<div class="modal fade" id="addform" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">New Category</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" id="addCategory">
+                    <div class="form-group">
+                        <label for="CodeCategory" class="control-label">Code:</label>
+                        <input type="text" class="form-control" id="CodeCategory">
+                    </div>
+                    <div class="form-group">
+                        <label for="NameCategory" class="control-label">Name:</label>
+                        <input type="text" id="NameCategory" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="PriceCategory" class="control-label">Price:</label>
+                        <input type="text" id="PriceCategory" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label class="custom-control teleport-switch">
+                            <span class="teleport-switch-control-description">Active:</span>
+                            <input type="checkbox" checked id="ActiveCategory" class="teleport-switch-control-input">
+                            <span class="teleport-switch-control-indicator"></span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label class="custom-control teleport-switch">
+                            <span class="teleport-switch-control-description">Status:</span>
+                            <input type="checkbox" checked id="StatusCategory" class="teleport-switch-control-input">
+                            <span class="teleport-switch-control-indicator"></span>
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" id="send" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editCate" tabindex="-1" role="dialog" aria-labelledby="ModalEdit">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="ModalEdit">Edit</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" id="editCategory">
+                    <div class="form-group">
+                        <label for="EditCode" class="control-label">Code:</label>
+                        <input type="text" readonly class="form-control EditCode">
+                    </div>
+                    <div class="form-group">
+                        <label for="NameCategory" class="control-label">Name:</label>
+                        <input type="text" class="form-control EditName" />
+                    </div>
+                    <div class="form-group">
+                        <label for="PriceCategory" class="control-label">Price:</label>
+                        <input type="text" class="form-control EditPrice" />
+                    </div>
+                    <div class="form-group">
+                        <label class="custom-control teleport-switch">
+                            <span class="teleport-switch-control-description">Active:</span>
+                            <input type="checkbox" checked class="teleport-switch-control-input EditActive">
+                            <span class="teleport-switch-control-indicator"></span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label class="custom-control teleport-switch">
+                            <span class="teleport-switch-control-description">Status:</span>
+                            <input type="checkbox" checked class="teleport-switch-control-input EditStatus">
+                            <span class="teleport-switch-control-indicator"></span>
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" id="btnEdit" class="btn btn-primary">Edit</button>
+            </div>
+        </div>
+    </div>
+</div>

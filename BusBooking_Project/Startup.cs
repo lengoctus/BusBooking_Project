@@ -34,6 +34,22 @@ namespace BusBooking_Project
             services.AddScoped<IAccountRepo, AccountRepo>();
 
             services.AddScoped<ICategoryRepo, CategoryRepo>();
+            services.AddScoped<IBusRePo, BusRepo>();
+            services.AddScoped<IRoutesRepo, RoutesRepo>();
+            services.AddScoped<ISeatRePo, SeatRepo>();
+            services.AddScoped<IStationRepo, StationRepo>();
+            string serverName = Environment.MachineName;
+            string[] localServerName = { "LAPTOP-G7GQARUL" };
+            string connectionStrings = "";
+
+            if (localServerName.Contains(serverName))
+            {
+                connectionStrings = "Server=" + serverName + "\\SQLEXPRESS" + ";Database=BusBooking;user id=sa;password=123456;Trusted_Connection=false;MultipleActiveResultSets=true";
+            }
+            else
+            {
+                connectionStrings = "Server=.;Database=BusBooking;user id=sa;password=123456;Trusted_Connection=false;MultipleActiveResultSets=true";
+            }
 
             //string serverName = Environment.MachineName;
             //string connectString = "Server=" + (serverName == null ? "." : serverName) + ";Database=BusBooking;user id=sa;password=123;Trusted_Connection=false;MultipleActiveResultSets=true";
@@ -107,10 +123,7 @@ namespace BusBooking_Project
                     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 
-                endpoints.MapAreaControllerRoute(
-                    name: "Employee",
-                    areaName: "Employee",
-                    pattern: "Employee/{controller=Home}/{action=Index}/{id?}");
+               
             });
         }
     }
