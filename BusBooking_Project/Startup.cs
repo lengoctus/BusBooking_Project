@@ -10,7 +10,6 @@ using BusBooking_Project.Repository.IRepository;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -35,24 +34,12 @@ namespace BusBooking_Project
             services.AddScoped<IAccountRepo, AccountRepo>();
 
             services.AddScoped<ICategoryRepo, CategoryRepo>();
-            services.AddScoped<IBusRePo, BusRepo>();
-            services.AddScoped<ISeatRePo, SeatRepo>();
-            services.AddScoped<IStationRepo, StationRepo>();
-            string serverName = Environment.MachineName;
-            string[] localServerName = { "LAPTOP-G7GQARUL" };
-            string connectionStrings = "";
 
-            if (localServerName.Contains(serverName))
-            {
-                connectionStrings = "Server=" + serverName + "\\SQLEXPRESS" + ";Database=BusBooking;user id=sa;password=123456;Trusted_Connection=false;MultipleActiveResultSets=true";
-            }
-            else
-            {
-                connectionStrings = "Server=.;Database=BusBooking;user id=sa;password=123456;Trusted_Connection=false;MultipleActiveResultSets=true";
-            }
+            //string serverName = Environment.MachineName;
+            //string connectString = "Server=" + (serverName == null ? "." : serverName) + ";Database=BusBooking;user id=sa;password=123;Trusted_Connection=false;MultipleActiveResultSets=true";
+            var connectionString = Configuration.GetConnectionString("ConnectDb");  
+            services.AddDbContext<ConnectDbContext>(options => options.UseLazyLoadingProxies().UseSqlServer(connectionString));
 
-
-            services.AddDbContext<ConnectDbContext>(options => options.UseSqlServer(connectionStrings));
             services.AddAuthentication(options =>
             {
                 options.DefaultScheme = "SCHEME_AD";
