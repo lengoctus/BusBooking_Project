@@ -177,7 +177,11 @@
             })
         })
     })
-
+    $.fn.changeManager = function (stringUrl) {
+        $(this).on('click', function () {
+            window.location.replace(stringUrl);
+        })
+    };
     var arr = [];
     $('.cbCate').on('change', function () {
         if ($(this).is(':checked') == true) {
@@ -244,17 +248,10 @@
         }
     })
 
-    $('.manager-category').on('click', function () {
-        window.location.replace('/admin/category')
-    });
 
-    $('.manager-car').on('click', function () {
-        window.location.replace('/admin/cars')
-    });
-
-    $('.manager-seat').on('click', function () {
-        window.location.replace('/admin/seats')
-    })
+    $('.manager-seat').changeManager('/admin/seats');
+    $('.manager-category').changeManager('/admin/category');
+    $('.manager-car').changeManager('/admin/cars');
 
     //$('.buschecked').on('change', function () {
     //    var idbus = $(this).val();
@@ -268,28 +265,32 @@
     //            dataType: 'json',
     //            data: JSON.stringify(idbus),
     //            success: function (data) {
-                    
+
     //            }
     //        })
     //    }
     //})
 
-    
+    //  Ẩn số dòng trong tableL
     var elem = $('.paginate');       // Đối tượng cần được phân trang
     var totalPage = elem.length;    // Tổng số trang
     var numberRow = 3;          // Số dòng mỗi trang
-
-
     elem.slice(numberRow).hide();
+
+
+
     $('#page-nav').pagination({
-        items: totalPage,       
-        itemsOnPage: numberRow,       
+        items: totalPage,
+        itemsOnPage: numberRow,
         onPageClick: function (pageNum) {
-            var start = numberRow * (pageNum - 1);      // PageNum = 2 => start = 3
-            var end = start + numberRow;             // end = 6
+            //  pageNum = 2 => start = 3
+            //  end = 6
+            //  ==> xxx > 3 && xxx <= 6
+            var start = numberRow * (pageNum - 1);      
+            var end = start + numberRow;             
 
             elem.hide().slice(start, end).show();
         }
     })
-    
+
 })

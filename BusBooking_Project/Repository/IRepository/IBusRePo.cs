@@ -12,5 +12,12 @@ namespace BusBooking_Project.Repository.IRepository
     {
         public List<BusView> GetAllData();
         bool CheckIsExists(Bus entity);
+        List<BusView> GetAllBus();
+        int CreateACE(BusView busView);
+        public int UpdateBus(BusView busView);
+        public BusView GetByIdBus(int id);
+        bool SetActive(int id);
+        List<BusView> Search(string textsearch, int search_case);
+        int CountSearchData(string textsearch, int search_case);
     }
 }

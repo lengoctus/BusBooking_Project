@@ -20,8 +20,8 @@ namespace BusBooking_Project.Models.Entities
         public virtual DbSet<Bus> Bus { get; set; }
         public virtual DbSet<Category> Category { get; set; }
         public virtual DbSet<Role> Role { get; set; }
+        public virtual DbSet<Routes> Routes { get; set; }
         public virtual DbSet<Seat> Seat { get; set; }
-        public virtual DbSet<Spacing> Spacing { get; set; }
         public virtual DbSet<Station> Station { get; set; }
         public virtual DbSet<Ticket> Ticket { get; set; }
 
@@ -30,7 +30,7 @@ namespace BusBooking_Project.Models.Entities
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=LAPTOP-G7GQARUL\\SQLEXPRESS;Database=BusBooking;user id=sa;password=123456");
+                optionsBuilder.UseSqlServer("Server=.;Database=BusBooking;user id=sa;password=123456");
             }
         }
 
@@ -110,14 +110,9 @@ namespace BusBooking_Project.Models.Entities
                     .HasConstraintName("FK_Booking_Bus");
 
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.BookingUser)
+                    .WithMany(p => p.Booking)
                     .HasForeignKey(d => d.UserId)
                     .HasConstraintName("FK_Booking_Account");
-
-                entity.HasOne(d => d.UserId2Navigation)
-                    .WithMany(p => p.BookingUserId2Navigation)
-                    .HasForeignKey(d => d.UserId2)
-                    .HasConstraintName("FK_Booking_Account1");
             });
 
             modelBuilder.Entity<Bus>(entity =>
@@ -140,7 +135,7 @@ namespace BusBooking_Project.Models.Entities
                     .IsRequired()
                     .HasDefaultValueSql("((1))");
 
-                entity.HasOne(d => d.Cate)
+                entity.HasOne(d => d.Category)
                     .WithMany(p => p.Bus)
                     .HasForeignKey(d => d.CateId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
@@ -180,6 +175,23 @@ namespace BusBooking_Project.Models.Entities
                 entity.Property(e => e.Status).HasDefaultValueSql("((1))");
             });
 
+            modelBuilder.Entity<Routes>(entity =>
+            {
+                entity.Property(e => e.Active)
+                    .IsRequired()
+                    .HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.Price).HasColumnType("decimal(18, 0)");
+
+                entity.Property(e => e.Status)
+                    .IsRequired()
+                    .HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.TimeGo).HasColumnType("time(0)");
+
+                entity.Property(e => e.TimeRun).HasColumnType("time(0)");
+            });
+
             modelBuilder.Entity<Seat>(entity =>
             {
                 entity.HasIndex(e => e.Code)
@@ -196,19 +208,6 @@ namespace BusBooking_Project.Models.Entities
                     .HasForeignKey(d => d.BusId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Seat_Bus");
-            });
-
-            modelBuilder.Entity<Spacing>(entity =>
-            {
-                entity.Property(e => e.Active)
-                    .IsRequired()
-                    .HasDefaultValueSql("((1))");
-
-                entity.Property(e => e.Price).HasColumnType("decimal(18, 0)");
-
-                entity.Property(e => e.Status)
-                    .IsRequired()
-                    .HasDefaultValueSql("((1))");
             });
 
             modelBuilder.Entity<Station>(entity =>
@@ -241,11 +240,11 @@ namespace BusBooking_Project.Models.Entities
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Ticket_Booking");
 
-                entity.HasOne(d => d.Spacing)
+                entity.HasOne(d => d.Routes)
                     .WithMany(p => p.Ticket)
-                    .HasForeignKey(d => d.SpacingId)
+                    .HasForeignKey(d => d.RoutesId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Ticket_Spacing");
+                    .HasConstraintName("FK_Ticket_Routes");
             });
 
             OnModelCreatingPartial(modelBuilder);

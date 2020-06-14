@@ -7,8 +7,7 @@ namespace BusBooking_Project.Models.Entities
     {
         public Account()
         {
-            BookingUser = new HashSet<Booking>();
-            BookingUserId2Navigation = new HashSet<Booking>();
+            Booking = new HashSet<Booking>();
         }
 
         public int Id { get; set; }
@@ -33,7 +32,6 @@ namespace BusBooking_Project.Models.Entities
 
         public virtual Role Role { get; set; }
         public virtual Station Station { get; set; }
-        public virtual ICollection<Booking> BookingUser { get; set; }
-        public virtual ICollection<Booking> BookingUserId2Navigation { get; set; }
+        public virtual ICollection<Booking> Booking { get; set; }
     }
 }

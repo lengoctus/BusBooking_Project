@@ -18,7 +18,6 @@ namespace BusBooking_Project.Models.Entities
         public int? UserId { get; set; }
         public int? QuantityTicket { get; set; }
         public bool? Active { get; set; }
-        public int? UserId2 { get; set; }
         public int? BusId { get; set; }
         public int? SeatId { get; set; }
         public int? ToCity { get; set; }
@@ -26,7 +25,6 @@ namespace BusBooking_Project.Models.Entities
 
         public virtual Bus Bus { get; set; }
         public virtual Account User { get; set; }
-        public virtual Account UserId2Navigation { get; set; }
         public virtual ICollection<Ticket> Ticket { get; set; }
     }
 }

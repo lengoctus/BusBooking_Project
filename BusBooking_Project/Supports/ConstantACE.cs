@@ -11,6 +11,13 @@ namespace Supports
         public static int size = 5;
     }
 
+    public enum SearchBus
+    {
+        Name = 1,
+        Code = 2
+       
+    }
+
     public enum SearchUser
     {
         Name = 0,

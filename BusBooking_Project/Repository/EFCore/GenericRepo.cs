@@ -42,6 +42,7 @@ namespace BusBooking_Project.Repository.EFCore
             }
             catch (Exception e)
             {
+                var error = e.Message;
                 return await Task.FromResult<T>(null);
             }
         }
@@ -78,6 +79,7 @@ namespace BusBooking_Project.Repository.EFCore
             }
             catch (Exception e)
             {
+                var error = e.Message;
                 return await Task.FromResult(false);
             }
         }
@@ -138,10 +140,8 @@ namespace BusBooking_Project.Repository.EFCore
         {
             try
             {
-                var test1 = Thread.CurrentThread.ManagedThreadId;
                 var entity = await _db.Set<T>().FirstOrDefaultAsync(p => p.Id == Id);
 
-                var test2 = Thread.CurrentThread.ManagedThreadId;
                 return await Task.FromResult(entity);
             }
             catch (Exception e)
