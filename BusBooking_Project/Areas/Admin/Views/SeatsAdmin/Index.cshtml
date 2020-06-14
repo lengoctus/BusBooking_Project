@@ -29,15 +29,16 @@
                         <div class="col-3">
                             <!-- select -->
                             <div class="form-group">
-                                <label>Select Bus</label>
+                                <label>Select by Bus</label>
                                 <select class="form-control" id="comboboxBus">
+                                        <option value="null">Select</option>
                                     @foreach (var b in ViewBag.buses)
                                     {
                                         <option value="@b.Id">@b.Code</option>
                                     }
                                 </select>
                                 <div>&nbsp;</div>
-                                <input type="submit" class="btn btn-success" value="Search" />
+
                             </div>
                         </div>
                         <div class="col-3"></div>
@@ -61,45 +62,49 @@
                                 </th>
                                 <th>Code Seat</th>
                                 <th>Code Bus</th>
+                                <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var s in ViewBag.seats)
                             {
-                            <tr style="text-align: center">
-                                <td><input type="checkbox" class="CbSeat" /></td>
-                                <td>@s.Code</td>
-                                <td>@s.Status</td>
-                                <td>@s.BusCode</td>
-                                <td class="item-record">
-                                    <button type="button" class="btn btn-info" data-id="@s.Id" data-toggle="modal" data-target="#editSeat">
-                                        <i class="fas fa-edit"></i>
-                                        Edit
-                                    </button>
-                                </td>                               
-                            </tr>
+                                <tr style="text-align: center">
+                                    <td><input type="checkbox" data-idseat="@s.Id" class="CbSeat" /></td>
+                                    <td>@s.Code</td>
+                                    <td>@s.BusCode</td>
+                                    <td>
+                                        @(s.Status ? "On" : "Off")
+                                    </td>
+                                    <td class="item-record">
+                                        <button type="button" class="btn btn-info" data-id="@s.Id" data-toggle="modal"                  data-target="#editSeat">
+                                            <i class="fas fa-edit"></i>
+                                            Edit
+                                        </button>
+                                    </td>
+                                </tr>
                             }
                         </tbody>
                         <tfoot>
-                            
+
                         </tfoot>
                     </table>
-                    <div class="row my-3">                        
-                        <div class="col-md-6">
-                            <button type="button" class="btn btn-danger btnRemove"><i class="fas fa-trash"></i> &nbsp; Remove</button>
-                        </div>
-                        <div class="col-md-6"></div>                        
-                    </div>
+
                 </div>
                 <!-- /.card-body -->
-                
+
+            </div>
+            <div class="row my-3">
+                <div class="col-md-6">
+                    <button type="button" class="btn btn-danger btnRemove"><i class="fas fa-trash"></i> &nbsp; Remove</button>
+                </div>
+                <div class="col-md-6"></div>
             </div>
             <!-- /.card -->
         </div>
         <!-- /.col -->
     </div>
-    
+
     <!-- /.row -->
 </section>
 <!-- /.content -->
@@ -155,25 +160,27 @@
             </div>
             <div class="modal-body">
                 <form method="post" id="editSeat">
+
                     <div class="form-group">
-                        <label for="EditCodeBus" class="control-label">Bus Code:</label>
+                        <label for="EditCodeBus" class="control-label">Select Bus Code:</label>
                         <select class="form-control" id="EditCodeBus">
-                            <option value="" selected></option>
+                            @foreach (var b in ViewBag.buses)
+                            {
+                                <option value="@b.Id">@b.Code</option>
+                            }
                         </select>
                     </div>
+
                     <div class="form-group">
                         <label for="EditCodeSeat" class="control-label">Seat Code:</label>
                         <input type="text" readonly class="form-control EditCodeSeat">
                     </div>
 
-                    <div class="form-group">
-                        <label class="custom-control teleport-switch">
-                            <span class="teleport-switch-control-description">Status:</span>
-                            <input type="checkbox" checked class="teleport-switch-control-input EditStatus">
-                            <span class="teleport-switch-control-indicator"></span>
-                        </label>
-                    </div>
-
+                    @*<label class="custom-control teleport-switch">
+                        <span class="teleport-switch-control-description">Status:</span>
+                        <input type="checkbox" data-idSeat="@s.Id" value="@s.Status" checked="@s.Status" class="teleport-switch-control-input EditStatus">
+                        <span class="teleport-switch-control-indicator"></span>
+                    </label>*@
                 </form>
             </div>
             <div class="modal-footer">

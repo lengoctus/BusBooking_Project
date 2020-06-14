@@ -12,7 +12,7 @@
             var status = modal.find('.modal-body #addSeat #StatusSeat');
 
             var regexCode = new RegExp(/^[A-Z0-9]{1,}$/);
-           
+
             if (regexCode.test(code.val()) == false) {
                 code.next('span').remove();
                 code.after('<span style="color: red">Code Seat is Invalid!!</span>');
@@ -20,7 +20,7 @@
                 code.next('span').remove();
             }
 
-            if (regexCode.test(code.val()) ) {
+            if (regexCode.test(code.val())) {
                 var seatView = {
                     Code: code.val(),
                     BusId: parseInt(busid.val()),
@@ -57,16 +57,13 @@
         })
     })
 
-
     $('#editSeat').on('show.bs.modal', function (event) {
         var btn = $(event.relatedTarget);
 
         var idSeat = btn.data('id');  // mã id của seat
 
         var code = $(this).find('.modal-body #editSeat .EditCodeSeat');
-        var busid = parseInt($(this).find('.model-body #editSeat #EditCodeBus'));
-        console.log(busid)
-        var status = $(this).find('.modal-body #editSeat .EditStatus');
+        //var busid = $(this).find('.model-body #editSeat #EditCodeBus');
         var modal = $(this);
 
         $.ajax({
@@ -81,86 +78,68 @@
                 if (data != '0') {
                     code.prop('readonly', false);
                     code.val(data.code);
-                    busid.prop('selected', data.busid)
-                    status.prop('checked', data.status)
+                    //busid.val(data.busId)
+                    $('#editSeat #EditCodeBus option').removeAttr('selected').filter('[value=' + data.busId + ']').attr('selected', true);
+                    modal.modal('hide');
                 };
             }, error: function (data) {
-                console.log(data)
+                console.log(data);
             }
         });
 
 
         $(this).find('#btnEdit').on('click', function () {
+
             var seatView = {
+                Id: idSeat,
                 Code: code.val(),
-                Id: id,
-                BusId: parseInt(busId.val()),
-                Status: status.is(':checked')
+                BusId: parseInt($('#EditCodeBus').val()),
+                Status: true
             };
-
-            if (status.is(':checked') == false) {
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "Are you sure you want to change the status?!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                    if (result.value) {
-                        Swal.fire(
-                            'Deleted!',
-                            'Your file has been deleted.',
-                            'success'
-                        )
-                    }
-                })
-            }
-
+            console.log(seatView);
 
             $.ajax({
                 type: 'POST',
-                url: '/admin/seat/modify',
+                url: '/admin/seats/modify',
                 cache: false,
                 contentType: 'application/json, charset=UTF-8',
                 dataType: 'json',
                 data: JSON.stringify(seatView),
                 success: function (data) {
                     modal.modal('hide');
-
                     if (data == "1") {
                         Swal.fire({
                             icon: 'success',
                             title: 'Your work has been updated',
                             showConfirmButton: false,
-                            timer: 1500
+                            timer: 1900
                         });
 
-                        setTimeout(function () { location.reload(); }, 1550);
+                        setTimeout(function () { location.reload(); }, 1990);
                     } else if (data == "0") {
                         Swal.fire({
                             icon: 'error',
                             title: 'Failed',
                             text: 'Update failed. Please check again!'
-                        })
+                        });
                     }
                 }
-            })
-        })
+            });
+
+        });
     })
 
     var arr = [];
-    $('.cbSeat').on('change', function () {
+    $('.CbSeat').on('change', function () {
         if ($(this).is(':checked') == true) {
-            arr.push($(this).val());
+            arr.push($(this).attr('data-idseat'));
+            console.log($(this).attr('data-idseat'));
         } else if ($(this).is(':checked') == false) {
-            arr.splice($.inArray($(this).val(), arr), 1);
+            arr.splice($.inArray($(this).attr('data-idseat'), arr), 1);
         }
     })
 
     $('.btnRemove').on('click', function () {
-
         if (arr.length > 0) {
             Swal.fire({
                 title: 'Are you sure?',
@@ -172,9 +151,10 @@
                 confirmButtonText: 'Yes, delete it!'
             }).then((result) => {
                 if (result.value) {
+
                     $.ajax({
                         type: 'POST',
-                        url: '/admin/seat/delete',
+                        url: '/admin/seats/deleteseat',
                         cache: false,
                         contentType: 'application/json, charset=UTF-8',
                         dataType: 'json',
@@ -193,10 +173,9 @@
                                 Swal.fire({
                                     icon: 'error',
                                     title: 'Error !!',
-                                    text: 'Seat is active. Please check again!!',
+                                    text: 'Seat is here. Please check again!!',
                                 })
                             }
-
                         }
                     });
                 }
@@ -206,36 +185,46 @@
 
     $('#AllCbSeat').on('change', function () {
         if ($(this).is(':checked') == true) {
-            $('.cbSeat').prop('checked', true);
-            arr = $('.cbSeat:checked').map(function () {
+            $('.CbSeat').prop('checked', true);
+            arr = $('.CbSeat:checked').map(function () {
                 return this.value;
             }).get();
         } else if ($(this).is(':checked') == false) {
-            $('.cbSeat').prop('checked', false);
+            $('.CbSeat').prop('checked', false);
             arr = [];
         }
     })
 
 
-    //$('.buschecked').on('change', function () {
-    //    var idbus = $(this).val();
+    $('#comboboxBus').on('change', function () {
+        var id = $('#comboboxBus option:selected').val();
+        $.ajax({
+            type: 'GET',
+            dataType: 'json',
+            contentType: 'application/json',
+            url: '/admin/seats/searchbybusid/' + id,
+            success: function (prds) {
+                var s = '';
+                for (var i = 0; i < prds.length; i++) {
+                    s += '<tr style="text-align: center">';
+                    s += '<td><input type="checkbox" class="CbSeat" /></td>';
+                    s += '<td>' + prds[i].code + '</td>';
+                    s += '<td>' + prds[i].busCode + '</td>';
+                    s += '<td>' + ((prds[i].status) ? 'On' : 'Off') + '</td>';
+                    s += '<td class="item-record">';
+                    s += '<button type="button" class="btn btn-info" data-id="' + prds[i].id + '" data-toggle="modal" data-target="#editSeat">';
+                    s += '<i class="fas fa-edit"></i>'
+                    s += 'Edit';
+                    s += '</button>';
+                    s += '</td>';
+                    s += '</tr>';
+                }
+                $('table tbody').html(s);
+            }
+        });
+    });
 
-    //    if (idbus.trim()) {
-    //        $.ajax({
-    //            type: 'post',
-    //            url: '/admin/seats/GetByBusId',
-    //            cache: false,
-    //            contentType: 'application/json, charset=UTF-8',
-    //            dataType: 'json',
-    //            data: JSON.stringify(idbus),
-    //            success: function (data) {
-                    
-    //            }
-    //        })
-    //    }
-    //})
 
-    
-    
-    
+
 })
+

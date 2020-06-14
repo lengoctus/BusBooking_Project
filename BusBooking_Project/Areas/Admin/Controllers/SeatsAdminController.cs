@@ -19,7 +19,6 @@ namespace BusBooking_Project.Areas.Admin.Controllers
     {
         private readonly ISeatRePo _ISeat;
         private readonly IBusRePo _IBus;
-
         public SeatsAdminController(ISeatRePo iSeat, IBusRePo iBus)
         {
             _ISeat = iSeat;
@@ -35,7 +34,7 @@ namespace BusBooking_Project.Areas.Admin.Controllers
             ViewBag.seats = _ISeat.GetAllSeat();
             return View();
         }
-        
+
         [HttpGet]
         [Route("create")]
         public IActionResult Create()
@@ -62,7 +61,7 @@ namespace BusBooking_Project.Areas.Admin.Controllers
                 {
                     return Json("1");
                 }
-              
+
             }
             return Json("0");
         }
@@ -72,7 +71,7 @@ namespace BusBooking_Project.Areas.Admin.Controllers
         {
             if (idSeat > 0)
             {
-                var seat = _ISeat.GetById(Convert.ToInt32(idSeat)).Result;
+                var seat = _ISeat.GetByIdSeat(idSeat);
                 if (seat != null)
                 {
                     return Json(seat);
@@ -83,27 +82,15 @@ namespace BusBooking_Project.Areas.Admin.Controllers
 
         [HttpPost]
         [Route("modify")]
-        public IActionResult Modify(SeatView seatView)
+        public IActionResult Modify([FromBody]SeatView seatView)
         {
-            var rs = _ISeat.Update(seatView.Id,
-                new Seat { 
-                    Id = seatView.Id, 
-                    Code = seatView.Code,
-                    Status = seatView.Status, 
-                    BusId = seatView.BusId 
-                }).Result;
-            if (rs)
+            var rs = _ISeat.Update(seatView.Id, new Seat
             {
-                return Json("1");
-            }
-            return Json("0");
-        }
-
-        [Route("delete")]
-        public async Task<IActionResult> Delete([FromBody]string[] arr)
-        {
-            int[] idSeat = Array.ConvertAll(arr, s => Convert.ToInt32(s));
-            var rs = await _ISeat.DeleteMulti(idSeat);
+                Id = seatView.Id,
+                BusId = seatView.BusId,
+                Code = seatView.Code,
+                Status = seatView.Status
+            }).Result;
             if (rs)
             {
                 return Json("1");
@@ -115,7 +102,19 @@ namespace BusBooking_Project.Areas.Admin.Controllers
         [Route("searchbybusid/{id}")]
         public IActionResult SearchByBusId(int id)
         {
-            return new JsonResult(_ISeat.Search(id));
+            return new JsonResult(_ISeat.SearchByBusId(id));
+        }
+
+        [HttpPost("deleteseat")]
+        public IActionResult DeleteSeat([FromBody]string[] arrId)
+        {
+            int[] arrIdNew = Array.ConvertAll(arrId, p => Convert.ToInt32(p));
+            var d = _ISeat.Delete(arrIdNew);
+            if (d)
+            {
+                return Json("1");
+            }
+            return Json("0");
         }
     }
 }

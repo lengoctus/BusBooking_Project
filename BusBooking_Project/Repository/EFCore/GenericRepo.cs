@@ -166,7 +166,8 @@ namespace BusBooking_Project.Repository.EFCore
         {
             try
             {
-                if (await _db.Set<T>().AsNoTracking().FirstOrDefaultAsync(p => p.Id == Id) != null)
+                var d = await _db.Set<T>().AsNoTracking().FirstOrDefaultAsync(p => p.Id == Id);
+                if (d != null)
                 {
                     _db.Set<T>().Update(entity);
                     await _db.SaveChangesAsync();

@@ -11,8 +11,9 @@ namespace BusBooking_Project.Repository.IRepository
     public interface ISeatRePo : IGenericRepo<Seat>
     {
         bool CheckIsExists(Seat entity);
+        bool Delete(int[] arrId);
         List<SeatView> GetAllSeat();
-        public List<SeatView> Search(int busid);
-        
+        SeatView GetByIdSeat(int Id);
+        List<SeatView> SearchByBusId(int busid);
     }
 }

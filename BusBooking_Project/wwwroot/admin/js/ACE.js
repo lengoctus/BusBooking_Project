@@ -24,6 +24,12 @@ function activeMenu() {
         case 'station':
             $($('.item_menu')[2]).addClass('active');
             break;
+        case 'category':
+            $($('.item_menu')[3]).addClass('active');
+            break;
+        case 'seats':
+            $($('.item_menu')[4]).addClass('active');
+            break;
     }
 }
 
