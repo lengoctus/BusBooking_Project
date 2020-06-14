@@ -10,6 +10,7 @@ namespace BusBooking_Project.Models.ModelsView
     public class BusView : IEntity
     {
         public int Id { get; set; }
+        public string Name { get; set; }
         public string Code { get; set; }
         public bool Active { get; set; }
         public bool Status { get; set; }
@@ -17,7 +18,7 @@ namespace BusBooking_Project.Models.ModelsView
         public int TotalSeat { get; set; }
         public int SeatEmpty { get; set; }
         public int CateId { get; set; }
-
+        public string CategoryName { get; set; }
 
     }
 }

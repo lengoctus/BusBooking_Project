@@ -13,7 +13,7 @@
 //Active menu item
 function activeMenu() {
     var href = window.location.pathname;
-    var currentItemMenu = href.split('/')[3];
+    var currentItemMenu = href.split('/')[2];
     switch (currentItemMenu) {
         case 'home':
             $($('.item_menu')[0]).addClass('active');
@@ -23,7 +23,19 @@ function activeMenu() {
             break;
         case 'station':
             $($('.item_menu')[2]).addClass('active');
-            break;       
+            break; 
+        case 'category':
+            $($('.item_menu')[3]).addClass('active');
+            break;  
+        case 'seats':
+            $($('.item_menu')[4]).addClass('active');
+            break;    
+        case 'routes':
+            $($('.item_menu')[5]).addClass('active');
+            break;     
+        case 'bus':
+            $($('.item_menu')[6]).addClass('active');
+            break;     
     }
 }
 

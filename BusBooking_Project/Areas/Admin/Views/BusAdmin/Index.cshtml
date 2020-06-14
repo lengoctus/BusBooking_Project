@@ -1,0 +1,144 @@
+﻿@model IEnumerable<BusView>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section class="content-header">
+    <div class="mx-5">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>BUS</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item active">Home</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="content mx-5">
+    <div class="row my-2">
+        <div class="col-10">
+            <div class="row">
+                <div class="col-5 px-0">
+                    <div class="input-group">
+                        <div class="form-group col-md-4 select-ace-padding">
+                            <select id="selectSearch" class="form-control select-2">
+                                <option class="select-ace" value="null">Seleted Search</option>
+                                <option class="select-ace" selected value="@((int)SearchBus.Name)">Name</option>
+                                <option class="select-ace" value="@((int)SearchBus.Code)">Code</option>
+
+                            </select>
+                        </div>
+                        <input type="text" class="form-control input-ace" placeholder="Search" onkeyup="searchWithSelect(event,this,'selectSearch')">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-2">
+            <button type="button" class="btn btn-block bg-gradient-success" onclick="window.location='/admin/bus/create'"><i class="fas fa-plus"></i>&nbsp; Add</button>
+        </div>
+    </div>
+    <div>
+        <table class="table table-hover">
+            <thead class="thead-light">
+                <tr>
+                    <th><input type="checkbox" id="selectAll"></th>
+                    <th>Photo</th>
+                    <th>Name</th>
+                    <th>Code</th>
+                    <th>TotalSeat</th>
+                    <th>SeatEmpty</th>
+                    <th>Brand</th>
+                    <th>Status</th>
+                    <th>Active</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="item-record"><input type="checkbox" name="check_id[]" value="@item.Id"></td>
+                        <td class="item-record">
+                            <img src="~/admin/image/@item.Image" alt="@item.Image" width="50" height="50" />
+                        </td>
+                        <td class="item-record">@item.Name</td>
+                        <td class="item-record">@item.Code</td>
+                        <td class="item-record">@item.TotalSeat</td>
+                        <td class="item-record">@item.SeatEmpty</td>
+                        <td class="item-record">@item.CategoryName</td>
+                        <td class="item-record">@(item.Status ? "On" : "Off")</td>
+                        <td class="item-record">
+                            <input type="checkbox" @(item.Active ? "checked" : "") data-bus-id="@item.Id" onchange="ActiveBus(this);">
+                        </td>
+                        <td style="width:160px" class="item-record">
+                            <a class="btn btn-info btn-sm" href="/admin/bus/edit?id=@item.Id">
+                                <i class="fas fa-pencil-alt">
+                                </i> &nbsp;
+                                <span class="view-edit" style="font-size:1rem;">View/Edit</span>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="row my-3">
+        <div class="col-md-6">
+            <button type="button" class="btn btn-danger" id="removeBusSelected">
+                <i class="fas fa-trash">
+                </i>
+                Remove
+            </button>
+        </div>
+        <div class="col-sm-12 col-md-6 page">
+            <ul id="pagination" class="pagination-sm float-right"></ul>
+        </div>
+    </div>
+</section>
+
+@section script{
+    <script>
+
+        if ('@ViewBag.ModifySuccess' == '@CheckError.Success') {
+            alertSuccessNonReload();
+        }
+                
+        function ActiveBus(input) {
+            let idBus = input.getAttribute("data-bus-id");
+            $.ajax({
+                method: 'GET',
+                url: '/admin/bus/active',
+                data: { id: idBus},
+                dataType: 'json',
+                success: function (data) {
+                    if (data == '200') {
+                        alertSuccess('Change success.');
+                    } else {
+                        alertError();
+                    }
+                },
+                error: function (a, b, c) {
+                    console.log(a);
+                    console.log(b);
+                    console.log(c);
+                }
+            });
+        }
+
+        function searchWithSelect(event, input, sl) {
+            let textsearch = input.value;
+            if (event.keyCode === 13) {
+                if (textsearch) {
+                    let select = $('#' + sl);
+                    window.location.href = '/admin/bus/search?propertysearch=' + select.val() + '&textsearch=' + textsearch;
+                } else {
+                    window.location.href = '/admin/bus/index';
+                }
+            }
+        }
+    </script>
+}

@@ -135,7 +135,7 @@ namespace BusBooking_Project.Models.Entities
                     .IsRequired()
                     .HasDefaultValueSql("((1))");
 
-                entity.HasOne(d => d.Cate)
+                entity.HasOne(d => d.Category)
                     .WithMany(p => p.Bus)
                     .HasForeignKey(d => d.CateId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
