@@ -2,8 +2,7 @@
 @{
         ViewData["Title"] = "SendMail";
         Layout = "~/Areas/Employee/Views/Shared/_LayoutAdmin.cshtml";
-    }
-    <div class="content-wrapper">
+    }  
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <div class="container-fluid">
@@ -20,6 +19,17 @@
                 </div>
             </div><!-- /.container-fluid -->
         </section>
+        <div class="row my-3" style="margin-left: 15px;">
+
+            <span class="item-record">
+                <a class="btn btn-block btn-info" asp-area="employee" asp-controller="bookticket" asp-action="gtticket">
+                    <i class="fas fa-arrow-circle-left"> &nbsp;</i>
+
+                    <span style="font-size:1rem; color:aliceblue;">Back</span>
+                </a>
+            </span>
+
+        </div>
 
         <!-- Main content -->
         <section class="content">
@@ -82,7 +92,6 @@
             </div><!-- /.container-fluid -->
         </section>
         <!-- /.content -->
-    </div>
 
 
 
