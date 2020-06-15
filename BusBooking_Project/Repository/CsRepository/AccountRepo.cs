@@ -55,15 +55,8 @@ namespace BusBooking_Project.Repository.CsRepository
                     Status = true,
                     Active = true,
                 };
-                try
-                {
-                    Account account_1 = Add(account).Result;
-                    if (account_1 == null) return (int)CheckError.ErrorOrther;
-                }
-                catch (Exception e)
-                {
-                    return (int)CheckError.ErrorOrther;
-                }
+                Account account_1 = Add(account).Result;
+                if (account_1 == null) return (int)CheckError.ErrorOrther;
                 return (int)CheckError.Success;
             }
             else
@@ -149,28 +142,36 @@ namespace BusBooking_Project.Repository.CsRepository
         }
         public AccountView GetByIdACE(int id)
         {
-            Account account = GetById(id).Result;
-            return new AccountView
+            try
             {
-                Id = account.Id,
-                Address = account.Address,
-                Code = account.Code,
-                DayCreate = (DateTime)account.DayCreate,
-                DayEdited = (DateTime)account.DayEdited,
-                Description = account.Description,
-                Dob = (DateTime)account.Dob,
-                EditerId = account.EditerId ?? 0,
-                Editer = account.EditerId != null ? GetById((int)account.EditerId).Result : null,
-                Email = account.Email,
-                Gender = (int)account.Gender,
-                Name = account.Name,
-                Images = account.Images,
-                Password = account.Password,
-                Phone = account.Phone,
-                Active = (bool)account.Active,
-                Status = (bool)account.Status,
-                StationId = (int)account.StationId,
-            };
+                Account account = GetById(id).Result;
+                return new AccountView
+                {
+                    Id = account.Id,
+                    Address = account.Address,
+                    Code = account.Code,
+                    DayCreate = account.DayCreate ?? DateTime.Now,
+                    DayEdited = account.DayEdited ?? DateTime.Now,
+                    Description = account.Description,
+                    Dob = account.Dob,
+                    EditerId = account.EditerId ?? 0,
+                    Editer = account.EditerId != null ? GetById((int)account.EditerId).Result : null,
+                    Email = account.Email,
+                    Gender = (int)account.Gender,
+                    Name = account.Name,
+                    Images = account.Images,
+                    Password = account.Password,
+                    Phone = account.Phone,
+                    Active = (bool)account.Active,
+                    Status = (bool)account.Status,
+                    StationId = account.StationId,
+                };
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+                return null;
+            }
         }
 
         #endregion

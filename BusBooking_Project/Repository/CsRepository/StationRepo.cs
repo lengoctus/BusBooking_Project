@@ -157,16 +157,12 @@ namespace BusBooking_Project.Repository.CsRepository
         {
             Station stationName = GetDataACE()
                 .SingleOrDefault(s => s.Name.ToLower() == stationView.Name.ToLower().Trim());
-            if (stationName != null)
-            {
-                return (int)CheckError.AlreadyName;
-            }
+            if (stationName != null) return (int)CheckError.AlreadyName;
             Station stationPhone = GetDataACE()
             .SingleOrDefault(s => s.Phone == stationView.Phone.Trim());
-            if (stationPhone != null)
-            {
-                return (int)CheckError.AlreadyPhone;
-            }
+            if (stationPhone != null) return (int)CheckError.AlreadyPhone;
+            Station stationCity = GetDataACE().FirstOrDefault(s => s.City == stationView.City);
+            if (stationCity != null) return (int)CheckError.AlreadyLocationCity;
             return (int)CheckError.Success;
         }
 

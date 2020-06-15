@@ -99,6 +99,27 @@
                         <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
                     </div>
                 </li>
+
+                @*Profile*@
+                <li class="nav-item dropdown">
+                    <a class="nav-link" data-toggle="dropdown" href="#">
+                        <i class="far fa-user-circle"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                        <div class="dropdown-divider"></div>
+                        <a href="/admin/user/detail?id=@(User.FindFirst("id").Value)" class="dropdown-item">
+                            <i class="far fa-address-card"></i>
+                            <span class="float-right text-muted text-sm">View profile</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="/admin/logout" class="dropdown-item">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span class="float-right text-muted text-sm">Log out</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                    </div>
+                </li>
+                @*End Profile*@
                 <li class="nav-item">
                     <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
                         <i class="fas fa-th-large"></i>
@@ -141,9 +162,17 @@
                         </li>
                         <li class="nav-item">
                             <a asp-area="admin" asp-controller="station" asp-action="index" class="nav-link item_menu">
-                                <i class="nav-icon fas fa-users"></i>
+                                <i class="nav-icon fas fa-city"></i>
                                 <p>
                                     STATION
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-area="admin" asp-controller="spacing" asp-action="index" class="nav-link item_menu">
+                                <i class="nav-icon fas fa-users"></i>
+                                <p>
+                                    SPACING
                                 </p>
                             </a>
                         </li>

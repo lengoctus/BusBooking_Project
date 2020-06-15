@@ -14,3 +14,7 @@
     line-height: 50px;
     vertical-align: middle !important;
 }
+
+.dropdown-menu.dropdown-menu-lg.dropdown-menu-right.show {
+    min-width: 170px;
+}

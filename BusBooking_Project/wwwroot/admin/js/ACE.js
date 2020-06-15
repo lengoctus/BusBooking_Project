@@ -10,19 +10,22 @@
 })
 
 
-//Active menu item
+
 function activeMenu() {
     var href = window.location.pathname;
     var currentItemMenu = href.split('/')[2];
-    switch (currentItemMenu) {
-        case 'home':
+    switch (currentItemMenu.toLowerCase()) {
+        case 'home'.toLowerCase():
             $($('.item_menu')[0]).addClass('active');
             break;
-        case 'user':
+        case 'user'.toLowerCase():
             $($('.item_menu')[1]).addClass('active');
             break;
-        case 'station':
+        case 'station'.toLowerCase():
             $($('.item_menu')[2]).addClass('active');
+            break;
+        case 'spacing'.toLowerCase():
+            $($('.item_menu')[3]).addClass('active');
             break;
     }
 }
