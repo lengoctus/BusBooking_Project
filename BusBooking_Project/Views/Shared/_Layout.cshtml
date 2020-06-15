@@ -12,6 +12,7 @@
 
 
     <!-- HTML Meta Tags -->
+    
 
     <link rel="stylesheet" id="theme-style-css" href="~/customer/Content/css/style.min.css" type="text/css" media="all" />
 
@@ -93,11 +94,12 @@
 
                         </div>
                         <ul class="pull-right hidden-xs">
-                            <li><a  asp-controller="schedule" asp-action="index">Lịch trình</a></li>
+                            <li><a asp-controller="home" asp-action="index">Home</a></li>
+                            <li><a asp-controller="schedule" asp-action="index">Lịch trình</a></li>
                             <li><a href="#">Tin tức</a></li>
                             <li><a href="#">Liên hệ</a></li>
 
-                            <li><a target="_blank" href="https://hoadon.futabus.vn/">Hóa đơn</a></li>
+                            <li><a asp-controller="bill" asp-action="index">Hóa đơn</a></li>
 
                         </ul>
                     </div>
@@ -123,7 +125,7 @@
                     <li><a href="#">Khuyến mãi</a></li>
                     <li><a href="#">Tin tức</a></li>
                     <li><a href="#">Liên hệ</a></li>
-                    <li><a target="_blank" href="https://hoadon.futabus.vn/">Hóa đơn</a></li>               
+                    <li><a asp-controller="bill" asp-action="index">Hóa đơn</a></li>               
                 </ul>
 
             </div>

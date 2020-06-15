@@ -67,7 +67,7 @@ namespace BusBooking_Project.Repository.CsRepository
                     Name = busView.Name,
                     Code = busView.Code,
                     TotalSeat = busView.TotalSeat,
-                    SeatEmpty = busView.SeatEmpty,
+                    SeatEmpty = busView.TotalSeat,
                     Image = busView.Image,
                     CateId = busView.CateId,
                     Status = true,
