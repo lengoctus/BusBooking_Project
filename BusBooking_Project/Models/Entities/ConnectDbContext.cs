@@ -29,6 +29,7 @@ namespace BusBooking_Project.Models.Entities
         {
             if (!optionsBuilder.IsConfigured)
             {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseSqlServer("Server=.;Database=BusBooking;user id=sa;password=123456");
             }
         }
@@ -56,17 +57,13 @@ namespace BusBooking_Project.Models.Entities
                     .HasColumnName("DOB")
                     .HasColumnType("date");
 
-                entity.Property(e => e.Email)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                entity.Property(e => e.Email).HasMaxLength(50);
 
                 entity.Property(e => e.ForgotPass).HasMaxLength(50);
 
                 entity.Property(e => e.Gender).HasDefaultValueSql("((1))");
 
-                entity.Property(e => e.Images)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                entity.Property(e => e.Images).HasMaxLength(50);
 
                 entity.Property(e => e.Name)
                     .IsRequired()
@@ -74,8 +71,7 @@ namespace BusBooking_Project.Models.Entities
 
                 entity.Property(e => e.Password)
                     .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                    .HasMaxLength(50);
 
                 entity.Property(e => e.Phone).HasMaxLength(50);
 
@@ -165,8 +161,6 @@ namespace BusBooking_Project.Models.Entities
 
             modelBuilder.Entity<Role>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedOnAdd();
-
                 entity.Property(e => e.Active).HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.Name).HasMaxLength(50);
@@ -196,10 +190,6 @@ namespace BusBooking_Project.Models.Entities
 
             modelBuilder.Entity<Seat>(entity =>
             {
-                entity.HasIndex(e => e.Code)
-                    .HasName("Code_Seat")
-                    .IsUnique();
-
                 entity.Property(e => e.Code)
                     .IsRequired()
                     .HasMaxLength(50)

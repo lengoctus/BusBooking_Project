@@ -18,12 +18,12 @@ namespace BusBooking_Project.Models.Entities
         public string Address { get; set; }
         public string Phone { get; set; }
         public string Images { get; set; }
-        public byte? Gender { get; set; }
+        public int? Gender { get; set; }
         public DateTime? DayCreate { get; set; }
         public DateTime? DayEdited { get; set; }
         public int? EditerId { get; set; }
         public bool? Status { get; set; }
-        public byte? RoleId { get; set; }
+        public int? RoleId { get; set; }
         public bool? Active { get; set; }
         public string Description { get; set; }
         public string ForgotPass { get; set; }
