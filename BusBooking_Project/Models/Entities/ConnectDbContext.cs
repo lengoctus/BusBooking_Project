@@ -29,7 +29,6 @@ namespace BusBooking_Project.Models.Entities
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseSqlServer("Server=.;Database=BusBooking;user id=sa;password=123456");
             }
         }
@@ -189,7 +188,10 @@ namespace BusBooking_Project.Models.Entities
 
                 entity.Property(e => e.TimeGo).HasColumnType("time(0)");
 
-                entity.Property(e => e.TimeRun).HasColumnType("time(0)");
+                entity.Property(e => e.TimeRun)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<Seat>(entity =>

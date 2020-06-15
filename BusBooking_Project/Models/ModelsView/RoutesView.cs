@@ -13,10 +13,10 @@ namespace BusBooking_Project.Models.ModelsView
         public int StationTo { get; set; }
         public decimal Price { get; set; }
         public int Length { get; set; }
-        public TimeSpan TimeGo { get; set; }
+        public string TimeGo { get; set; }
         public bool? Active { get; set; }
         public bool? Status { get; set; }
         public int BusId { get; set; }
-        public TimeSpan TimeRun { get; set; }
+        public string TimeRun { get; set; }
     }
 }

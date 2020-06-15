@@ -241,10 +241,10 @@ namespace BusBooking_Project.Repository.CsRepository
 
         //======================
 
-        #region Get All Station 
-        public List<StationView> GetAllTu()
+        #region Get All For Routes 
+        public List<StationView> GetAllForRoutes()
         {
-            var listStation = GetAll().Result.Where(p => p.Status == true).Select(p => new StationView
+            var listStation = GetAll().Result.Where(p => p.Status == true && p.Active == true).Select(p => new StationView
             {
                 Id = p.Id,
                 Name = p.Name,
@@ -253,8 +253,7 @@ namespace BusBooking_Project.Repository.CsRepository
                 Active = p.Active,
                 Status = p.Status,
                 City = p.City,
-                District = p.District
-
+                District = p.District,
             }).ToList();
 
             return listStation;

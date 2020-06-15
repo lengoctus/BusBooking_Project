@@ -92,7 +92,7 @@
                 success: function (data) {
                     $('.select-district').empty();
                     var result = JSON.parse(data);
-                    debugger;
+                  
                     var string = '';
                     result.forEach(function (item) {
                         string += '<option value="'+item.Key+'">' + item.Value+'</option>';

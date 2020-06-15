@@ -10,6 +10,9 @@ namespace BusBooking_Project.Repository.IRepository
 {
     public interface IRoutesRepo : IGenericRepo<Routes>
     {
+        bool AddRoutes(RoutesView routesView);
         List<RoutesView> GetAllRoutes();
+        int GetAllSearch(int fromid, int toid);
+        List<RoutesBusView> Search(int fromid, int toid, int nbPage);
     }
 }

@@ -28,11 +28,11 @@ namespace BusBooking_Project.Repository.EFCore
         /// <param name="entity"></param>
         /// <param name="Checkvalue"></param>
         /// <returns>Entity</returns>
-        public async Task<T> Create(T entity, bool Checkvalue)
+        public async Task<T> Create(T entity, bool CheckIsExist)
         {
             try
             {
-                if (Checkvalue)
+                if (CheckIsExist)
                 {
                     return await Task.FromResult<T>(null);
                 }
@@ -90,7 +90,7 @@ namespace BusBooking_Project.Repository.EFCore
         /// </summary>
         /// <param name="Id"></param>
         /// <returns>bool</returns>
-        public async Task<bool> DeleteMulti(int[] Id)
+        public async Task<bool> DeleteMultiField(int[] Id)
         {
             try
             {
@@ -183,8 +183,35 @@ namespace BusBooking_Project.Repository.EFCore
         }
 
 
+        /// <summary>
+        /// Update multi fields of entity
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        public async Task<bool> UpdateMultiField(List<T> entity)
+        {
+            try
+            {
+                var listEntity = _db.Set<T>().AsNoTracking().Where(p => entity.Contains(p));
+                if (listEntity != null)
+                {
+                    _db.UpdateRange(entity);
+                    await _db.SaveChangesAsync();
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception e)
+            {
+                var error = e.Message;
+                return await Task.FromResult<bool>(false);
+            }
+        }
 
 
+
+        //==========================================================================================
         public IQueryable<T> GetDataRawSqlACE(string query)
         {
             return _db.Set<T>().FromSqlRaw(query).AsNoTracking();

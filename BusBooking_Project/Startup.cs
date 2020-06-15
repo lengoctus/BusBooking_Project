@@ -33,7 +33,6 @@ namespace BusBooking_Project
         {
             services.AddControllersWithViews();
             services.AddScoped<IAccountRepo, AccountRepo>();
-
             services.AddScoped<ICategoryRepo, CategoryRepo>();
             services.AddScoped<IBusRePo, BusRepo>();
             services.AddScoped<IRoutesRepo, RoutesRepo>();

@@ -15,5 +15,7 @@ namespace BusBooking_Project.Models.ModelsView
         public int TotalSeat { get; set; }
         public int SeatEmpty { get; set; }
         public int CateId { get; set; }
+
+        public string CateName { get; set; }
     }
 }
