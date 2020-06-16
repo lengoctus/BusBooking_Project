@@ -23,10 +23,25 @@ function activeMenu() {
             break;
         case 'station':
             $($('.item_menu')[2]).addClass('active');
-            break;
+            break; 
         case 'category':
             $($('.item_menu')[3]).addClass('active');
-            break;
+            break;  
+        case 'seats':
+            $($('.item_menu')[4]).addClass('active');
+            break;    
+        case 'routes':
+            $($('.item_menu')[5]).addClass('active');
+            break;     
+        case 'bus':
+            $($('.item_menu')[6]).addClass('active');
+            break;   
+        case 'booking':
+            $($('.item_menu')[7]).addClass('active');
+            break; 
+        case 'repassword':
+            $($('.item_menu')[8]).addClass('active');
+            break; 
     }
 }
 

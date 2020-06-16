@@ -342,13 +342,6 @@
     <None Include="wwwroot\customer\www.googletagmanager.com\gtm.js" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Content Update="Areas\Employee\Views\BookTicket\Buyticket.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-  </ItemGroup>
-
 
 
 </Project>

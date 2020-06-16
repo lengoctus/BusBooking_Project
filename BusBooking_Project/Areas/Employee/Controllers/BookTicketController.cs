@@ -11,16 +11,16 @@ namespace BusBooking_Project.Areas.Employee.Controllers
     public class BookTicketController : Controller  
     {
        
-       
-        [Route("index")]
+        
+        [HttpGet("index")]
         public IActionResult Index()
         {
             return View("Index");
         }
-        [Route("buyticket")]
-        public IActionResult Byticket()
+        [Route("gtTicket")]
+        public IActionResult GtTicket()
         {
-            return View("BuyTicket");
+            return View("GtTicket");
         }
 
 
@@ -31,10 +31,10 @@ namespace BusBooking_Project.Areas.Employee.Controllers
         }
 
       
-        [Route("repw")]
+        [Route("repassword")]
         public IActionResult Repassword()   
         {
-            return View("Repw");
+            return View("Repassword");
         }
     }
 }

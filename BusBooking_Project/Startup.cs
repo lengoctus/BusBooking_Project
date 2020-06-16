@@ -10,7 +10,6 @@ using BusBooking_Project.Repository.IRepository;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -39,7 +38,7 @@ namespace BusBooking_Project
             services.AddScoped<ISeatRePo, SeatRepo>();
             services.AddScoped<IStationRepo, StationRepo>();
             string serverName = Environment.MachineName;
-            string[] localServerName = { "LAPTOP-G7GQARUL" };
+            string[] localServerName = { "LAPTOP-G7GQARUL"};
             string connectionStrings = "";
 
             if (localServerName.Contains(serverName))
@@ -51,8 +50,9 @@ namespace BusBooking_Project
                 connectionStrings = "Server=.;Database=BusBooking;user id=sa;password=123456;Trusted_Connection=false;MultipleActiveResultSets=true";
             }
 
+            
+            services.AddDbContext<ConnectDbContext>(options => options.UseLazyLoadingProxies().UseSqlServer(connectionStrings));
 
-            services.AddDbContext<ConnectDbContext>(options => options.UseSqlServer(connectionStrings));
             services.AddAuthentication(options =>
             {
                 options.DefaultScheme = "SCHEME_AD";

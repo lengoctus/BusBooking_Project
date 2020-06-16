@@ -13,8 +13,11 @@ using BusBooking_Project.Models.Entities;
 
 namespace BusBooking_Project.Controllers
 {
+    [Route("customerinfo")]
+
     public class CustomerInfoController : Controller
     {
+       
         private readonly ILogger<HomeController> _logger;
      
         public CustomerInfoController(ILogger<HomeController> logger)
@@ -22,7 +25,7 @@ namespace BusBooking_Project.Controllers
             _logger = logger;
             
         }
-
+        [Route("index")]
         public IActionResult Index()
         {
             return View();
