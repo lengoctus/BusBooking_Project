@@ -50,14 +50,14 @@ namespace BusBooking_Project.Areas.Admin.Controllers
         public IActionResult Create()
         {
             ViewBag.categories = _ICategoryrepo.GetDataACE();
-            return View(new BusView { Image = "abc.jpg", Active = true });
+            return View(new BusView {Active = true });
         }
 
         [HttpPost("create")]
         public IActionResult Create(BusView busView, IFormFile inputphoto)
         {
             busView.Status = true;
-            string FileNameSave = "abc.jpg";
+            string FileNameSave = "";
             if (inputphoto != null)
             {
                 FileNameSave = FileACE.SaveFile(webHostEnvironment, inputphoto, "admin/image");

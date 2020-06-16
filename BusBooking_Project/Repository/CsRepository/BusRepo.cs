@@ -46,7 +46,6 @@ namespace BusBooking_Project.Repository.CsRepository
             {
                 Id = p.Id,
                 Code = p.Code,
-                Name = p.Name,
                 TotalSeat = p.TotalSeat,
                 SeatEmpty = p.SeatEmpty,
                 Active = p.Active,
@@ -64,7 +63,6 @@ namespace BusBooking_Project.Repository.CsRepository
             {
                 var bus = new Bus
                 {
-                    Name = busView.Name,
                     Code = busView.Code,
                     TotalSeat = busView.TotalSeat,
                     SeatEmpty = busView.TotalSeat,
@@ -91,13 +89,13 @@ namespace BusBooking_Project.Repository.CsRepository
         }
         private int CheckCreate(BusView busView)
         {
-            try
-            {
-                Bus busName = GetDataACE().SingleOrDefault(s => s.Name.Trim().ToLower() == busView.Name.Trim().ToLower());
-                if (busName != null)
-                {
-                    return (int)CheckError.AlreadyName;
-                }
+            try { 
+            //{
+            //    Bus busName = GetDataACE().SingleOrDefault(s => s.Name.Trim().ToLower() == busView.Name.Trim().ToLower());
+            //    if (busName != null)
+            //    {
+            //        return (int)CheckError.AlreadyName;
+            //    }
                 Bus busCode = GetDataACE().SingleOrDefault(s => s.Code.Trim() == busView.Code.Trim());
                 if (busCode != null)
                 {
@@ -132,7 +130,6 @@ namespace BusBooking_Project.Repository.CsRepository
             {
                 Id = bus.Id,
                 Code = bus.Code,           
-                Name = bus.Name,
                 Image = bus.Image,           
                 Active = bus.Active,
                 Status = bus.Status,
@@ -148,7 +145,6 @@ namespace BusBooking_Project.Repository.CsRepository
             if (check == (int)CheckError.Success)
             {
                 Bus bus = GetById(busView.Id).Result;
-                bus.Name = busView.Name;
                 bus.Code = busView.Code;
                 bus.Image = busView.Image;
                 bus.CateId = busView.CateId;
@@ -162,11 +158,11 @@ namespace BusBooking_Project.Repository.CsRepository
         private int CheckModify(BusView busView)
         {
             
-            Bus busName = GetDataACE().SingleOrDefault(s => s.Id != busView.Id && s.Name.Trim().ToLower() == busView.Name.Trim().ToLower());
-            if (busName != null)
-            {
-                return (int)CheckError.AlreadyName;
-            }
+            //Bus busName = GetDataACE().SingleOrDefault(s => s.Id != busView.Id && s.Name.Trim().ToLower() == busView.Name.Trim().ToLower());
+            //if (busName != null)
+            //{
+            //    return (int)CheckError.AlreadyName;
+            //}
             Bus busCode = GetDataACE().SingleOrDefault(s => s.Id != busView.Id && s.Code.Trim() == busView.Code.Trim());
             if (busCode != null)
             {
@@ -201,7 +197,6 @@ namespace BusBooking_Project.Repository.CsRepository
                 {
                     Id = s.Id,
                     Code = s.Code,
-                    Name = s.Name,
                     TotalSeat = s.TotalSeat,
                     SeatEmpty = s.SeatEmpty,
                     Active = s.Active,
