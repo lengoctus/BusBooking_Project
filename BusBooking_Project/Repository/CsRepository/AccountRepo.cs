@@ -165,6 +165,7 @@ namespace BusBooking_Project.Repository.CsRepository
                     Active = (bool)account.Active,
                     Status = (bool)account.Status,
                     StationId = account.StationId,
+                    RoleId = (int)account.RoleId,
                 };
             }
             catch (Exception e)

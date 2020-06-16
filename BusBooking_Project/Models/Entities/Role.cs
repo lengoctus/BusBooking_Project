@@ -10,7 +10,7 @@ namespace BusBooking_Project.Models.Entities
             Account = new HashSet<Account>();
         }
 
-        public byte Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public bool? Status { get; set; }
         public bool? Active { get; set; }

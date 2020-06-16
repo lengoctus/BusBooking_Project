@@ -26,6 +26,7 @@ namespace Supports
             List<Claim> claims = new List<Claim>();
             claims.Add(new Claim("id", user.Id + ""));
             claims.Add(new Claim(ClaimTypes.Name, user.Name));
+            claims.Add(new Claim("img", user.Images));
             claims.Add(new Claim(ClaimTypes.Email, user.Email));
             claims.Add(new Claim(ClaimTypes.Role, user.RoleName));
             return claims;

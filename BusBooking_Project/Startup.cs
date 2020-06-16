@@ -34,6 +34,7 @@ namespace BusBooking_Project
             services.AddScoped<ICategoryRepo, CategoryRepo>();
             services.AddScoped<IStationRepo, StationRepo>();
             services.AddScoped<ISpacingRepo, SpacingRepo>();
+            services.AddScoped<IRoleRepo, RoleRepo>();
             services.AddDbContext<ConnectDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ConnectDb")));
             services.AddAuthentication(options =>
             {
