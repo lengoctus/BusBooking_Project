@@ -26,14 +26,30 @@
                     <div class="input-group">
                         <div class="form-group col-md-4 select-ace-padding">
                             <select id="selectSearch" class="form-control select-2">
-                                <option class="select-ace" value="null">Seleted Search</option>
-                                <option class="select-ace" selected value="@((int)SearchBus.Name)">Name</option>
-                                <option class="select-ace" value="@((int)SearchBus.Code)">Code</option>
-
+                                <option class="select-ace" selected value="@((int)SearchBus.Code)">Code</option>
                             </select>
                         </div>
                         <input type="text" class="form-control input-ace" placeholder="Search" onkeyup="searchWithSelect(event,this,'selectSearch')">
                     </div>
+                </div>
+                <div class="col-1 px-10">
+                    <div style="padding: 6px 0px 0px 18px;">OR</div>
+                </div>
+                <div class="col-3 px-10">
+                    <select id="comboboxCategory" class="form-control">
+                        <option class="select-ace" selected value="null">By bus</option>
+                        @foreach (var c in ViewBag.cs)
+                        {
+                            <option value="@c.Id">@c.Name</option>
+                        }
+                    </select>                   
+                </div>
+                <div class="col-3 px-10">
+                    <a id="searchbycate" class="btn btn-primary btn-sm" href="#">
+                        <i class="fas fa-search">
+                        </i> &nbsp;
+                        <span class="view-edit" style="font-size:1rem;">Search</span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -44,10 +60,9 @@
     <div>
         <table class="table table-hover">
             <thead class="thead-light">
-                <tr>
+                <tr style="text-align: center">
                     <th><input type="checkbox" id="selectAll"></th>
                     <th>Photo</th>
-                    <th>Name</th>
                     <th>Code</th>
                     <th>TotalSeat</th>
                     <th>SeatEmpty</th>
@@ -60,12 +75,11 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr>
+                    <tr style="text-align: center">
                         <td class="item-record"><input type="checkbox" name="check_id[]" value="@item.Id"></td>
                         <td class="item-record">
                             <img src="~/admin/image/@item.Image" alt="@item.Image" width="50" height="50" />
                         </td>
-                        <td class="item-record">@item.Name</td>
                         <td class="item-record">@item.Code</td>
                         <td class="item-record">@item.TotalSeat</td>
                         <td class="item-record">@item.SeatEmpty</td>
@@ -104,9 +118,40 @@
     <script>
 
         if ('@ViewBag.ModifySuccess' == '@CheckError.Success') {
+
             alertSuccessNonReload();
         }
-                
+
+        $(document).ready(function () {
+            var cateid = $('#comboboxCategory');
+
+            cateid.on('change', function () {
+                var ahref = $('#searchbycate').attr('href');
+                ahref = ahref.replace('#', '/admin/bus/searchbycategory?id=' + cateid.val());
+                $('#searchbycate').attr('href', ahref);
+            })
+
+            phantrangCurrentPage();
+            $(".js-example-disabled-results").select2();
+        })
+
+        function phantrangCurrentPage() {
+            let propertysearch = new URL(document.URL).searchParams.get("propertysearch");
+            let textsearch = new URL(document.URL).searchParams.get("textsearch");
+            let id = new URL(document.URL).searchParams.get("id");
+            if (!window.location.pathname.includes("/search")) {
+                phantrang('#pagination', @(ViewBag.Rows), '/admin/bus?page=');
+            }
+            else if (window.location.pathname.includes("/searchbycategory")) {               
+                phantrang('#pagination', @(ViewBag.Rows), '/admin/bus/searchbycategory?id=' + id + '&page=');
+            }
+            else {
+                $('#selectSearch').val(propertysearch).trigger('change');;
+                $('.input-ace').val(textsearch);
+                phantrang('#pagination', @(ViewBag.Rows), '/admin/bus/search?propertysearch=' + propertysearch + '&textsearch=' + textsearch + '&page=');
+            };
+        }
+
         function ActiveBus(input) {
             let idBus = input.getAttribute("data-bus-id");
             $.ajax({
@@ -140,5 +185,43 @@
                 }
             }
         }
+
+        //$('#comboboxCategory').on('change', function () {
+        //var cateid = $('#comboboxCategory option:selected').val();
+        //$.ajax({
+        //    type: 'GET',
+        //    dataType: 'json',
+        //    contentType: 'application/json',
+        //    url: '/admin/bus/searchbycategory/' + cateid,
+        //    success: function (prds) {
+        //        var s = '';
+        //        for (var i = 0; i < prds.length; i++) {
+        //            s += '<tr style="text-align: center">';
+        //            s += '<td class="item-record"><input type="checkbox" name="check_id[]" value="'+prds[i].id+'"></td>';
+        //            s += '<td class="item-record">';
+        //            s += '<img src="~/admin/image/'+prds[i].image+'" alt="'+prds[i].mage+'" width="50" height="50" />';
+        //            s += '</td>';
+        //            s += '<td class="item-record">'+prds[i].code+'</td>';
+        //            s += '<td class="item-record">'+prds[i].totalSeat+'</td>';
+        //            s += '<td class="item-record">'+prds[i].seatEmpty+'</td>';
+        //            s += '<td class="item-record">'+prds[i].categoryName+'</td>';
+        //            s += '<td class="item-record">'+(prds[i].status ? "On" : "Off")+'</td>';
+        //            s += '<td class="item-record">';
+        //            s += '<input type="checkbox"'+(prds[i].active ? "checked" : "")+ 'data-bus-id="'+prds[i].id+'" onchange="ActiveBus(this);">';
+        //            s += '</td>';
+        //            s += '<td style="width:160px" class="item-record">';
+        //            s += '<a class="btn btn-info btn-sm" href="/admin/bus/edit?id='+prds[i].id+'">';
+        //            s += '<i class="fas fa-pencil-alt">';
+        //            s += '</i> &nbsp;';
+        //            s += '<span class="view-edit" style="font-size:1rem;">View/Edit</span>';
+        //            s += '</a>';
+        //            s += '</td>';
+        //            s += '</tr>';
+        //        }
+        //        $('table tbody').html(s);
+        //    }
+        //});
+        //});
+
     </script>
 }

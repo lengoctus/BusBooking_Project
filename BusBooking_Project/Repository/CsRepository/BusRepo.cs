@@ -14,31 +14,18 @@ namespace BusBooking_Project.Repository.CsRepository
 {
     public class BusRepo : GenericRepo<Bus>, IBusRePo
     {
-        //private int size = ConstantACE.size;
+        private int size = ConstantACE.size;
         private string search = ConstantACE.search;
         public BusRepo(ConnectDbContext db) : base(db)
         {
         }
 
-        public List<BusView> GetAllData()
-        {
-            return GetAll().Result.Select(b => new BusView
-            {
-                Code = b.Code,
-                Active = b.Active,
-                CateId = b.CateId,
-                Id = b.Id,
-                Image = b.Image,
-                SeatEmpty = b.SeatEmpty,
-                Status = b.Status,
-                TotalSeat = b.TotalSeat            
-            }).ToList();
-        }
+       
         public override bool CheckIsExists(Bus entity)
         {
             try
             {
-                var cate = GetAll().Result.AsNoTracking().FirstOrDefault(p => p.Code.ToLower() == bus.Code.ToLower().Trim());
+                var cate = GetAll().Result.AsNoTracking().FirstOrDefault(p => p.Code.ToLower() == entity.Code.ToLower().Trim());
                 if (cate != null)
                 {
                     return true;
@@ -52,13 +39,17 @@ namespace BusBooking_Project.Repository.CsRepository
             }
         }
 
-        public List<BusView> GetAllBus()
+        public List<BusView> GetAllBus(int page)
         {
-            return GetAll().Result.Where(p => p.Status == true).Select(p => new BusView
+            int start = size * (page - 1);
+            return GetAll().Result
+                .Where(p => p.Status == true).OrderByDescending(p => p.Id)
+                .Skip(start)
+                .Take(size)                
+                .Select(p => new BusView
             {
                 Id = p.Id,
                 Code = p.Code,
-                Name = p.Name,
                 TotalSeat = p.TotalSeat,
                 SeatEmpty = p.SeatEmpty,
                 Active = p.Active,
@@ -68,6 +59,12 @@ namespace BusBooking_Project.Repository.CsRepository
             }).ToList();
 
         }
+        public int CountAllBus()
+        {
+            return GetDataACE()
+                .Where(s => (bool)s.Status)
+                .Count();
+        }
 
         public int CreateACE(BusView busView)
         {
@@ -76,7 +73,6 @@ namespace BusBooking_Project.Repository.CsRepository
             {
                 var bus = new Bus
                 {
-                    Name = busView.Name,
                     Code = busView.Code,
                     TotalSeat = busView.TotalSeat,
                     SeatEmpty = busView.SeatEmpty,
@@ -105,10 +101,10 @@ namespace BusBooking_Project.Repository.CsRepository
         {
             try
             {
-                Bus busName = GetDataACE().SingleOrDefault(s => s.Name.Trim().ToLower() == busView.Name.Trim().ToLower());
-                if (busName != null)
+                Bus busTotalSeat = GetDataACE().SingleOrDefault(s => s.TotalSeat == busView.TotalSeat);
+                if (busTotalSeat != null)
                 {
-                    return (int)CheckError.AlreadyName;
+                    return (int)CheckError.AlreadyTotalSeat;
                 }
                 Bus busCode = GetDataACE().SingleOrDefault(s => s.Code.Trim() == busView.Code.Trim());
                 if (busCode != null)
@@ -144,7 +140,6 @@ namespace BusBooking_Project.Repository.CsRepository
             {
                 Id = bus.Id,
                 Code = bus.Code,           
-                Name = bus.Name,
                 Image = bus.Image,           
                 Active = bus.Active,
                 Status = bus.Status,
@@ -160,7 +155,6 @@ namespace BusBooking_Project.Repository.CsRepository
             if (check == (int)CheckError.Success)
             {
                 Bus bus = GetById(busView.Id).Result;
-                bus.Name = busView.Name;
                 bus.Code = busView.Code;
                 bus.Image = busView.Image;
                 bus.CateId = busView.CateId;
@@ -174,10 +168,10 @@ namespace BusBooking_Project.Repository.CsRepository
         private int CheckModify(BusView busView)
         {
             
-            Bus busName = GetDataACE().SingleOrDefault(s => s.Id != busView.Id && s.Name.Trim().ToLower() == busView.Name.Trim().ToLower());
-            if (busName != null)
+            Bus busTotalSeat = GetDataACE().SingleOrDefault(s => s.Id != busView.Id && s.TotalSeat == busView.TotalSeat);
+            if (busTotalSeat != null)
             {
-                return (int)CheckError.AlreadyName;
+                return (int)CheckError.AlreadyTotalSeat;
             }
             Bus busCode = GetDataACE().SingleOrDefault(s => s.Id != busView.Id && s.Code.Trim() == busView.Code.Trim());
             if (busCode != null)
@@ -195,33 +189,30 @@ namespace BusBooking_Project.Repository.CsRepository
             return Update(bus.Id, bus).Result;
         }
 
-        public List<BusView> Search(string textsearch, int search_case)
-        {         
+        public List<BusView> Search(int page, string textsearch, int search_case)
+        {
+            int start = size * (page - 1);
             string columnSearch = "";
             switch (search_case)
             {
-                case (int)SearchBus.Name:
-                    columnSearch = "[name]";
-                    break;
+                
                 case (int)SearchBus.Code:
                     columnSearch = "[code]";
                     break;
               
             }
-            return GetDataRawSqlACE($"SELECT * FROM [bus] WHERE {columnSearch} {search} like  N'%{textsearch}%' AND [status] = 1")                             
+            return GetDataRawSqlACE($"SELECT * FROM [bus] WHERE {columnSearch} {search} like  N'%{textsearch}%' AND [status] = 1")                            
                 .Select(s => new BusView
                 {
                     Id = s.Id,
                     Code = s.Code,
-                    Name = s.Name,
                     TotalSeat = s.TotalSeat,
                     SeatEmpty = s.SeatEmpty,
                     Active = s.Active,
                     Status = s.Status,
                     Image = s.Image ,
                     CateId = s.CateId,
-                    CategoryName = s.Category.Name
-                  
+                    CategoryName = s.Category.Name                 
                 }).ToList();
         }
 
@@ -229,10 +220,7 @@ namespace BusBooking_Project.Repository.CsRepository
         {
             string columnSearch = "";
             switch (search_case)
-            {
-                case (int)SearchBus.Name:
-                    columnSearch = "[name]";
-                    break;
+            {               
                
                 case (int)SearchBus.Code:
                     columnSearch = "[code]";
@@ -242,6 +230,40 @@ namespace BusBooking_Project.Repository.CsRepository
             return GetDataRawSqlACE($"SELECT * FROM [bus] WHERE {columnSearch} {search} like  N'%{textsearch}%' AND [status] = 1").Count();
         }
 
+        public List<BusView> SearchByCategory(int page, int cateid)
+        {
+            int start = size * (page - 1);
+            return GetAll().Result
+                .Where(p => p.CateId == cateid && p.Status == true)
+                .OrderByDescending(p => p.Id)
+                .Skip(start)
+                .Take(size)
+                .Select(p => new BusView
+                {
+                    Id = p.Id,
+                    Code = p.Code,
+                    TotalSeat = p.TotalSeat,
+                    SeatEmpty = p.SeatEmpty,
+                    Active = p.Active,
+                    Status = p.Status,
+                    Image = p.Image,
+                    CategoryName = p.Category.Name
+                }).ToList();
+        }
+        public int CountSearchByCategory(int cateid)
+        {
+            return GetAll().Result.Where(p => p.CateId == cateid && p.Status == true).Select(p => new BusView
+            {
+                Id = p.Id,
+                Code = p.Code,
+                TotalSeat = p.TotalSeat,
+                SeatEmpty = p.SeatEmpty,
+                Active = p.Active,
+                Status = p.Status,
+                Image = p.Image,
+                CategoryName = p.Category.Name
+            }).Count();
+        }
     }
 
 }

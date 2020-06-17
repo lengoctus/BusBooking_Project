@@ -31,8 +31,8 @@ namespace BusBooking_Project.Areas.Admin.Controllers
         public IActionResult Index()
         {
             ViewBag.buses = _IBus.GetDataACE();
-            ViewBag.seats = _ISeat.GetAllSeat();
-            return View();
+            var seats = _ISeat.GetAllSeat();
+            return View("index", seats);
         }
 
         [HttpGet]

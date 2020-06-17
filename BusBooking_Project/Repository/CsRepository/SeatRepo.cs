@@ -73,8 +73,7 @@ namespace BusBooking_Project.Repository.CsRepository
         {
             try
             {
-                var seatCheck = GetAll().Result.FirstOrDefault(p => 
-                    p.Code.ToLower() == entity.Code.ToLower().Trim() && p.BusId != entity.BusId);
+                var seatCheck = GetAll().Result.FirstOrDefault(p => p.Code.ToLower() == entity.Code.ToLower());
 
                 if (seatCheck != null)
                 {

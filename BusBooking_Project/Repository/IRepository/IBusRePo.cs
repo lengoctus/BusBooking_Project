@@ -10,14 +10,16 @@ namespace BusBooking_Project.Repository.IRepository
 {
     public interface IBusRePo : IGenericRepo<Bus>
     {
-        public List<BusView> GetAllData();
         bool CheckIsExists(Bus entity);
-        List<BusView> GetAllBus();
+        List<BusView> GetAllBus(int page);
+        int CountAllBus();
         int CreateACE(BusView busView);
         public int UpdateBus(BusView busView);
         public BusView GetByIdBus(int id);
         bool SetActive(int id);
-        List<BusView> Search(string textsearch, int search_case);
+        List<BusView> Search(int page, string textsearch, int search_case);
         int CountSearchData(string textsearch, int search_case);
+        List<BusView> SearchByCategory(int page, int cateid);
+        int CountSearchByCategory(int cateid);
     }
 }

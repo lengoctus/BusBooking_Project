@@ -13,9 +13,7 @@ namespace Supports
 
     public enum SearchBus
     {
-        Name = 1,
-        Code = 2
-       
+        Code = 2      
     }
 
     public enum SearchUser
@@ -42,6 +40,7 @@ namespace Supports
         AlreadyPhone = -2,
         AlreadyCode = -3,
         AlreadyName = -4,
+        AlreadyTotalSeat = -6,
         ErrorOrther = -5
     }
 

@@ -31,7 +31,7 @@
                             <div class="form-group">
                                 <label>Select by Bus</label>
                                 <select class="form-control" id="comboboxBus">
-                                        <option value="null">Select</option>
+                                    <option value="null">Select</option>
                                     @foreach (var b in ViewBag.buses)
                                     {
                                         <option value="@b.Id">@b.Code</option>
@@ -67,7 +67,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var s in ViewBag.seats)
+                            @foreach (var s in Model)
                             {
                                 <tr style="text-align: center">
                                     <td><input type="checkbox" data-idseat="@s.Id" class="CbSeat" /></td>
@@ -77,16 +77,17 @@
                                         @(s.Status ? "On" : "Off")
                                     </td>
                                     <td class="item-record">
-                                        <button type="button" class="btn btn-info" data-id="@s.Id" data-toggle="modal"                  data-target="#editSeat">
+                                        <button type="button" class="btn btn-info" data-id="@s.Id" data-toggle="modal" data-target="#editSeat">
                                             <i class="fas fa-edit"></i>
                                             Edit
                                         </button>
                                     </td>
                                 </tr>
                             }
+                            
                         </tbody>
                         <tfoot>
-
+                            
                         </tfoot>
                     </table>
 
@@ -177,10 +178,10 @@
                     </div>
 
                     @*<label class="custom-control teleport-switch">
-                        <span class="teleport-switch-control-description">Status:</span>
-                        <input type="checkbox" data-idSeat="@s.Id" value="@s.Status" checked="@s.Status" class="teleport-switch-control-input EditStatus">
-                        <span class="teleport-switch-control-indicator"></span>
-                    </label>*@
+                            <span class="teleport-switch-control-description">Status:</span>
+                            <input type="checkbox" data-idSeat="@s.Id" value="@s.Status" checked="@s.Status" class="teleport-switch-control-input EditStatus">
+                            <span class="teleport-switch-control-indicator"></span>
+                        </label>*@
                 </form>
             </div>
             <div class="modal-footer">
