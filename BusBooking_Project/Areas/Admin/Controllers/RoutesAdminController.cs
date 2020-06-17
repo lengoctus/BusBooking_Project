@@ -86,5 +86,26 @@ namespace BusBooking_Project.Areas.Admin.Controllers
             }
             return Json("0");
         }
+
+        [HttpPost("getbyrouteid")]
+        public IActionResult GetByRouteId([FromBody]int Id)
+        {
+            if (Id > 0)
+            {
+                var routeBus = _IRout.GetRoutesBusById(Id);
+                routeBus.CategoryView.BusView = _IBus.GetBusByCateId(routeBus.CategoryView.Id);
+                if (routeBus != null)
+                {
+                    return Json(routeBus);
+                }
+            }
+            return Json("0");
+        }
+
+        [HttpPost("updateroutes")]
+        public IActionResult UpdateRoutes([FromBody] RoutesView routesView)
+        {
+            return Json("0");
+        }
     }
 }

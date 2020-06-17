@@ -111,6 +111,7 @@
                                         <th>TimeGo</th>
                                         <th>TimeRun</th>
                                         <th>Price</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -120,13 +121,18 @@
                                         {
                                             <tr style="text-align: center">
                                                 <td><input type="checkbox" value="@item.RoutesView.Id" class="cbCate" /></td>
-                                                @*<td>@(Model.ToList().IndexOf(item) + 1)</td>*@
                                                 <td>@item.BusView.Code</td>
                                                 <td>@item.CategoryView.Name</td>
                                                 <td>@item.RoutesView.Length</td>
                                                 <td>@item.RoutesView.TimeGo</td>
                                                 <td>@item.RoutesView.TimeRun</td>
                                                 <td>@item.RoutesView.Price</td>
+                                                <td>
+                                                    <button type="button" class="btn btn-info" data-id="@item.RoutesView.Id" data-toggle="modal" data-target="#editRoutes">
+                                                        <i class="fas fa-edit"></i>
+                                                        Edit
+                                                    </button>
+                                                </td>
                                             </tr>
                                         }
                                     }
@@ -252,46 +258,98 @@
     </div>
 </div>
 
-<div class="modal fade" id="editCate" tabindex="-1" role="dialog" aria-labelledby="ModalEdit">
+<div class="modal fade" id="editRoutes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
+        <div class="modal-content" style="width: 150%">
             <div class="modal-header">
-                <h4 class="modal-title" id="ModalEdit">Edit</h4>
+                <h4 class="modal-title" id="exampleModalLabel">Edit Routes</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body" style="display: block">
-                <form method="post" id="editCategory">
-                    <div class="form-group">
-                        <label for="EditCode" class="control-label">Code:</label>
-                        <input type="text" readonly class="form-control EditCode">
+                <form method="post" id="formEditRoutes">
+                    <div>
+                        <div class="form-group" style="display: inline-block; width: 50%">
+                            <label for="Add_RouteFrom" class="control-label">Route From: </label>
+                            <select class="form-control" style="width: 75%" id="Edit_RouteFrom">
+                                @foreach (var item in ViewBag.Station)
+                                {
+                                    <option value="@item.Id">@item.Location</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group" style="display: inline-block; width: 49%">
+                            <label for="Add_RouteTo" class="control-label">Route To:</label>
+                            <select class="form-control" style="width: 75%" id="Edit_RouteTo">
+                                @foreach (var item in ViewBag.Station)
+                                {
+                                    <option value="@item.Id">@item.Location</option>
+                                }
+                            </select>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="NameCategory" class="control-label">Name:</label>
-                        <input type="text" class="form-control EditName" />
+                    <div>
+                        <div class="form-group" style="display: inline-block; width: 50%">
+                            <label for="Add_CategoryBus" class="control-label">Category Bus:</label>
+                            <select class="form-control" style="width: 70%" id="Edit_CategoryBus">
+                                <option selected value="0">Choose Category Bus</option>
+                                @if (ViewBag.Category != null)
+                                {
+                                    @foreach (var item in ViewBag.Category)
+                                    {
+                                        <option value="@item.Id">@item.Name</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group" style="display: inline-block; width: 49%">
+                            <label for="Add_BusId" class="control-label">Bus Code:</label>
+                            <select class="form-control" style="width: 70%" id="Edit_BusId">
+                                <option value="0">Choose Bus</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="PriceCategory" class="control-label">Price:</label>
-                        <input type="text" class="form-control EditPrice" />
+
+                    <div>
+                        <div class="form-group" style="display: inline-block; width: 50%">
+                            <label for="Add_Price" class="control-label">Price:</label>
+                            <input type="text" class="form-control" id="Edit_Price" style="width: fit-content" />
+                        </div>
+                        <div class="form-group" style="display: inline-block; width: 49%">
+                            <label for="Add_Length" class="control-label">Length:</label>
+                            <input type="text" class="form-control" placeholder="Kilometer" id="Edit_Length" style="width: fit-content" />
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label class="custom-control teleport-switch">
-                            <span class="teleport-switch-control-description">Active:</span>
-                            <input type="checkbox" checked class="teleport-switch-control-input EditActive">
-                            <span class="teleport-switch-control-indicator"></span>
-                        </label>
+
+                    <div>
+                        <div class="form-group" style="display: inline-block; width: 50%">
+                            <label for="Add_TimeRun" class="control-label">Time Run:</label>
+                            <input type="text" class="form-control" id="Edit_TimeRun" style="width: fit-content" />
+                        </div>
+                        <div class="form-group" style="display: inline-block; width: 49%">
+                            <label for="Add_TimeGo" class="control-label">Time Go:</label>
+                            <div class="input-group clockpicker2" data-autoclose="true">
+                                <input type="text" class="form-control" id="Edit_TimeGo" style="width: fit-content">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-time"></span>
+                                </span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label class="custom-control teleport-switch">
-                            <span class="teleport-switch-control-description">Status:</span>
-                            <input type="checkbox" checked class="teleport-switch-control-input EditStatus">
-                            <span class="teleport-switch-control-indicator"></span>
-                        </label>
+
+                    <div>
+                        <div class="form-group" style="display: inline-block; width: 50%">
+                            <label class="custom-control teleport-switch">
+                                <span class="teleport-switch-control-description">Active:</span>
+                                <input type="checkbox" checked id="Edit_Active" class="teleport-switch-control-input">
+                                <span class="teleport-switch-control-indicator"></span>
+                            </label>
+                        </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" id="btnEdit" class="btn btn-primary">Edit</button>
+                <button type="button" id="update" class="btn btn-primary">Update</button>
             </div>
         </div>
     </div>

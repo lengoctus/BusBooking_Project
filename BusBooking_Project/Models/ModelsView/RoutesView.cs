@@ -18,5 +18,8 @@ namespace BusBooking_Project.Models.ModelsView
         public bool? Status { get; set; }
         public int BusId { get; set; }
         public string TimeRun { get; set; }
+
+        public string StationLocationFrom { get; set; }
+        public string StationLocationTo { get; set; }
     }
 }

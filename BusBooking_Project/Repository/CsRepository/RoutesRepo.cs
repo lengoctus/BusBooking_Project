@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Runtime.CompilerServices;
+using System.Security.AccessControl;
 using System.Security.Policy;
 using System.Threading.Tasks;
 
@@ -79,8 +80,8 @@ namespace BusBooking_Project.Repository.CsRepository
                     },
                     CategoryView = new CategoryView
                     {
-                        Id = bus.Cate.Id,
-                        Name = bus.Cate.Name
+                        Id = bus.Category.Id,
+                        Name = bus.Category.Name
                     }
                 }).Skip(PaginationSupport.GetRows(nbPage)).Take(PaginationSupport.pagezise).ToList();
 
@@ -140,5 +141,86 @@ namespace BusBooking_Project.Repository.CsRepository
         }
         #endregion
 
+        #region Get RouteBusView by Id
+        public RoutesBusView GetRoutesBusById(int Id)
+        {
+            try
+            {
+                var listRoute = GetAll().Result.Where(p => p.Status == true && p.Id == Id);
+
+                var listRoutesSearch = _db.Bus.Join(listRoute, bus => bus.Id, rou => rou.BusId, (bus, rou) => new RoutesBusView
+                {
+                    BusView = new BusView
+                    {
+                        Id = bus.Id,
+                        Code = bus.Code
+                    },
+                    RoutesView = new RoutesView
+                    {
+                        Id = rou.Id,
+                        StationFrom = rou.StationFrom,
+                        StationTo = rou.StationTo,
+                        Price = rou.Price,
+                        Length = rou.Length,
+                        TimeGo = rou.TimeGo.ToString(),
+                        TimeRun = rou.TimeRun,
+                        BusId = rou.BusId,
+                        Active = rou.Active,
+                        Status = rou.Status
+                    },
+                    CategoryView = new CategoryView
+                    {
+                        Id = bus.Category.Id,
+                        Name = bus.Category.Name
+                    }
+                }).FirstOrDefault();
+
+
+                return listRoutesSearch;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+        #endregion
+
+        #region Get Routes From
+        public List<RoutesView> GetRoutesFrom()
+        {
+            try
+            {
+                var listRouteFrom = GetAll().Result.Join(_db.Station, rou => rou.StationFrom, sta => sta.Id, (rou, sta) => new RoutesView
+                {
+                    StationFrom = sta.Id,
+                    StationLocationFrom = sta.Location,
+                }).Distinct().ToList();
+
+                return listRouteFrom;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+        #endregion
+
+        #region Get StationTo by StaionFrom id
+        public List<RoutesView> GetRoutesTo(int idFrom)
+        {
+            try
+            {
+                return GetAll().Result.Where(p => p.StationFrom == idFrom).Join(_db.Station, rou => rou.StationTo, sta => sta.Id, (rou, sta) => new RoutesView
+                {
+                    StationLocationTo = sta.Location,
+                    StationTo = sta.Id,
+                }).Distinct().ToList();
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+        #endregion
     }
 }

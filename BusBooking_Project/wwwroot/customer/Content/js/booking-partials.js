@@ -169,8 +169,11 @@ $(document).ready(function () {
     $(".selectpicker").selectpicker();
 
     var startDate = moment(settings["ValidStartDateOffset"], "YYYY-MM-DDTHH:mm:ss.000");
+
+
     if (moment().diff(startDate, "day") >= 0) {
-        startDate = moment().add(settings["ValidStartDateOffset"], "day");
+        startDate = moment();
+        //.add(settings["ValidStartDateOffset"], "day")
     }
     //var startDate = moment().add(settings["ValidStartDateOffset"], "day");
     var endDate = moment(settings["ValidEndDate"], "YYYY-MM-DDTHH:mm:ss.000");

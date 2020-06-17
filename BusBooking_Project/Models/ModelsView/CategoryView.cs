@@ -13,5 +13,8 @@ namespace BusBooking_Project.Models.ModelsView
         public bool Active { get; set; }
         public bool Status { get; set; }
         public decimal Price { get; set; }
+
+
+        public List<BusView> BusView { get; set; }
     }
 }

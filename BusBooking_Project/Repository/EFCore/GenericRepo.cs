@@ -28,6 +28,7 @@ namespace BusBooking_Project.Repository.EFCore
         /// <param name="entity"></param>
         /// <param name="Checkvalue"></param>
         /// <returns>Entity</returns>
+         #region
         public async Task<T> Create(T entity, bool CheckIsExist)
         {
             try
@@ -46,6 +47,8 @@ namespace BusBooking_Project.Repository.EFCore
                 return await Task.FromResult<T>(null);
             }
         }
+        #endregion
+
 
         /// =============================================== Check Exists ======================================
         /// <summary>
@@ -54,6 +57,7 @@ namespace BusBooking_Project.Repository.EFCore
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
+        /// 
         public abstract bool CheckIsExists(T entity);
 
 
@@ -64,6 +68,7 @@ namespace BusBooking_Project.Repository.EFCore
         /// </summary>
         /// <param name="Id"></param>
         /// <returns>boolean</returns>
+         #region
         public async Task<bool> Delete(int Id)
         {
             try
@@ -83,13 +88,14 @@ namespace BusBooking_Project.Repository.EFCore
                 return await Task.FromResult(false);
             }
         }
-
+        #endregion
 
         /// <summary>
         /// Remove multi entity using Id array
         /// </summary>
         /// <param name="Id"></param>
         /// <returns>bool</returns>
+        #region
         public async Task<bool> DeleteMultiField(int[] Id)
         {
             try
@@ -109,6 +115,8 @@ namespace BusBooking_Project.Repository.EFCore
                 return await Task.FromResult(false);
             }
         }
+        #endregion
+
 
 
         /// =============================================== Get All ======================================
@@ -116,6 +124,7 @@ namespace BusBooking_Project.Repository.EFCore
         /// Get All properties of entity
         /// </summary>
         /// <returns>IQueryable Entity</returns>
+        #region
         public async Task<IQueryable<T>> GetAll()
         {
             try
@@ -128,6 +137,8 @@ namespace BusBooking_Project.Repository.EFCore
                 return await Task.FromResult<IQueryable<T>>(null);
             }
         }
+        #endregion
+
 
 
         /// =============================================== Get By Id ======================================
@@ -136,6 +147,7 @@ namespace BusBooking_Project.Repository.EFCore
         /// </summary>
         /// <param name="Id"></param>
         /// <returns>Entity</returns>
+        #region
         public async Task<T> GetById(int Id)
         {
             try
@@ -150,6 +162,8 @@ namespace BusBooking_Project.Repository.EFCore
                 return await Task.FromResult<T>(null);
             }
         }
+        #endregion
+
 
 
         /// =============================================== Update ======================================
@@ -162,6 +176,7 @@ namespace BusBooking_Project.Repository.EFCore
         /// <param name="Id"></param>
         /// <param name="entity"></param>
         /// <returns>boolean</returns>
+        #region
         public async Task<bool> Update(int Id, T entity)
         {
             try
@@ -181,6 +196,7 @@ namespace BusBooking_Project.Repository.EFCore
                 return await Task.FromResult(false);
             }
         }
+        #endregion
 
 
         /// <summary>
@@ -189,6 +205,7 @@ namespace BusBooking_Project.Repository.EFCore
         /// <param name="Id"></param>
         /// <param name="entity"></param>
         /// <returns></returns>
+        #region
         public async Task<bool> UpdateMultiField(List<T> entity)
         {
             try
@@ -208,10 +225,11 @@ namespace BusBooking_Project.Repository.EFCore
                 return await Task.FromResult<bool>(false);
             }
         }
+        #endregion
 
 
 
-        //==========================================================================================
+        //====================================      Sang    ======================================================
         public IQueryable<T> GetDataRawSqlACE(string query)
         {
             return _db.Set<T>().FromSqlRaw(query).AsNoTracking();

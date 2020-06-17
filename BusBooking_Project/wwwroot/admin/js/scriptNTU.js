@@ -184,34 +184,15 @@
 
         })
     })
-    //$.fn.changeManager = function (stringUrl) {
-    //    $(this).on('click', function () {
-    //        window.location.replace(stringUrl);
-    //    })
-    //};
 
 
     // Event checkbox remove is clicked
     var arr = [];
     $('.cbCate').on('change', function () {
         if ($(this).is(':checked') == true) {
-            var table = $('#tableCate tbody');
-            //var CategoryView = {
-            //    Id: parseInt($(this).val()),
-            //    Code: table.parent().parent().find('td:eq(1)').text(),
-            //    Name: table.parent().parent().find('td:eq(2)').text(),
-            //    Price: parseFloat(table.parent().parent().find('td:eq(3)').text()),
-            //    Active: table.parent().parent().find('td:eq(4)').text().toLowerCase() == 'on' ? true : false,
-            //};
-
-            //arr.push(CategoryView);
             arr.push(parseInt($(this).val()));
 
         } else if ($(this).is(':checked') == false) {
-            //var CategoryView = {
-            //    Id: parseInt($(this).val()),
-            //}
-
             arr.splice($.inArray(parseInt($(this).val()), arr), 1);
         }
 
@@ -273,76 +254,17 @@
         }
     })
 
-
-
-    //$('.manager-seat').changeManager('/admin/seats');
-    //$('.manager-category').changeManager('/admin/category');
-    //$('.manager-car').changeManager('/admin/cars');
-
-    //$('.buschecked').on('change', function () {
-    //    var idbus = $(this).val();
-
-    //    if (idbus.trim()) {
-    //        $.ajax({
-    //            type: 'post',
-    //            url: '/admin/seats/GetByBusId',
-    //            cache: false,
-    //            contentType: 'application/json, charset=UTF-8',
-    //            dataType: 'json',
-    //            data: JSON.stringify(idbus),
-    //            success: function (data) {
-
-    //            }
-    //        })
-    //    }
-    //})
-
     //=====================================     Routes   ========================
+
+    //  Add Routes
     $('#addRoutes').on('show.bs.modal', function (event) {
 
         //  Event change category and choose bus
-        $('#Add_CategoryBus').on('change', function () {
-            var idcate = $(this).val();
-            if (idcate != '0') {
-                $.ajax({
-                    type: 'post',
-                    url: '/admin/routes/getbusbycateid',
-                    cache: false,
-                    contentType: 'application/json, charset=UTF-8',
-                    dataType: 'json',
-                    data: JSON.stringify(idcate),
-                    success: function (data) {
-                        if (data != "0") {
-                            $('#Add_BusId').find('option').remove();
-
-                            for (var i = 0; i < data.length; i++) {
-                                var option = new Option(data[i].code, data[i].id);
-                                $('#Add_BusId').append(option);
-                            }
-                        }
-                    }
-                })
-            } else {
-                $('#Add_BusId').find('option').remove();
-                var option = new Option("Choose Bus", "0");
-                $('#Add_BusId').append(option);
-            }
-
-
-        })
+        GetBusByCategoryId($('#Add_CategoryBus'), $('#Add_BusId'));
 
         //  Load clock for Add_TimeGo
-        var clockTime2 = function () {
-            var dt = new Date();
-            $('.clockpicker2 #Add_TimeGo').val(dt.getHours() + ":" + dt.getMinutes());
-
-            $('.clockpicker2').clockpicker({
-                default: dt.getHours() + ":" + dt.getMinutes(),
-                autoclose: true,
-                twelvehour: false
-            });
-        }
-        clockTime2();
+        var dt = new Date();
+        clockTimePicker($('.clockpicker2 #Add_TimeGo'), $('.clockpicker2'), dt.getHours() + ":" + dt.getMinutes());
 
         //  Event submit data add routes
         var modal = $(this);
@@ -437,11 +359,137 @@
         })
     });
 
+    //  Edit Routes
+    $('#editRoutes').on('show.bs.modal', function (event) {
+        var btn = $(event.relatedTarget);
+        var modal = $(this);
+        var idRoutes = btn.data('id');
+        var StationFr = modal.find('.modal-body #formEditRoutes #Edit_RouteFrom');
+        var StationTo = modal.find('.modal-body #formEditRoutes #Edit_RouteTo');
+        var cbbCategory = modal.find('.modal-body #formEditRoutes #Edit_CategoryBus');
+        var cbbBus = modal.find('.modal-body #formEditRoutes #Edit_BusId');
+        var txtPrice = modal.find('.modal-body #formEditRoutes #Edit_Price');
+        var txtLength = modal.find('.modal-body #formEditRoutes #Edit_Length');
+        var txtTimeRun = modal.find('.modal-body #formEditRoutes #Edit_TimeRun');
+        var txtTimeGo = modal.find('.modal-body #formEditRoutes .clockpicker2 #Edit_TimeGo');
+        var cbActive = modal.find('.modal-body #formEditRoutes #Edit_Active');
+
+        $.ajax({
+            url: '/admin/routes/getbyrouteid',
+            type: 'Post',
+            contentType: 'application/json, charset=UTF-8',
+            dataType: 'json',
+            cache: false,
+            data: JSON.stringify(idRoutes),
+            success: function (data) {
+                StationFr.val(data.routesView.stationFrom);
+                StationTo.val(data.routesView.stationTo);
+                cbbCategory.val(data.categoryView.id);
+
+                for (var i = 0; i < data.categoryView.busView.length; i++) {
+                    var option = new Option(data.categoryView.busView[i].code, data.categoryView.busView[i].id);
+                    cbbBus.append(option);
+                }
+
+                cbbBus.val(data.busView.id);
+                txtPrice.val(data.routesView.price);
+                txtLength.val(data.routesView.length);
+                txtTimeRun.val(data.routesView.timeRun);
+                cbActive.prop('checked', data.routesView.active);
+                clockTimePicker(txtTimeGo, $('.clockpicker2'), data.routesView.timeGo);
+                GetBusByCategoryId(cbbCategory, cbbBus);
+            }
+        })
+
+
+        modal.find('.modal-footer #update').on('click', function () {
+            var regexPrice = new RegExp(/^[0-9]+$/);
+            var regexLength = new RegExp(/^[0-9]+$/);
+            var regexTimeRun = new RegExp(/^[0-9a-zA-Z]+$/);
+
+
+            if (!regexPrice.test(txtPrice.val())) {
+                txtPrice.next('span').remove();
+                txtPrice.after('<span style="color: red">Price is Invalid!!</span>');
+            } else {
+                txtPrice.next('span').remove();
+            }
+
+            if (!regexLength.test(txtLength.val())) {
+                txtLength.next('span').remove();
+                txtLength.after('<span style="color: red">Length is Invalid!!</span>');
+            } else {
+                txtLength.next('span').remove();
+            }
+
+            if (!regexTimeRun.test(txtTimeRun.val())) {
+                txtTimeRun.next('span').remove();
+                txtTimeRun.after('<span style="color: red">TimeRun is Invalid!!</span>');
+                txtTimeGo.parent().after('<span>&nbsp;</span>');
+            } else {
+                txtTimeRun.next('span').remove();
+                txtTimeGo.parent().next('span').remove();
+            }
+
+
+            if (cbbBus.val() == "0") {
+                cbbBus.next('span').remove();
+                cbbBus.after('<span style="color: red">Bus is Invalid!!</span>');
+                cbbCategory.after('<span>&nbsp;</span>');
+            } else {
+                cbbBus.next('span').remove();
+                cbbCategory.next('span').remove();
+            }
+
+            if (regexPrice.test(txtPrice.val()) && regexLength.test(txtLength.val()) && regexTimeRun.test(txtTimeRun.val()) && cbbCategory.val() != "0" && cbbBus.val() != "0") {
+                var routesView = {
+                    Id: idRoutes,
+                    StationFrom: parseInt(StationFr.val()),
+                    StationTo: parseInt(StationTo.val()),
+                    Price: parseFloat(txtPrice.val()),
+                    Length: parseInt(txtLength.val()),
+                    TimeGo: txtTimeGo.val(),
+                    Active: cbActive.is(':checked'),
+                    TimeRun: txtTimeRun.val(),
+                    BusId: parseInt(cbbBus.val())
+                };
+
+                $.ajax({
+                    type: 'post',
+                    url: '/admin/routes/updateroutes',
+                    cache: false,
+                    dataType: 'json',
+                    contentType: 'application/json,charset=UTF-8',
+                    data: JSON.stringify(routesView),
+                    success: function (data) {
+                        if (data != '0') {
+                            modal.modal('hide');
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Routes have been saved!',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+
+                            setTimeout(function () { location.reload(); }, 1600);
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Failed',
+                                text: 'Routes already exists !'
+                            })
+                        }
+                    }
+                })
+
+            }
+        })
+    })
+
 
     //  ====================================    Pagination  ==============================
 
-    $.fn.PaginationPage = function (options)
-    {
+    $.fn.PaginationPage = function (options) {
         var defaults = {
             totalPage: 0,
             numberRow: 0,
@@ -471,4 +519,47 @@
 
     }
 
+
+    //  ====================================    Function    ==================================
+
+    var GetBusByCategoryId = function (eleObj, eleOption) {
+        eleObj.on('change', function () {
+            var idcate = $(this).val();
+            if (idcate != '0') {
+                $.ajax({
+                    type: 'post',
+                    url: '/admin/routes/getbusbycateid',
+                    cache: false,
+                    contentType: 'application/json, charset=UTF-8',
+                    dataType: 'json',
+                    data: JSON.stringify(idcate),
+                    success: function (data) {
+                        if (data != "0") {
+                            eleOption.find('option').remove();
+
+                            for (var i = 0; i < data.length; i++) {
+                                var option = new Option(data[i].code, data[i].id);
+                                eleOption.append(option);
+                            }
+                        }
+                    }
+                })
+            } else {
+                eleOption.find('option').remove();
+                var option = new Option("Choose Bus", "0");
+                eleOption.append(option);
+            }
+        })
+    }
+
+    var clockTimePicker = function (txtclockPicker, clPicker, time) {
+
+        txtclockPicker.val(time);
+
+        clPicker.clockpicker({
+            default: time,
+            autoclose: true,
+            twelvehour: false
+        });
+    }
 }) 

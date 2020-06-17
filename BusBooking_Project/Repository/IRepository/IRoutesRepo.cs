@@ -13,6 +13,9 @@ namespace BusBooking_Project.Repository.IRepository
         bool AddRoutes(RoutesView routesView);
         List<RoutesView> GetAllRoutes();
         int GetAllSearch(int fromid, int toid);
+        RoutesBusView GetRoutesBusById(int Id);
+        List<RoutesView> GetRoutesFrom();
+        List<RoutesView> GetRoutesTo(int idFrom);
         List<RoutesBusView> Search(int fromid, int toid, int nbPage);
     }
 }

@@ -33,7 +33,7 @@ namespace BusBooking_Project.Repository.CsRepository
                 TotalSeat = p.TotalSeat,
                 SeatEmpty = p.SeatEmpty,
                 CateId = p.CateId,
-                CateName = p.Cate.Name
+                CategoryName = p.Category.Name
             }).ToList();
         }
         #endregion
@@ -51,7 +51,7 @@ namespace BusBooking_Project.Repository.CsRepository
                 TotalSeat = p.TotalSeat,
                 SeatEmpty = p.SeatEmpty,
                 CateId = p.CateId,
-                CateName = p.Cate.Name
+                CategoryName = p.Category.Name
             }).FirstOrDefault();
         }
         #endregion
@@ -73,23 +73,6 @@ namespace BusBooking_Project.Repository.CsRepository
                 var error = e.Message;
                 return false;
             }
-        }
-
-        public List<BusView> GetAllBus()
-        {
-            return GetAll().Result.Where(p => p.Status == true).Select(p => new BusView
-            {
-                Id = p.Id,
-                Code = p.Code,
-                Name = p.Name,
-                TotalSeat = p.TotalSeat,
-                SeatEmpty = p.SeatEmpty,
-                Active = p.Active,
-                Status = p.Status,
-                Image = p.Image,
-                CategoryName = p.Category.Name
-            }).ToList();
-
         }
 
         public int CreateACE(BusView busView)
@@ -277,7 +260,7 @@ namespace BusBooking_Project.Repository.CsRepository
                 Image = p.Image,
                 TotalSeat = p.TotalSeat,
                 SeatEmpty = p.SeatEmpty,
-                CateName = p.Cate.Name
+                CategoryName = p.Category.Name
             }).ToList();
         }
     }
