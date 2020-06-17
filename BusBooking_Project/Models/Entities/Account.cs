@@ -8,6 +8,7 @@ namespace BusBooking_Project.Models.Entities
         public Account()
         {
             Booking = new HashSet<Booking>();
+            Ticket = new HashSet<Ticket>();
         }
 
         public int Id { get; set; }
@@ -33,5 +34,6 @@ namespace BusBooking_Project.Models.Entities
         public virtual Role Role { get; set; }
         public virtual Station Station { get; set; }
         public virtual ICollection<Booking> Booking { get; set; }
+        public virtual ICollection<Ticket> Ticket { get; set; }
     }
 }

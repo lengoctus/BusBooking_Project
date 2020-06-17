@@ -1,9 +1,12 @@
-﻿using System;
+﻿using BusBooking_Project.Repository.EFCore;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace BusBooking_Project.Models.Entities
+namespace BusBooking_Project.Models.ModelsView
 {
-    public partial class Booking
+    public class BookingView : IEntity
     {
         public int Id { get; set; }
         public DateTime DayCreate { get; set; }
@@ -15,8 +18,5 @@ namespace BusBooking_Project.Models.Entities
         public int BusId { get; set; }
         public int SeatId { get; set; }
 
-        public virtual Bus Bus { get; set; }
-        public virtual Routes Route { get; set; }
-        public virtual Account User { get; set; }
     }
 }

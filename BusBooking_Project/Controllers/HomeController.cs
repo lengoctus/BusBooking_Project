@@ -45,5 +45,12 @@ namespace BusBooking_Project.Controllers
             return Json("0");
         }
 
+        [HttpGet("gettimeandroutes")]
+        public IActionResult GetTimeAndRoutes([FromQuery]int fr, [FromQuery]int to, [FromQuery]string dDate, [FromQuery] int QtyTicket)
+        {
+            
+            return View();
+        } 
+
     }
 }

@@ -28,7 +28,6 @@
                         <div class="form-group col-md-4 select-ace-padding">
                             <select id="selectSearch" class="form-control select-2">
                                 <option class="select-ace" value="null">Seleted Search</option>
-                                <option class="select-ace" selected value="@((int)SearchBus.Name)">Name</option>
                                 <option class="select-ace" value="@((int)SearchBus.Code)">Code</option>
 
                             </select>
@@ -49,7 +48,6 @@
                 <tr>
                     <th><input type="checkbox" id="selectAll"></th>
                     <th>Photo</th>
-                    <th>Name</th>
                     <th>Code</th>
                     <th>TotalSeat</th>
                     <th>SeatEmpty</th>
@@ -67,7 +65,6 @@
                         <td class="item-record">
                             <img src="~/admin/image/@item.Image" alt="@item.Image" width="50" height="50" />
                         </td>
-                        <td class="item-record">@item.Name</td>
                         <td class="item-record">@item.Code</td>
                         <td class="item-record">@item.TotalSeat</td>
                         <td class="item-record">@item.SeatEmpty</td>

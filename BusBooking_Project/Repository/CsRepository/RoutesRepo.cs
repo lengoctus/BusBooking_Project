@@ -222,5 +222,9 @@ namespace BusBooking_Project.Repository.CsRepository
             }
         }
         #endregion
+
+        //public RoutesView GetRouteByFromTo(int from, int to) {
+        //    var route = GetAll().Result.
+        //}
     }
 }

@@ -93,20 +93,28 @@ namespace BusBooking_Project.Models.Entities
 
             modelBuilder.Entity<Booking>(entity =>
             {
-                entity.Property(e => e.DayCreate).HasColumnType("datetime");
+                entity.Property(e => e.DayCreate)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.DayStart).HasColumnType("datetime");
-
-                entity.Property(e => e.FromCity).HasColumnName("FromCIty");
 
                 entity.HasOne(d => d.Bus)
                     .WithMany(p => p.Booking)
                     .HasForeignKey(d => d.BusId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Booking_Bus");
+
+                entity.HasOne(d => d.Route)
+                    .WithMany(p => p.Booking)
+                    .HasForeignKey(d => d.RouteId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Booking_Routes");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Booking)
                     .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Booking_Account");
             });
 
@@ -226,17 +234,11 @@ namespace BusBooking_Project.Models.Entities
 
                 entity.Property(e => e.TotalPrice).HasColumnType("decimal(18, 0)");
 
-                entity.HasOne(d => d.Booking)
+                entity.HasOne(d => d.User)
                     .WithMany(p => p.Ticket)
-                    .HasForeignKey(d => d.BookingId)
+                    .HasForeignKey(d => d.Userid)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Ticket_Booking");
-
-                entity.HasOne(d => d.Routes)
-                    .WithMany(p => p.Ticket)
-                    .HasForeignKey(d => d.RoutesId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Ticket_Routes");
+                    .HasConstraintName("FK_Ticket_Account");
             });
 
             OnModelCreatingPartial(modelBuilder);

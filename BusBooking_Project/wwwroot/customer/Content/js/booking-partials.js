@@ -214,62 +214,7 @@ $(document).ready(function () {
     //    autoclose: true
     //});
 
-    $(".btn-booking").on("click", function (e) {
-        //e.preventDefault();
-
-        //Get value
-        var fromPoint = getRealTextOption($("select[name=idOrigin] > option:selected").text());
-        //console.log(fromPoint);
-        //switch (fromPoint) {
-        //    case "An Giang (Châu Đốc, Long Xuyên)":
-        //        fromPoint = "An Giang";
-        //        break;
-        //    case "Đồng Tháp (Sa Đéc, Cao Lãnh, Hồng Ngự)":
-        //        fromPoint = "Đồng Tháp";
-        //        break;
-        //    case "Hậu Giang (Vị Thanh)":
-        //        fromPoint = "Hậu Giang";
-        //        break;
-        //    case "Kiên Giang (Rạch Giá, Hà Tiên)":
-        //        fromPoint = "Kiên Giang";
-        //        break;
-        //    default:
-        //        break;
-        //}
-        var toPoint = getRealTextOption($("select[name=idDest] > option:selected").text());
-        var dDate = $("input[name=dDate]").val();
-        var numOfTicket = $("input[name=numOfTicket]").val();
-        var url;
-        switch (lang) {
-            case "en-US":
-                url = "/en-US/buy-bus-ticket-from-{0}-to-{1}.html#/step1/{2}/{3}".format(slug(fromPoint), slug(toPoint), dDate, numOfTicket);
-                break;
-            default:
-                url = "/vi-VN/mua-ve-xe-{0}-di-{1}.html#/step1/{2}/{3}".format(slug(fromPoint), slug(toPoint), dDate, numOfTicket);
-                break;
-        }
-
-        dataLayer.push({
-            'event': "productClick",
-            'ecommerce': {
-                'click': {
-                    'actionField': { 'list': "{0} - {1}".format(fromPoint, toPoint) },      // Optional list property.
-                    'products': [{
-                        'name': "{0}-{1}-{2}".format("All", fromPoint, toPoint),                      // Name or ID is required.
-                        'id': "{0}-{1}-{2} ⇒ {3}".format(dDate, "All", fromPoint, toPoint),
-                        'brand': "Phương Trang",
-                        'category': "{0} ⇒ {1}".format(fromPoint, toPoint)
-                    }]
-                }
-            },
-            'eventCallback': function () {
-                document.location = url;
-            }
-        });
-
-        //Redirect
-        //location.href = url;
-    });
+    
 });
 
 

@@ -83,7 +83,7 @@ namespace BusBooking_Project.Areas.Admin.Controllers
                 default:
                     return RedirectToAction("index");
             }
-            //ViewBag.categories = _ICategoryrepo.GetDataACE();
+            ViewBag.categories = _ICategoryrepo.GetDataACE();
             return View(busView);
         }
 

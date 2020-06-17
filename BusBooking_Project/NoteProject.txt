@@ -8,3 +8,5 @@ VD:
 	b2: insert lại code cate05 => sẽ báo lỗi
 	b3: insert code cate06 => Sẽ insert vào db 2 dòng có code là cate06
 
+
+2) Chưa quản lý được lịch đi của xe
