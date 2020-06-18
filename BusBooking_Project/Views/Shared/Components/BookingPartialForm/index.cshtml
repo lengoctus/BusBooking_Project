@@ -1,7 +1,7 @@
 ﻿<div>
     <!-- Nav tabs -->
     <ul class="v-tabs clearfix" role="tablist">
-        <li role="presentation" class="active"><a href="#booking" aria-controls="home" role="tab" data-toggle="tab">Mua vé trực tuyến</a></li>
+        <li role="presentation" class="active"><a href="#booking" aria-controls="home" role="tab" data-toggle="tab">BOOK TICKET</a></li>
        
     </ul>
     <!-- Tab panes -->
@@ -11,12 +11,12 @@
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-ms-12">
                         <div class="form-group">
-                            <label for="">Điểm khởi hành</label>
+                            <label for="">Origin</label>
                             <div class="controls">
                                 <i class="fa fa-bus text-primary"></i>
 
                                 <select name="idOrigin" id="idOrigin" class="form-control selectpicker">
-                                    <option value="">Chọn điểm khởi hành</option>
+                                    <option value="">Choose Origin</option>
                                 </select>
                             </div>
 
@@ -24,12 +24,12 @@
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-ms-12">
                         <div class="form-group">
-                            <label for="">Điểm đến</label>
+                            <label for="">Destination</label>
                             <div class="controls">
                                 <i class="fa fa-bus text-primary"></i>
 
                                 <select name="idDest" id="idDest" class="form-control  selectpicker">
-                                    <option value="">Chọn điểm đến</option>
+                                    <option value="">Choose Destination</option>
                                 </select>
                             </div>
                         </div>
@@ -38,17 +38,17 @@
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-ms-12">
                         <div class="form-group">
-                            <label for="">Ngày khởi hành</label>
+                            <label for="">Departure Date</label>
                             <div class="controls">
                                 <i class="fa fa-clock-o text-primary"></i>
                                 <input type="text" name="dDate" placeholder=" dd/mm/yyyy" class="form-control dDate date-readonly" value="30-05-2020" readonly="">
-                                <small><em>Định dạng: dd-mm-yyyy</em></small>
+                                <small><em>Format: dd-mm-yyyy</em></small>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-ms-12">
                         <div class="form-group">
-                            <label for="">Số lượng vé</label>
+                            <label for="">Number of Tickets</label>
                             <div class="controls">
                                 <i class="fa fa-ticket text-primary"></i>
 
@@ -59,7 +59,7 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-5 col-md-5 col-sm-6 col-xs-6 col-ms-12">
-                        <a asp-controller="selectedSeat" asp-action="index"  class="btn btn-primary btn-block btn-flat"><i class="fa fa-ticket icon-flat bg-btn-actived"></i>Mua vé</a>
+                        <a asp-controller="selectedSeat" asp-action="index"  class="btn btn-primary btn-block btn-flat"><i class="fa fa-ticket icon-flat bg-btn-actived"></i>Book Now</a>
                     </div>
                 </div>
             </form>

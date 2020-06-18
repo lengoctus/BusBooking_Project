@@ -14,7 +14,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="form-group">
-                                <label for="">Chọn tuyến xe</label>
+                                <label for="">Select Route</label>
                                 <div class="controls" >
                                     <i class="fa fa-bus text-primary"></i>
                                     <p class="form-control">
@@ -33,7 +33,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="form-group">
-                                <label for="">Chọn giờ khởi hành</label>
+                                <label for="">Select Departure Time</label>
                                 <div class="controls">
                                     <i class="fa fa-clock-o text-primary"></i>
                                     <select class="form-control ng-pristine ng-untouched ng-valid ng-valid-required"
@@ -78,7 +78,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="form-group">
-                                <label for="">Chọn điểm lên xe</label>
+                                <label for="">Select Pickup Point</label>
                                 
                                 <div class="controls">
                                     <i class="fa fa-map-marker text-primary"></i>
@@ -127,11 +127,10 @@
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-ms-12">
                             <a class="btn btn-primary btn-flat" asp-controller="home" asp-action="index" >
                                 <i class="fa fa-arrow-left icon-flat bg-btn-actived"></i>
-                                Quay lại
+                               Back
                             </a>
                             <a class="btn btn-success btn-flat" asp-controller="customerinfo" asp-action="index">
-                                <i class="fa fa-arrow-right icon-flat bg-success"></i>Tiếp
-                                tục
+                                <i class="fa fa-arrow-right icon-flat bg-success"></i>Next
                             </a>
                         </div>
                     </div>
@@ -140,7 +139,7 @@
             </form>
         </div>
         <div class="panel">
-            <p class="text-center text-uppercase text-primary">Thông tin chuyến</p>
+            <p class="text-center text-uppercase text-primary">Route Infomation</p>
             <div id="step-info">
                 <table class="time-map table">
                     <tbody>
@@ -148,8 +147,7 @@
                             <td>
                                 <p>
                                     <i class="fa fa-bus text-primary"></i> <strong>
-                                        Xuất
-                                        phát
+                                       Departs
                                     </strong>
                                 </p>
                                 <span>02-06-2020</span><br>
@@ -183,8 +181,7 @@
                             <td>
                                 <p>
                                     <i class="fa fa-bus text-primary"></i> <strong>
-                                        Đến
-                                        lúc
+                                       Arrives
                                     </strong>
                                 </p>
                                 <span>02-06-2020</span><br>
@@ -204,7 +201,7 @@
                 </table>
 
                 <p>
-                    <strong>Miễn phí</strong>
+                    <strong>Free</strong>
                     <span>
                         <span class="water sprite" title="Nước uống"></span>
                         <span class="khan sprite" title="Khăn lạnh"></span>
@@ -229,12 +226,12 @@
                     <tbody>
                         <tr>
                             <td>
-                                <strong class="text-uppercase">Số ghế:</strong>
+                                <strong class="text-uppercase">Select Seat:</strong>
                                 <span class="numberS"></span>
-                                <span class="no">Chưa chọn ghế</span>
+                                <span class="no">None</span>
                             </td>
                             <td class="text-right">
-                                <strong class="text-uppercase">Tổng tiền:</strong>
+                                <strong class="text-uppercase">Total:</strong>
                                 (<span class="text-primary"
                                        style="font-weight: 600;">0<sup>₫</sup></span>)
                             </td>
@@ -250,8 +247,7 @@
                             <tr>
                                 <th colspan="5">
                                     <p class="text-center text-uppercase text-primary">
-                                        Chọn
-                                        ghế
+                                         Seats Map
                                     </p>
                                 </th>
                             </tr>
@@ -376,13 +372,13 @@
                     </table>
                     <div class="row">
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 col-ms-12 text-center">
-                            <div class="ordered"></div><span>Đang chọn</span>
+                            <div class="ordered"></div><span>Selected</span>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 col-ms-12 text-center">
-                            <div class="booked"></div><span>Đã đặt</span>
+                            <div class="booked"></div><span>Booked</span>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 col-ms-12 text-center">
-                            <div class="nothing"></div><span>Còn trống</span>
+                            <div class="nothing"></div><span>Available</span>
                         </div>
                     </div>
                 </div>

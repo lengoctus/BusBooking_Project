@@ -16,25 +16,6 @@ namespace BusBooking_Project.Areas.Employee.Controllers
         public IActionResult Index()
         {
             return View("Index");
-        }
-        [Route("gtTicket")]
-        public IActionResult GtTicket()
-        {
-            return View("GtTicket");
-        }
-
-
-        [Route("login")]
-        public IActionResult Login()    
-        {
-            return View("Login");
-        }
-
-      
-        [Route("repassword")]
-        public IActionResult Repassword()   
-        {
-            return View("Repassword");
-        }
+        }            
     }
 }
