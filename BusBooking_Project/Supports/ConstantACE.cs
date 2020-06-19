@@ -9,13 +9,12 @@ namespace Supports
     {
         public static string search = "Collate latin1_general_ci_ai";
         public static int size = 5;
+        public static int size2 = 10;
     }
 
     public enum SearchBus
     {
-        Name = 1,
-        Code = 2
-       
+        Code = 2      
     }
 
     public enum SearchUser
@@ -42,6 +41,7 @@ namespace Supports
         AlreadyPhone = -2,
         AlreadyCode = -3,
         AlreadyName = -4,
+        AlreadyTotalSeat = -6,
         ErrorOrther = -5
     }
 

@@ -27,13 +27,30 @@
                     <div class="input-group">
                         <div class="form-group col-md-4 select-ace-padding">
                             <select id="selectSearch" class="form-control select-2">
-                                <option class="select-ace" value="null">Seleted Search</option>
-                                <option class="select-ace" value="@((int)SearchBus.Code)">Code</option>
-
+                                <option class="select-ace" selected value="@((int)SearchBus.Code)">Code</option>
                             </select>
                         </div>
                         <input type="text" class="form-control input-ace" placeholder="Search" onkeyup="searchWithSelect(event,this,'selectSearch')">
                     </div>
+                </div>
+                <div class="col-1 px-10">
+                    <div style="padding: 6px 0px 0px 18px;">OR</div>
+                </div>
+                <div class="col-3 px-10">
+                    <select id="comboboxCategory" class="form-control">
+                        <option class="select-ace" selected value="null">By bus</option>
+                        @foreach (var c in ViewBag.cs)
+                        {
+                            <option value="@c.Id">@c.Name</option>
+                        }
+                    </select>                   
+                </div>
+                <div class="col-3 px-10">
+                    <a id="searchbycate" class="btn btn-primary btn-sm" href="#">
+                        <i class="fas fa-search">
+                        </i> &nbsp;
+                        <span class="view-edit" style="font-size:1rem;">Search</span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -45,7 +62,7 @@
     <div>
         <table class="table table-hover">
             <thead class="thead-light">
-                <tr>
+                <tr style="text-align: center">
                     <th><input type="checkbox" id="selectAll"></th>
                     <th>Photo</th>
                     <th>Code</th>
@@ -60,7 +77,7 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr>
+                    <tr style="text-align: center">
                         <td class="item-record"><input type="checkbox" name="check_id[]" value="@item.Id"></td>
                         <td class="item-record">
                             <img src="~/admin/image/@item.Image" alt="@item.Image" width="50" height="50" />
@@ -103,9 +120,40 @@
     <script>
 
         if ('@ViewBag.ModifySuccess' == '@CheckError.Success') {
+
             alertSuccessNonReload();
         }
-                
+
+        $(document).ready(function () {
+            var cateid = $('#comboboxCategory');
+
+            cateid.on('change', function () {
+                var ahref = $('#searchbycate').attr('href');
+                ahref = ahref.replace('#', '/admin/bus/searchbycategory?id=' + cateid.val());
+                $('#searchbycate').attr('href', ahref);
+            })
+
+            phantrangCurrentPage();
+            $(".js-example-disabled-results").select2();
+        })
+
+        function phantrangCurrentPage() {
+            let propertysearch = new URL(document.URL).searchParams.get("propertysearch");
+            let textsearch = new URL(document.URL).searchParams.get("textsearch");
+            let id = new URL(document.URL).searchParams.get("id");
+            if (!window.location.pathname.includes("/search")) {
+                phantrang('#pagination', @(ViewBag.Rows), '/admin/bus?page=');
+            }
+            else if (window.location.pathname.includes("/searchbycategory")) {               
+                phantrang('#pagination', @(ViewBag.Rows), '/admin/bus/searchbycategory?id=' + id + '&page=');
+            }
+            else {
+                $('#selectSearch').val(propertysearch).trigger('change');;
+                $('.input-ace').val(textsearch);
+                phantrang('#pagination', @(ViewBag.Rows), '/admin/bus/search?propertysearch=' + propertysearch + '&textsearch=' + textsearch + '&page=');
+            };
+        }
+
         function ActiveBus(input) {
             let idBus = input.getAttribute("data-bus-id");
             $.ajax({
@@ -139,5 +187,7 @@
                 }
             }
         }
+
+
     </script>
 }

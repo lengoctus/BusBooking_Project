@@ -14,55 +14,19 @@ namespace BusBooking_Project.Repository.CsRepository
 {
     public class BusRepo : GenericRepo<Bus>, IBusRePo
     {
-        //private int size = ConstantACE.size;
+        private int size = ConstantACE.size;
         private string search = ConstantACE.search;
         public BusRepo(ConnectDbContext db) : base(db)
         {
         }
 
-        #region Get All BusView
-        public List<BusView> GetAllBus()
-        {
-            return GetAll().Result.Where(p => p.Status == true).Select(p => new BusView
-            {
-                Id = p.Id,
-                Code = p.Code,
-                Active = p.Active ?? false,
-                Status = p.Status ?? false,
-                Image = p.Image,
-                TotalSeat = p.TotalSeat,
-                SeatEmpty = p.SeatEmpty,
-                CateId = p.CateId,
-                CategoryName = p.Category.Name
-            }).ToList();
-        }
-        #endregion
-
-        #region Get BusView using Id
-        public BusView GetBusById(int Id)
-        {
-            return GetAll().Result.Where(p => p.Status == true && p.Id == Id).Select(p => new BusView
-            {
-                Id = p.Id,
-                Code = p.Code,
-                Active = p.Active ?? false,
-                Status = p.Status ?? false,
-                Image = p.Image,
-                TotalSeat = p.TotalSeat,
-                SeatEmpty = p.SeatEmpty,
-                CateId = p.CateId,
-                CategoryName = p.Category.Name
-            }).FirstOrDefault();
-        }
-        #endregion
-
-        
-        public override bool CheckIsExists(Bus bus)
+       
+        public override bool CheckIsExists(Bus entity)
         {
             try
             {
-                var cate = GetAll().Result.AsNoTracking().FirstOrDefault(p => p.Code.ToLower() == bus.Code.ToLower().Trim());
-                if (cate != null)
+                var bus = GetAll().Result.AsNoTracking().FirstOrDefault(p => p.Code.ToLower() == entity.Code.ToLower().Trim());
+                if (bus!= null)
                 {
                     return true;
                 }
@@ -73,6 +37,34 @@ namespace BusBooking_Project.Repository.CsRepository
                 var error = e.Message;
                 return false;
             }
+        }
+
+        public List<BusView> GetAllBus(int page)
+        {
+            int start = size * (page - 1);
+            return GetAll().Result
+                .Where(p => p.Status == true)
+                .OrderByDescending(p => p.Id)
+                .Skip(start)
+                .Take(size)                
+                .Select(p => new BusView
+            {
+                Id = p.Id,
+                Code = p.Code,
+                TotalSeat = p.TotalSeat,
+                SeatEmpty = p.SeatEmpty,
+                Active = p.Active,
+                Status = p.Status,
+                Image = p.Image,
+                CategoryName = p.Category.Name
+            }).ToList();
+
+        }
+        public int CountAllBus()
+        {
+            return GetDataACE()
+                .Where(s => (bool)s.Status)
+                .Count();
         }
 
         public int CreateACE(BusView busView)
@@ -110,7 +102,11 @@ namespace BusBooking_Project.Repository.CsRepository
         {
             try
             {
-                
+                Bus busTotalSeat = GetDataACE().SingleOrDefault(s => s.TotalSeat == busView.TotalSeat);
+                if (busTotalSeat != null)
+                {
+                    return (int)CheckError.AlreadyTotalSeat;
+                }
                 Bus busCode = GetDataACE().SingleOrDefault(s => s.Code.Trim() == busView.Code.Trim());
                 if (busCode != null)
                 {
@@ -173,7 +169,11 @@ namespace BusBooking_Project.Repository.CsRepository
         private int CheckModify(BusView busView)
         {
             
-            
+            Bus busTotalSeat = GetDataACE().SingleOrDefault(s => s.Id != busView.Id && s.TotalSeat == busView.TotalSeat);
+            if (busTotalSeat != null)
+            {
+                return (int)CheckError.AlreadyTotalSeat;
+            }
             Bus busCode = GetDataACE().SingleOrDefault(s => s.Id != busView.Id && s.Code.Trim() == busView.Code.Trim());
             if (busCode != null)
             {
@@ -190,17 +190,19 @@ namespace BusBooking_Project.Repository.CsRepository
             return Update(bus.Id, bus).Result;
         }
 
-        public List<BusView> Search(string textsearch, int search_case)
-        {         
+        public List<BusView> Search(int page, string textsearch, int search_case)
+        {
+            int start = size * (page - 1);
             string columnSearch = "";
             switch (search_case)
             {
+                
                 case (int)SearchBus.Code:
                     columnSearch = "[code]";
                     break;
               
             }
-            return GetDataRawSqlACE($"SELECT * FROM [bus] WHERE {columnSearch} {search} like  N'%{textsearch}%' AND [status] = 1")                             
+            return GetDataRawSqlACE($"SELECT * FROM [bus] WHERE {columnSearch} {search} like  N'%{textsearch}%' AND [status] = 1")                            
                 .Select(s => new BusView
                 {
                     Id = s.Id,
@@ -211,8 +213,7 @@ namespace BusBooking_Project.Repository.CsRepository
                     Status = s.Status ?? false,
                     Image = s.Image ,
                     CateId = s.CateId,
-                    CategoryName = s.Category.Name
-                  
+                    CategoryName = s.Category.Name                 
                 }).ToList();
         }
 
@@ -220,8 +221,7 @@ namespace BusBooking_Project.Repository.CsRepository
         {
             string columnSearch = "";
             switch (search_case)
-            {
-                
+            {               
                
                 case (int)SearchBus.Code:
                     columnSearch = "[code]";
@@ -231,20 +231,39 @@ namespace BusBooking_Project.Repository.CsRepository
             return GetDataRawSqlACE($"SELECT * FROM [bus] WHERE {columnSearch} {search} like  N'%{textsearch}%' AND [status] = 1").Count();
         }
 
-        public List<BusView> GetBusByCateId(int CateId)
+        public List<BusView> SearchByCategory(int page, int cateid)
         {
-            return GetAll().Result.Where(p => p.CateId == CateId).Select(p => new BusView
+            int start = size * (page - 1);
+            return GetAll().Result
+                .Where(p => p.CateId == cateid && p.Status == true)
+                .OrderByDescending(p => p.Id)
+                .Skip(start)
+                .Take(size)
+                .Select(p => new BusView
+                {
+                    Id = p.Id,
+                    Code = p.Code,
+                    TotalSeat = p.TotalSeat,
+                    SeatEmpty = p.SeatEmpty,
+                    Active = p.Active,
+                    Status = p.Status,
+                    Image = p.Image,
+                    CategoryName = p.Category.Name
+                }).ToList();
+        }
+        public int CountSearchByCategory(int cateid)
+        {
+            return GetAll().Result.Where(p => p.CateId == cateid && p.Status == true).Select(p => new BusView
             {
                 Id = p.Id,
-                CateId = p.CateId,
                 Code = p.Code,
-                Active = p.Active ?? false,
-                Status = p.Status ?? false,
-                Image = p.Image,
                 TotalSeat = p.TotalSeat,
                 SeatEmpty = p.SeatEmpty,
+                Active = p.Active,
+                Status = p.Status,
+                Image = p.Image,
                 CategoryName = p.Category.Name
-            }).ToList();
+            }).Count();
         }
     }
 

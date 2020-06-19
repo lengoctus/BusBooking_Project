@@ -35,23 +35,13 @@
                         <form asp-controller="bus" asp-area="admin" asp-action="create" method="post" enctype="multipart/form-data" role="form">
                             <div class="row">
                                 
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
                                     <!-- text input -->
                                     <div class="form-group">
                                         <label>Code</label>
-                                        <input type="text" asp-for="Code" class="form-control">
+                                        <input type="text" asp-validate-for="" asp-for="Code" class="form-control">
                                     </div>
-                                </div>
-                            </div>
-
-                            <!-- input states -->
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <!-- text input -->
-                                    <div class="form-group">
-                                        <label>Total Seat</label>
-                                        <input type="text" asp-for="TotalSeat" class="form-control">
-                                    </div>
+                                    
                                 </div>
                             </div>
                             <div class="row">
@@ -95,12 +85,35 @@
                                 <div class="col-sm-3">
                                 </div>
                             </div>
-                            <div class="row" style="margin-bottom: 15px">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <!-- text input -->
+                                    <div class="form-group">
+                                        <label>Total Seat</label>
+                                        <input type="text" asp-for="TotalSeat" class="form-control">
+                                    </div>
+                                    
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Seat Empty</label>
+                                        <input type="text" asp-for="SeatEmpty" class="form-control">
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="form-check">
+                                            <input type="checkbox" asp-for="Active" class="form-check-input" />
+                                            <label>Active</label>
+                                        </div>
 
                                 <div class="col-sm-3">
                                     <input type="file" class="input-ace" asp-for="Image" id="inputphoto" name="inputphoto" onchange="change()" />
                                 </div>
-
+                                
                             </div>
                             <div class="row">
                                 <div class="col-sm-2">

@@ -51,20 +51,20 @@
     <div class="container">
 
         <!-- ERROR TITLE -->
-        <div class="outer-wrapper">404<span>Không tìm th?y trang này</span></div>
+        <div class="outer-wrapper">404<span>Khï¿½ng tï¿½m th?y trang nï¿½y</span></div>
         <!--/outer-wrapper -->
         <!-- SORRY -->
         <div class="message">
-            <p>Trang web b?n dang tìm ki?m có th? dã b? xóa ho?c gi?i h?n truy c?p.</p><br>
-            <p>Hãy ghé tham các trang khác c?a website.</p>
+            <p>Trang web b?n dang tï¿½m ki?m cï¿½ th? dï¿½ b? xï¿½a ho?c gi?i h?n truy c?p.</p><br>
+            <p>Hï¿½y ghï¿½ tham cï¿½c trang khï¿½c c?a website.</p>
         </div>
 
         <!-- NAVIGATION LINKS -->
         <div class="nav-wrapper">
             <a href="/">Trang ch?</a>
-            <a href="/vi-VN/ve-xe-phuong-trang-lich-trinh.html">Giá vé</a>
+            <a href="/vi-VN/ve-xe-phuong-trang-lich-trinh.html">Giï¿½ vï¿½</a>
             <a href="/vi-VN/ve-xe-phuong-trang-tin-tuc.html">Tin t?c</a>
-            <a href="/vi-VN/ve-xe-phuong-trang-lien-he.html">Liên h?</a>
+            <a href="/vi-VN/ve-xe-phuong-trang-lien-he.html">Liï¿½n h?</a>
         </div>
         <!--/nav-wrapper -->
         <!-- SOCIAL LINKS -->
@@ -75,14 +75,14 @@
             
         </div>
         <!--/social-links -->
-        <p class="copyrights">Copyright © 2016 FUTA Bus Lines All Right Reserved</p>
+        <p class="copyrights">Copyright ï¿½ 2016 FUTA Bus Lines All Right Reserved</p>
     </div>
     <!--/container -->
 </div>
 
     <script src="/Content/js/jquery-1.11.3.min.js"></script>
     <script>
-        function mainWindow() {
+        zfunction mainWindow() {
             $(".main-wrapper").css({
                 width: $('html').width(),
                 height: $('html').height() > $(window).height() ? $('html').height() : $(window).height()

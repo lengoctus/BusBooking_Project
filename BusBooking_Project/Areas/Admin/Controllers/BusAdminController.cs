@@ -17,6 +17,7 @@ using Supports;
 
 namespace BusBooking_Project.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "A", AuthenticationSchemes = "SCHEME_AD")]
     [Area("admin")]
     [Route("admin/bus")]
 
@@ -35,6 +36,7 @@ namespace BusBooking_Project.Areas.Admin.Controllers
         }
 
         [Route("")]
+        [HttpGet]
         [Route("index")]
         public IActionResult Index()
         {
@@ -42,22 +44,26 @@ namespace BusBooking_Project.Areas.Admin.Controllers
             {
                 ViewBag.ModifySuccess = CheckError.Success;
             }
-            List<BusView> listBus = _IBusrepo.GetAllBus();
-            return View("Index", listBus);
+            string strPage = HttpContext.Request.Query["page"].ToString();
+            int page = Convert.ToInt32(strPage == "" ? "1" : strPage);
+            ViewBag.cs = _ICategoryrepo.GetDataACE();
+            List<BusView> listBus = _IBusrepo.GetAllBus(page);
+            ViewBag.Rows = _IBusrepo.CountAllBus();
+            return View(listBus);
         }
 
         [HttpGet("create")]
         public IActionResult Create()
         {
             ViewBag.categories = _ICategoryrepo.GetDataACE();
-            return View(new BusView { Image = "abc.jpg", Active = true });
+            return View(new BusView { Active = true });
         }
 
         [HttpPost("create")]
         public IActionResult Create(BusView busView, IFormFile inputphoto)
         {
             busView.Status = true;
-            string FileNameSave = "abc.jpg";
+            string FileNameSave = "dui.jpg";
             if (inputphoto != null)
             {
                 FileNameSave = FileACE.SaveFile(webHostEnvironment, inputphoto, "admin/image");
@@ -73,9 +79,6 @@ namespace BusBooking_Project.Areas.Admin.Controllers
             {
                 case (int)CheckError.AlreadyCode:
                     ViewBag.Result = CheckError.AlreadyCode;
-                    break;
-                case (int)CheckError.AlreadyName:
-                    ViewBag.Result = CheckError.AlreadyName;
                     break;
                 case (int)CheckError.ErrorOrther:
                     ViewBag.Result = CheckError.ErrorOrther;
@@ -117,9 +120,6 @@ namespace BusBooking_Project.Areas.Admin.Controllers
             }
             switch (id)
             {
-                case (int)CheckError.AlreadyName:
-                    ViewBag.Result = CheckError.AlreadyName;
-                    break;
                 case (int)CheckError.AlreadyCode:
                     ViewBag.Result = CheckError.AlreadyCode;
                     break;
@@ -143,32 +143,42 @@ namespace BusBooking_Project.Areas.Admin.Controllers
             }
             return Json("500");
         }
+
         [HttpGet("search")]
         public IActionResult Search()
         {
             int propertySearch = Convert.ToInt32(HttpContext.Request.Query["propertysearch"].ToString().Trim().ToLower());
             string textsearch = HttpContext.Request.Query["textsearch"].ToString().Trim().ToLower();
-            //string strPage = HttpContext.Request.Query["page"].ToString();
-            // int page = Convert.ToInt32(strPage == "" ? "1" : strPage);
+            string strPage = HttpContext.Request.Query["page"].ToString();
+            int page = Convert.ToInt32(strPage == "" ? "1" : strPage);
             List<BusView> listBus = new List<BusView>();
             switch (propertySearch)
             {
                 case (int)SearchBus.Code:
-                    listBus = _IBusrepo.Search(textsearch, (int)SearchBus.Code);
-                    //ViewBag.Rows = _IBusrepo.CountSearchData(textsearch, (int)SearchBus.Code);
+                    listBus = _IBusrepo.Search(page, textsearch, (int)SearchBus.Code);
+                    ViewBag.Rows = _IBusrepo.CountSearchData(textsearch, (int)SearchBus.Code);
                     break;
-                case (int)SearchBus.Name:
-                    listBus = _IBusrepo.Search(textsearch, (int)SearchBus.Name);
-                    //ViewBag.Rows = _IBusrepo.CountSearchData(textsearch, (int)SearchBus.Name);
-                    break;
+
                 default:
-                    listBus = _IBusrepo.Search(textsearch, (int)SearchBus.Code);
-                    //ViewBag.Rows = _IBusrepo.CountSearchData(textsearch, (int)SearchBus.Code);
+                    listBus = _IBusrepo.Search(page, textsearch, (int)SearchBus.Code);
+                    ViewBag.Rows = _IBusrepo.CountSearchData(textsearch, (int)SearchBus.Code);
                     break;
             }
+            ViewBag.cs = _ICategoryrepo.GetDataACE();
             return View("index", listBus);
         }
 
-
+        [HttpGet]
+        [Route("searchbycategory")]
+        public IActionResult SearchByCategory()
+        {
+            int id= Convert.ToInt32(HttpContext.Request.Query["id"].ToString().Trim());
+            string strPage = HttpContext.Request.Query["page"].ToString();
+            int page = Convert.ToInt32(strPage == "" ? "1" : strPage);
+            var seatsbycate = _IBusrepo.SearchByCategory(page, id);
+            ViewBag.Rows = _IBusrepo.CountSearchByCategory(id);
+            ViewBag.cs = _ICategoryrepo.GetDataACE();
+            return View("index", seatsbycate);
+        }
     }
 }

@@ -1,0 +1,16 @@
+﻿.fa-check {
+    color: lawngreen !important;
+}
+
+.fa-times {
+    color: orangered !important;
+}
+
+.select-ace-padding {
+    padding-left: 0;
+}
+
+.item-record {
+    line-height: 50px;
+    vertical-align: middle !important;
+}
