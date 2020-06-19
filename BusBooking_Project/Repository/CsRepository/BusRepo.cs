@@ -25,8 +25,8 @@ namespace BusBooking_Project.Repository.CsRepository
         {
             try
             {
-                var cate = GetAll().Result.AsNoTracking().FirstOrDefault(p => p.Code.ToLower() == entity.Code.ToLower().Trim());
-                if (cate != null)
+                var bus = GetAll().Result.AsNoTracking().FirstOrDefault(p => p.Code.ToLower() == entity.Code.ToLower().Trim());
+                if (bus!= null)
                 {
                     return true;
                 }
@@ -43,7 +43,8 @@ namespace BusBooking_Project.Repository.CsRepository
         {
             int start = size * (page - 1);
             return GetAll().Result
-                .Where(p => p.Status == true).OrderByDescending(p => p.Id)
+                .Where(p => p.Status == true)
+                .OrderByDescending(p => p.Id)
                 .Skip(start)
                 .Take(size)                
                 .Select(p => new BusView

@@ -31,13 +31,14 @@ namespace BusBooking_Project
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddScoped<IAccountRepo, AccountRepo>();
 
+            services.AddScoped<IAccountRepo, AccountRepo>();
             services.AddScoped<ICategoryRepo, CategoryRepo>();
             services.AddScoped<IBusRePo, BusRepo>();
             services.AddScoped<IRoutesRepo, RoutesRepo>();
             services.AddScoped<ISeatRePo, SeatRepo>();
             services.AddScoped<IStationRepo, StationRepo>();
+
             string serverName = Environment.MachineName;
             string[] localServerName = { "LAPTOP-G7GQARUL"};
             string connectionStrings = "";
@@ -64,14 +65,14 @@ namespace BusBooking_Project
                 option.AccessDeniedPath = "/admin/accessDenied";
                 option.LogoutPath = "/admin/logout";
                 option.Cookie.Name = "acecookie";
+            })
+            .AddCookie("SCHEME_EMP", option =>
+            {
+                option.LoginPath = "/employee/login";
+                option.AccessDeniedPath = "/employee/accessDenied";
+                option.LogoutPath = "/employee/logout";
+                option.Cookie.Name = "acecookie";
             });
-            //.AddCookie("SCHEME_EMP", option =>
-            //{
-            //    option.LoginPath = "";
-            //    option.AccessDeniedPath = "";
-            //    option.LogoutPath = "";
-            //    option.Cookie.Name = "";
-            //});
             services.AddSession();
         }
 
@@ -115,6 +116,11 @@ namespace BusBooking_Project
                     constraints: new { area = "admin" });
                 //Của sáng//
 
+                endpoints.MapControllerRoute(
+                    name: "employee_route",
+                    pattern: "{area:exists}/{controller}/{action}/{id?}",
+                    defaults: new { area = "employee" },
+                    constraints: new { area = "employee" });
 
                 endpoints.MapControllerRoute(
                     name: "default",

@@ -3,6 +3,8 @@ using BusBooking_Project.Models.ModelsView;
 using BusBooking_Project.Repository.EFCore;
 using BusBooking_Project.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Supports;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,17 +14,16 @@ namespace BusBooking_Project.Repository.CsRepository
 {
     public class SeatRepo : GenericRepo<Seat>, ISeatRePo
     {
-        //private readonly ConnectDbContext _db;
+        private int size2 = ConstantACE.size2;
         public SeatRepo(ConnectDbContext db) : base(db)
         {
-            //_db = db;
         }
 
         public SeatView GetByIdSeat(int Id)
         {
             try
             {
-                return GetAll().Result.Select(p => new SeatView
+                return GetAll().Result.Where(s => s.Status == true).Select(p => new SeatView
                 {
                     Id = p.Id,
                     BusId = p.BusId,
@@ -37,43 +38,67 @@ namespace BusBooking_Project.Repository.CsRepository
             }
         }
 
-        public List<SeatView> SearchByBusId(int busid)
+        public List<SeatView> SearchByBus(int page, int busid)
         {
-            return GetAll().Result.Where(s => s.BusId == busid && s.Status == true).Select(s => new SeatView
-            {
-                Id = s.Id,
-                BusId = s.BusId,
-                Code = s.Code,
-                BusCode = s.Bus.Code,
-                Status = s.Status
-            }).ToList();
+            int start = size2 * (page - 1);
+            return GetAll().Result
+                .Where(s => s.BusId == busid && s.Status == true)
+                .OrderByDescending(p => p.Id)
+                .Skip(start)
+                .Take(size2)
+                .Select(s => new SeatView
+                {
+                    Id = s.Id,
+                    BusId = s.BusId,
+                    Code = s.Code,
+                    BusCode = s.Bus.Code,
+                    Status = s.Status
+                }).ToList();
+        }
+        public int CountSearchByBus(int busid)
+        {
+            return GetAll().Result
+                .Where(s => s.BusId == busid && s.Status == true)
+                .Select(s => new SeatView
+                {
+                    Id = s.Id,
+                    BusId = s.BusId,
+                    Code = s.Code,
+                    BusCode = s.Bus.Code,
+                    Status = s.Status
+                }).Count();
         }
 
-        public List<SeatView> GetAllSeat()
+        public List<SeatView> GetAllSeat(int page)
         {
-            try
-            {
-                //.Join(db.Bus, se => se.BusId, bus => bus.Id, (se, bus) =>
-                return GetAll().Result.Select(s => new SeatView
+            int start = size2 * (page - 1);
+           
+            return GetAll().Result
+                .Where(p => p.Status == true)
+                .OrderByDescending(p => p.Id)
+                .Skip(start)
+                .Take(size2)
+                .Select(s => new SeatView
                 {
                     Id = s.Id,
                     BusId = s.BusId,
                     Code = s.Code,
                     Status = s.Status,
                     BusCode = s.Bus.Code
-                }).Where(p => p.Status == true).ToList();
-            }
-            catch (Exception e)
-            {
-                return null;
-
-            }
+                }).ToList();
         }
+        public int CountAllSeat()
+        {
+            return GetDataACE()
+                .Where(s => (bool)s.Status)
+                .Count();
+        }
+
         public override bool CheckIsExists(Seat entity)
         {
             try
             {
-                var seatCheck = GetAll().Result.FirstOrDefault(p => p.Code.ToLower() == entity.Code.ToLower());
+                var seatCheck = GetAll().Result.AsNoTracking().FirstOrDefault(p => p.Code == entity.Code);
 
                 if (seatCheck != null)
                 {

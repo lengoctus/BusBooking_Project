@@ -12,8 +12,10 @@ namespace BusBooking_Project.Repository.IRepository
     {
         bool CheckIsExists(Seat entity);
         bool Delete(int[] arrId);
-        List<SeatView> GetAllSeat();
+        List<SeatView> GetAllSeat(int page);
+        int CountAllSeat();
         SeatView GetByIdSeat(int Id);
-        List<SeatView> SearchByBusId(int busid);
+        List<SeatView> SearchByBus(int page, int busid);
+        int CountSearchByBus(int busid);
     }
 }

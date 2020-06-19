@@ -30,9 +30,12 @@ namespace BusBooking_Project.Areas.Admin.Controllers
         [Route("index")]
         public IActionResult Index()
         {
+            string strPage = HttpContext.Request.Query["page"].ToString();
+            int page = Convert.ToInt32(strPage == "" ? "1" : strPage);
             ViewBag.buses = _IBus.GetDataACE();
-            var seats = _ISeat.GetAllSeat();
-            return View("index", seats);
+            var seats = _ISeat.GetAllSeat(page);
+            ViewBag.Rows = _ISeat.CountAllSeat();
+            return View(seats);
         }
 
         [HttpGet]
@@ -99,10 +102,16 @@ namespace BusBooking_Project.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        [Route("searchbybusid/{id}")]
-        public IActionResult SearchByBusId(int id)
+        [Route("searchbybus")]
+        public IActionResult SearchByBus()
         {
-            return new JsonResult(_ISeat.SearchByBusId(id));
+            int id = Convert.ToInt32(HttpContext.Request.Query["id"].ToString().Trim());
+            string strPage = HttpContext.Request.Query["page"].ToString();
+            int page = Convert.ToInt32(strPage == "" ? "1" : strPage);
+            var seatsbybus = _ISeat.SearchByBus(page, id);
+            ViewBag.Rows = _ISeat.CountSearchByBus(id);
+            ViewBag.buses = _IBus.GetDataACE();
+            return View("index", seatsbybus);
         }
 
         [HttpPost("deleteseat")]

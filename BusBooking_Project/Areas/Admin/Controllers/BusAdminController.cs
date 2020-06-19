@@ -17,6 +17,7 @@ using Supports;
 
 namespace BusBooking_Project.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "A", AuthenticationSchemes = "SCHEME_AD")]
     [Area("admin")]
     [Route("admin/bus")]
 
@@ -169,7 +170,7 @@ namespace BusBooking_Project.Areas.Admin.Controllers
 
         [HttpGet]
         [Route("searchbycategory")]
-        public IActionResult SearchByBusId()
+        public IActionResult SearchByCategory()
         {
             int id= Convert.ToInt32(HttpContext.Request.Query["id"].ToString().Trim());
             string strPage = HttpContext.Request.Query["page"].ToString();

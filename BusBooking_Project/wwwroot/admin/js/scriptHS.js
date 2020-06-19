@@ -11,7 +11,7 @@
             var busid = modal.find('.modal-body #addSeat #CodeBus');
             var status = modal.find('.modal-body #addSeat #StatusSeat');
 
-            var regexCode = new RegExp(/^[A-Z0-9]{1,}$/);
+            var regexCode = new RegExp(/^[A-Z0-9]{2,}$/);
 
             if (regexCode.test(code.val()) == false) {
                 code.next('span').remove();
@@ -196,35 +196,25 @@
     })
 
 
-    $('#comboboxBus').on('change', function () {
-        var id = $('#comboboxBus option:selected').val();
-        $.ajax({
-            type: 'GET',
-            dataType: 'json',
-            contentType: 'application/json',
-            url: '/admin/seats/searchbybusid/' + id,
-            success: function (prds) {
-                var s = '';
-                for (var i = 0; i < prds.length; i++) {
-                    s += '<tr style="text-align: center">';
-                    s += '<td><input type="checkbox" class="CbSeat" /></td>';
-                    s += '<td>' + prds[i].code + '</td>';
-                    s += '<td>' + prds[i].busCode + '</td>';
-                    s += '<td>' + ((prds[i].status) ? 'On' : 'Off') + '</td>';
-                    s += '<td class="item-record">';
-                    s += '<button type="button" class="btn btn-info" data-id="' + prds[i].id + '" data-toggle="modal" data-target="#editSeat">';
-                    s += '<i class="fas fa-edit"></i>'
-                    s += 'Edit';
-                    s += '</button>';
-                    s += '</td>';
-                    s += '</tr>';
-                }
-                $('table tbody').html(s);
-            }
-        });
-    });
+    
 
 
 
 })
+function phantrang2(baseElement, totalPages, url) {
+    $(baseElement).pagination({
+        items: totalPages,
+        itemsOnPage: getCookie("QuantityRows") == "" ? 10 : getCookie("QuantityRows"),
+        currentPage: parseInt(new URL(document.URL).searchParams.get("page")),
+        cssStyle: 'light-theme',
+        hrefTextPrefix: url,
+        hrefTextSuffix: '',
+        onPageClick(pageNumber, event) {
+            let urls = document.URL;
+            let pageCurrent = new URL(urls).searchParams.get("page");
+            urls = Boolean(pageCurrent) ? urls.replace("?page=" + pageCurrent, "?page=" + pageNumber) : urls + '?page=' + pageNumber;
+            window.location.assign(urls);
+        },
+    });
+}
 

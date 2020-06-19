@@ -29,7 +29,6 @@
                         <div class="col-3">
                             <!-- select -->
                             <div class="form-group">
-                                <label>Select by Bus</label>
                                 <select class="form-control" id="comboboxBus">
                                     <option value="null">Select</option>
                                     @foreach (var b in ViewBag.buses)
@@ -37,15 +36,20 @@
                                         <option value="@b.Id">@b.Code</option>
                                     }
                                 </select>
-                                <div>&nbsp;</div>
 
                             </div>
                         </div>
-                        <div class="col-3"></div>
+                        <div class="col-3">
+                            <div class="form-group">
+                                <a id="searchbybus" class="btn btn-primary btn-sm" href="#">
+                                    <i class="fas fa-search"></i> &nbsp;
+                                    <span class="view-edit" style="font-size:1rem;">Search</span>
+                                </a>
+                            </div>
+                        </div>
                         <div class="col-3"></div>
                         <div class="col-3">
                             <div class="form-group">
-                                <div>&nbsp;</div>
                                 <input type="button" class="btn btn-primary" data-toggle="modal" data-target="#addform" value="New Seat" style="float: right" />
                             </div>
                         </div>
@@ -84,10 +88,10 @@
                                     </td>
                                 </tr>
                             }
-                            
+
                         </tbody>
                         <tfoot>
-                            
+
                         </tfoot>
                     </table>
 
@@ -99,7 +103,11 @@
                 <div class="col-md-6">
                     <button type="button" class="btn btn-danger btnRemove"><i class="fas fa-trash"></i> &nbsp; Remove</button>
                 </div>
-                <div class="col-md-6"></div>
+
+                <div class="col-sm-12 col-md-6 page">
+                    <ul id="pagination" class="pagination-sm float-right"></ul>
+                </div>
+
             </div>
             <!-- /.card -->
         </div>
@@ -132,7 +140,7 @@
 
                     <div class="form-group">
                         <label for="CodeSeat" class="control-label">Seat Code:</label>
-                        <input type="text" class="form-control" id="CodeSeat">
+                        <input type="text" class="form-control" id="CodeSeat">                        
                     </div>
 
                     <div class="form-group">
@@ -177,11 +185,7 @@
                         <input type="text" readonly class="form-control EditCodeSeat">
                     </div>
 
-                    @*<label class="custom-control teleport-switch">
-                            <span class="teleport-switch-control-description">Status:</span>
-                            <input type="checkbox" data-idSeat="@s.Id" value="@s.Status" checked="@s.Status" class="teleport-switch-control-input EditStatus">
-                            <span class="teleport-switch-control-indicator"></span>
-                        </label>*@
+
                 </form>
             </div>
             <div class="modal-footer">
@@ -191,4 +195,34 @@
         </div>
     </div>
 </div>
+
+@section script{
+    <script>
+
+
+        $(document).ready(function () {
+            var busid = $('#comboboxBus');
+
+            busid.on('change', function () {
+                var ahref = $('#searchbybus').attr('href');
+                ahref = ahref.replace('#', '/admin/seats/searchbybus?id=' + busid.val());
+                $('#searchbybus').attr('href', ahref);
+            })
+
+            phantrangCurrentPage();
+            $(".js-example-disabled-results").select2();
+        })
+
+        function phantrangCurrentPage() {
+            let id = new URL(document.URL).searchParams.get("id");
+            if (!window.location.pathname.includes("/searchbybus")) {
+                phantrang2('#pagination', @(ViewBag.Rows), '/admin/seats?page=');
+            }
+            else if (window.location.pathname.includes("/searchbybus")) {
+                phantrang2('#pagination', @(ViewBag.Rows), '/admin/seats/searchbybus?id=' + id + '&page=');
+            }
+        }
+
+    </script>
+}
 
