@@ -221,10 +221,69 @@ namespace BusBooking_Project.Repository.CsRepository
                 return null;
             }
         }
+
         #endregion
 
-        //public RoutesView GetRouteByFromTo(int from, int to) {
-        //    var route = GetAll().Result.
-        //}
+        #region GetRoutesByFromTo
+        public List<RoutesView> GetRoutesByFromTo(int from, int to, int CateId)
+        {
+            try
+            {
+
+                var RouteCateid = GetAll().Result.Join(_db.Bus, rou => rou.BusId, bus => bus.Id, (rou, bus) => new RoutesView
+                {
+                    Id = rou.Id,
+                    StationFrom = rou.StationFrom,
+                    StationTo = rou.StationTo,
+                    TimeGo = rou.TimeGo.ToString(),
+                    TimeRun = rou.TimeRun,
+                    Price = rou.Price,
+                    CategoryId = bus.CateId
+                }).Where(p => p.StationFrom == from && p.StationTo == to && p.CategoryId == CateId).ToList();
+
+                return RouteCateid;
+
+
+                //return GetAll().Result.Where(p => p.StationFrom == from && p.StationTo == to).Select(p => new RoutesView
+                //{
+                //    Id = p.Id,
+                //    StationFrom = p.StationFrom,
+                //    StationTo = p.StationTo,
+                //    TimeGo = p.TimeGo.ToString(),
+                //    TimeRun = p.TimeRun,
+                //    Price = p.Price
+                //}).ToList();
+
+
+
+            }
+            catch (Exception e)
+            {
+                return null;
+                throw;
+            }
+        }
+        #endregion
+
+
+        public List<BusView> GetCateogryByFromTo(int from, int to)
+        {
+            try
+            {
+                var listcate = GetAll().Result.Where(p => p.Active == true && p.StationFrom == from && p.StationTo == to).Join(_db.Bus, rou => rou.BusId, bus => bus.Id, (rou, bus) => new BusView
+                {
+                    CateId = bus.CateId,
+                    CategoryName = bus.Category.Name,
+                    CategoryPrice = bus.Category.Price
+                }).Distinct().ToList();
+
+                return listcate;
+            }
+            catch (Exception e)
+            {
+                return null;
+                throw;
+            }
+        }
     }
 }

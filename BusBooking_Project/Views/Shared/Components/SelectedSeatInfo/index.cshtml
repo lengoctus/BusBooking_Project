@@ -1,26 +1,27 @@
-﻿<div class="row">
+﻿
+<div class="row">
     <div class="col-sm-4 col-xs-12 col-ms-12">
         <div class="panel">
             <p class="text-center text-primary text-uppercase">
-                Châu Đốc - Cần Thơ ngày
-                <span>02-06-2020</span>
+                @(ViewBag.infoBooking[1].Split(" - ")[0]) - @(ViewBag.infoBooking[3].Split(" - ")[0])
+                <span>@(ViewBag.infoBooking[4])</span>
             </p>
             <form id="form-steps" name="form" novalidate=""
-                  class="ng-pristine ng-invalid ng-invalid-min ng-valid-max ng-valid-required">
+                  class="ng-pristine ng-invalid ng-invalid-min ng-valid-max ng-valid-required" method="post" asp-controller="selectedSeat" asp-action="getseatbycategory">
                 <fieldset>
                     <div class="row hidden">
-                        <input type="number" name="selectSeatNum" value="0" min="1" max="5" required="" />                              
+                        <input type="number" name="selectSeatNum" value="0" min="1" max="5" required="" />
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="form-group">
-                                <label for="">Chọn tuyến xe</label>
-                                <div class="controls" >
+                                <label for="">Select Route:</label>
+                                <div class="controls">
                                     <i class="fa fa-bus text-primary"></i>
                                     <p class="form-control">
-                                        <span class="f-left">Chau Doc ⇒ Can Tho</span>
+                                        <span class="f-left">@(ViewBag.infoBooking[1].Split(" - ")[0]) ⇒ @(ViewBag.infoBooking[3].Split(" - ")[0])</span>
                                         <span class="f-right">
-                                            <span>100.000<sup>₫</sup></span>&nbsp;
+                                            <span>@ViewBag.RoutePrice<sup>₫</sup></span>&nbsp;
                                             <input type="radio" checked="checked" name="selectRoute" required="" value="">
                                         </span>
                                     </p>
@@ -29,45 +30,71 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="form-group">
-                                <label for="">Chọn giờ khởi hành</label>
+                                <label for="">Category Bus:</label>
+                                <div class="controls">
+                                    <i class="fa fa-arrows text-primary"></i>
+                                    <select class="form-control ng-pristine ng-untouched ng-valid ng-valid-required"
+                                            name="pickUpPoint"
+                                            required="">
+
+                                        @if (ViewBag.listcate != null)
+                                        {
+                                            foreach (var item in ViewBag.listcate)
+                                            {
+                                                if (ViewBag.valueCategory != null)
+                                                {
+                                                    <option value="@item.CateId"
+                                                            label="@(item.CategoryName +" - "+ item.CategoryPrice)VND" selected>
+                                                        @(item.CategoryName +" - "+ item.CategoryPrice)VND
+                                                    </option>
+                                                }
+                                                else if (ViewBag.listcate.IndexOf(item) == 0)
+                                                {
+                                                    <option value="@item.CateId"
+                                                            label="@(item.CategoryName +" - "+ item.CategoryPrice)VND" selected>
+                                                        @(item.CategoryName +" - "+ item.CategoryPrice)VND
+                                                    </option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@item.CateId"
+                                                            label="@(item.CategoryName +" - "+ item.CategoryPrice)VND">
+                                                        @(item.CategoryName +" - "+ item.CategoryPrice)VND
+                                                    </option>
+                                                }
+
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label for="">Select departure time:</label>
                                 <div class="controls">
                                     <i class="fa fa-clock-o text-primary"></i>
-                                    <select class="form-control ng-pristine ng-untouched ng-valid ng-valid-required"
-                                            name="departureTime"
-                                         
-                                            required="">
-                                        <option value="3358960" label="06:00 (Ghế)"
-                                                selected="selected">
-                                            06:00 (Ghế)
-                                        </option>
-                                        <option value="3358990" label="08:00 (Ghế)">
-                                            08:00
-                                            (Ghế)
-                                        </option>
-                                        <option value="3359020" label="10:00 (Ghế)">
-                                            10:00
-                                            (Ghế)
-                                        </option>
-                                        <option value="3359050" label="12:00 (Ghế)">
-                                            12:00
-                                            (Ghế)
-                                        </option>
-                                        <option value="3359080" label="14:00 (Ghế)">
-                                            14:00
-                                            (Ghế)
-                                        </option>
-                                        <option value="3359110" label="16:00 (Ghế)">
-                                            16:00
-                                            (Ghế)
-                                        </option>
-                                        <option value="3359140" label="18:00 (Ghế)">
-                                            18:00
-                                            (Ghế)
-                                        </option>
+                                    <select class="form-control ng-pristine ng-untouched ng-valid ng-valid-required timego" required="">
+                                        @if (ViewBag.listRouteTimeGoRun != null)
+                                        {
+                                            foreach (var item in ViewBag.listRouteTimeGoRun)
+                                            {
+                                                if (ViewBag.listRouteTimeGoRun.IndexOf(item) == 0)
+                                                {
+                                                    <option value="@item.Id" label="@item.TimeGo" selected="selected">@item.TimeGo</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@item.Id" label="@item.TimeGo">@item.TimeGo</option>
+                                                }
+                                            }
+
+                                        }
                                     </select>
 
                                 </div>
@@ -77,61 +104,21 @@
 
                     <div class="row">
                         <div class="col-lg-12">
-                            <div class="form-group">
-                                <label for="">Chọn điểm lên xe</label>
-                                
-                                <div class="controls">
-                                    <i class="fa fa-map-marker text-primary"></i>
-                                    <select class="form-control ng-pristine ng-untouched ng-valid ng-valid-required"                                         
-                                            name="pickUpPoint"                                       
-                                            required="">
-                                        <option value="1819054"
-                                                label="VP Long Xuyên: 392 Phạm Cự Lượng, Khóm Tân Phú, Phường Mỹ Quý, Tp Long Xuyên">
-                                            VP Long Xuyên: 392 Phạm Cự Lượng, Khóm Tân
-                                            Phú, Phường Mỹ Quý, Tp Long Xuyên
-                                        </option>
-                                        <option value="1819370"
-                                                label="VP Lộ Tẻ: Ấp Bình Phú 1, Xã Bình Hòa, Châu Thành An Giang">
-                                            VP Lộ Tẻ: Ấp Bình Phú 1, Xã Bình Hòa, Châu Thành
-                                            An Giang
-                                        </option>
-                                        <option value="1819528" label="Vinh Tre - Chau Doc">
-                                            Vinh Tre - Chau Doc
-                                        </option>
-                                        <option value="1819531" label="Cai Dau - Chau Doc">
-                                            Cai Dau - Chau Doc
-                                        </option>
-                                        <option value="1819671"
-                                                label="VP Mỹ Thới: 26/32 Quốc Lộ 91, khóm Trung An, phường Mỹ Thới, Tp Long Xuyên">
-                                            VP Mỹ Thới: 26/32 Quốc Lộ 91, khóm Trung An,
-                                            phường Mỹ Thới, Tp Long Xuyên
-                                        </option>
-                                        <option value="1820151"
-                                                label="đường Nam Sông Hậu,ấp Phú Xuân,TT Mái Dầm,huyện Châu Thành,Hậu Giang">
-                                            đường Nam Sông Hậu,ấp Phú Xuân,TT Mái Dầm,huyện
-                                            Châu Thành,Hậu Giang
-                                        </option>
-                                        <option value="1819062"
-                                                label="VP Châu Đốc: 69 Phan Văn Vàng, P.Châu Phú A , TP.Châu Đốc (TERMINAL BUS STATION)"
-                                                selected="selected">
-                                            VP Châu Đốc: 69 Phan Văn
-                                            Vàng, P.Châu Phú A , TP.Châu Đốc (TERMINAL BUS
-                                            STATION)
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
+                            <button class="btn btn-primary btn-flat" type="submit">
+                                <i class="fa fa-arrow-left icon-flat bg-btn-actived"></i>
+                                Search
+                            </button>
                         </div>
                     </div>
+
                     <div class="form-section">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-ms-12">
-                            <a class="btn btn-primary btn-flat" asp-controller="home" asp-action="index" >
+                            <a class="btn btn-primary btn-flat" asp-controller="home" asp-action="index">
                                 <i class="fa fa-arrow-left icon-flat bg-btn-actived"></i>
-                                Quay lại
+                                Back
                             </a>
                             <a class="btn btn-success btn-flat" asp-controller="customerinfo" asp-action="index">
-                                <i class="fa fa-arrow-right icon-flat bg-success"></i>Tiếp
-                                tục
+                                <i class="fa fa-arrow-right icon-flat bg-success"></i>Continue
                             </a>
                         </div>
                     </div>
@@ -140,7 +127,7 @@
             </form>
         </div>
         <div class="panel">
-            <p class="text-center text-uppercase text-primary">Thông tin chuyến</p>
+            <p class="text-center text-uppercase text-primary">Trip Information</p>
             <div id="step-info">
                 <table class="time-map table">
                     <tbody>
@@ -148,12 +135,17 @@
                             <td>
                                 <p>
                                     <i class="fa fa-bus text-primary"></i> <strong>
-                                        Xuất
-                                        phát
+                                        Star
                                     </strong>
                                 </p>
-                                <span>02-06-2020</span><br>
-                                <span>06:00</span>
+                                @*<span>02-06-2020</span><br>*@
+
+                                @if (ViewBag.listRouteTimeGoRun != null)
+                                {
+                                    <span>
+                                        @ViewBag.listRouteTimeGoRun[0].TimeGo       @*Thoi gian di*@
+                                    </span>
+                                }
                             </td>
                             <td class="time-line">
                                 <div class="first"></div>
@@ -161,15 +153,25 @@
                             <td>
                                 <p>&nbsp;</p>
                                 <p>
-                                    Châu Đốc<br>Chau Doc
+                                    @if (ViewBag.infoBooking != null)
+                                    {
+                                        @*ten dia diem di*@
+                                        @(ViewBag.infoBooking[1].Split(" - ")[0])
+                                    }
                                 </p>
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 <p>
-                                    <i class="fa fa-clock-o"></i>
-                                    4 giờ
+                                    @if (ViewBag.listRouteTimeGoRun != null)
+                                    {
+                                        <i class="fa fa-clock-o"></i>
+
+                                        @(ViewBag.listRouteTimeGoRun[0].TimeRun)
+                                        <span>Hour</span>
+
+                                    }
                                 </p>
                             </td>
                             <td class="time-line">
@@ -183,12 +185,16 @@
                             <td>
                                 <p>
                                     <i class="fa fa-bus text-primary"></i> <strong>
-                                        Đến
-                                        lúc
+                                        End Time
                                     </strong>
                                 </p>
-                                <span>02-06-2020</span><br>
-                                <span>09:30</span>
+                                @if (ViewBag.listRouteTimeGoRun != null)
+                                {
+                                    <span>
+                                        @*Thoi gian den*@
+                                        @(TimeSpan.Parse(ViewBag.listRouteTimeGoRun[0].TimeGo) + TimeSpan.Parse(ViewBag.listRouteTimeGoRun[0].TimeRun.ToString() + ":00"))
+                                    </span>
+                                }
                             </td>
                             <td class="time-line ">
                                 <div class="end"></div>
@@ -196,7 +202,11 @@
                             <td>
                                 <p>&nbsp;</p>
                                 <p>
-                                    Cần Thơ<br>Can Tho
+                                    @if (ViewBag.infoBooking != null)
+                                    {
+                                        @*Dia diem den*@
+                                        @(ViewBag.infoBooking[3].Split(" - ")[0])
+                                    }
                                 </p>
                             </td>
                         </tr>
@@ -204,7 +214,7 @@
                 </table>
 
                 <p>
-                    <strong>Miễn phí</strong>
+                    <strong>Free</strong>
                     <span>
                         <span class="water sprite" title="Nước uống"></span>
                         <span class="khan sprite" title="Khăn lạnh"></span>

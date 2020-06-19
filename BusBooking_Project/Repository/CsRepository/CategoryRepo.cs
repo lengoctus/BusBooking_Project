@@ -30,7 +30,7 @@ namespace BusBooking_Project.Repository.CsRepository
                 Active = p.Active ?? false,
                 Status = p.Status ?? false,
                 Code = p.Code
-            }).ToList();
+            }).OrderBy(p => p.Id).ToList();
 
         }
         #endregion

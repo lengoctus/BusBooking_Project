@@ -10,5 +10,6 @@ namespace BusBooking_Project.Models.ModelsView
         public BusView BusView { get; set; }
         public RoutesView RoutesView { get; set; }
         public CategoryView CategoryView { get; set; }
+        public StationView StationView { get; set; }
     }
 }

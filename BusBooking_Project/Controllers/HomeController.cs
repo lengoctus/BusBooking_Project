@@ -10,6 +10,8 @@ using BusBooking_Project.Repository.IRepository;
 using BusBooking_Project.Models.ModelsView;
 using BusBooking_Project.Repository.CsRepository;
 using BusBooking_Project.Models.Entities;
+using BusBooking_Project.SupportsTu;
+using Newtonsoft.Json;
 
 namespace BusBooking_Project.Controllers
 {
@@ -46,11 +48,15 @@ namespace BusBooking_Project.Controllers
         }
 
         [HttpGet("gettimeandroutes")]
-        public IActionResult GetTimeAndRoutes([FromQuery]int fr, [FromQuery]int to, [FromQuery]string dDate, [FromQuery] int QtyTicket)
+        public IActionResult GetTimeAndRoutes([FromQuery]int fr, [FromQuery]int to, [FromQuery]string dDate, [FromQuery] int QtyTicket, [FromQuery]string frname, [FromQuery]string toname)
         {
-            
-            return View();
-        } 
+            string[] routesView = {fr.ToString(), frname, to.ToString(), toname, dDate, QtyTicket.ToString()};
 
+            DateTime today = DateTime.Now;
+            CookieSupport.Set(HttpContext, CookieSupport.InfoBooking, JsonConvert.SerializeObject(routesView), today.Minute+5);
+
+
+            return RedirectToAction("index", "selectedSeat");
+        }
     }
 }

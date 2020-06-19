@@ -18,6 +18,7 @@ namespace BusBooking_Project.Models.ModelsView
         public int SeatEmpty { get; set; }
         public int CateId { get; set; }
         public string CategoryName { get; set; }
+        public decimal CategoryPrice { get; set; }
 
     }
 }

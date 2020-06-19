@@ -21,5 +21,6 @@ namespace BusBooking_Project.Models.ModelsView
 
         public string StationLocationFrom { get; set; }
         public string StationLocationTo { get; set; }
+        public int CategoryId { get; set; }
     }
 }
