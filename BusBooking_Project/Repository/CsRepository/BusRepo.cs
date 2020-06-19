@@ -53,8 +53,8 @@ namespace BusBooking_Project.Repository.CsRepository
                 Code = p.Code,
                 TotalSeat = p.TotalSeat,
                 SeatEmpty = p.SeatEmpty,
-                Active = p.Active,
-                Status = p.Status,
+                Active = p.Active ?? false,
+                Status = p.Status ?? false,
                 Image = p.Image,
                 CategoryName = p.Category.Name
             }).ToList();
@@ -245,8 +245,8 @@ namespace BusBooking_Project.Repository.CsRepository
                     Code = p.Code,
                     TotalSeat = p.TotalSeat,
                     SeatEmpty = p.SeatEmpty,
-                    Active = p.Active,
-                    Status = p.Status,
+                    Active = p.Active ?? false,
+                    Status = p.Status?? false,
                     Image = p.Image,
                     CategoryName = p.Category.Name
                 }).ToList();
@@ -259,11 +259,27 @@ namespace BusBooking_Project.Repository.CsRepository
                 Code = p.Code,
                 TotalSeat = p.TotalSeat,
                 SeatEmpty = p.SeatEmpty,
-                Active = p.Active,
-                Status = p.Status,
+                Active = p.Active ?? false ,
+                Status = p.Status ?? false,
                 Image = p.Image,
                 CategoryName = p.Category.Name
             }).Count();
+        }
+
+        public List<BusView> GetBusByCateId(int CateId)
+        {
+            return GetAll().Result.Where(p => p.CateId == CateId).Select(p => new BusView
+            {
+                Id = p.Id,
+                CateId = p.CateId,
+                Code = p.Code,
+                Active = p.Active ?? false,
+                Status = p.Status ?? false,
+                Image = p.Image,
+                TotalSeat = p.TotalSeat,
+                SeatEmpty = p.SeatEmpty,
+                CategoryName = p.Category.Name
+            }).ToList();
         }
     }
 
