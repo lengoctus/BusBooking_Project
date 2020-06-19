@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace BusBooking_Project.Repository.IRepository
 {
+<<<<<<< HEAD
     public interface IRoutesRepo : IGenericRepo<Routes>
     {
         bool AddRoutes(RoutesView routesView);
@@ -21,5 +22,10 @@ namespace BusBooking_Project.Repository.IRepository
         List<RoutesView> GetRoutesTo(int idFrom);
         List<RoutesBusView> Search(int fromid, int toid, int nbPage);
         bool UpdateRoute(RoutesView routesView);
+=======
+    public interface IBookingRepo : IGenericRepo<Booking>
+    {
+        int CreateBooking(BookingView bookingView);
+>>>>>>> login emp, sửa link dẫn
     }
 }

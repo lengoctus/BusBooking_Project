@@ -12,12 +12,31 @@ namespace BusBooking_Project.Areas.Employee.Controllers
     [Route("employee/bookticket")]
     public class BookTicketController : Controller  
     {
+<<<<<<< HEAD
+=======
+       
+>>>>>>> login emp, sửa link dẫn
         [HttpGet("")]
         [HttpGet("index")]
         public IActionResult Index()
         {
             return View();
+<<<<<<< HEAD
         }
        
+=======
+        }   
+        
+        [HttpGet("bookticket")]
+        public IActionResult Bookticket()
+        {
+            return View();
+        }
+        [HttpGet("sendmail")]
+        public IActionResult Sendmail()
+        {
+            return View();
+        }
+>>>>>>> login emp, sửa link dẫn
     }
 }

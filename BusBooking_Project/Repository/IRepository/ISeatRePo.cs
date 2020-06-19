@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace BusBooking_Project.Repository.IRepository
 {
+<<<<<<< HEAD
     public interface ISeatRePo : IGenericRepo<Seat>
     {
         bool CheckIsExists(Seat entity);
@@ -18,5 +19,11 @@ namespace BusBooking_Project.Repository.IRepository
         List<SeatView> SearchByBus(int page, int busid);
         int CountSearchByBus(int busid);
         List<SeatView> GetAllByBusId(int busid);
+=======
+    public interface IRoleRepo : IGenericRepo<Role>
+    {
+        Role GetByIdACE(int id);
+        List<Role> GetDataACE();
+>>>>>>> login emp, sửa link dẫn
     }
 }

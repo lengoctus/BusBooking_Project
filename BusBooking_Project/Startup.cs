@@ -116,13 +116,20 @@ namespace BusBooking_Project
                     defaults: new { area = "admin" },
                     constraints: new { area = "admin" });
                 //Của sáng//
+<<<<<<< HEAD
 
+=======
+>>>>>>> login emp, sửa link dẫn
                 endpoints.MapControllerRoute(
                     name: "employee_route",
                     pattern: "{area:exists}/{controller}/{action}/{id?}",
                     defaults: new { area = "employee" },
                     constraints: new { area = "employee" });
+<<<<<<< HEAD
 
+=======
+                
+>>>>>>> login emp, sửa link dẫn
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
