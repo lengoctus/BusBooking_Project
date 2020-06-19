@@ -64,14 +64,14 @@ namespace BusBooking_Project
                 option.AccessDeniedPath = "/admin/accessDenied";
                 option.LogoutPath = "/admin/logout";
                 option.Cookie.Name = "acecookie";
+            })
+            .AddCookie("SCHEME_EMP", option =>
+            {
+                option.LoginPath = "/employee/login";
+                option.AccessDeniedPath = "/employee/accessDenied";
+                option.LogoutPath = "/employee/logout";
+                option.Cookie.Name = "acecookie";
             });
-            //.AddCookie("SCHEME_EMP", option =>
-            //{
-            //    option.LoginPath = "";
-            //    option.AccessDeniedPath = "";
-            //    option.LogoutPath = "";
-            //    option.Cookie.Name = "";
-            //});
             services.AddSession();
         }
 
@@ -114,8 +114,12 @@ namespace BusBooking_Project
                     defaults: new { area = "admin" },
                     constraints: new { area = "admin" });
                 //Của sáng//
-
-
+                endpoints.MapControllerRoute(
+                    name: "employee_route",
+                    pattern: "{area:exists}/{controller}/{action}/{id?}",
+                    defaults: new { area = "employee" },
+                    constraints: new { area = "employee" });
+                
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
