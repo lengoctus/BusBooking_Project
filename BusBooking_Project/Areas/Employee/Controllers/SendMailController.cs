@@ -9,7 +9,7 @@ namespace BusBooking_Project.Areas.Employee.Controllers
 {
     [Authorize(Roles = "E", AuthenticationSchemes = "SCHEME_EMP")]
     [Area("employee")]
-    [Route("sendmail")]
+    [Route("employee/sendmail")]
 
     public class SendMailController : Controller
     {

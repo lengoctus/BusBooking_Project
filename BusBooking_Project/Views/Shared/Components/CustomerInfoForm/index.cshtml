@@ -2,16 +2,16 @@
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-ms-12">
         <div class="panel" style="min-height: 390px;">
             <p class="text-center text-primary text-uppercase">
-                <strong>Thông tin hành khách</strong>
+                <strong>Customer Infomation</strong>
             </p>
             <form id="form-steps" name="form" novalidate="" class="ng-dirty ng-valid-parse ng-valid-maxlength ng-invalid ng-invalid-required ng-valid-email">
                 <fieldset>
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-ms-12">
                             <div class="form-group clearfix">
-                                <label for="">Họ tên <span class="text-primary">*</span></label>
+                                <label for="">Full Name<span class="text-primary">*</span></label>
                                 <div class="controls no-icon">
-                                    <input type="text" class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-maxlength invalid" name="CustName" placeholder="Họ tên của hành khách" required="">
+                                    <input type="text" class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-maxlength invalid" name="CustName" placeholder="Enter your full name" required="">
                                 </div>
                             </div>
                         </div>
@@ -22,7 +22,7 @@
                             <div class="form-group clearfix">
                                 <label for="">Email <span class="text-primary">*</span></label>
                                 <div class="controls no-icon">
-                                    <input type="email" class="form-control ng-pristine ng-untouched ng-valid-email ng-invalid ng-invalid-required invalid" name="CustEmail" placeholder="Địa chỉ email" required="">
+                                    <input type="email" class="form-control ng-pristine ng-untouched ng-valid-email ng-invalid ng-invalid-required invalid" name="CustEmail" placeholder="Enter your email" required="">
                                 </div>
                             </div>
                         </div>
@@ -36,7 +36,9 @@
                         </div>-->
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-ms-12">
                             <div class="form-group clearfix">
-                                <label for="">Ngày sinh</label>
+                                <label for="">
+                                    Date Of Birth
+                                </label>
                                 <div class="controls no-icon">
                                     <input type="text" class="form-control ng-untouched ng-valid ng-dirty ng-valid-parse ng-valid-maxlength valid" name="CustBirthDay" placeholder="dd-mm-yyyy" data-maxdate="01-06-2020" ng-maxlength="30" dateselect="">
                                 </div>
@@ -47,9 +49,9 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-ms-12">
                             <div class="form-group clearfix">
-                                <label for="">Di động <span class="text-primary">*</span></label>
+                                <label for="">Mobile <span class="text-primary">*</span></label>
                                 <div class="controls no-icon">
-                                    <input type="text" class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-maxlength invalid" name="CustMobile" placeholder="Số di động" required="" vietnam-phone="">
+                                    <input type="text" class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-maxlength invalid" name="CustMobile" placeholder="Enter your phone number" required="" vietnam-phone="">
                                 </div>
                             </div>
                         </div>
@@ -59,10 +61,10 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-ms-12">
                             <div class="form-group clearfix">
-                                <label for="">Tỉnh/TP <span class="text-primary">*</span></label>
+                                <label for="">City<span class="text-primary">*</span></label>
                                 <div class="controls no-icon">
                                     <select class="form-control ng-pristine ng-untouched ng-valid valid" name="CustProvince" select-required="">
-                                        <option value="0" label="Chọn tỉnh/tp" selected="selected">Chọn tỉnh/tp</option>
+                                        <option value="0" label="Select city" selected="selected">Select City</option>
                                         <option value="1" label="An Giang">An Giang</option>
                                         <option value="2" label="Bà Rịa - Vũng Tàu">Bà Rịa - Vũng Tàu</option>
                                         <option value="5" label="Bắc Giang">Bắc Giang</option>
@@ -134,9 +136,9 @@
 
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-ms-12">
                             <div class="form-group clearfix">
-                                <label for="">Quận/Huyện <span class="text-primary">*</span></label>
+                                <label for="">District <span class="text-primary">*</span></label>
                                 <div class="controls no-icon">
-                                    <select class="form-control ng-pristine ng-untouched ng-valid valid" name="CustCity2" select-required=""><option value="0" label="Chọn quận/huyện" selected="selected">Chọn quận/huyện</option></select>
+                                    <select class="form-control ng-pristine ng-untouched ng-valid valid" name="CustCity2" select-required=""><option value="0" label="Select district" selected="selected">Select District</option></select>
                                 </div>
                             </div>
                         </div>
@@ -146,7 +148,7 @@
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-ms-12">
                             <div class="form-group clearfix">
                                 <div class="controls no-icon">
-                                    <input name="AcceptCondition" value="1" type="checkbox" required="" class="ng-pristine ng-untouched ng-invalid ng-invalid-required invalid"> Chấp nhận <a class="view-policy" title="Xem điều khoản">điều khoản</a> đặt vé của SRC
+                                    <input name="AcceptCondition" value="1" type="checkbox" required="" class="ng-pristine ng-untouched ng-invalid ng-invalid-required invalid"> Agree with <a class="view-policy" title="Xem điều khoản">our terms and policies</a>
                                 </div>
                             </div>
                         </div>
@@ -154,9 +156,9 @@
 
                     <div class="form-section">
                         <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12 col-ms-12">
-                            <a asp-controller="selectedSeat" asp-action="index" class="btn btn-primary btn-flat"><i class="fa fa-arrow-left icon-flat bg-btn-actived"></i> Quay lại</a>
+                            <a asp-controller="selectedSeat" asp-action="index" class="btn btn-primary btn-flat"><i class="fa fa-arrow-left icon-flat bg-btn-actived"></i>Back</a>
                             <a class="btn btn-success btn-flat">
-                                <i class="fa fa-arrow-right icon-flat bg-success"></i>Tiếp tục
+                                <i class="fa fa-arrow-right icon-flat bg-success"></i>Next
                             </a>
 
                         </div>
@@ -172,17 +174,13 @@
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-ms-12">
         <div class="panel" style="min-height: 390px;">
             <p class="text-center text-uppercase text-primary">
-                <strong>Điều khoản &amp; Lưu ý</strong>
+                <strong>Tearm &amp; Policies</strong>
             </p>
             <div>
-                <p class="text-justify">(*) Quý khách vui lòng mang email có chứa mã vé đến văn phòng để đổi vé lên xe trước giờ xuất bến ít nhất <strong class="text-primary">60 phút</strong> để chúng tôi trung chuyển.</p>
-                <p class="text-justify">(*) Thông tin hành khách phải chính xác, nếu không sẽ không thể lên xe hoặc hủy/đổi vé</p>
-                <p class="text-justify">(*) Quý khách không được đổi / trả vé vào các ngày Lễ Tết ( ngày thường qúy khách được quyền chuyển đổi hoặc hủy vé <strong class="text-primary">một lần</strong> duy nhất trước giờ xe chạy 24 giờ), phí hủy vé 10%. </p>
-                <p class="text-justify">
-                    (*) Nếu quý khách có nhu cầu trung chuyển, vui lòng liên hệ số điện thoại<br>
-                    <strong class="text-primary" style="font-size: 1.2em;">1900 6067</strong>
-                    trước khi đặt vé. Chúng tôi sẽ không đón/ trung chuyển tại những điểm xe trung chuyển không thể tới được.
-                </p>
+                <p class="text-primary text-justify">(*) Please bring the confirmed email which contain reservation code in order to take the ticket before departing time 60 minutes for shuttle bus.</p>
+                <p class=" text-justify">(*) Passenger's Information must be correct.</p>
+                <p class=" text-justify"><strong>(*) Passengers can not exchange/cancel the tickets during the festival/holiday time (Normal days passengers can exchange/cancel the tickets once, and before 24 hours), cancel fee 10%.</strong></p>
+                <p class=" text-justify">(*) Please call <strong class="text-primary" style="font-size: 1.2em;">1900 6067</strong> for shuttle bus service. Shuttle bus services range is limited, therefore, we will not pick passengers who are outside the range of service. Thank you!</p>
             </div>
 
         </div>

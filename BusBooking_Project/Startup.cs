@@ -32,9 +32,7 @@ namespace BusBooking_Project
         {
             services.AddControllersWithViews();
 <<<<<<< HEAD
-=======
 
->>>>>>> origin/hongson
             services.AddScoped<IAccountRepo, AccountRepo>();
             services.AddScoped<ICategoryRepo, CategoryRepo>();
             services.AddScoped<IBusRePo, BusRepo>();

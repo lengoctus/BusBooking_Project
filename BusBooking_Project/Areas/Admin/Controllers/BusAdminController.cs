@@ -63,7 +63,7 @@ namespace BusBooking_Project.Areas.Admin.Controllers
         public IActionResult Create(BusView busView, IFormFile inputphoto)
         {
             busView.Status = true;
-            string FileNameSave = "dui.jpg";
+            string FileNameSave = "";
             if (inputphoto != null)
             {
                 FileNameSave = FileACE.SaveFile(webHostEnvironment, inputphoto, "admin/image");
