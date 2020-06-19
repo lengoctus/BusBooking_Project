@@ -12,9 +12,21 @@ namespace BusBooking_Project.Areas.Employee.Controllers
     [Route("employee/bookticket")]
     public class BookTicketController : Controller  
     {
+       
         [HttpGet("")]
         [HttpGet("index")]
         public IActionResult Index()
+        {
+            return View();
+        }   
+        
+        [HttpGet("bookticket")]
+        public IActionResult Bookticket()
+        {
+            return View();
+        }
+        [HttpGet("sendmail")]
+        public IActionResult Sendmail()
         {
             return View();
         }

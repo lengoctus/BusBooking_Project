@@ -34,10 +34,6 @@ namespace BusBooking_Project.Controllers
 
 
         }
-        [Route("bookticket")]
-        public IActionResult BookTicket()
-        {
-            return View();
-        }
+       
     }
 }

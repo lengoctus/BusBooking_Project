@@ -34,17 +34,14 @@ namespace BusBooking_Project.Areas.Employee.Controllers
             configuration = _configuration;
         }
 
-
-        [HttpGet]
-        [Route("login")]
+ 
+        [HttpGet("login")]
         public IActionResult Login()
         {
             return View();
         }
-
-        [HttpPost]
-        [Route("login")]
-        public IActionResult Login(AccountView accountView)
+        [HttpPost("login")]
+        public IActionResult Login([FromBody]AccountView accountView)
         {
             if (accountView != null)
             {
@@ -66,7 +63,7 @@ namespace BusBooking_Project.Areas.Employee.Controllers
                 {
                     return false;
                 }
-                SercurityManagerACE.Login(HttpContext, accountLogin, "SCHEME_AD");
+                SercurityManagerACE.Login(HttpContext, accountLogin, "SCHEME_EMP");
                 return true;
             }
             catch (Exception e)
@@ -79,7 +76,7 @@ namespace BusBooking_Project.Areas.Employee.Controllers
         [HttpGet("logout")]
         public IActionResult Logout()
         {
-            SercurityManagerACE.Logout(HttpContext, "SCHEME_AD");
+            SercurityManagerACE.Logout(HttpContext, "SCHEME_EMP");
             return RedirectToAction("login");
         }
 
@@ -92,6 +89,7 @@ namespace BusBooking_Project.Areas.Employee.Controllers
             }
             return View();
         }
+
         [HttpPost("forgotpw")]
         public IActionResult ForgotPassword(string email)
         {
@@ -133,6 +131,7 @@ namespace BusBooking_Project.Areas.Employee.Controllers
             catch { }
             return RedirectToAction("accessDenied");
         }
+
         [HttpPost("changepw")]
         public IActionResult ChangePW(AccountView account)
         {
@@ -153,4 +152,5 @@ namespace BusBooking_Project.Areas.Employee.Controllers
             return View();
         }
     }
+
 }

@@ -3,32 +3,36 @@
     ViewData["Title"] = "Create";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
-
-
-<section class="content-header">
-    <div class="container-fluid">
-
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1></h1>
-            </div>
-            <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
-                </ol>
+<div class="container-fluid mt-2">
+    <section class="content-header">
+        <div class="mx-5">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Create Bus</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a asp-area="admin" asp-controller="bus" asp-action="index">Bus</a></li>
+                        <li class="breadcrumb-item active">Create Bus</li>
+                    </ol>
+                </div>
             </div>
         </div>
-    </div><!-- /.container-fluid -->
-</section>
-
-<!-- Main content -->
-<section class="content">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-10">
-                <!-- general form elements disabled -->
-                <div class="card card-secondary">
-                    <div class="card-header">
-                        <h3 class="card-title">Add Bus</h3>
+    </section>
+    <section class="content mx-5">
+        <div id="result"></div>
+        <form asp-controller="bus" asp-area="admin" asp-action="create" method="post" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-sm-8 col-md-2">
+                    <img width="250" height="250" id="photo" src="~/admin/image/@Model.Image" /> <br /> <br />
+                    <input type="file" class="input-ace" asp-for="Image" id="inputphoto" name="inputphoto" onchange="change()" />
+                </div>
+                <div class="col-sm-12 col-md-9 offset-1">
+                    <div class="form-group row">
+                        <label class="col-sm-1 col-form-label" align="right">Code </label>
+                        <div class="col-sm-10">
+                            <input type="text" asp-for="Code" class="form-control" maxlength="5" required >
+                        </div>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -108,20 +112,17 @@
                             </div>
                         </form>
                     </div>
-                    <!-- /.card-body -->
                 </div>
             </div>
-            <!--/.col (right) -->
-        </div>
-        <!-- /.row -->
-    </div><!-- /.container-fluid -->
-</section>
+        </form>
+    </section>
+</div>
 
 @section script{
     <script>
 
         $(document).ready(function () {
-            
+
             switch ('@ViewBag.Result') {
                 case '@(CheckError.AlreadyName)':
                     ErrorMode('Name already. Please choose name orther.',$('#result'));
@@ -134,15 +135,13 @@
                     break;
             }
 
-            
+
         })
 
         function change() {
             $('#photo').attr("src", URL.createObjectURL($('#inputphoto')[0].files[0]));
         }
 
-        
+
     </script>
 }
-
-

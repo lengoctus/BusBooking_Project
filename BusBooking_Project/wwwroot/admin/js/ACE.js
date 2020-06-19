@@ -35,7 +35,7 @@ function activeMenu() {
             break;     
         case 'bus':
             $($('.item_menu')[6]).addClass('active');
-            break;     
+            break;       
     }
 }
 

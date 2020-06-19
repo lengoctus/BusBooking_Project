@@ -121,7 +121,7 @@ namespace BusBooking_Project
                     pattern: "{area:exists}/{controller}/{action}/{id?}",
                     defaults: new { area = "employee" },
                     constraints: new { area = "employee" });
-
+                
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
