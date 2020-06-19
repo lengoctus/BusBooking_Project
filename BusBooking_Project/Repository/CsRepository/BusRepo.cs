@@ -102,11 +102,6 @@ namespace BusBooking_Project.Repository.CsRepository
         {
             try
             {
-                Bus busTotalSeat = GetDataACE().SingleOrDefault(s => s.TotalSeat == busView.TotalSeat);
-                if (busTotalSeat != null)
-                {
-                    return (int)CheckError.AlreadyTotalSeat;
-                }
                 Bus busCode = GetDataACE().SingleOrDefault(s => s.Code.Trim() == busView.Code.Trim());
                 if (busCode != null)
                 {
@@ -168,19 +163,12 @@ namespace BusBooking_Project.Repository.CsRepository
         }
         private int CheckModify(BusView busView)
         {
-            
-            Bus busTotalSeat = GetDataACE().SingleOrDefault(s => s.Id != busView.Id && s.TotalSeat == busView.TotalSeat);
-            if (busTotalSeat != null)
-            {
-                return (int)CheckError.AlreadyTotalSeat;
-            }
             Bus busCode = GetDataACE().SingleOrDefault(s => s.Id != busView.Id && s.Code.Trim() == busView.Code.Trim());
             if (busCode != null)
             {
                 return (int)CheckError.AlreadyCode;
             }
-            return (int)CheckError.Success;
-                        
+            return (int)CheckError.Success;                       
         }
 
         public bool SetActive(int id)
