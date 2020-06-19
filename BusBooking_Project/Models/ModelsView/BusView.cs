@@ -1,6 +1,7 @@
 ﻿using BusBooking_Project.Repository.EFCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,7 +10,7 @@ namespace BusBooking_Project.Models.ModelsView
 
     public class BusView : IEntity
     {
-        public int Id { get; set; }
+        public int Id { get; set; }       
         public string Code { get; set; }
         public bool Active { get; set; }
         public bool Status { get; set; }

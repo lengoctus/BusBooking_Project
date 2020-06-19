@@ -1,7 +1,8 @@
 ﻿
 @{
     ViewData["Title"] = "Index";
-    Layout = "~/Areas/Employee/Views/Shared/_LayoutAdmin.cshtml";
+    Layout = "~/Areas/Employee/Views/Shared/_LayoutEmployee.cshtml";
+}
 }
 
 
@@ -10,12 +11,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                   
+                    <h1></h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a asp-area="employee" asp-controller="bookticket" asp-action="index" >Home</a></li>
-                        <li class="breadcrumb-item active">Reques</li>
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Booking</li>
                     </ol>
                 </div>
             </div>
@@ -26,64 +27,265 @@
     <section class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-12">
-                    <div class="card card-info">
+                <div class="col-md-10">
+                    <!-- general form elements disabled -->
+                    <div class="card card-success">
                         <div class="card-header">
-                            <h3 class="card-title">Reques</h3>
+                            <h3 class="card-title">Booking</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table id="example2" class="table table-bordered table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>Code Booking</th>
-                                        <th>User Code</th>
-                                        <th>Day Create</th>
-                                        <th>Day Start</th>
-                                        <th>Bus ID</th>
-                                        <th>From Address</th>
-                                        <th>To Address</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>B01</td>
-                                        <td>U01</td>
-                                        <td>
-                                            6/5/2020
-                                        </td>
-                                        <td>7/5/2020</td>
-                                        <td>XE 1</td>
-                                        <td> Hà Nội</td>
-                                        <td>Hồ Chí Minh</td>
-
-                                        <td style="width:160px" class="item-record" align="center">
-                                            <a asp-area="employee" asp-controller="bookticket" asp-action="gtticket" class="btn btn-info btn-sm">
-                                                <i class="fa fa-ticket">
-                                                </i> &nbsp;
-                                                <span class="view-edit" style="font-size:1rem;">Next Booking</span>
-                                            </a>
-                                        </td>
+                            <form role="form">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <!-- text input -->
+                                        <div class="form-group">
+                                            <label>Name</label>
+                                            <input type="text" class="form-control" placeholder="Nguyen Van A">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Phone Number</label>
+                                            <input type="text" class="form-control" placeholder="090-XXX-XXXX">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- input states -->
+                                <div class="form-group">
+                                    <label class="col-form-label">
+                                        Email
+                                    </label>
+                                    <input type="text" class="form-control" id="inputSuccess" placeholder="abc@gmail.com">
+                                </div>
 
 
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <!-- select -->
+                                        <div class="form-group">
+                                            <label>Ticket Type</label>
+                                            <select class="form-control">
+                                                <option>Children</option>
+                                                <option>Adults</option>
+                                                <option>
+                                                    Old People
+                                                </option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Route</label>
+                                            <input type="text" class="form-control" id="inputSuccess">
+                                        </div>
+                                    </div>
+                                </div>
+                                <label>Choose Seat</label>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <!-- checkbox -->
+                                        <div class="form-group">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox">
+                                                <label class="form-check-label">01</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" checked>
+                                                <label class="form-check-label">02</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" disabled>
+                                                <label class="form-check-label">03</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" disabled>
+                                                <label class="form-check-label">04</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" disabled>
+                                                <label class="form-check-label">05</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" disabled>
+                                                <label class="form-check-label">06</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" disabled>
+                                                <label class="form-check-label">07</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" disabled>
+                                                <label class="form-check-label">08</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" disabled>
+                                                <label class="form-check-label">09</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" disabled>
+                                                <label class="form-check-label">10</label>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <!-- checkbox -->
+                                        <div class="form-group">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox">
+                                                <label class="form-check-label">01</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" checked>
+                                                <label class="form-check-label">02</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" disabled>
+                                                <label class="form-check-label">03</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" disabled>
+                                                <label class="form-check-label">04</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" disabled>
+                                                <label class="form-check-label">05</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" disabled>
+                                                <label class="form-check-label">06</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" disabled>
+                                                <label class="form-check-label">07</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" disabled>
+                                                <label class="form-check-label">08</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" disabled>
+                                                <label class="form-check-label">09</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" disabled>
+                                                <label class="form-check-label">10</label>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <!-- checkbox -->
+                                        <div class="form-group">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox">
+                                                <label class="form-check-label">01</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" checked>
+                                                <label class="form-check-label">02</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" disabled>
+                                                <label class="form-check-label">03</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" disabled>
+                                                <label class="form-check-label">04</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" disabled>
+                                                <label class="form-check-label">05</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" disabled>
+                                                <label class="form-check-label">06</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" disabled>
+                                                <label class="form-check-label">07</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" disabled>
+                                                <label class="form-check-label">08</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" disabled>
+                                                <label class="form-check-label">09</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" disabled>
+                                                <label class="form-check-label">10</label>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <!-- checkbox -->
+                                        <div class="form-group">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox">
+                                                <label class="form-check-label">01</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" checked>
+                                                <label class="form-check-label">02</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" disabled>
+                                                <label class="form-check-label">03</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" disabled>
+                                                <label class="form-check-label">04</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" disabled>
+                                                <label class="form-check-label">05</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" disabled>
+                                                <label class="form-check-label">06</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" disabled>
+                                                <label class="form-check-label">07</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" disabled>
+                                                <label class="form-check-label">08</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" disabled>
+                                                <label class="form-check-label">09</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" disabled>
+                                                <label class="form-check-label">10</label>
+                                            </div>
+
+                                        </div>
+                                    </div>
 
 
-                                    </tr>
+                                    <div class="card-footer">
+                                        <button asp-area="employee" asp-controller="sendmail" asp-action="index" type="submit" class="btn btn-primary">Next Booking</button>
+                                    </div>
+                                </div>
 
-                                </tbody>
-                            </table>
+
+                            </form>
                         </div>
                         <!-- /.card-body -->
                     </div>
-                    <!-- /.card -->
-                    <!-- /.card -->
                 </div>
-                <!-- /.col -->
+                <!--/.col (right) -->
             </div>
             <!-- /.row -->
-        </div>
-        <!-- /.container-fluid -->
+        </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
+</div>
 
