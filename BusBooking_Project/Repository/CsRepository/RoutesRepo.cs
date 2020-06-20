@@ -307,5 +307,21 @@ namespace BusBooking_Project.Repository.CsRepository
             };
         }
         #endregion
+
+        //public bool UpdateRoute(RoutesView routesView) {
+        //    try
+        //    {
+        //        var route = GetAll().Result.FirstOrDefault(p => p.StationFrom == routesView.StationFrom && p.StationTo == routesView.StationTo);
+        //        if (route)
+        //        {
+
+        //        }
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return false;
+        //        throw;
+        //    }
+        //}
     }
 }

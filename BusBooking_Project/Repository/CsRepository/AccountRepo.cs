@@ -87,7 +87,7 @@ namespace BusBooking_Project.Repository.CsRepository
             Account acc = GetDataACE().OrderByDescending(s => s.Id).FirstOrDefault();
             if (acc == null) return "000000";
             string code_Old = acc.Code;
-            int b = Convert.ToInt32(code_Old);
+            int b = Convert.ToInt32(code_Old) + 1;
             string code_New = b.ToString();
             while (b < 100000 && code_New.Length < 6)
             {
@@ -149,7 +149,7 @@ namespace BusBooking_Project.Repository.CsRepository
                     DayCreate = account.DayCreate ?? DateTime.Now,
                     DayEdited = account.DayEdited ?? DateTime.Now,
                     Description = account.Description,
-                    Dob = account.Dob,
+                    Dob = account.Dob ?? DateTime.Now,
                     EditerId = account.EditerId ?? 0,
                     Editer = account.EditerId != null ? GetById((int)account.EditerId).Result : null,
                     Email = account.Email,
@@ -160,7 +160,7 @@ namespace BusBooking_Project.Repository.CsRepository
                     Phone = account.Phone,
                     Active = (bool)account.Active,
                     Status = (bool)account.Status,
-                    StationId = account.StationId,
+                    StationId = account.StationId ?? 0,
                     RoleId = (int)account.RoleId,
                 };
             }

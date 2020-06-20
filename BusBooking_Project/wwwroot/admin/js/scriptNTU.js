@@ -13,7 +13,6 @@
             var name = modal.find('.modal-body #addCategory #NameCategory');
             var price = modal.find('.modal-body #addCategory #PriceCategory');
             var active = modal.find('.modal-body #addCategory #ActiveCategory');
-            var status = modal.find('.modal-body #addCategory #StatusCategory');
 
             var regexName = new RegExp(/^[a-z0-9_]+(\s){0,1}?[a-z0-9_]*$/i);
             var regexCode = new RegExp(/^[a-z0-9_]+$/i);
@@ -45,8 +44,7 @@
                     Code: code.val(),
                     Name: name.val(),
                     Active: active.is(':checked'),
-                    Price: parseFloat(price.val()),
-                    Status: status.is(':checked')
+                    Price: parseFloat(price.val())
                 };
 
                 $.ajax({
