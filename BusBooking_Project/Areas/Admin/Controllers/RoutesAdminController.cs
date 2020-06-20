@@ -40,7 +40,7 @@ namespace BusBooking_Project.Areas.Admin.Controllers
         }
 
         [HttpGet("search")]
-        public IActionResult Search([FromQuery]int fromid, [FromQuery]int toid, [FromQuery]int pgnb)
+        public IActionResult Search([FromQuery] int fromid, [FromQuery] int toid, [FromQuery] int pgnb)
         {
             //string page = HttpContext.Request.Query["pgNumber"].ToString();
             int nbPage = pgnb == 0 ? 1 : Convert.ToInt32(pgnb);
@@ -59,7 +59,7 @@ namespace BusBooking_Project.Areas.Admin.Controllers
         }
 
         [HttpPost("getbusbycateid")]
-        public IActionResult GetBusByCateId([FromBody]string idCate)
+        public IActionResult GetBusByCateId([FromBody] string idCate)
         {
             if (!string.IsNullOrEmpty(idCate))
             {
@@ -88,7 +88,7 @@ namespace BusBooking_Project.Areas.Admin.Controllers
         }
 
         [HttpPost("getbyrouteid")]
-        public IActionResult GetByRouteId([FromBody]int Id)
+        public IActionResult GetByRouteId([FromBody] int Id)
         {
             if (Id > 0)
             {
@@ -105,6 +105,12 @@ namespace BusBooking_Project.Areas.Admin.Controllers
         [HttpPost("updateroutes")]
         public IActionResult UpdateRoutes([FromBody] RoutesView routesView)
         {
+            routesView.Status = true;
+            var rs = _IRout.UpdateRoute(routesView);
+            if (rs)
+            {
+                return Json("1");
+            }
             return Json("0");
         }
     }
