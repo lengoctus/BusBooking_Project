@@ -48,7 +48,6 @@
                                             <th>Name</th>
                                             <th>Price</th>
                                             <th>Active</th>
-                                            <th>Status</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -64,8 +63,7 @@
                                                     <td>@item.Code</td>
                                                     <td>@item.Name</td>
                                                     <td>@item.Price</td>
-                                                    <td>@item.Active</td>
-                                                    <td>@item.Status</td>
+                                                    <td>@(item.Active ? "On" : "Off")</td>
                                                     <td>
                                                         <button type="button" class="btn btn-info" data-id="@item.Id" data-toggle="modal" data-target="#editCate">
                                                             <i class="fas fa-edit"></i>
@@ -126,13 +124,6 @@
                             <span class="teleport-switch-control-indicator"></span>
                         </label>
                     </div>
-                    <div class="form-group">
-                        <label class="custom-control teleport-switch">
-                            <span class="teleport-switch-control-description">Status:</span>
-                            <input type="checkbox" checked id="StatusCategory" class="teleport-switch-control-input">
-                            <span class="teleport-switch-control-indicator"></span>
-                        </label>
-                    </div>
                 </form>
             </div>
             <div class="modal-footer">
@@ -154,7 +145,7 @@
                 <form method="post" id="editCategory">
                     <div class="form-group">
                         <label for="EditCode" class="control-label">Code:</label>
-                        <input type="text" readonly class="form-control EditCode">
+                        <input type="text" class="form-control EditCode">
                     </div>
                     <div class="form-group">
                         <label for="NameCategory" class="control-label">Name:</label>
@@ -171,13 +162,7 @@
                             <span class="teleport-switch-control-indicator"></span>
                         </label>
                     </div>
-                    <div class="form-group">
-                        <label class="custom-control teleport-switch">
-                            <span class="teleport-switch-control-description">Status:</span>
-                            <input type="checkbox" checked class="teleport-switch-control-input EditStatus">
-                            <span class="teleport-switch-control-indicator"></span>
-                        </label>
-                    </div>
+                    
                 </form>
             </div>
             <div class="modal-footer">

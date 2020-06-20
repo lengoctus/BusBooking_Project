@@ -1,3 +1,12 @@
 ﻿Package Manager Console: Scaffold-DbContext "Server=.;Database=BusBooking;user id=sa;password=123456" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models/Entities -Context ConnectDbContext -f
 
 ConnectionStrings: "Server=.;Database=BusBooking;user id=sa;password=123456;Trusted_Connection=false;MultipleActiveResultSets=true"
+
+1) Đang còn lỗi khi thực hiện insert data do việc thực hiện async
+VD: 
+	b1: insert category code cate05 thành công
+	b2: insert lại code cate05 => sẽ báo lỗi
+	b3: insert code cate06 => Sẽ insert vào db 2 dòng có code là cate06
+
+
+2) Chưa quản lý được lịch đi của xe

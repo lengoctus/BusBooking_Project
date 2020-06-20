@@ -12,7 +12,7 @@
 
 
     <!-- HTML Meta Tags -->
-    
+
 
     <link rel="stylesheet" id="theme-style-css" href="~/customer/Content/css/style.min.css" type="text/css" media="all" />
 
@@ -55,7 +55,7 @@
     </noscript>
     <!-- End Google Tag Manager -->
 
-    
+
 
     <div id="br-cover-content">
         <div id="myModal" class="modal fade" role="dialog">
@@ -68,6 +68,7 @@
                 <div id="top-nav" class="hidden-xs">
                     <div class="container">
                         <ul class="clearfix">
+                            <li class="pull-right diff"><a href="#"><img src="~/customer/Content/res/GB.png" style="padding-bottom: 2px;" alt="English" />&nbsp;<span class="hidden-xs">English</span></a></li>
                             <li class="pull-right">
                                 <a target="_blank" href="#">
                                     <i class="fa fa-facebook-square"></i>&ensp;Fanpage
@@ -94,11 +95,11 @@
                         </div>
                         <ul class="pull-right hidden-xs">
                             <li><a asp-controller="home" asp-action="index">Home</a></li>
-                            <li><a asp-controller="schedule" asp-action="index">Schedule</a></li>
-                            <li><a href="#">News</a></li>
-                            <li><a href="#">Contact</a></li>
+                            <li><a asp-controller="schedule" asp-action="index">Lịch trình</a></li>
+                            <li><a href="#">Tin tức</a></li>
+                            <li><a href="#">Liên hệ</a></li>
 
-                            <li><a asp-controller="bill" asp-action="index">Bill</a></li>
+                            <li><a asp-controller="bill" asp-action="index">Hóa đơn</a></li>
 
                         </ul>
                     </div>
@@ -120,11 +121,11 @@
                         </a>
                     </li>
                     <li><a href="/en-US"><img src="~/customer/Content/res/GB.png" style="padding-bottom: 2px;" alt="English" />&nbsp;<span>English</span></a></li>
-                    <li><a href="#">Fare</a></li>
-                    <li><a href="#">Promotion</a></li>
-                    <li><a href="#">News</a></li>
-                    <li><a href="#">Contact</a></li>
-                    <li><a asp-controller="bill" asp-action="index">Bill</a></li>               
+                    <li><a href="#">Giá vé</a></li>
+                    <li><a href="#">Khuyến mãi</a></li>
+                    <li><a href="#">Tin tức</a></li>
+                    <li><a href="#">Liên hệ</a></li>
+                    <li><a asp-controller="bill" asp-action="index">Hóa đơn</a></li>
                 </ul>
 
             </div>
@@ -135,11 +136,12 @@
 
                         <nav id="nav-f">
                             <ul>
-                                <li><a asp-controller="schedule" asp-action="index">Schedule</a></li>
-                                <li><a href="#">About Us</a></li>
-                                <li><a href="#">Terms Of Use</a></li>
+                                <li><a asp-controller="schedule" asp-action="index">Lịch trình</a></li>
+                                <li><a href="#">Về chúng tôi</a></li>
+                                <li><a href="#">Điều khoản sử dụng</a></li>
 
-                                <li><a href="#">News</a></li>
+                                <li><a href="#">Tin tức</a></li>
+                                <li><a href="#">Hỏi &amp; Đáp</a></li>
                             </ul>
                         </nav>
 
@@ -147,12 +149,12 @@
                             <div class="col-md-5 col-md-offset-2">
                                 <div id="download_btn">
                                     <ul>
-                                        <li>Download App SRCBUS in</li>
+                                        <li>Tải app SRCBUS tại</li>
                                         <li>
-                                            <a href="#">
+                                            <a href="https://itunes.apple.com/us/app/futa/id1049039667" target="_blank">
                                                 <img src="~/customer/Content/img/app-store.png">
                                             </a>
-                                            <a href="#">
+                                            <a href="https://play.google.com/store/apps/details?id=com.futabus.activity" target="_blank">
                                                 <img src="~/customer/Content/img/an-droid.png">
                                             </a>
                                         </li>
@@ -160,19 +162,19 @@
                                 </div>
                                 <div id="social">
                                     <ul style="text-align:left">
-                                        <li>Connect With Us</li>
+                                        <li>Kết nối với chúng tôi</li>
                                         <li>
                                             <a target="_blank" href="">
                                                 <i class="fa fa-facebook-square"></i>
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#">
+                                            <a href="">
                                                 <i class="fa fa-google-plus-square"></i>
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#">
+                                            <a href="">
                                                 <i class="fa fa-twitter-square"></i>
                                             </a>
                                         </li>
@@ -181,7 +183,7 @@
                             </div>
 
                             <div class="col-md-5 text-left">
-                                <a href="#">
+                                <a target="_blank" href="#">
                                     <img src="~/customer/Content/img/private/dathongbao-bocongthuong.png" class="logo-bocongthuong">
                                 </a>
                             </div>
@@ -190,7 +192,7 @@
 
                         <div class="f-copy">
 
-                            <p>&copy; 2001-2016 |Copyringht SRC Bus Company| <a href="/">www.srcbus.vn</a></p>
+                            <p>&copy; 2001-2016 | Bản quyền thuộc về Công ty Cổ Phần Xe Khách SRC| <a href="/">www.srcbus.vn</a></p>
                         </div>
                     </div>
                 </div>
@@ -201,11 +203,7 @@
     </div>
 
     <script type="text/javascript" src="~/customer/Content/js/jquery-1.11.3.min.js"></script>
-
-
     <script type="text/javascript" src="~/customer/Content/js/bootstrap.min.js"></script>
-
-
     <script src="~/customer/Content/plugins/sidebar/slidebars.js"></script>
     <script src="~/customer/Content/js/main.js"></script>
     <script src="~/customer/Content/js/modernizr.js"></script>
@@ -232,44 +230,19 @@
         })(jQuery);
 
     </script>
-
-
-
-
     <script type="text/javascript" src="~/customer/Content/plugins/flexslider/jquery.flexslider-min.js"></script>
-
     <script type="text/javascript" src="~/customer/Content/plugins/sliderTabs/jquery.sliderTabs.min.js"></script>
-
-
     <script type="text/javascript" src="~/customer/bower_components/bootstrap-select/js/bootstrap-select.min.js"></script>
-
     <script type="text/javascript" src="~/customer/Content/js/moment.min.js"></script>
-
     <script type="text/javascript" src="~/customer/Content/js/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
-
     <script type="text/javascript" src="~/customer/Content/js/bootstrap-datepicker/locales/bootstrap-datepicker.vi.min.js"></script>
-
     <script src="~/customer/Content/js/jquery.bootstrap.newsbox.min.js"></script>
     <script type="text/javascript" src="~/customer/Content/js/helper.min.js"></script>
-
-
-
-
-
     <script type="text/javascript" src="https://api2.futabus.vn/api/getsettings.js?v=1&a=webApp"></script>
-
-
-
-
     <script type="text/javascript" src="~/customer/Content/js/booking-partials.js"></script>
-
-
-
-
     <script src="~/customer/Content/js/waypoints.min.js"></script>
     <script src="~/customer/Content/js/jquery.counterup.min.js"></script>
     <script src="~/customer/Content/js/wow.js"></script>
-
     <script type="text/javascript">
         wow = new WOW(
             {
@@ -329,63 +302,18 @@
                 });
             });
 
-            //$(document).ready(function () {
-            //    $('a.futa-book-ticket').on('click', function (e) {
-            //        e.preventDefault();
-            //        var productObj = $(this).attr('data-obj');
-            //        var url = $(this).attr("href");
-            //        dataLayer.push({
-            //            'event': 'productClick',
-            //            'ecommerce': {
-            //                'click': {
-            //                    'actionField': { 'list': productObj.list },      // Optional list property.
-            //                    'products': [{
-            //                        'name': productObj.name,                      // Name or ID is required.
-            //                        'id': productObj.id,
-            //                        'price': productObj.price,
-            //                        'brand': productObj.brand,
-            //                        'category': productObj.cat,
-            //                        'variant': productObj.variant
-            //                    }]
-            //                }
-            //            },
-            //            'eventCallback': function () {
-            //                document.location = url;
-            //            }
-            //        });
-            //    });
-            //});
 
-            var seats = [];
-            var selectedSeat = [];
-            $('.seat').click(function (e) {
-                if ($(this).hasClass('selected') == false && $(this).hasClass('choosed') == false) {
-                    $(this).addClass("selected");
-                    e.preventDefault();
-                    seats.push($(this).attr('data-id'));
-                    selectedSeat.push($(this).text());
-                    $('.ng-show').text(selectedSeat.toString());
-                    console.log(seats);
-                }
-                else if ($(this).hasClass('selected')) {
-                    $(this).removeClass('selected');
 
-                    seats.splice($.inArray($(this).attr('data-id'), seats), 1);
-                    selectedSeat.splice($.inArray($(this).text(), selectedSeat), 1);
-                    $('.ng-show').text(selectedSeat.toString());
-                    console.log(seats);
-                }
-            });
         });
-            //$(window).load(function () {
-            //    setCookie('showPop', '0');
-            //});
+                        //$(window).load(function () {
+                        //    setCookie('showPop', '0');
+                        //});
     </script>
-
+    <script src="~/customer/js/scriptClientNTU.js"></script>
 
     <!-- GA Tracking -->
     <!-- End GA Tracking -->
-
+    @RenderSection("scriptCus", required: false)
 </body>
 </html>
 

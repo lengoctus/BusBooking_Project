@@ -21,6 +21,7 @@ namespace BusBooking_Project.Repository.IRepository
         int CountSearchData(string textsearch, int search_case);
         List<BusView> SearchByCategory(int page, int cateid);
         int CountSearchByCategory(int cateid);
+        List<BusView> GetBusByCateId(int CateId);
         bool SetStatus(int id);
     }
 }

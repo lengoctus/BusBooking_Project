@@ -2,12 +2,14 @@
 using BusBooking_Project.Models.ModelsView;
 using BusBooking_Project.Repository.EFCore;
 using BusBooking_Project.Repository.IRepository;
+using BusBooking_Project.SupportsTu;
 using Microsoft.EntityFrameworkCore;
 using Supports;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 //e.InnerException.Message
 //passhash = c44755c3379313db173e53c3e8fb6701
 
@@ -16,11 +18,6 @@ namespace BusBooking_Project.Repository.CsRepository
     public class AccountRepo : GenericRepo<Account>, IAccountRepo
     {
         #region ctor
-        public override bool CheckIsExists(Account account)
-        {
-            return false;
-        }
-
         private string search = ConstantACE.search;
         private int size = ConstantACE.size;
         //int start = size * (page - 1);
@@ -55,15 +52,8 @@ namespace BusBooking_Project.Repository.CsRepository
                     Status = true,
                     Active = true,
                 };
-                try
-                {
-                    Account account_1 = Add(account).Result;
-                    if (account_1 == null) return (int)CheckError.ErrorOrther;
-                }
-                catch (Exception e)
-                {
-                    return (int)CheckError.ErrorOrther;
-                }
+                Account account_1 = Add(account).Result;
+                if (account_1 == null) return (int)CheckError.ErrorOrther;
                 return (int)CheckError.Success;
             }
             else
@@ -98,7 +88,7 @@ namespace BusBooking_Project.Repository.CsRepository
             Account acc = GetDataACE().OrderByDescending(s => s.Id).FirstOrDefault();
             if (acc == null) return "000000";
             string code_Old = acc.Code;
-            int b = Convert.ToInt32(code_Old);
+            int b = Convert.ToInt32(code_Old) + 1;
             string code_New = b.ToString();
             while (b < 100000 && code_New.Length < 6)
             {
@@ -149,28 +139,37 @@ namespace BusBooking_Project.Repository.CsRepository
         }
         public AccountView GetByIdACE(int id)
         {
-            Account account = GetById(id).Result;
-            return new AccountView
+            try
             {
-                Id = account.Id,
-                Address = account.Address,
-                Code = account.Code,
-                DayCreate = (DateTime)account.DayCreate,
-                DayEdited = (DateTime)account.DayEdited,
-                Description = account.Description,
-                Dob = (DateTime)account.Dob,
-                EditerId = account.EditerId ?? 0,
-                Editer = account.EditerId != null ? GetById((int)account.EditerId).Result : null,
-                Email = account.Email,
-                Gender = (int)account.Gender,
-                Name = account.Name,
-                Images = account.Images,
-                Password = account.Password,
-                Phone = account.Phone,
-                Active = (bool)account.Active,
-                Status = (bool)account.Status,
-                StationId = (int)account.StationId,
-            };
+                Account account = GetById(id).Result;
+                return new AccountView
+                {
+                    Id = account.Id,
+                    Address = account.Address,
+                    Code = account.Code,
+                    DayCreate = account.DayCreate ?? DateTime.Now,
+                    DayEdited = account.DayEdited ?? DateTime.Now,
+                    Description = account.Description,
+                    Dob = account.Dob ?? DateTime.Now,
+                    EditerId = account.EditerId ?? 0,
+                    Editer = account.EditerId != null ? GetById((int)account.EditerId).Result : null,
+                    Email = account.Email,
+                    Gender = (int)account.Gender,
+                    Name = account.Name,
+                    Images = account.Images,
+                    Password = account.Password,
+                    Phone = account.Phone,
+                    Active = (bool)account.Active,
+                    Status = (bool)account.Status,
+                    StationId = account.StationId ?? 0,
+                    RoleId = (int)account.RoleId,
+                };
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+                return null;
+            }
         }
 
         #endregion
@@ -393,6 +392,46 @@ namespace BusBooking_Project.Repository.CsRepository
             return Update(account.Id, account).Result;
         }
 
+        #endregion
+
+
+        //==========================
+
+        public override bool CheckIsExists(Account account)
+        {
+            var check = GetAll().Result.FirstOrDefault(p => p.Email.ToLower() == account.Email.Trim().ToLower());
+            return check != null ? true : false;
+        }
+
+        #region Create customer account
+        public int CreateCustomer(AccountView accountView)
+        {
+            var account = new Account
+            {
+                Email = accountView.Email,
+                Phone = accountView.Phone,
+                Name = accountView.Name,
+                Gender = accountView.Gender,
+                Description = accountView.Description,
+                Code = GenerateCode.GenerateNumber(000, 999).ToString()
+            };
+
+            var check = GetAll().Result.FirstOrDefault(p => p.Email.ToLower() == accountView.Email.ToLower() && p.Phone == accountView.Phone);
+            if (check != null)
+            {
+                return check.Id;
+            }
+            else
+            {
+                var rs = Create(account, CheckIsExists(account)).Result;
+                if (rs != null)
+                {
+                    return rs.Id;
+                }
+            }
+            return 0;
+
+        }
         #endregion
     }
 }

@@ -12,9 +12,9 @@ namespace BusBooking_Project.Repository.IRepository
     {
         bool CheckIsExists(Category category);
         CategoryView CreateCate(Category category);
-        bool DeleteMultiCategory(int[] idCate);
         List<CategoryView> GetAllCategory();
         CategoryView GetByidCate(int idCate);
         bool UpdateCategory(int Id, CategoryView categoryView);
+        bool UpdateStatus(int[] arrCateId);
     }
 }

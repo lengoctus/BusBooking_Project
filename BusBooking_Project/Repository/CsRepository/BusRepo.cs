@@ -53,8 +53,8 @@ namespace BusBooking_Project.Repository.CsRepository
                 Code = p.Code,
                 TotalSeat = p.TotalSeat,
                 SeatEmpty = p.SeatEmpty,
-                Active = p.Active,
-                Status = p.Status,
+                Active = p.Active ?? false,
+                Status = p.Status ?? false,
                 Image = p.Image,
                 CategoryName = p.Category.Name
             }).ToList();
@@ -102,7 +102,8 @@ namespace BusBooking_Project.Repository.CsRepository
         {
             try
             {
-                Bus busCode = GetDataACE().SingleOrDefault(s => s.Code == busView.Code);
+              
+                Bus busCode = GetDataACE().SingleOrDefault(s => s.Code.Trim() == busView.Code.Trim());
                 if (busCode != null)
                 {
                     return (int)CheckError.AlreadyCode;
@@ -137,8 +138,8 @@ namespace BusBooking_Project.Repository.CsRepository
                 Id = bus.Id,
                 Code = bus.Code,           
                 Image = bus.Image,           
-                Active = bus.Active,
-                Status = bus.Status,
+                Active = bus.Active ?? false,
+                Status = bus.Status ?? false,
                 TotalSeat = bus.TotalSeat,
                 SeatEmpty = bus.SeatEmpty,
                 CateId = bus.CateId,
@@ -197,8 +198,8 @@ namespace BusBooking_Project.Repository.CsRepository
                     Code = s.Code,
                     TotalSeat = s.TotalSeat,
                     SeatEmpty = s.SeatEmpty,
-                    Active = s.Active,
-                    Status = s.Status,
+                    Active = s.Active ?? false,
+                    Status = s.Status ?? false,
                     Image = s.Image ,
                     CateId = s.CateId,
                     CategoryName = s.Category.Name                 
@@ -233,8 +234,8 @@ namespace BusBooking_Project.Repository.CsRepository
                     Code = p.Code,
                     TotalSeat = p.TotalSeat,
                     SeatEmpty = p.SeatEmpty,
-                    Active = p.Active,
-                    Status = p.Status,
+                    Active = p.Active ?? false,
+                    Status = p.Status?? false,
                     Image = p.Image,
                     CategoryName = p.Category.Name
                 }).ToList();
@@ -247,12 +248,27 @@ namespace BusBooking_Project.Repository.CsRepository
                 Code = p.Code,
                 TotalSeat = p.TotalSeat,
                 SeatEmpty = p.SeatEmpty,
-                Active = p.Active,
-                Status = p.Status,
+                Active = p.Active ?? false ,
+                Status = p.Status ?? false,
                 Image = p.Image,
                 CategoryName = p.Category.Name
             }).Count();
         }
+
+        public List<BusView> GetBusByCateId(int CateId)
+        {
+            return GetAll().Result.Where(p => p.CateId == CateId).Select(p => new BusView
+            {
+                Id = p.Id,
+                CateId = p.CateId,
+                Code = p.Code,
+                Active = p.Active ?? false,
+                Status = p.Status ?? false,
+                Image = p.Image,
+                TotalSeat = p.TotalSeat,
+                SeatEmpty = p.SeatEmpty,
+                CategoryName = p.Category.Name
+            }).ToList();
         // hàm remove bus
         public bool SetStatus(int id)
         {

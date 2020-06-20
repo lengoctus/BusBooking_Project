@@ -13,8 +13,8 @@ namespace BusBooking_Project.Models.Entities
 
         public int Id { get; set; }
         public string Code { get; set; }
-        public bool Active { get; set; }
-        public bool Status { get; set; }
+        public bool? Active { get; set; }
+        public bool? Status { get; set; }
         public string Image { get; set; }
         public int TotalSeat { get; set; }
         public int SeatEmpty { get; set; }

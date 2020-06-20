@@ -7,7 +7,7 @@ namespace BusBooking_Project.Models.Entities
     {
         public Routes()
         {
-            Ticket = new HashSet<Ticket>();
+            Booking = new HashSet<Booking>();
         }
 
         public int Id { get; set; }
@@ -19,8 +19,8 @@ namespace BusBooking_Project.Models.Entities
         public bool? Active { get; set; }
         public bool? Status { get; set; }
         public int BusId { get; set; }
-        public TimeSpan TimeRun { get; set; }
+        public string TimeRun { get; set; }
 
-        public virtual ICollection<Ticket> Ticket { get; set; }
+        public virtual ICollection<Booking> Booking { get; set; }
     }
 }

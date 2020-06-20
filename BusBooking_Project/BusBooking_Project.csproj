@@ -33,14 +33,14 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.3" />
-    <PackageReference Include="PagedList.Core.Mvc" Version="3.0.0" />
-    <PackageReference Include="PayPal" Version="1.9.0" />
+    <PackageReference Include="PayPal" Version="1.9.1" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="wwwroot\customer\font-awesome\fonts\" />
     <Folder Include="wwwroot\customer\uploads\useravatar\thumb\" />
+    <Folder Include="wwwroot\employee\image\" />
   </ItemGroup>
 
   <ItemGroup>

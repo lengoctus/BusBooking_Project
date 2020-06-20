@@ -34,6 +34,7 @@ namespace BusBooking_Project.Areas.Admin.Controllers
         }
         #endregion
 
+        #region index
         [Route("")]
         [Route("index")]
         public IActionResult Index()
@@ -53,7 +54,9 @@ namespace BusBooking_Project.Areas.Admin.Controllers
             });
             return View(list);
         }
+        #endregion
 
+        #region search
         [HttpGet("search")]
         public IActionResult Search()
         {
@@ -83,17 +86,14 @@ namespace BusBooking_Project.Areas.Admin.Controllers
             }
             return View("index", listStation);
         }
+        #endregion
 
+        #region create
         [HttpGet("create")]
         public IActionResult Create()
         {
-            return View(new StationView { Active = true });
-        }
-
-        [HttpGet("getdistric/{cityId}")]
-        public IActionResult GetDistrictByCity(int cityId)
-        {
-            return Json(JsonConvert.SerializeObject(HelperACE.GetDataDistrict(cityId).ToList()));
+            // Lấy default HCM + Quận 1
+            return View(new StationView { City = 4, District = 9, Active = true }); 
         }
 
         [HttpPost("create")]
@@ -115,6 +115,9 @@ namespace BusBooking_Project.Areas.Admin.Controllers
                 case (int)CheckError.AlreadyPhone:
                     ViewBag.Result = CheckError.AlreadyPhone;
                     break;
+                case (int)CheckError.AlreadyLocationCity:
+                    ViewBag.Result = CheckError.AlreadyLocationCity;
+                    break;
                 case (int)CheckError.ErrorOrther:
                     ViewBag.Result = CheckError.ErrorOrther;
                     break;
@@ -122,6 +125,14 @@ namespace BusBooking_Project.Areas.Admin.Controllers
                     return RedirectToAction("index");
             }
             return View(stationView);
+        }
+        #endregion
+
+        #region view modify
+        [HttpGet("getdistric/{cityId}")]
+        public IActionResult GetDistrictByCity(int cityId)
+        {
+            return Json(JsonConvert.SerializeObject(HelperACE.GetDataDistrict(cityId).ToList()));
         }
 
         [HttpGet("detail")]
@@ -162,7 +173,9 @@ namespace BusBooking_Project.Areas.Admin.Controllers
             ViewBag.ListDistrict = HelperACE.GetDataDistrict(stationView.City);
             return View(stationView);
         }
+        #endregion
 
+        #region remove
         [HttpGet("remove")]
         public IActionResult Remove(string listID)
         {
@@ -183,7 +196,9 @@ namespace BusBooking_Project.Areas.Admin.Controllers
                 return Json("");
             }
         }
+        #endregion
 
+        #region active
         [HttpGet("active")]
         public IActionResult Active(int id)
         {
@@ -193,5 +208,6 @@ namespace BusBooking_Project.Areas.Admin.Controllers
             }
             return Json("500");
         }
+        #endregion
     }
 }

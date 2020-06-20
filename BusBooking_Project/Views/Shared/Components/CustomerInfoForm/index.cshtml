@@ -1,20 +1,39 @@
-﻿<div class="row" id="step2">
+﻿@model AccountView
+<div class="row" id="step2">
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-ms-12">
         <div class="panel" style="min-height: 390px;">
             <p class="text-center text-primary text-uppercase">
-                <strong>Customer Infomation</strong>
+                <strong>Customer Information</strong>
             </p>
-            <form id="form-steps" name="form" novalidate="" class="ng-dirty ng-valid-parse ng-valid-maxlength ng-invalid ng-invalid-required ng-valid-email">
+            <form id="form-steps" name="form" novalidate="" class="ng-dirty ng-valid-parse ng-valid-maxlength ng-invalid ng-invalid-required ng-valid-email" asp-controller="customerinfo" asp-action="saveinfo">
                 <fieldset>
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-ms-12">
                             <div class="form-group clearfix">
                                 <label for="">Full Name<span class="text-primary">*</span></label>
                                 <div class="controls no-icon">
-                                    <input type="text" class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-maxlength invalid" name="CustName" placeholder="Enter your full name" required="">
+                                    <input type="text" class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-maxlength" asp-for="Name" placeholder="Enter your full name">
+                                    <span asp-validation-for="Name" class="text-danger"></span>
                                 </div>
                             </div>
                         </div>
+
+
+
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-ms-12">
+                            <div class="form-group clearfix">
+                                <label for="">Ages:</label>
+                                <div class="controls no-icon">
+                                    <select class="form-control" name="Cusage">
+                                        <option value="1">Under 5 years old</option>
+                                        <option value="2">5-12 years old</option>
+                                        <option value="3" selected>12-50 years old</option>
+                                        <option value="4">Over 50 years old</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
 
                     <div class="row">
@@ -22,25 +41,19 @@
                             <div class="form-group clearfix">
                                 <label for="">Email <span class="text-primary">*</span></label>
                                 <div class="controls no-icon">
-                                    <input type="email" class="form-control ng-pristine ng-untouched ng-valid-email ng-invalid ng-invalid-required invalid" name="CustEmail" placeholder="Enter your email" required="">
+                                    <input type="email" class="form-control ng-pristine ng-untouched ng-valid-email ng-invalid ng-invalid-required" asp-for="Email" placeholder="Enter your email">
+                                    <span asp-validation-for="Email" class="text-danger"></span>
                                 </div>
                             </div>
                         </div>
-                        <!--<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-ms-12">
-                            <div class="form-group clearfix">
-                                <label for="">CMND</label>
-                                <div class="controls no-icon">
-                                    <input ng-model="info.CustSN" type="text" class="form-control" ng-class="(form.$submitted || form.$dirty) ? (form.CustSN.$valid ? 'valid': 'invalid'): ''" name="CustSN" placeholder="Số chứng minh thư" ng-maxlength="30" sn-number >
-                                </div>
-                            </div>
-                        </div>-->
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-ms-12">
                             <div class="form-group clearfix">
                                 <label for="">
-                                    Date Of Birth
+                                    Gender
                                 </label>
                                 <div class="controls no-icon">
-                                    <input type="text" class="form-control ng-untouched ng-valid ng-dirty ng-valid-parse ng-valid-maxlength valid" name="CustBirthDay" placeholder="dd-mm-yyyy" data-maxdate="01-06-2020" ng-maxlength="30" dateselect="">
+                                    <input type="radio" asp-for="Gender" value="1" style="margin-right:3%" checked /> Male
+                                    <input type="radio" asp-for="Gender" value="0" /> Female
                                 </div>
                             </div>
                         </div>
@@ -49,125 +62,36 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-ms-12">
                             <div class="form-group clearfix">
-                                <label for="">Mobile <span class="text-primary">*</span></label>
+                                <label for="">Phone <span class="text-primary">*</span></label>
                                 <div class="controls no-icon">
-                                    <input type="text" class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-maxlength invalid" name="CustMobile" placeholder="Enter your phone number" required="" vietnam-phone="">
+                                    <input type="text" class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-maxlength" asp-for="Phone" placeholder="Enter your phone number">
+                                    <span asp-validation-for="Phone" class="text-danger"></span>
                                 </div>
                             </div>
                         </div>
 
                     </div>
 
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-ms-12">
-                            <div class="form-group clearfix">
-                                <label for="">City<span class="text-primary">*</span></label>
-                                <div class="controls no-icon">
-                                    <select class="form-control ng-pristine ng-untouched ng-valid valid" name="CustProvince" select-required="">
-                                        <option value="0" label="Select city" selected="selected">Select City</option>
-                                        <option value="1" label="An Giang">An Giang</option>
-                                        <option value="2" label="Bà Rịa - Vũng Tàu">Bà Rịa - Vũng Tàu</option>
-                                        <option value="5" label="Bắc Giang">Bắc Giang</option>
-                                        <option value="4" label="Bắc Kạn">Bắc Kạn</option>
-                                        <option value="3" label="Bạc Liêu">Bạc Liêu</option>
-                                        <option value="6" label="Bắc Ninh">Bắc Ninh</option>
-                                        <option value="7" label="Bến Tre">Bến Tre</option>
-                                        <option value="9" label="Bình Định">Bình Định</option>
-                                        <option value="8" label="Bình Dương">Bình Dương</option>
-                                        <option value="10" label="Bình Phước">Bình Phước</option>
-                                        <option value="11" label="Bình Thuận">Bình Thuận</option>
-                                        <option value="12" label="Cà Mau">Cà Mau</option>
-                                        <option value="14" label="Cần Thơ">Cần Thơ</option>
-                                        <option value="13" label="Cao Bằng">Cao Bằng</option>
-                                        <option value="15" label="Đà Nẵng">Đà Nẵng</option>
-                                        <option value="16" label="Đắk Lắk">Đắk Lắk</option>
-                                        <option value="17" label="Đắk Nông">Đắk Nông</option>
-                                        <option value="20" label="Điện Biên">Điện Biên</option>
-                                        <option value="18" label="Đồng Nai">Đồng Nai</option>
-                                        <option value="19" label="Đồng Tháp">Đồng Tháp</option>
-                                        <option value="21" label="Gia Lai">Gia Lai</option>
-                                        <option value="22" label="Hà Giang">Hà Giang</option>
-                                        <option value="23" label="Hà Nam">Hà Nam</option>
-                                        <option value="24" label="Hà Nội">Hà Nội</option>
-                                        <option value="25" label="Hà Tĩnh">Hà Tĩnh</option>
-                                        <option value="26" label="Hải Dương">Hải Dương</option>
-                                        <option value="27" label="Hải Phòng">Hải Phòng</option>
-                                        <option value="29" label="Hậu Giang">Hậu Giang</option>
-                                        <option value="28" label="Hòa Bình">Hòa Bình</option>
-                                        <option value="30" label="Hưng Yên">Hưng Yên</option>
-                                        <option value="32" label="Khánh Hòa">Khánh Hòa</option>
-                                        <option value="33" label="Kiên Giang">Kiên Giang</option>
-                                        <option value="34" label="Kon Tum">Kon Tum</option>
-                                        <option value="35" label="Lai Châu">Lai Châu</option>
-                                        <option value="38" label="Lâm Đồng">Lâm Đồng</option>
-                                        <option value="37" label="Lạng Sơn">Lạng Sơn</option>
-                                        <option value="36" label="Lào Cai">Lào Cai</option>
-                                        <option value="39" label="Long An">Long An</option>
-                                        <option value="40" label="Nam Định">Nam Định</option>
-                                        <option value="41" label="Nghệ An">Nghệ An</option>
-                                        <option value="42" label="Ninh Bình">Ninh Bình</option>
-                                        <option value="43" label="Ninh Thuận">Ninh Thuận</option>
-                                        <option value="44" label="Phú Thọ">Phú Thọ</option>
-                                        <option value="45" label="Phú Yên">Phú Yên</option>
-                                        <option value="46" label="Quảng Bình">Quảng Bình</option>
-                                        <option value="47" label="Quảng Nam">Quảng Nam</option>
-                                        <option value="48" label="Quảng Ngãi">Quảng Ngãi</option>
-                                        <option value="49" label="Quảng Ninh">Quảng Ninh</option>
-                                        <option value="50" label="Quảng Trị">Quảng Trị</option>
-                                        <option value="51" label="Sóc Trăng">Sóc Trăng</option>
-                                        <option value="52" label="Sơn La">Sơn La</option>
-                                        <option value="53" label="Tây Ninh">Tây Ninh</option>
-                                        <option value="54" label="Thái Bình">Thái Bình</option>
-                                        <option value="55" label="Thái Nguyên">Thái Nguyên</option>
-                                        <option value="56" label="Thanh Hóa">Thanh Hóa</option>
-                                        <option value="57" label="Thừa Thiên - Huế">Thừa Thiên - Huế</option>
-                                        <option value="58" label="Tiền Giang">Tiền Giang</option>
-                                        <option value="31" label="TP. Hồ Chí Minh">TP. Hồ Chí Minh</option>
-                                        <option value="59" label="Trà Vinh">Trà Vinh</option>
-                                        <option value="60" label="Tuyên Quang">Tuyên Quang</option>
-                                        <option value="61" label="Vĩnh Long">Vĩnh Long</option>
-                                        <option value="62" label="Vĩnh Phúc">Vĩnh Phúc</option>
-                                        <option value="63" label="Yên Bái">Yên Bái</option>
-                                    </select>
-                                    <!--<input ng-model="info.CustCity" type="text" class="form-control" ng-class="(form.$submitted || form.$dirty) ? (form.CustCity.$valid ? 'valid': 'invalid'): ''" name="CustCity" placeholder="Enter your billing city" required ng-maxlength="80">-->
+                    @*<div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-ms-12">
+                                <div class="form-group clearfix">
+                                    <div class="controls no-icon">
+                                        <input name="AcceptCondition" value="1" type="checkbox" required="" class="ng-pristine ng-untouched ng-invalid ng-invalid-required invalid"> Agree with <a class="view-policy" title="Xem điều khoản">our terms and policies</a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-ms-12">
-                            <div class="form-group clearfix">
-                                <label for="">District <span class="text-primary">*</span></label>
-                                <div class="controls no-icon">
-                                    <select class="form-control ng-pristine ng-untouched ng-valid valid" name="CustCity2" select-required=""><option value="0" label="Select district" selected="selected">Select District</option></select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-ms-12">
-                            <div class="form-group clearfix">
-                                <div class="controls no-icon">
-                                    <input name="AcceptCondition" value="1" type="checkbox" required="" class="ng-pristine ng-untouched ng-invalid ng-invalid-required invalid"> Agree with <a class="view-policy" title="Xem điều khoản">our terms and policies</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                        </div>*@
 
                     <div class="form-section">
                         <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12 col-ms-12">
                             <a asp-controller="selectedSeat" asp-action="index" class="btn btn-primary btn-flat"><i class="fa fa-arrow-left icon-flat bg-btn-actived"></i>Back</a>
-                            <a class="btn btn-success btn-flat">
-                                <i class="fa fa-arrow-right icon-flat bg-success"></i>Next
-                            </a>
+                            <button type="submit" class="btn btn-success btn-flat">
+                                <i class="fa fa-arrow-right icon-flat bg-success"></i>Finish
+                            </button>
 
                         </div>
                     </div>
-
-
-
                 </fieldset>
-
             </form>
         </div>
     </div>

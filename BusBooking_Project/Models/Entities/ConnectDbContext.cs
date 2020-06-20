@@ -58,27 +58,24 @@ namespace BusBooking_Project.Models.Entities
                     .HasColumnType("date");
 
                 entity.Property(e => e.Email)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                    .IsRequired()
+                    .HasMaxLength(50);
 
                 entity.Property(e => e.ForgotPass).HasMaxLength(50);
 
                 entity.Property(e => e.Gender).HasDefaultValueSql("((1))");
 
-                entity.Property(e => e.Images)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                entity.Property(e => e.Images).HasMaxLength(50);
 
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(50);
 
-                entity.Property(e => e.Password)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                entity.Property(e => e.Password).HasMaxLength(50);
 
-                entity.Property(e => e.Phone).HasMaxLength(50);
+                entity.Property(e => e.Phone)
+                    .IsRequired()
+                    .HasMaxLength(50);
 
                 entity.Property(e => e.Status)
                     .IsRequired()
@@ -92,26 +89,37 @@ namespace BusBooking_Project.Models.Entities
                 entity.HasOne(d => d.Station)
                     .WithMany(p => p.Account)
                     .HasForeignKey(d => d.StationId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Account_Station");
             });
 
             modelBuilder.Entity<Booking>(entity =>
             {
-                entity.Property(e => e.DayCreate).HasColumnType("datetime");
+                entity.Property(e => e.Code)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.DayCreate)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.DayStart).HasColumnType("datetime");
-
-                entity.Property(e => e.FromCity).HasColumnName("FromCIty");
 
                 entity.HasOne(d => d.Bus)
                     .WithMany(p => p.Booking)
                     .HasForeignKey(d => d.BusId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Booking_Bus");
+
+                entity.HasOne(d => d.Route)
+                    .WithMany(p => p.Booking)
+                    .HasForeignKey(d => d.RouteId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Booking_Routes");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Booking)
                     .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Booking_Account");
             });
 
@@ -166,8 +174,6 @@ namespace BusBooking_Project.Models.Entities
 
             modelBuilder.Entity<Role>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedOnAdd();
-
                 entity.Property(e => e.Active).HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.Name).HasMaxLength(50);
@@ -189,15 +195,14 @@ namespace BusBooking_Project.Models.Entities
 
                 entity.Property(e => e.TimeGo).HasColumnType("time(0)");
 
-                entity.Property(e => e.TimeRun).HasColumnType("time(0)");
+                entity.Property(e => e.TimeRun)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<Seat>(entity =>
             {
-                entity.HasIndex(e => e.Code)
-                    .HasName("Code_Seat")
-                    .IsUnique();
-
                 entity.Property(e => e.Code)
                     .IsRequired()
                     .HasMaxLength(50)
@@ -234,17 +239,11 @@ namespace BusBooking_Project.Models.Entities
 
                 entity.Property(e => e.TotalPrice).HasColumnType("decimal(18, 0)");
 
-                entity.HasOne(d => d.Booking)
+                entity.HasOne(d => d.User)
                     .WithMany(p => p.Ticket)
-                    .HasForeignKey(d => d.BookingId)
+                    .HasForeignKey(d => d.Userid)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Ticket_Booking");
-
-                entity.HasOne(d => d.Routes)
-                    .WithMany(p => p.Ticket)
-                    .HasForeignKey(d => d.RoutesId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Ticket_Routes");
+                    .HasConstraintName("FK_Ticket_Account");
             });
 
             OnModelCreatingPartial(modelBuilder);

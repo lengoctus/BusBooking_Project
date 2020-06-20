@@ -13,8 +13,10 @@ namespace BusBooking_Project.Repository.CsRepository
 {
     public class CategoryRepo : GenericRepo<Category>, ICategoryRepo
     {
+        private readonly ConnectDbContext _db;
         public CategoryRepo(ConnectDbContext db) : base(db)
         {
+            _db = db;
         }
 
         #region GetAllCategory
@@ -28,7 +30,7 @@ namespace BusBooking_Project.Repository.CsRepository
                 Active = p.Active ?? false,
                 Status = p.Status ?? false,
                 Code = p.Code
-            }).ToList();
+            }).OrderBy(p => p.Id).ToList();
 
         }
         #endregion
@@ -39,7 +41,7 @@ namespace BusBooking_Project.Repository.CsRepository
         {
             try
             {
-                var cate = GetAll().Result.AsNoTracking().FirstOrDefault(p => p.Code.ToLower() == category.Code.ToLower().Trim());
+                var cate = GetAll().Result.AsNoTracking().FirstOrDefault(p => (p.Code.ToLower() == category.Code.ToLower()) && p.Status == true);
                 if (cate != null)
                 {
                     return true;
@@ -97,6 +99,12 @@ namespace BusBooking_Project.Repository.CsRepository
         #region Update Category
         public bool UpdateCategory(int Id, CategoryView categoryView)
         {
+            var checkCate = GetAll().Result.FirstOrDefault(p => (p.Code.ToLower() == categoryView.Code.ToLower()) && p.Status == true);
+            if (checkCate == null)
+            {
+                return false;
+            }
+
             var findCate = Update(Id, new Category { Id = categoryView.Id, Name = categoryView.Name, Active = categoryView.Active, Status = categoryView.Status, Code = categoryView.Code, Price = categoryView.Price }).Result;
 
             if (findCate)
@@ -108,21 +116,43 @@ namespace BusBooking_Project.Repository.CsRepository
         #endregion
 
 
-        #region Remove Category
-        public bool DeleteMultiCategory(int[] idCate)
+        #region Update Status Category
+        public bool UpdateStatus(int[] arrCateId)
         {
-            if (idCate.Length > 0)
+            if (arrCateId.Length > 0)
             {
-                var rs = DeleteMulti(idCate).Result;
-                if (rs)
+                var listCategory = new List<Category>();
+
+                foreach (var id in arrCateId)
                 {
-                    return true;
+                    var checkBus = _db.Bus.FirstOrDefault(bus => bus.CateId == id);
+                    if (checkBus != null)
+                    {
+                        return false;
+                    }
+
+                    var getCate = GetById(id).Result;
+                    if (getCate == null)
+                    {
+                        return false;
+                    }
+                    getCate.Status = false;
+                    listCategory.Add(getCate);
+
                 }
+                if (listCategory.Count > 0)
+                {
+                    var rs = UpdateMultiField(listCategory).Result;
+                    if (rs)
+                    {
+                        return true;
+                    }
+                }
+
             }
             return false;
 
         }
-
         #endregion
     }
 }

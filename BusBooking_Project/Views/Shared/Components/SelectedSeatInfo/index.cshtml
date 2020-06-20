@@ -1,389 +1,57 @@
-﻿<div class="row">
-    <div class="col-sm-4 col-xs-12 col-ms-12">
-        <div class="panel">
-            <p class="text-center text-primary text-uppercase">
-                Châu Đốc - Cần Thơ ngày
-                <span>02-06-2020</span>
-            </p>
-            <form id="form-steps" name="form" novalidate=""
-                  class="ng-pristine ng-invalid ng-invalid-min ng-valid-max ng-valid-required">
-                <fieldset>
-                    <div class="row hidden">
-                        <input type="number" name="selectSeatNum" value="0" min="1" max="5" required="" />                              
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label for="">Select Route</label>
-                                <div class="controls" >
-                                    <i class="fa fa-bus text-primary"></i>
-                                    <p class="form-control">
-                                        <span class="f-left">Chau Doc ⇒ Can Tho</span>
-                                        <span class="f-right">
-                                            <span>100.000<sup>₫</sup></span>&nbsp;
-                                            <input type="radio" checked="checked" name="selectRoute" required="" value="">
-                                        </span>
-                                    </p>
+﻿
 
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label for="">Select Departure Time</label>
-                                <div class="controls">
-                                    <i class="fa fa-clock-o text-primary"></i>
-                                    <select class="form-control ng-pristine ng-untouched ng-valid ng-valid-required"
-                                            name="departureTime"
-                                         
-                                            required="">
-                                        <option value="3358960" label="06:00 (Ghế)"
-                                                selected="selected">
-                                            06:00 (Ghế)
-                                        </option>
-                                        <option value="3358990" label="08:00 (Ghế)">
-                                            08:00
-                                            (Ghế)
-                                        </option>
-                                        <option value="3359020" label="10:00 (Ghế)">
-                                            10:00
-                                            (Ghế)
-                                        </option>
-                                        <option value="3359050" label="12:00 (Ghế)">
-                                            12:00
-                                            (Ghế)
-                                        </option>
-                                        <option value="3359080" label="14:00 (Ghế)">
-                                            14:00
-                                            (Ghế)
-                                        </option>
-                                        <option value="3359110" label="16:00 (Ghế)">
-                                            16:00
-                                            (Ghế)
-                                        </option>
-                                        <option value="3359140" label="18:00 (Ghế)">
-                                            18:00
-                                            (Ghế)
-                                        </option>
-                                    </select>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label for="">Select Pickup Point</label>
-                                
-                                <div class="controls">
-                                    <i class="fa fa-map-marker text-primary"></i>
-                                    <select class="form-control ng-pristine ng-untouched ng-valid ng-valid-required"                                         
-                                            name="pickUpPoint"                                       
-                                            required="">
-                                        <option value="1819054"
-                                                label="VP Long Xuyên: 392 Phạm Cự Lượng, Khóm Tân Phú, Phường Mỹ Quý, Tp Long Xuyên">
-                                            VP Long Xuyên: 392 Phạm Cự Lượng, Khóm Tân
-                                            Phú, Phường Mỹ Quý, Tp Long Xuyên
-                                        </option>
-                                        <option value="1819370"
-                                                label="VP Lộ Tẻ: Ấp Bình Phú 1, Xã Bình Hòa, Châu Thành An Giang">
-                                            VP Lộ Tẻ: Ấp Bình Phú 1, Xã Bình Hòa, Châu Thành
-                                            An Giang
-                                        </option>
-                                        <option value="1819528" label="Vinh Tre - Chau Doc">
-                                            Vinh Tre - Chau Doc
-                                        </option>
-                                        <option value="1819531" label="Cai Dau - Chau Doc">
-                                            Cai Dau - Chau Doc
-                                        </option>
-                                        <option value="1819671"
-                                                label="VP Mỹ Thới: 26/32 Quốc Lộ 91, khóm Trung An, phường Mỹ Thới, Tp Long Xuyên">
-                                            VP Mỹ Thới: 26/32 Quốc Lộ 91, khóm Trung An,
-                                            phường Mỹ Thới, Tp Long Xuyên
-                                        </option>
-                                        <option value="1820151"
-                                                label="đường Nam Sông Hậu,ấp Phú Xuân,TT Mái Dầm,huyện Châu Thành,Hậu Giang">
-                                            đường Nam Sông Hậu,ấp Phú Xuân,TT Mái Dầm,huyện
-                                            Châu Thành,Hậu Giang
-                                        </option>
-                                        <option value="1819062"
-                                                label="VP Châu Đốc: 69 Phan Văn Vàng, P.Châu Phú A , TP.Châu Đốc (TERMINAL BUS STATION)"
-                                                selected="selected">
-                                            VP Châu Đốc: 69 Phan Văn
-                                            Vàng, P.Châu Phú A , TP.Châu Đốc (TERMINAL BUS
-                                            STATION)
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-section">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-ms-12">
-                            <a class="btn btn-primary btn-flat" asp-controller="home" asp-action="index" >
-                                <i class="fa fa-arrow-left icon-flat bg-btn-actived"></i>
-                               Back
-                            </a>
-                            <a class="btn btn-success btn-flat" asp-controller="customerinfo" asp-action="index">
-                                <i class="fa fa-arrow-right icon-flat bg-success"></i>Next
-                            </a>
-                        </div>
-                    </div>
-                </fieldset>
-
-            </form>
-        </div>
-        <div class="panel">
-            <p class="text-center text-uppercase text-primary">Route Infomation</p>
-            <div id="step-info">
-                <table class="time-map table">
-                    <tbody>
-                        <tr>
-                            <td>
-                                <p>
-                                    <i class="fa fa-bus text-primary"></i> <strong>
-                                       Departs
-                                    </strong>
-                                </p>
-                                <span>02-06-2020</span><br>
-                                <span>06:00</span>
-                            </td>
-                            <td class="time-line">
-                                <div class="first"></div>
-                            </td>
-                            <td>
-                                <p>&nbsp;</p>
-                                <p>
-                                    Châu Đốc<br>Chau Doc
-                                </p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p>
-                                    <i class="fa fa-clock-o"></i>
-                                    4 giờ
-                                </p>
-                            </td>
-                            <td class="time-line">
-                                <div class="middle">
-
-                                </div>
-                            </td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p>
-                                    <i class="fa fa-bus text-primary"></i> <strong>
-                                       Arrives
-                                    </strong>
-                                </p>
-                                <span>02-06-2020</span><br>
-                                <span>09:30</span>
-                            </td>
-                            <td class="time-line ">
-                                <div class="end"></div>
-                            </td>
-                            <td>
-                                <p>&nbsp;</p>
-                                <p>
-                                    Cần Thơ<br>Can Tho
-                                </p>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <p>
-                    <strong>Free</strong>
-                    <span>
-                        <span class="water sprite" title="Nước uống"></span>
-                        <span class="khan sprite" title="Khăn lạnh"></span>
-                        <span class="wifi sprite" title="Wifi"></span>
-                        <span class="tivi sprite" title="Tivi"></span>
-                    </span>
-                </p>
-
-            </div>
-
-
+<div class="col-sm-8 col-xs-12 col-ms-12">
+    <div class="panel">
+        <div>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>
+                            <strong class="text-uppercase">Số ghế:</strong>
+                            <span class="numberS"></span>
+                            <span class="no ng-show">Chưa chọn ghế</span>
+                        </td>
+                        <td class="text-right">
+                            <strong class="text-uppercase">Tổng tiền:</strong>
+                            (<span class="text-primary"
+                                   style="font-weight: 600;">0<sup>₫</sup></span>)
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
-
-    </div>
-    <div class="col-sm-8 col-xs-12 col-ms-12">
-
-        <div class="panel">
-
+        <div class="">
             <div>
-                <table class="table">
-                    <tbody>
+                <table class="table grid-seat">
+                    <thead>
                         <tr>
-                            <td>
-                                <strong class="text-uppercase">Select Seat:</strong>
-                                <span class="numberS"></span>
-                                <span class="no">None</span>
-                            </td>
-                            <td class="text-right">
-                                <strong class="text-uppercase">Total:</strong>
-                                (<span class="text-primary"
-                                       style="font-weight: 600;">0<sup>₫</sup></span>)
-                            </td>
+                            <th colspan="5">
+                                <p class="text-center text-uppercase text-primary">
+                                    Chọn
+                                    ghế
+                                </p>
+                            </th>
                         </tr>
+                    </thead>
+                    <tbody>
+                        
                     </tbody>
+
                 </table>
-            </div>
-
-            <div class="">
-                <div>
-                    <table class="table grid-seat">
-                        <thead>
-                            <tr>
-                                <th colspan="5">
-                                    <p class="text-center text-uppercase text-primary">
-                                         Seats Map
-                                    </p>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <div class="seat choosed"></div>
-                                </td>
-                                <td>
-                                    <div class="seat">03</div>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                    <div class="seat">02</div>
-                                </td>
-                                <td>
-                                    <div class="seat">01</div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="seat choosed"></div>
-                                </td>
-                                <td>
-                                    <div class="seat choosed"></div>
-                                </td>
-                                <td></td>
-                                <td>
-                                    <div class="seat">06</div>
-
-                                </td>
-                                <td>
-                                    <div class="seat">05</div>
-
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="seat">12</div>
-                                </td>
-                                <td>
-                                    <div class="seat">11</div>
-
-                                </td>
-                                <td></td>
-                                <td>
-                                    <div class="seat">10</div>
-                                </td>
-                                <td>
-                                    <div class="seat">09</div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="seat">16</div>
-                                </td>
-                                <td>
-                                    <div class="seat">15</div>
-                                </td>
-                                <td></td>
-                                <td>
-                                    <div class="seat">14</div>
-                                </td>
-                                <td>
-                                    <div class="seat">13</div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="seat">20</div>
-
-                                </td>
-                                <td>
-                                    <div class="seat">19</div>
-
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                    <div class="seat">18</div>
-
-                                </td>
-                                <td>
-                                    <div class="seat">17</div>
-
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="seat">24</div>
-                                </td>
-                                <td>
-                                    <div class="seat">23</div>
-                                </td>
-                                <td></td>
-                                <td>
-                                    <div class="seat">22</div>
-                                </td>
-                                <td>
-                                    <div class="seat">21</div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="seat">28</div>
-                                </td>
-                                <td>
-                                    <div class="seat">27</div>
-                                </td>
-                                <td></td>
-                                <td>
-                                    <div class="seat">26</div>
-                                </td>
-                                <td>
-                                    <div class="seat">25</div>
-                                </td>
-                            </tr>
-                        </tbody>
-
-                    </table>
-                    <div class="row">
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 col-ms-12 text-center">
-                            <div class="ordered"></div><span>Selected</span>
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 col-ms-12 text-center">
-                            <div class="booked"></div><span>Booked</span>
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 col-ms-12 text-center">
-                            <div class="nothing"></div><span>Available</span>
-                        </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 col-ms-12 text-center">
+                        <div class="ordered"></div><span>Đang chọn</span>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 col-ms-12 text-center">
+                        <div class="booked"></div><span>Đã đặt</span>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 col-ms-12 text-center">
+                        <div class="nothing"></div><span>Còn trống</span>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
+
 </div>

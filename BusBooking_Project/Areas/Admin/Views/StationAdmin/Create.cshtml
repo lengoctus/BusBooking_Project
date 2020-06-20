@@ -35,7 +35,12 @@
                             </select>
                         </div>
                         <div class="col-sm-5">
-                            <select asp-for="District" class="input-ace form-control select-district"></select>
+                            <select asp-for="District" class="input-ace form-control select-district">
+                                @foreach (KeyValuePair<int, string> item in HelperACE.GetDataDistrict(Model.City))
+                                {
+                                    <option value="@item.Key">@item.Value</option>
+                                }
+                            </select>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -76,10 +81,13 @@
                     ErrorMode('Name already. Please choose email orther.',$('#result'));
                     break;
                  case '@(CheckError.AlreadyPhone)':
-                    alertError('Phone already. Please choose phone orther.', $('#result'));
+                    ErrorMode('Phone already. Please choose phone orther.', $('#result'));
+                    break;
+                 case '@(CheckError.AlreadyLocationCity)':
+                    ErrorMode('Station already. Please choose city orther.', $('#result'));
                     break;
                  case '@(CheckError.ErrorOrther)':
-                    alertError('Can not connect Internet', $('#result'));
+                    ErrorMode('Can not connect Internet', $('#result'));
                     break;
             }
         })
@@ -92,7 +100,6 @@
                 success: function (data) {
                     $('.select-district').empty();
                     var result = JSON.parse(data);
-                    debugger;
                     var string = '';
                     result.forEach(function (item) {
                         string += '<option value="'+item.Key+'">' + item.Value+'</option>';

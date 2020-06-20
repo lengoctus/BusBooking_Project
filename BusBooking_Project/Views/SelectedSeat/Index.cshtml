@@ -5,23 +5,255 @@
 }
 
 
-        <div class="">
-            <section id="body-content">
-                <div id="steps" class="container">
-                    <ul class="list-step clearfix">
-                        <li>Chọn tuyến <span></span></li>
-                        <li class="active">Chọn ghế <span></span></li>
-                        <li>Thông tin khách hàng <span></span></li>
-                        <li>Thanh toán <span></span></li>
-                    </ul>
-                </div>
-                <div id="content-steps" class="container">
-                    @await Component.InvokeAsync("SelectedSeatInfo")
-                </div>
-            </section>
+<div class="">
+    <section id="body-content">
+        <div id="steps" class="container">
+            <ul class="list-step clearfix">
+                <li>Chọn tuyến <span></span></li>
+                <li class="active">Chọn ghế <span></span></li>
+                <li>Thông tin khách hàng <span></span></li>
+                <li>Thanh toán <span></span></li>
+            </ul>
         </div>
-        <div class="overlay hidden" loader="">
-            <i class="fa fa-refresh fa-spin"></i>
+        <div id="content-steps" class="container">
+            <div class="row">
+                <div class="col-sm-4 col-xs-12 col-ms-12">
+                    <div class="panel">
+                        <p class="text-center text-primary text-uppercase">
+                            @(ViewBag.infoBooking.StationNameFrom.Split(" - ")[0]) - @(ViewBag.infoBooking.StationNameTo.Split(" - ")[0])
+                            <span>@(ViewBag.infoBooking.DayStart.Date.ToString("dd-MM-yyyy"))</span>
+                        </p>
+                        <form id="form-steps" name="form" novalidate=""
+                              class="ng-pristine ng-invalid ng-invalid-min ng-valid-max ng-valid-required" method="post" asp-controller="selectedSeat" asp-action="getseatbycategory">
+                            <fieldset>
+                                <div class="row hidden">
+                                    <input type="number" name="selectSeatNum" value="0" min="1" max="5" required="" />
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="">Select Route:</label>
+                                            <div class="controls">
+                                                <i class="fa fa-bus text-primary"></i>
+                                                <p class="form-control">
+                                                    <span class="f-left">@(ViewBag.infoBooking.StationNameFrom.Split(" - ")[0]) ⇒ @(ViewBag.infoBooking.StationNameTo.Split(" - ")[0])</span>
+                                                    <span class="f-right">
+                                                        <span>@ViewBag.RoutePrice<sup>₫</sup></span>&nbsp;
+                                                        <input type="radio" checked="checked" name="selectRoute" required="" value="">
+                                                    </span>
+                                                </p>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="">Category Bus:</label>
+                                            <div class="controls">
+                                                <i class="fa fa-arrows text-primary"></i>
+                                                <select class="form-control ng-pristine ng-untouched ng-valid ng-valid-required"
+                                                        name="pickUpPoint"
+                                                        required="">
+
+                                                    @if (ViewBag.listcate != null)
+                                                    {
+                                                        foreach (var item in ViewBag.listcate)
+                                                        {
+                                                            if (ViewBag.valueCategory != null)
+                                                            {
+                                                                <option value="@item.CateId"
+                                                                        label="@(item.CategoryName +" - "+ item.CategoryPrice)VND" selected>
+                                                                    @(item.CategoryName +" - "+ item.CategoryPrice)VND
+                                                                </option>
+                                                            }
+                                                            else if (ViewBag.listcate.IndexOf(item) == 0)
+                                                            {
+                                                                <option value="@item.CateId"
+                                                                        label="@(item.CategoryName +" - "+ item.CategoryPrice)VND" selected>
+                                                                    @(item.CategoryName +" - "+ item.CategoryPrice)VND
+                                                                </option>
+                                                            }
+                                                            else
+                                                            {
+                                                                <option value="@item.CateId"
+                                                                        label="@(item.CategoryName +" - "+ item.CategoryPrice)VND">
+                                                                    @(item.CategoryName +" - "+ item.CategoryPrice)VND
+                                                                </option>
+                                                            }
+
+                                                        }
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="">Select departure time:</label>
+                                            <div class="controls">
+                                                <i class="fa fa-clock-o text-primary"></i>
+                                                <select class="form-control ng-pristine ng-untouched ng-valid ng-valid-required timego" required="">
+                                                    @if (ViewBag.listRouteTimeGoRun != null)
+                                                    {
+                                                        foreach (var item in ViewBag.listRouteTimeGoRun)
+                                                        {
+                                                            if (ViewBag.listRouteTimeGoRun.IndexOf(item) == 0)
+                                                            {
+                                                                <option value="@item.Id" label="@item.TimeGo" selected="selected">@item.TimeGo</option>
+                                                            }
+                                                            else
+                                                            {
+                                                                <option value="@item.Id" label="@item.TimeGo">@item.TimeGo</option>
+                                                            }
+                                                        }
+
+                                                    }
+                                                </select>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <button class="btn btn-primary btn-flat" type="submit">
+                                            <i class="fa fa-arrow-left icon-flat bg-btn-actived"></i>
+                                            Search
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="form-section">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-ms-12">
+                                        <a class="btn btn-primary btn-flat" asp-controller="home" asp-action="index">
+                                            <i class="fa fa-arrow-left icon-flat bg-btn-actived"></i>
+                                            Back
+                                        </a>
+                                        <button class="btn btn-success btn-flat" id="customerPage" type="button">
+                                            <i class="fa fa-arrow-right icon-flat bg-success"></i>Continue
+                                        </button>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                        </form>
+                    </div>
+                    <div class="panel">
+                        <p class="text-center text-uppercase text-primary">Trip Information</p>
+                        <div id="step-info">
+                            <table class="time-map table">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <p>
+                                                <i class="fa fa-bus text-primary"></i> <strong>
+                                                    Star
+                                                </strong>
+                                            </p>
+                                            @*<span>02-06-2020</span><br>*@
+
+                                            @if (ViewBag.listRouteTimeGoRun != null)
+                                            {
+                                                <span>
+                                                    @ViewBag.listRouteTimeGoRun[0].TimeGo       @*Thoi gian di*@
+                                                </span>
+                                            }
+                                        </td>
+                                        <td class="time-line">
+                                            <div class="first"></div>
+                                        </td>
+                                        <td>
+                                            <p>&nbsp;</p>
+                                            <p>
+                                                @if (ViewBag.infoBooking != null)
+                                                {
+                                                    @*ten dia diem di*@
+                                                    @(ViewBag.infoBooking.StationNameFrom.Split(" - ")[0])
+                                                }
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p>
+                                                @if (ViewBag.listRouteTimeGoRun != null)
+                                                {
+                                                    <i class="fa fa-clock-o"></i>
+
+                                                    @(ViewBag.listRouteTimeGoRun[0].TimeRun)
+                                                    <span>Hour</span>
+
+                                                }
+                                            </p>
+                                        </td>
+                                        <td class="time-line">
+                                            <div class="middle">
+
+                                            </div>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p>
+                                                <i class="fa fa-bus text-primary"></i> <strong>
+                                                    End Time
+                                                </strong>
+                                            </p>
+                                            @if (ViewBag.listRouteTimeGoRun != null)
+                                            {
+                                                <span>
+                                                    @*Thoi gian den*@
+                                                    @(TimeSpan.Parse(ViewBag.listRouteTimeGoRun[0].TimeGo) + TimeSpan.Parse(ViewBag.listRouteTimeGoRun[0].TimeRun.ToString() + ":00"))
+                                                </span>
+                                            }
+                                        </td>
+                                        <td class="time-line ">
+                                            <div class="end"></div>
+                                        </td>
+                                        <td>
+                                            <p>&nbsp;</p>
+                                            <p>
+                                                @if (ViewBag.infoBooking != null)
+                                                {
+                                                    @*Dia diem den*@
+                                                    @(ViewBag.infoBooking.StationNameTo.Split(" - ")[0])
+                                                }
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <p>
+                                <strong>Free</strong>
+                                <span>
+                                    <span class="water sprite" title="Nước uống"></span>
+                                    <span class="khan sprite" title="Khăn lạnh"></span>
+                                    <span class="wifi sprite" title="Wifi"></span>
+                                    <span class="tivi sprite" title="Tivi"></span>
+                                </span>
+                            </p>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+                @await Component.InvokeAsync("SelectedSeatInfo")
+            </div>
         </div>
-    
+    </section>
+</div>
+<div class="overlay hidden" loader="">
+    <i class="fa fa-refresh fa-spin"></i>
+</div>
+
 

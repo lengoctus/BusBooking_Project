@@ -15,11 +15,11 @@ namespace BusBooking_Project.Models.Entities
         public int ToSp { get; set; }
         public decimal Price { get; set; }
         public int Length { get; set; }
-        public int TimeGo { get; set; }
+        public TimeSpan? TimeGo { get; set; }
         public bool? Active { get; set; }
         public bool? Status { get; set; }
         public int BusId { get; set; }
-        public int TimeRun { get; set; }
+        public TimeSpan? TimeRun { get; set; }
 
         public virtual ICollection<Ticket> Ticket { get; set; }
     }
