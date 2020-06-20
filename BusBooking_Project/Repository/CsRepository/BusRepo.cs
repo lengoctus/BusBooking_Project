@@ -116,7 +116,7 @@ namespace BusBooking_Project.Repository.CsRepository
                 return (int)CheckError.ErrorOrther;
             }
         }
-        private string GetCode()
+        public string GetCode()
         {
             Bus bus = GetDataACE().OrderByDescending(s => s.Id).FirstOrDefault();
             if (bus == null) return "00000";

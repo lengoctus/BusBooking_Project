@@ -166,6 +166,7 @@ namespace BusBooking_Project.Areas.Admin.Controllers
             }
             ViewBag.cs = _ICategoryrepo.GetDataACE();
             return View("index", listBus);
+
         }
 
         [HttpGet]

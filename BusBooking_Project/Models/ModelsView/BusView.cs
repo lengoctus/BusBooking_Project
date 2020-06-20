@@ -1,4 +1,5 @@
-﻿using BusBooking_Project.Repository.EFCore;
+﻿using BusBooking_Project.Models.Entities;
+using BusBooking_Project.Repository.EFCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
