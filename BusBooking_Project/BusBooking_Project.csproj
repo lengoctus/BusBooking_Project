@@ -40,7 +40,6 @@
   <ItemGroup>
     <Folder Include="wwwroot\customer\font-awesome\fonts\" />
     <Folder Include="wwwroot\customer\uploads\useravatar\thumb\" />
-    <Folder Include="wwwroot\employee\image\" />
   </ItemGroup>
 
   <ItemGroup>

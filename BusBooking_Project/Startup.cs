@@ -38,7 +38,6 @@ namespace BusBooking_Project
             services.AddScoped<IRoutesRepo, RoutesRepo>();
             services.AddScoped<IBookingRepo, BookingRepo>();
             services.AddScoped<ISeatRePo, SeatRepo>();
-            services.AddScoped<IRoleRepo, RoleRepo>();
             services.AddScoped<IStationRepo, StationRepo>();
 
             string serverName = Environment.MachineName;

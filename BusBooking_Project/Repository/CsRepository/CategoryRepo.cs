@@ -100,7 +100,7 @@ namespace BusBooking_Project.Repository.CsRepository
         public bool UpdateCategory(int Id, CategoryView categoryView)
         {
             var checkCate = GetAll().Result.FirstOrDefault(p => (p.Code.ToLower() == categoryView.Code.ToLower()) && p.Status == true);
-            if (checkCate == null)
+            if (checkCate != null)
             {
                 return false;
             }

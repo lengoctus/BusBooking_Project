@@ -45,7 +45,7 @@ namespace BusBooking_Project.Areas.Admin.Controllers
                     Name = categoryView.Name,
                     Price = categoryView.Price,
                     Active = categoryView.Active,
-                    Status = true
+                    Status = categoryView.Status
                 };
 
                 if ( _CateRepo.CreateCate(category) != null)
