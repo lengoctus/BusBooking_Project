@@ -110,7 +110,6 @@
                 <span class="brand-text font-weight-light">EMPLOYEE</span>
             </a>
             <div class="sidebar">
-                <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
                         <img src="~/employee/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
@@ -119,27 +118,28 @@
                         <a href="#" class="d-block">Mr.Kien</a>
                     </div>
                 </div>
-
-                <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        @*đường link đã Ok*@
                         <li class="nav-item">
-                            <a asp-area="employee" asp-controller="book" asp-action="index" class="nav-link item_menu">
+                            <a asp-area="employee" asp-controller="bookticket" asp-action="index" class="nav-link item_menu">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Book
                                 </p>
                             </a>
-                            <a asp-area="employee" asp-controller="employee" asp-action="changepw" class="nav-link">
+                        </li>
+                        <li class="nav-item">
+                            <a asp-area="employee" asp-controller="employee" asp-action="changepw" class="nav-link item_menu">
+                                <i class="nav-icon fas fa-users"></i>
                                 <p>
                                     Change PW
                                 </p>
                             </a>
                         </li>
-                        
+                        @*đường link đã Ok*@
                     </ul>
                 </nav>
-                <!-- /.sidebar-menu -->
             </div>
         </aside>
 
@@ -174,6 +174,7 @@
     <script src="~/employee/js/bootstrap-toggle.min.js"></script>
     <script src="~/employee/ckeditor/ckeditor.js"></script>
     <script src="~/employee/js/ACE.js"></script>
+    <script src="~/employee/js/scriptHS.js"></script>
     @RenderSection("script", required: false)
 </body>
 </html>

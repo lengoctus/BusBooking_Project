@@ -37,17 +37,6 @@ function activeMenu() {
         case 'bus':
             $($('.item_menu')[6]).addClass('active');
             break;     
-=======
-    var currentItemMenu = href.split('/')[1];
-    switch (currentItemMenu) {
-        case 'employees':
-            $($('.item_menu')[0]).addClass('active');
-            break;
-        case 'changepw':
-            $($('.item_menu')[1]).addClass('active');
-            break;
-        
->>>>>>> origin/kienca
     }
 }
 

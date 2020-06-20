@@ -187,7 +187,49 @@
                 }
             }
         }
+        // remove bus đã ok
+        $('#selectAll').click(function (e) {
+            var table = $(e.target).closest('table');
+            $('td input:checkbox', table).prop('checked', this.checked);
+        });
 
+        $('#removeBusSelected').click(function () { //Xoá những dòng đã được checked
+            alertWarning().then((result) => {
+                if (result.value) {
+                    removeSelected();
+                }
+            });
+        })
 
+        function removeSelected() {
+            if (GetBusSelected().length > 0) {
+                $.ajax({
+                    method: 'GET',
+                    url: '/admin/bus/remove',
+                    dataType: 'json',
+                    data: { listID: JSON.stringify(GetBusSelected()) },
+                    success: function (data) {
+                        if (data != '') {
+                            alertSuccess();
+                        } else {
+                            alertError();
+                        }
+                    },
+                    error: function (a, b, c) {
+                        console.log(a);
+                        console.log(b);
+                        console.log(c);
+                    }
+                })
+            }
+        }
+        function GetBusSelected() {
+            let list =
+                $("input[name='check_id[]']:checked").map(function () {
+                    return this.value;
+                }).get();
+            return Array.from(list.values());
+        }
+        // end remove bus
     </script>
 }

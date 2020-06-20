@@ -1,27 +1,5 @@
 ﻿
 @{
-    ViewData["Title"] = "Index";
-    Layout = "~/Areas/Employee/Views/Shared/_LayoutEmployee.cshtml";
-}
-
-        <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1>Send Mail</h1>
-                    </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a asp-area="employee" asp-controller="bookticket" asp-action="index">Home</a></li>
-                            <li class="breadcrumb-item active">Send Mail</li>
-                        </ol>
-                    </div>
-                </div>
-            </div><!-- /.container-fluid -->
-        </section>
-        <div class="row my-3" style="margin-left: 15px;">
-=======
     ViewData["Title"] = "SendMail";
     Layout = "~/Areas/Employee/Views/Shared/_LayoutEmployee.cshtml";
 }
@@ -34,7 +12,7 @@
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a asp-area="employee" asp-controller="employee" asp-action="index">Home</a></li>
+                    <li class="breadcrumb-item"><a asp-area="employee" asp-controller="bookticket" asp-action="index">Home</a></li>
                     <li class="breadcrumb-item active">Send Mail</li>
                 </ol>
             </div>
@@ -58,7 +36,7 @@
                     <div class="row my-3" style="margin-left: 20px; margin-top:15px">
 
                         <span class="item-record">
-                            <a class="btn btn-block btn-info" asp-area="employee" asp-controller="bookticket" asp-action="index">
+                            <a class="btn btn-block btn-info" asp-area="employee" asp-controller="bookticket" asp-action="bookticket">
                                 <i class="fas fa-arrow-circle-left"> &nbsp;</i>
 
                                 <span style="font-size:1rem; color:aliceblue;">Back</span>
