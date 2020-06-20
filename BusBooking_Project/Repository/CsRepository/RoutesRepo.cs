@@ -1,8 +1,9 @@
-﻿    using BusBooking_Project.Models.Entities;
+﻿using BusBooking_Project.Models.Entities;
 using BusBooking_Project.Models.ModelsView;
 using BusBooking_Project.Repository.EFCore;
 using BusBooking_Project.Repository.IRepository;
 using BusBooking_Project.SupportsTu;
+using Microsoft.AspNetCore.Routing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -287,7 +288,7 @@ namespace BusBooking_Project.Repository.CsRepository
         }
         #endregion
 
-        
+
         #region Get Route by Id
         public RoutesView GetRouteById(int Id)
         {
@@ -308,20 +309,37 @@ namespace BusBooking_Project.Repository.CsRepository
         }
         #endregion
 
-        //public bool UpdateRoute(RoutesView routesView) {
-        //    try
-        //    {
-        //        var route = GetAll().Result.FirstOrDefault(p => p.StationFrom == routesView.StationFrom && p.StationTo == routesView.StationTo);
-        //        if (route)
-        //        {
+        public bool UpdateRoute(RoutesView routesView)
+        {
+            try
+            {
+                var route = GetAll().Result.FirstOrDefault(p => p.StationFrom == routesView.StationFrom && p.StationTo == routesView.StationTo && p.BusId == routesView.BusId);
+                if (route != null)
+                {
+                    return false;
+                }
 
-        //        }
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return false;
-        //        throw;
-        //    }
-        //}
+                var rs = Update(routesView.Id, new Routes
+                {
+                    Id = routesView.Id,
+                    StationFrom = routesView.StationFrom,
+                    StationTo = routesView.StationTo,
+                    Price = routesView.Price,
+                    Length = routesView.Length,
+                    TimeGo = TimeSpan.Parse(routesView.TimeGo),
+                    Active = routesView.Active,
+                    Status = routesView.Status,
+                    BusId = routesView.BusId,
+                    TimeRun = routesView.TimeRun
+                }).Result;
+
+                return rs;
+            }
+            catch (Exception e)
+            {
+                return false;
+                throw;
+            }
+        }
     }
 }

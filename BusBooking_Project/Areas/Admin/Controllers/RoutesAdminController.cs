@@ -105,6 +105,7 @@ namespace BusBooking_Project.Areas.Admin.Controllers
         [HttpPost("updateroutes")]
         public IActionResult UpdateRoutes([FromBody] RoutesView routesView)
         {
+            var rs = _IRout.Updae
             return Json("0");
         }
     }
