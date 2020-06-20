@@ -181,5 +181,26 @@ namespace BusBooking_Project.Areas.Admin.Controllers
             ViewBag.cs = _ICategoryrepo.GetDataACE();
             return View("index", seatsbycate);
         }
+        // thêm hàm remove bus
+        [HttpGet("remove")]
+        public IActionResult Remove(string listID)
+        {
+            try
+            {
+                string[] ids = JsonConvert.DeserializeObject<string[]>(listID);
+                bool check = true;
+                ids.ToList().ForEach(s =>
+                {
+                    if (!_IBusrepo.SetStatus(Convert.ToInt32(s)))
+                        check = false;
+                });
+                if (!check) return Json("");
+                return Json("1");
+            }
+            catch
+            {
+                return Json("");
+            }
+        }
     }
 }

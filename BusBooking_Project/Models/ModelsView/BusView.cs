@@ -11,6 +11,10 @@ namespace BusBooking_Project.Models.ModelsView
 
     public class BusView : IEntity
     {
+<<<<<<< HEAD
+=======
+
+>>>>>>> xog remove bus,  employee các đường dẫn, generate code bus ok
         public int Id { get; set; }       
         public string Code { get; set; }
         public bool Active { get; set; }

@@ -20,10 +20,14 @@
                 <p class="login-box-msg">LOGIN</p>
                 <div class="input-group mb-3">
 <<<<<<< HEAD
+<<<<<<< HEAD
                     <input type="email" class="form-control" placeholder="Email" id="ipEmail" value="hs@gmail.com">
 =======
                     <input type="email" class="form-control" placeholder="Email" id="ipEmail" value="hd4t6s@gmail.com">
 >>>>>>> login emp, sửa link dẫn
+=======
+                    <input type="email" class="form-control" placeholder="Email" id="ipEmail" value="hs1a3ertew@gmail.com">
+>>>>>>> xog remove bus,  employee các đường dẫn, generate code bus ok
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-envelope"></span>
@@ -66,13 +70,22 @@
         </div>
     </div>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <script src="~/admin/plugins/jquery/jquery.min.js"></script>
     <script src="~/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="~/admin/dist/js/adminlte.min.js"></script>
     <script src="~/admin/js/sweetalert2@9.js"></script>
     <script src="~/admin/js/ACE.js"></script>
+=======
+    <script src="~/employee/plugins/jquery/jquery.min.js"></script>
+    <script src="~/employee/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/employee/dist/js/adminlte.min.js"></script>
+    <script src="~/employee/js/sweetalert2@9.js"></script>
+    <script src="~/employee/js/ACE.js"></script>
+>>>>>>> xog remove bus,  employee các đường dẫn, generate code bus ok
 
     <script>
+        // login đã OK
         $(document).keypress(function (e) {
             if (e.which == 13) {
                 Login();
@@ -124,8 +137,12 @@
             };
 
             $.ajax({
+<<<<<<< HEAD
                 url: '/employee/login',
 <<<<<<< HEAD
+=======
+                 url: '/employee/login',
+>>>>>>> xog remove bus,  employee các đường dẫn, generate code bus ok
                 method: 'POST',
                 dataType: 'json',
                 data: { 'accountView': accountView },
@@ -143,10 +160,11 @@
                     }
                 },
                 error: function () {
-                    ErrorMode("Internet not connect", $('#result'));
+                    ErrorMode("Don't login", $('#result'));
                 }
             });
         }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 
@@ -161,6 +179,9 @@
 
         
 >>>>>>> login emp, sửa link dẫn
+=======
+        // end login
+>>>>>>> xog remove bus,  employee các đường dẫn, generate code bus ok
     </script>
 </body>
 </html>

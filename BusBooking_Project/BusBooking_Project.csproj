@@ -38,7 +38,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Employee\Views\SendMail\" />
     <Folder Include="wwwroot\customer\font-awesome\fonts\" />
     <Folder Include="wwwroot\customer\uploads\useravatar\thumb\" />
   </ItemGroup>
