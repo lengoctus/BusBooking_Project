@@ -1,13 +1,8 @@
 ﻿<div>
     <!-- Nav tabs -->
     <ul class="v-tabs clearfix" role="tablist">
-<<<<<<< HEAD
         <li role="presentation" class="active"><a href="#booking" aria-controls="home" role="tab" data-toggle="tab">Mua vé trực tuyến</a></li>
 
-=======
-        <li role="presentation" class="active"><a href="#booking" aria-controls="home" role="tab" data-toggle="tab">BOOK TICKET</a></li>
-       
->>>>>>> origin/kienca
     </ul>
     <!-- Tab panes -->
     <div class="tab-content">
@@ -16,11 +11,10 @@
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-ms-12">
                         <div class="form-group">
-                            <label for="">Origin</label>
+                            <label for="">Điểm khởi hành</label>
                             <div class="controls">
                                 <i class="fa fa-bus text-primary"></i>
 
-<<<<<<< HEAD
                                 <select class="form-control" name="cbbRouteFrom" id="cbbRouteFrom">
                                     @if (ViewBag.RoutesFrom == null)
                                     {
@@ -40,10 +34,6 @@
                                             }
                                         }
                                     }
-=======
-                                <select name="idOrigin" id="idOrigin" class="form-control selectpicker">
-                                    <option value="">Choose Origin</option>
->>>>>>> origin/kienca
                                 </select>
                             </div>
 
@@ -51,17 +41,11 @@
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-ms-12">
                         <div class="form-group">
-                            <label for="">Destination</label>
+                            <label for="">Điểm đến</label>
                             <div class="controls">
                                 <i class="fa fa-bus text-primary"></i>
-<<<<<<< HEAD
                                 <select class="form-control" name="cbbRouteTo" id="cbbRouteTo">
                                     <option>Chọn điểm đến</option>
-=======
-
-                                <select name="idDest" id="idDest" class="form-control  selectpicker">
-                                    <option value="">Choose Destination</option>
->>>>>>> origin/kienca
                                 </select>
                             </div>
                         </div>
@@ -70,38 +54,29 @@
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-ms-12">
                         <div class="form-group">
-                            <label for="">Departure Date</label>
+                            <label for="">Ngày khởi hành</label>
                             <div class="controls">
                                 <i class="fa fa-clock-o text-primary"></i>
-<<<<<<< HEAD
-                                <input type="text" name="dDate" placeholder="dd/mm/yyyy" class="form-control dDate date-readonly"  readonly="">
+                                <input type="text" name="dDate" placeholder="dd/mm/yyyy" class="form-control dDate date-readonly" readonly="">
                                 <small><em>Định dạng: dd-mm-yyyy</em></small>
-=======
-                                <input type="text" name="dDate" placeholder=" dd/mm/yyyy" class="form-control dDate date-readonly" value="30-05-2020" readonly="">
-                                <small><em>Format: dd-mm-yyyy</em></small>
->>>>>>> origin/kienca
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-ms-12">
                         <div class="form-group">
-                            <label for="">Number of Tickets</label>
+                            <label for="">Số lượng vé</label>
                             <div class="controls">
                                 <i class="fa fa-ticket text-primary"></i>
 
-                                <input type="number" name="numOfTicket" placeholder="1" value="1" class="form-control"readonly>
+                                <input type="number" name="numOfTicket" placeholder="1" value="1" class="form-control" readonly>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-5 col-md-5 col-sm-6 col-xs-6 col-ms-12">
-<<<<<<< HEAD
                         @*<a asp-controller="selectedSeat" asp-action="index" class="btn btn-primary btn-block btn-flat"><i class="fa fa-ticket icon-flat bg-btn-actived"></i>Mua vé</a>*@
                         <button type="button" class="btn btn-primary btn-block btn-flat pageselectSeats"><i class="fa fa-ticket icon-flat bg-btn-actived"></i>Mua vé</button>
-=======
-                        <a asp-controller="selectedSeat" asp-action="index"  class="btn btn-primary btn-block btn-flat"><i class="fa fa-ticket icon-flat bg-btn-actived"></i>Book Now</a>
->>>>>>> origin/kienca
                     </div>
                 </div>
             </form>

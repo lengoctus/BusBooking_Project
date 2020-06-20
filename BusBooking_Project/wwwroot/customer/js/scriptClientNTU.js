@@ -87,6 +87,27 @@
     })
 
 
+    var seats = [];
+    var selectedSeat = [];
+    $('.seat').click(function (e) {
+        if ($(this).hasClass('selected') == false && $(this).hasClass('choosed') == false) {
+            $(this).addClass("selected");
+            e.preventDefault();
+            seats.push($(this).attr('data-id'));
+            selectedSeat.push($(this).text());
+            $('.ng-show').text(selectedSeat.toString());
+            console.log(seats);
+        }
+        else if ($(this).hasClass('selected')) {
+            $(this).removeClass('selected');
+
+            seats.splice($.inArray($(this).attr('data-id'), seats), 1);
+            selectedSeat.splice($.inArray($(this).text(), selectedSeat), 1);
+            $('.ng-show').text(selectedSeat.toString());
+            console.log(seats);
+        }
+    });
+
     //======================== Function Booking ========================
 
 })
