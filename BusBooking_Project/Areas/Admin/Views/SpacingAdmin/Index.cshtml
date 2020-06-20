@@ -5,13 +5,11 @@
     <div class="mx-5">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>MANAGE STATION</h1>
+                <h1>Spacing</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item active"><a asp-area="admin" asp-controller="home" asp-action="index">Home</a></li>
-                    <li class="breadcrumb-item active">Station</li>
-
+                    <li class="breadcrumb-item active">SPACING</li>
                 </ol>
             </div>
         </div>
@@ -25,9 +23,10 @@
                     <div class="input-group">
                         <div class="form-group col-md-4 select-ace-padding">
                             <select id="selectSearch" class="form-control select-2">
-                                <option class="select-ace" selected value="@((int)SearchStation.Name)">Name</option>
-                                <option class="select-ace" value="@((int)SearchStation.Location)">Location</option>
-                                <option class="select-ace" value="@((int)SearchStation.Phone)">Phone</option>
+                                <option class="select-ace" selected value="@((int)SearchSpacing.FromName)">From Name</option>
+                                <option class="select-ace" value="@((int)SearchSpacing.ToName)">To Name</option>
+                                <option class="select-ace" value="@((int)SearchSpacing.TimeGo)">Time Go</option>
+                                <option class="select-ace" value="@((int)SearchSpacing.TimeRun)">Time Run</option>
                             </select>
                         </div>
                         <input type="text" class="form-control input-ace" placeholder="Search" onkeyup="searchWithSelect(event,this,'selectSearch')">
@@ -36,7 +35,7 @@
             </div>
         </div>
         <div class="col-2">
-            <button type="button" class="btn btn-block bg-gradient-success" onclick="window.location='/admin/station/create'"><i class="fas fa-plus"></i>&nbsp; Add</button>
+            <button type="button" class="btn btn-block bg-gradient-success" onclick="window.location='/admin/spacing/create'"><i class="fas fa-plus"></i>&nbsp; Add</button>
         </div>
     </div>
     <div>
@@ -44,36 +43,40 @@
             <thead class="thead-light">
                 <tr>
                     <th><input type="checkbox" id="selectAll"></th>
-                    <th>Name</th>
-                    <th>Location</th>
-                    <th>Phone</th>
-                    <th>District</th>
-                    <th>City</th>
+                    <th>From Spacing</th>
+                    <th>To Spacing</th>
+                    <th>Price</th>
+                    <th>Length</th>
+                    <th>Time Go</th>
+                    <th>Time Run</th>
+                    <th>Bus Name</th>
+                    <th>Active</th>
                     <th>Action</th>
-                    <th>View</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (StationView item in Model)
+                @foreach (SpacingView item in Model)
                 {
-                    <tr>
-                        <td class="item-record"><input type="checkbox" name="check_id[]" value="@item.Id"></td>
-                        <td class="item-record">@item.Name</td>
-                        <td class="item-record">@item.Location</td>
-                        <td class="item-record">@item.Phone</td>
-                        <td class="item-record">@item.DistrictName</td>
-                        <td class="item-record">@item.CityName</td>
-                        <td class="item-record">
-                            <input type="checkbox" @(item.Active ? "checked" : "") data-station-id="@item.Id" onchange="ActiveTarget(this);">
-                        </td>
-                        <td style="width:160px" class="item-record">
-                            <a class="btn btn-info btn-sm" href="/admin/station/detail?id=@item.Id">
-                                <i class="fas fa-pencil-alt">
-                                </i> &nbsp;
-                                <span class="view-edit" style="font-size:1rem;">View/Edit</span>
-                            </a>
-                        </td>
-                    </tr>
+                <tr>
+                    <td class="item-record"><input type="checkbox" name="check_id[]" value="@item.Id"></td>
+                    <td class="item-record">@item.FromSp</td>
+                    <td class="item-record">@item.ToSp</td>
+                    <td class="item-record">@item.Price</td>
+                    <td class="item-record">@item.Length</td>
+                    <td class="item-record">@item.TimeGo</td>
+                    <td class="item-record">@item.TimeRun</td>
+                    <td class="item-record">@item.BusName</td>
+                    <td class="item-record">
+                        <input type="checkbox" @(item.Active ? "checked" : "") data-spacing-id="@item.Id" onchange="ActiveTarget(this);">
+                    </td>
+                    <td style="width:160px" class="item-record">
+                        <a class="btn btn-info btn-sm" href="/admin/spacing/detail?id=@item.Id">
+                            <i class="fas fa-pencil-alt">
+                            </i> &nbsp;
+                            <span class="view-edit" style="font-size:1rem;">View/Edit</span>
+                        </a>
+                    </td>
+                </tr>
                 }
             </tbody>
         </table>
@@ -107,11 +110,11 @@
             let propertysearch = new URL(document.URL).searchParams.get("propertysearch");
             let textsearch = new URL(document.URL).searchParams.get("textsearch");
             if (!window.location.pathname.includes("/search")) {
-                phantrang('#pagination', @(ViewBag.Rows), '/admin/station?page=');
+                phantrang('#pagination', @(ViewBag.Rows), '/admin/spacing?page=');
             } else {
                 $('#selectSearch').val(propertysearch).trigger('change');
                 $('.input-ace').val(textsearch);
-                phantrang('#pagination', @(ViewBag.Rows), '/admin/station/search?propertysearch=' + propertysearch + '&textsearch=' + textsearch + '&page=');
+                phantrang('#pagination', @(ViewBag.Rows), '/admin/spacing/search?propertysearch=' + propertysearch + '&textsearch=' + textsearch + '&page=');
             };
         }
 
@@ -132,7 +135,7 @@
             if (GetTarGetSelected().length > 0) {
                 $.ajax({
                     method: 'GET',
-                    url: '/admin/station/remove',
+                    url: '/admin/spacing/remove',
                     dataType: 'json',
                     data: { listID: JSON.stringify(GetTarGetSelected()) },
                     success: function (data) {
@@ -164,19 +167,19 @@
             if (event.keyCode === 13) {
                 if (textsearch) {
                     let select = $('#' + sl);
-                    window.location.href = '/admin/station/search?propertysearch=' + select.val() + '&textsearch=' + textsearch;
+                    window.location.href = '/admin/spacing/search?propertysearch=' + select.val() + '&textsearch=' + textsearch;
                 } else {
-                    window.location.href = '/admin/station/index';
+                    window.location.href = '/admin/spacing/index';
                 }
             }
         }
 
         function ActiveTarget(input) {
-            let idStation = input.getAttribute("data-station-id");
+            let idspacing = input.getAttribute("data-spacing-id");
             $.ajax({
                 method: 'GET',
-                url: '/admin/station/active',
-                data: { id: idStation},
+                url: '/admin/spacing/active',
+                data: { id: idspacing},
                 dataType: 'json',
                 success: function (data) {
                     if (data == '200') {

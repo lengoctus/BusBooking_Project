@@ -27,17 +27,20 @@ namespace BusBooking_Project.Areas.Admin.Controllers
         private readonly ILogger<UserAdminController> logger;
         private readonly IAccountRepo accountRepository;
         private readonly IStationRepo stationRepository;
+        private readonly IRoleRepo roleRepository;
 
         public UserAdminController(
             IWebHostEnvironment _webHostEnvironment,
             ILogger<UserAdminController> _logger,
             IAccountRepo _accountRepository,
-            IStationRepo _stationRepository)
+            IStationRepo _stationRepository,
+            IRoleRepo _roleRepository)
         {
             webHostEnvironment = _webHostEnvironment;
             logger = _logger;
             accountRepository = _accountRepository;
             stationRepository = _stationRepository;
+            roleRepository = _roleRepository;
         }
         #endregion
 
@@ -99,7 +102,8 @@ namespace BusBooking_Project.Areas.Admin.Controllers
         public IActionResult Create()
         {
             ViewBag.StationList = stationRepository.GetDataACE();
-            return View(new AccountView { Images = "dui.jpg", Active = true });
+            ViewBag.RoleList = roleRepository.GetDataACE();
+            return View(new AccountView { Images = "dui.jpg", Active = true, RoleId=1 });
         }
 
         [HttpPost("create")]
@@ -144,6 +148,7 @@ namespace BusBooking_Project.Areas.Admin.Controllers
             int id = Convert.ToInt32(HttpContext.Request.Query["id"].ToString());
             AccountView account = accountRepository.GetByIdACE(id);
             ViewBag.StationList = stationRepository.GetDataACE();
+            ViewBag.RoleList = roleRepository.GetDataACE();
             return View(account);
         }
 

@@ -34,6 +34,14 @@ namespace Supports
         Phone = 3
     }
 
+    public enum SearchSpacing
+    {
+        FromName = 1,
+        ToName = 2,
+        TimeGo = 3,
+        TimeRun = 4
+    }
+
     public enum CheckError
     {
         Success = 1,
@@ -41,7 +49,10 @@ namespace Supports
         AlreadyPhone = -2,
         AlreadyCode = -3,
         AlreadyName = -4,
-        ErrorOrther = -5
+        AlreadyStationFrom = -5,
+        AlreadyStationTo = -6,
+        AlreadyLocationCity = -7,
+        ErrorOrther = -10
     }
 
     public enum BooleanACE
