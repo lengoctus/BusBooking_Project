@@ -39,29 +39,6 @@
         });
     }
     setDateBooking();
-
-    //  Event load page select Seat
-    $('#booking .pageselectSeats').on('click', function () {
-        var StationFrom = $('select[name=cbbRouteFrom] > option:selected');
-        var StationTo = $('select[name=cbbRouteTo] > option:selected');
-        var StartDate = $('input[name=dDate]');
-        var QtyTicket = $('input[name=numOfTicket]');
-        if (StationFrom.val().trim() != '' && parseInt(StationTo.val().trim()) > 0 && StartDate.val().trim() != "") {
-            var url;
-            url = 'home/gettimeandroutes?fr=' + StationFrom.val() + '&to=' + StationTo.val() + '&dDate=' + StartDate.val() + '&QtyTicket=' + QtyTicket.val() + '&frname=' + StationFrom.text() + '&toname=' + StationTo.text();
-            var currenturl = window.location.href.toLowerCase().trim();
-
-            if (currenturl.indexOf('home') < 0) {
-                document.location = url;
-            } else {
-                var d = document.location;
-                d = d.href.replace('home/index', '');
-                document.location = d + url;
-            }
-        }
-
-    })
-
     var eventSelectSeat = function () {
         var seats = [];
         var selectedSeat = [];
@@ -84,6 +61,29 @@
             }
         });
     }
+    //  Event load page select Seat
+    $('#booking .pageselectSeats').on('click', function () {
+        var StationFrom = $('select[name=cbbRouteFrom] > option:selected');
+        var StationTo = $('select[name=cbbRouteTo] > option:selected');
+        var StartDate = $('input[name=dDate]');
+        var QtyTicket = $('input[name=numOfTicket]');
+        if (StationFrom.val().trim() != '' && parseInt(StationTo.val().trim()) > 0 && StartDate.val().trim() != "") {
+            var url;
+            url = 'home/gettimeandroutes?fr=' + StationFrom.val() + '&to=' + StationTo.val() + '&dDate=' + StartDate.val() + '&QtyTicket=' + QtyTicket.val() + '&frname=' + StationFrom.text() + '&toname=' + StationTo.text();
+            var currenturl = window.location.href.toLowerCase().trim();
+
+            if (currenturl.indexOf('home') < 0) {
+                document.location = url;
+            } else {
+                var d = document.location;
+                d = d.href.replace('home/index', '');
+                document.location = d + url;
+            }
+        }
+
+    })
+
+
     eventSelectSeat();
 
     //  Event change time go in page select Seat
@@ -115,16 +115,22 @@
             success: function (data) {
                 var contain = $('#content-steps > div > div.col-sm-8.col-xs-12.col-ms-12 > div > div:nth-child(2) > div > table > tbody');
                 contain.children('tr').remove();
-                var index = 0;
-                for (var i = 0; i < data.length; i++) {
+                for (var i = 0; data.length != 0 || i <= data.length; i++) {
+                    var arr = []
                     var str = '';
                     str += '<tr>';
-                    for (j = 0; j < 4; j++) {
-                        str += '<td>';
-                        str += '<div class="seat" id="' + data[j].id + '">' + data[j].code + '</div>';
-                        str += '</td>';
+
+                    if (data.length > 4) {
+                        arr = data.splice(0, 4);
+                    } else if (data.length <= 4) {
+                        arr = data.splice(0, data.length);
                     }
 
+                    for (var j = 0; j < arr.length; j++) {
+                        str += '<td>';
+                        str += '<div class="seat" id="' + arr[j].id + '">' + arr[j].code + '</div>';
+                        str += '</td>';
+                    }
                     str += '</tr>';
                     contain.append(str);
                 }

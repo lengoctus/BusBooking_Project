@@ -15,6 +15,8 @@ using Newtonsoft.Json;
 using System.Security.Cryptography;
 using System.Security.Policy;
 using Microsoft.EntityFrameworkCore.Query.Internal;
+using System.Configuration;
+using System.Text.RegularExpressions;
 
 namespace BusBooking_Project.Controllers
 {
@@ -67,7 +69,9 @@ namespace BusBooking_Project.Controllers
         [HttpPost("saveinfo")]
         public IActionResult SaveInfo(AccountView customer, int Cusage)
         {
-            if (CookieSupport.CheckCookieExists(HttpContext, CookieSupport.InfoBooking))
+            var phoneRegex = new Regex(@"^[0-9]{8,10}$");
+            var emailRegex = new Regex(@"^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$");
+            if (CookieSupport.CheckCookieExists(HttpContext, CookieSupport.InfoBooking) && Regex.IsMatch(customer.Email, emailRegex.ToString()) && Regex.IsMatch(customer.Phone, phoneRegex.ToString()))
             {
                 BookingView infoBooking = JsonConvert.DeserializeObject<BookingView>(HttpContext.Request.Cookies[CookieSupport.InfoBooking]);
                 customer.Description = AgeCal(Cusage);
@@ -75,15 +79,25 @@ namespace BusBooking_Project.Controllers
                 if (accid > 0)
                 {
                     infoBooking.UserId = accid;
+                    infoBooking.Code = GenerateCode.RandomPassword(false);
                     int bookid = _IBook.CreateBooking(infoBooking);
-
+                    return RedirectToAction("bookingsuccess", "customerinfo");
                 }
-
             }
-            return View();
+
+            if (!Regex.IsMatch(customer.Email, emailRegex.ToString()))
+            {
+                ModelState.AddModelError("Email", "Email is Invalid!!");
+            }
+
+            if (!Regex.IsMatch(customer.Phone, phoneRegex.ToString()))
+            {
+                ModelState.AddModelError("Phone", "Phone is Invalid!!");
+            }
+            return View("index");
         }
 
-
+        [NonAction]
         public string AgeCal(int age)
         {
             string strage = null;
@@ -106,5 +120,11 @@ namespace BusBooking_Project.Controllers
             return strage;
         }
 
+
+        [HttpGet("bookingsuccess")]
+        public IActionResult BookingSuccess()
+        {
+            return View();
+        }
     }
 }
