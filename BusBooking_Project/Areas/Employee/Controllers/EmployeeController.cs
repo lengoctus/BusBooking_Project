@@ -19,7 +19,7 @@ namespace BusBooking_Project.Areas.Employee.Controllers
     [Area("employee")]
     [Route("employee")]
     public class EmployeeController : Controller
-    {
+    {   //phần của sơn login thành công
         private readonly ILogger<EmployeeController> _logger;
         private readonly IAccountRepo accountRepository;
         private IConfiguration configuration;
@@ -34,14 +34,14 @@ namespace BusBooking_Project.Areas.Employee.Controllers
             configuration = _configuration;
         }
 
- 
         [HttpGet("login")]
         public IActionResult Login()
         {
             return View();
         }
+
         [HttpPost("login")]
-        public IActionResult Login([FromBody]AccountView accountView)
+        public IActionResult Login(AccountView accountView)
         {
             if (accountView != null)
             {
@@ -83,53 +83,21 @@ namespace BusBooking_Project.Areas.Employee.Controllers
         [HttpGet("forgotpw")]
         public IActionResult ForgotPassword()
         {
-            if (TempData["Result"] != null && TempData["Result"].ToString() == "0")
-            {
-                ViewBag.Result = "OK";
-            }
+            
             return View();
         }
 
         [HttpPost("forgotpw")]
         public IActionResult ForgotPassword(string email)
         {
-            string resultCode = accountRepository.InsertCodeForgotPW(email);
-            // mail +"-"+ chuỗi mã hoá: khi lấy ra thì slipt cái "-" rồi lấy chuỗi so khớp
-            if (resultCode != null)
-            {
-                string link = "https://localhost:44304/admin/changepw?pwId=" + Convert.ToBase64String(Encoding.ASCII.GetBytes(resultCode));
-                if (new SendMailACE(configuration).Send(email, "Change password", "Click the following link: " + link))
-                {
-                    TempData["Result"] = "0";
-                    return RedirectToAction("forgotpassword", "admin", new { area = "admin" });
-                }
-                else
-                {
-                    ViewBag.Error = "[Network error please try again later]";
-                    return View();
-                }
-            }
-            ViewBag.Error = "[Email not exists. Please check again]";
+            
             return View();
         }
 
         [HttpGet("changepw")]
         public IActionResult ChangePW()
         {
-            try
-            {
-                string result = Encoding.ASCII.GetString(Convert.FromBase64String(HttpContext.Request.Query["pwId"].ToString()));
-                string[] splits = result.Split(new char[] { '-' });
-                string email = splits[0];
-                string code = splits[1];
-                AccountView accountView = accountRepository.CompareCodeChangePW(email, code);
-                if (accountView != null)
-                {
-                    return View(accountView);
-                }
-            }
-            catch { }
-            return RedirectToAction("accessDenied");
+            return View();
         }
 
         [HttpPost("changepw")]
@@ -151,6 +119,7 @@ namespace BusBooking_Project.Areas.Employee.Controllers
         {
             return View();
         }
+        //phần của sơn
     }
 
 }

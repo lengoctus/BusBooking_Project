@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
-
+using PayPal.Api;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,14 +32,14 @@ namespace Supports
 
         }
 
-        //public string getAccessToken() => new OAuthTokenCredential(ClientId, ClientSecrect, GetConfig()).GetAccessToken();
+        public string getAccessToken() => new OAuthTokenCredential(ClientId, ClientSecrect, GetConfig()).GetAccessToken();
 
-        //public APIContext GetApiConetxt()
-        //{
-        //    APIContext aPIContext = new APIContext(getAccessToken());
-        //    aPIContext.Config = GetConfig();
-        //    return aPIContext;
-        //}
+        public APIContext GetApiConetxt()
+        {
+            APIContext aPIContext = new APIContext(getAccessToken());
+            aPIContext.Config = GetConfig();
+            return aPIContext;
+        }
     }
 
     //public class PaypalConfiguration

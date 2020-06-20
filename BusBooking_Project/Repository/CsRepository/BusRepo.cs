@@ -66,7 +66,7 @@ namespace BusBooking_Project.Repository.CsRepository
                 .Where(s => (bool)s.Status)
                 .Count();
         }
-
+        // Phần mới sửa để generate code bus tự động
         public int CreateACE(BusView busView)
         {
             int check = CheckCreate(busView);
@@ -74,7 +74,7 @@ namespace BusBooking_Project.Repository.CsRepository
             {
                 var bus = new Bus
                 {
-                    Code = busView.Code,
+                    Code = GetCode(),
                     TotalSeat = busView.TotalSeat,
                     SeatEmpty = busView.TotalSeat,
                     Image = busView.Image,
@@ -102,7 +102,7 @@ namespace BusBooking_Project.Repository.CsRepository
         {
             try
             {
-                Bus busCode = GetDataACE().SingleOrDefault(s => s.Code.Trim() == busView.Code.Trim());
+                Bus busCode = GetDataACE().SingleOrDefault(s => s.Code == busView.Code);
                 if (busCode != null)
                 {
                     return (int)CheckError.AlreadyCode;
@@ -120,7 +120,7 @@ namespace BusBooking_Project.Repository.CsRepository
             Bus bus = GetDataACE().OrderByDescending(s => s.Id).FirstOrDefault();
             if (bus == null) return "00000";
             string code_Old = bus.Code;
-            int b = Convert.ToInt32(code_Old);
+            int b = Convert.ToInt32(code_Old)+1;
             string code_New = b.ToString();
             while (b < 10000 && code_New.Length < 5)
             {
@@ -128,7 +128,7 @@ namespace BusBooking_Project.Repository.CsRepository
             }
             return code_New;
         }
-
+        // kết thúc phần generate code của bus
         public BusView GetByIdBus(int id)
         {
             Bus bus = GetById(id).Result;
@@ -252,6 +252,13 @@ namespace BusBooking_Project.Repository.CsRepository
                 Image = p.Image,
                 CategoryName = p.Category.Name
             }).Count();
+        }
+        // hàm remove bus
+        public bool SetStatus(int id)
+        {
+            Bus bus = GetById(id).Result;
+            bus.Status = !bus.Status;
+            return Update(bus.Id, bus).Result;
         }
     }
 

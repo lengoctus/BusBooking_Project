@@ -10,11 +10,8 @@ namespace BusBooking_Project.Models.ModelsView
 
     public class BusView : IEntity
     {
-<<<<<<< HEAD
+
         public int Id { get; set; }       
-=======
-        public int Id { get; set; }
->>>>>>> emp_Kien
         public string Code { get; set; }
         public bool Active { get; set; }
         public bool Status { get; set; }

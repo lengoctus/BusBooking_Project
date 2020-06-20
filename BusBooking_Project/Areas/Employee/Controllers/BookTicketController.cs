@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BusBooking_Project.Areas.Employee.Controllers
-{
+{   // login thành công
     [Authorize(Roles = "E", AuthenticationSchemes = "SCHEME_EMP")]
     [Area("employee")]
     [Route("employee/bookticket")]
@@ -25,6 +25,7 @@ namespace BusBooking_Project.Areas.Employee.Controllers
         {
             return View();
         }
+
         [HttpGet("sendmail")]
         public IActionResult Sendmail()
         {
@@ -32,4 +33,5 @@ namespace BusBooking_Project.Areas.Employee.Controllers
         }
        
     }
+    //login thành công
 }
