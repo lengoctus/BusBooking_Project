@@ -31,12 +31,12 @@ namespace BusBooking_Project.SupportsTu
             return lowerCase ? builder.ToString().ToLower() : builder.ToString();
         }
 
-        public static string RandomPassword()
+        public static string RandomPassword(bool lowerCase)
         {
             var passwordBuilder = new StringBuilder();
 
             // 4-Letters lower case   
-            passwordBuilder.Append(GenerateString(4, true));
+            passwordBuilder.Append(GenerateString(4, lowerCase));
 
             // 4-Digits between 1000 and 9999  
             passwordBuilder.Append(GenerateNumber(1000, 9999));

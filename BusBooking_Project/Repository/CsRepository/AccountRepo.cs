@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 //e.InnerException.Message
 //passhash = c44755c3379313db173e53c3e8fb6701
 
@@ -415,8 +416,21 @@ namespace BusBooking_Project.Repository.CsRepository
                 Code = GenerateCode.GenerateNumber(000, 999).ToString()
             };
 
-            var rs = Create(account, CheckIsExists(account)).Result;
-            return rs.Id;
+            var check = GetAll().Result.FirstOrDefault(p => p.Email.ToLower() == accountView.Email.ToLower() && p.Phone == accountView.Phone);
+            if (check != null)
+            {
+                return check.Id;
+            }
+            else
+            {
+                var rs = Create(account, CheckIsExists(account)).Result;
+                if (rs != null)
+                {
+                    return rs.Id;
+                }
+            }
+            return 0;
+
         }
         #endregion
     }
