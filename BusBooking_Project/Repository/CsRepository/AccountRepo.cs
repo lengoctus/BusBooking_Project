@@ -2,6 +2,7 @@
 using BusBooking_Project.Models.ModelsView;
 using BusBooking_Project.Repository.EFCore;
 using BusBooking_Project.Repository.IRepository;
+using BusBooking_Project.SupportsTu;
 using Microsoft.EntityFrameworkCore;
 using Supports;
 using System;
@@ -16,11 +17,6 @@ namespace BusBooking_Project.Repository.CsRepository
     public class AccountRepo : GenericRepo<Account>, IAccountRepo
     {
         #region ctor
-        public override bool CheckIsExists(Account account)
-        {
-            return false;
-        }
-
         private string search = ConstantACE.search;
         private int size = ConstantACE.size;
         //int start = size * (page - 1);
@@ -393,6 +389,33 @@ namespace BusBooking_Project.Repository.CsRepository
             return Update(account.Id, account).Result;
         }
 
+        #endregion
+
+
+        //==========================
+
+        public override bool CheckIsExists(Account account)
+        {
+            var check = GetAll().Result.FirstOrDefault(p => p.Email.ToLower() == account.Email.Trim().ToLower());
+            return check != null ? true : false;
+        }
+
+        #region Create customer account
+        public int CreateCustomer(AccountView accountView)
+        {
+            var account = new Account
+            {
+                Email = accountView.Email,
+                Phone = accountView.Phone,
+                Name = accountView.Name,
+                Gender = accountView.Gender,
+                Description = accountView.Description,
+                Code = GenerateCode.GenerateNumber(000, 999).ToString()
+            };
+
+            var rs = Create(account, CheckIsExists(account)).Result;
+            return rs.Id;
+        }
         #endregion
     }
 }

@@ -14,6 +14,7 @@ namespace BusBooking_Project.Repository.IRepository
         List<RoutesView> GetAllRoutes();
         int GetAllSearch(int fromid, int toid);
         List<BusView> GetCateogryByFromTo(int from, int to);
+        RoutesView GetRouteById(int Id);
         RoutesBusView GetRoutesBusById(int Id);
         List<RoutesView> GetRoutesByFromTo(int from, int to, int CateId);
         List<RoutesView> GetRoutesFrom();

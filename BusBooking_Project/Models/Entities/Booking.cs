@@ -14,6 +14,7 @@ namespace BusBooking_Project.Models.Entities
         public bool Active { get; set; }
         public int BusId { get; set; }
         public int SeatId { get; set; }
+        public string Code { get; set; }
 
         public virtual Bus Bus { get; set; }
         public virtual Routes Route { get; set; }

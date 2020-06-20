@@ -22,12 +22,14 @@ namespace BusBooking_Project.Controllers
         private readonly ILogger<SelectedSeatController> _logger;
         private readonly IRoutesRepo _IRou;
         private readonly ICategoryRepo _ICate;
+        private readonly ISeatRePo _ISeat;
 
-        public SelectedSeatController(ILogger<SelectedSeatController> logger, IRoutesRepo iRou, ICategoryRepo iCate)
+        public SelectedSeatController(ILogger<SelectedSeatController> logger, IRoutesRepo iRou, ICategoryRepo iCate, ISeatRePo iSeat)
         {
             _logger = logger;
             _IRou = iRou;
             _ICate = iCate;
+            _ISeat = iSeat;
         }
 
         [Route("index")]
@@ -37,15 +39,7 @@ namespace BusBooking_Project.Controllers
             {
                 return RedirectToAction("index", "Home");
             }
-            //int CateId = Convert.ToInt32(HttpContext.Request.Query["CateId"]);
-            //if (CateId > 0)
-            //{
-            //    LoadData(CateId);
-            //}
-            //else
-            //{
-            //}
-                LoadData(0);
+            LoadData(0);
 
             return View();
         }
@@ -53,7 +47,14 @@ namespace BusBooking_Project.Controllers
         [HttpPost("getlistseat")]
         public IActionResult GetListSeat([FromBody] string Timevalue)
         {
+            if (!string.IsNullOrEmpty(Timevalue))
+            {
+                int RouteId = Convert.ToInt32(Timevalue);
+                var Route = _IRou.GetRouteById(RouteId);
 
+                var listSeat = _ISeat.GetAllByBusId(Route.BusId);
+                return Json(listSeat);
+            }
             return Json("0");
         }
 
@@ -72,23 +73,21 @@ namespace BusBooking_Project.Controllers
         [NonAction]
         public void LoadData(int CateId)
         {
-            string[] arrInfo = JsonConvert.DeserializeObject<string[]>(HttpContext.Request.Cookies[CookieSupport.InfoBooking]);
+            BookingView inforBooking = JsonConvert.DeserializeObject<BookingView>(HttpContext.Request.Cookies[CookieSupport.InfoBooking]);
             // Lay danh sach Category
-            var listcate = _IRou.GetCateogryByFromTo(Convert.ToInt32(arrInfo[0]), Convert.ToInt32(arrInfo[2]));
+            var listcate = _IRou.GetCateogryByFromTo(inforBooking.StationFrom, inforBooking.StationTo);
             //  Lay danh sach tuyen duong theo diem di va den va loai xe
             var listRoutes = new List<RoutesView>();
             if (CateId > 0)
             {
-                listRoutes = _IRou.GetRoutesByFromTo(Convert.ToInt32(arrInfo[0]), Convert.ToInt32(arrInfo[2]), CateId).ToList();
+                listRoutes = _IRou.GetRoutesByFromTo(inforBooking.StationFrom, inforBooking.StationTo, CateId).ToList();
             }
             else
             {
-               listRoutes = _IRou.GetRoutesByFromTo(Convert.ToInt32(arrInfo[0]), Convert.ToInt32(arrInfo[2]), listcate[CateId].CateId).ToList();
+                listRoutes = _IRou.GetRoutesByFromTo(inforBooking.StationFrom, inforBooking.StationTo, listcate[CateId].CateId).ToList();
             }
 
-
-
-            ViewBag.infoBooking = arrInfo;
+            ViewBag.infoBooking = inforBooking;
             ViewBag.listcate = listcate;
 
 
@@ -103,16 +102,9 @@ namespace BusBooking_Project.Controllers
                 TimeRun = p.TimeRun
             }).ToList();
 
+            var Route = _IRou.GetRouteById(ViewBag.listRouteTimeGoRun[0].Id);
 
-
-            //from[0]: "20"
-            //name[1]: "tp Ho chi minh - quan 1".
-            //To[2]: "22"
-            //name[3]: "nghe an - tp vinh"
-            //time[4]: "26-06-2020"
-            //qty[5]: 1
-            //price[6]: 50000
-
+            ViewBag.listSeat = _ISeat.GetAllByBusId(Route.BusId);
         }
 
     }

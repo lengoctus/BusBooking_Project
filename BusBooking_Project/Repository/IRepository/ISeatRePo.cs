@@ -17,5 +17,6 @@ namespace BusBooking_Project.Repository.IRepository
         SeatView GetByIdSeat(int Id);
         List<SeatView> SearchByBus(int page, int busid);
         int CountSearchByBus(int busid);
+        List<SeatView> GetAllByBusId(int busid);
     }
 }

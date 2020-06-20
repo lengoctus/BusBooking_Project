@@ -45,7 +45,13 @@
                             <div class="controls">
                                 <i class="fa fa-bus text-primary"></i>
                                 <select class="form-control" name="cbbRouteTo" id="cbbRouteTo">
-                                    <option>Chọn điểm đến</option>
+                                    @if (ViewBag.RouteTo != null)
+                                    {
+                                        foreach (var item in ViewBag.RouteTo)
+                                        {
+                                            <option value="@item.StationTo">@item.StationLocationTo</option>
+                                        }
+                                    }
                                 </select>
                             </div>
                         </div>

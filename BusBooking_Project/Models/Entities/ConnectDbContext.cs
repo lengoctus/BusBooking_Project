@@ -57,7 +57,9 @@ namespace BusBooking_Project.Models.Entities
                     .HasColumnName("DOB")
                     .HasColumnType("date");
 
-                entity.Property(e => e.Email).HasMaxLength(50);
+                entity.Property(e => e.Email)
+                    .IsRequired()
+                    .HasMaxLength(50);
 
                 entity.Property(e => e.ForgotPass).HasMaxLength(50);
 
@@ -69,11 +71,11 @@ namespace BusBooking_Project.Models.Entities
                     .IsRequired()
                     .HasMaxLength(50);
 
-                entity.Property(e => e.Password)
+                entity.Property(e => e.Password).HasMaxLength(50);
+
+                entity.Property(e => e.Phone)
                     .IsRequired()
                     .HasMaxLength(50);
-
-                entity.Property(e => e.Phone).HasMaxLength(50);
 
                 entity.Property(e => e.Status)
                     .IsRequired()
@@ -87,12 +89,15 @@ namespace BusBooking_Project.Models.Entities
                 entity.HasOne(d => d.Station)
                     .WithMany(p => p.Account)
                     .HasForeignKey(d => d.StationId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Account_Station");
             });
 
             modelBuilder.Entity<Booking>(entity =>
             {
+                entity.Property(e => e.Code)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.DayCreate)
                     .HasColumnType("datetime")
                     .HasDefaultValueSql("(getdate())");

@@ -17,6 +17,15 @@ namespace BusBooking_Project.Models.ModelsView
         public bool Active { get; set; }
         public int BusId { get; set; }
         public int SeatId { get; set; }
+        public string Code { get; set; }
+
+        public int StationFrom { get; set; }
+        public int StationTo { get; set; }
+        public string StationNameFrom { get; set; }
+        public string StationNameTo { get; set; }
+        public decimal CategoryPrice { get; set; }
+        public decimal RoutePrice { get; set; }
+
 
     }
 }

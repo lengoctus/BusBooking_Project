@@ -12,6 +12,8 @@ using BusBooking_Project.Repository.CsRepository;
 using BusBooking_Project.Models.Entities;
 using BusBooking_Project.SupportsTu;
 using Newtonsoft.Json;
+using System.Globalization;
+using System.Net;
 
 namespace BusBooking_Project.Controllers
 {
@@ -32,11 +34,12 @@ namespace BusBooking_Project.Controllers
         public IActionResult Index()
         {
             ViewBag.RoutesFrom = _IRou.GetRoutesFrom();
+            ViewBag.RouteTo = _IRou.GetRoutesTo(ViewBag.RoutesFrom[0].StationFrom);
             return View();
         }
 
         [HttpPost("getrouteto")]
-        public IActionResult GetRouteTo([FromBody]int idRouteFrom)
+        public IActionResult GetRouteTo([FromBody] int idRouteFrom)
         {
             int idFrom = Convert.ToInt32(idRouteFrom);
             if (idFrom > 0)
@@ -48,12 +51,31 @@ namespace BusBooking_Project.Controllers
         }
 
         [HttpGet("gettimeandroutes")]
-        public IActionResult GetTimeAndRoutes([FromQuery]int fr, [FromQuery]int to, [FromQuery]string dDate, [FromQuery] int QtyTicket, [FromQuery]string frname, [FromQuery]string toname)
+        public IActionResult GetTimeAndRoutes([FromQuery] int fr, [FromQuery] int to, [FromQuery] string dDate, [FromQuery] int QtyTicket, [FromQuery] string frname, [FromQuery] string toname)
         {
-            string[] routesView = {fr.ToString(), frname, to.ToString(), toname, dDate, QtyTicket.ToString()};
+            CultureInfo provider = CultureInfo.InvariantCulture;
+
+            var InfoBooking = new BookingView
+            {
+                StationFrom = fr,
+                StationTo = to,
+                DayStart = DateTime.Parse(dDate),
+                QuantityTicket = QtyTicket,
+                StationNameFrom = frname,
+                StationNameTo = toname
+            };
 
             DateTime today = DateTime.Now;
-            CookieSupport.Set(HttpContext, CookieSupport.InfoBooking, JsonConvert.SerializeObject(routesView), today.Minute+5);
+            if (CookieSupport.CheckCookieExists(HttpContext, CookieSupport.InfoBooking))
+            {
+                CookieSupport.Remove(HttpContext, CookieSupport.InfoBooking);
+                CookieSupport.Set(HttpContext, CookieSupport.InfoBooking, JsonConvert.SerializeObject(InfoBooking), today.Minute + 5);
+            }
+            else
+            {
+                CookieSupport.Set(HttpContext, CookieSupport.InfoBooking, JsonConvert.SerializeObject(InfoBooking), today.Minute + 5);
+
+            }
 
 
             return RedirectToAction("index", "selectedSeat");

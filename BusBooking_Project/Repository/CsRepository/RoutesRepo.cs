@@ -1,4 +1,4 @@
-﻿using BusBooking_Project.Models.Entities;
+﻿    using BusBooking_Project.Models.Entities;
 using BusBooking_Project.Models.ModelsView;
 using BusBooking_Project.Repository.EFCore;
 using BusBooking_Project.Repository.IRepository;
@@ -205,12 +205,12 @@ namespace BusBooking_Project.Repository.CsRepository
         }
         #endregion
 
-        #region Get StationTo by StaionFrom id
+        #region Get RouteTo by RouteFrom id
         public List<RoutesView> GetRoutesTo(int idFrom)
         {
             try
             {
-                return GetAll().Result.Where(p => p.StationFrom == idFrom).Join(_db.Station, rou => rou.StationTo, sta => sta.Id, (rou, sta) => new RoutesView
+                return GetAll().Result.Where(p => p.StationFrom == idFrom && p.Status == true).Join(_db.Station, rou => rou.StationTo, sta => sta.Id, (rou, sta) => new RoutesView
                 {
                     StationLocationTo = sta.Location,
                     StationTo = sta.Id,
@@ -265,7 +265,7 @@ namespace BusBooking_Project.Repository.CsRepository
         }
         #endregion
 
-
+        #region Get Category by Stationfrom and StationTo
         public List<BusView> GetCateogryByFromTo(int from, int to)
         {
             try
@@ -285,5 +285,27 @@ namespace BusBooking_Project.Repository.CsRepository
                 throw;
             }
         }
+        #endregion
+
+        
+        #region Get Route by Id
+        public RoutesView GetRouteById(int Id)
+        {
+            var route = GetById(Id).Result;
+            return new RoutesView
+            {
+                Id = route.Id,
+                StationFrom = route.StationFrom,
+                StationTo = route.StationTo,
+                Price = route.Price,
+                Length = route.Length,
+                TimeGo = route.TimeGo.ToString(),
+                Active = route.Active,
+                Status = route.Status,
+                BusId = route.BusId,
+                TimeRun = route.TimeRun
+            };
+        }
+        #endregion
     }
 }

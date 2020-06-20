@@ -14,9 +14,12 @@ namespace BusBooking_Project.Repository.CsRepository
 {
     public class SeatRepo : GenericRepo<Seat>, ISeatRePo
     {
+        private readonly ConnectDbContext _db;
+
         private int size2 = ConstantACE.size2;
         public SeatRepo(ConnectDbContext db) : base(db)
         {
+            _db = db;
         }
 
         public SeatView GetByIdSeat(int Id)
@@ -27,7 +30,7 @@ namespace BusBooking_Project.Repository.CsRepository
                 {
                     Id = p.Id,
                     BusId = p.BusId,
-                    Status = p.Status,
+                    Status = p.Status ?? false,
                     BusCode = p.Bus.Code,
                     Code = p.Code
                 }).FirstOrDefault(p => p.Id == Id);
@@ -52,7 +55,7 @@ namespace BusBooking_Project.Repository.CsRepository
                     BusId = s.BusId,
                     Code = s.Code,
                     BusCode = s.Bus.Code,
-                    Status = s.Status
+                    Status = s.Status ?? false
                 }).ToList();
         }
         public int CountSearchByBus(int busid)
@@ -65,14 +68,14 @@ namespace BusBooking_Project.Repository.CsRepository
                     BusId = s.BusId,
                     Code = s.Code,
                     BusCode = s.Bus.Code,
-                    Status = s.Status
+                    Status = s.Status ?? false
                 }).Count();
         }
 
         public List<SeatView> GetAllSeat(int page)
         {
             int start = size2 * (page - 1);
-           
+
             return GetAll().Result
                 .Where(p => p.Status == true)
                 .OrderByDescending(p => p.Id)
@@ -83,7 +86,7 @@ namespace BusBooking_Project.Repository.CsRepository
                     Id = s.Id,
                     BusId = s.BusId,
                     Code = s.Code,
-                    Status = s.Status,
+                    Status = s.Status ?? false,
                     BusCode = s.Bus.Code
                 }).ToList();
         }
@@ -132,6 +135,24 @@ namespace BusBooking_Project.Repository.CsRepository
             }
 
             return false;
+        }
+
+        public List<SeatView> GetAllByBusId(int busid)
+        {
+            try
+            {
+                return GetAll().Result.Where(p => p.Status == true && p.BusId == busid).Select(p => new SeatView
+                {
+                    Id = p.Id,
+                    BusId = p.BusId,
+                    Code = p.Code,
+                    Status = p.Status ?? false
+                }).ToList();
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
         }
 
     }

@@ -36,6 +36,7 @@ namespace BusBooking_Project
             services.AddScoped<ICategoryRepo, CategoryRepo>();
             services.AddScoped<IBusRePo, BusRepo>();
             services.AddScoped<IRoutesRepo, RoutesRepo>();
+            services.AddScoped<IBookingRepo, BookingRepo>();
             services.AddScoped<ISeatRePo, SeatRepo>();
             services.AddScoped<IStationRepo, StationRepo>();
 
