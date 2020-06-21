@@ -12,6 +12,7 @@ namespace BusBooking_Project.Areas.Employee.Controllers
     [Route("employee/bookticket")]
     public class BookTicketController : Controller  
     {
+       
         [HttpGet("")]
         [HttpGet("index")]
         public IActionResult Index()

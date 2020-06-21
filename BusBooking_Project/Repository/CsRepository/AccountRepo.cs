@@ -104,7 +104,7 @@ namespace BusBooking_Project.Repository.CsRepository
         {
             int start = size * (page - 1);
             return GetDataACE()
-                .Where(s => s.Status == true)
+                .Where(s => s.Status == true && s.Role.Name!="A")
                 .OrderByDescending(s => s.Id)
                 .Skip(start)
                 .Take(size)
@@ -134,7 +134,7 @@ namespace BusBooking_Project.Repository.CsRepository
         public int CountData()
         {
             return GetDataACE()
-                .Where(s => (bool)s.Status)
+                .Where(s => (bool)s.Status && s.Role.Name != "A")
                 .Count();
         }
         public AccountView GetByIdACE(int id)
