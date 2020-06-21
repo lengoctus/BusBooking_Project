@@ -25,7 +25,10 @@ namespace BusBooking_Project.Models.ModelsView
         public string StationNameTo { get; set; }
         public decimal CategoryPrice { get; set; }
         public decimal RoutePrice { get; set; }
-
+        public string BusCode { get; set; }
+        public string SeatCode { get; set; }
+        public string ClientName { get; set; }
+        public string ClientDescription { get; set; }
 
     }
 }
