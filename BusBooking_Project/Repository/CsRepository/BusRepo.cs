@@ -269,7 +269,8 @@ namespace BusBooking_Project.Repository.CsRepository
                 SeatEmpty = p.SeatEmpty,
                 CategoryName = p.Category.Name
             }).ToList();
-        // hàm remove bus
+            // hàm remove bus
+        }
         public bool SetStatus(int id)
         {
             Bus bus = GetById(id).Result;
