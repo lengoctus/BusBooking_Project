@@ -20,13 +20,13 @@ namespace BusBooking_Project.Repository.CsRepository
         {
         }
 
-       
+
         public override bool CheckIsExists(Bus entity)
         {
             try
             {
                 var bus = GetAll().Result.AsNoTracking().FirstOrDefault(p => p.Code.ToLower() == entity.Code.ToLower().Trim());
-                if (bus!= null)
+                if (bus != null)
                 {
                     return true;
                 }
@@ -46,18 +46,18 @@ namespace BusBooking_Project.Repository.CsRepository
                 .Where(p => p.Status == true)
                 .OrderByDescending(p => p.Id)
                 .Skip(start)
-                .Take(size)                
+                .Take(size)
                 .Select(p => new BusView
-            {
-                Id = p.Id,
-                Code = p.Code,
-                TotalSeat = p.TotalSeat,
-                SeatEmpty = p.SeatEmpty,
-                Active = p.Active ?? false,
-                Status = p.Status ?? false,
-                Image = p.Image,
-                CategoryName = p.Category.Name
-            }).ToList();
+                {
+                    Id = p.Id,
+                    Code = p.Code,
+                    TotalSeat = p.TotalSeat,
+                    SeatEmpty = p.SeatEmpty,
+                    Active = p.Active ?? false,
+                    Status = p.Status ?? false,
+                    Image = p.Image,
+                    CategoryName = p.Category.Name
+                }).ToList();
 
         }
         public int CountAllBus()
@@ -125,7 +125,7 @@ namespace BusBooking_Project.Repository.CsRepository
             Bus bus = GetDataACE().OrderByDescending(s => s.Id).FirstOrDefault();
             if (bus == null) return "00000";
             string code_Old = bus.Code;
-            int b = Convert.ToInt32(code_Old)+1;
+            int b = Convert.ToInt32(code_Old) + 1;
             string code_New = b.ToString();
             while (b < 10000 && code_New.Length < 5)
             {
@@ -140,8 +140,8 @@ namespace BusBooking_Project.Repository.CsRepository
             return new BusView
             {
                 Id = bus.Id,
-                Code = bus.Code,           
-                Image = bus.Image,           
+                Code = bus.Code,
+                Image = bus.Image,
                 Active = bus.Active ?? false,
                 Status = bus.Status ?? false,
                 TotalSeat = bus.TotalSeat,
@@ -180,7 +180,7 @@ namespace BusBooking_Project.Repository.CsRepository
             {
                 return (int)CheckError.AlreadyCode;
             }
-            return (int)CheckError.Success;                       
+            return (int)CheckError.Success;
         }
 
         public bool SetActive(int id)
@@ -196,13 +196,13 @@ namespace BusBooking_Project.Repository.CsRepository
             string columnSearch = "";
             switch (search_case)
             {
-                
+
                 case (int)SearchBus.Code:
                     columnSearch = "[code]";
                     break;
-              
+
             }
-            return GetDataRawSqlACE($"SELECT * FROM [bus] WHERE {columnSearch} {search} like  N'%{textsearch}%' AND [status] = 1")                            
+            return GetDataRawSqlACE($"SELECT * FROM [bus] WHERE {columnSearch} {search} like  N'%{textsearch}%' AND [status] = 1")
                 .Select(s => new BusView
                 {
                     Id = s.Id,
@@ -211,9 +211,9 @@ namespace BusBooking_Project.Repository.CsRepository
                     SeatEmpty = s.SeatEmpty,
                     Active = s.Active ?? false,
                     Status = s.Status ?? false,
-                    Image = s.Image ,
+                    Image = s.Image,
                     CateId = s.CateId,
-                    CategoryName = s.Category.Name                 
+                    CategoryName = s.Category.Name
                 }).ToList();
         }
 
@@ -221,12 +221,12 @@ namespace BusBooking_Project.Repository.CsRepository
         {
             string columnSearch = "";
             switch (search_case)
-            {               
-               
+            {
+
                 case (int)SearchBus.Code:
                     columnSearch = "[code]";
                     break;
-               
+
             }
             return GetDataRawSqlACE($"SELECT * FROM [bus] WHERE {columnSearch} {search} like  N'%{textsearch}%' AND [status] = 1").Count();
         }
@@ -246,7 +246,7 @@ namespace BusBooking_Project.Repository.CsRepository
                     TotalSeat = p.TotalSeat,
                     SeatEmpty = p.SeatEmpty,
                     Active = p.Active ?? false,
-                    Status = p.Status?? false,
+                    Status = p.Status ?? false,
                     Image = p.Image,
                     CategoryName = p.Category.Name
                 }).ToList();
@@ -259,7 +259,7 @@ namespace BusBooking_Project.Repository.CsRepository
                 Code = p.Code,
                 TotalSeat = p.TotalSeat,
                 SeatEmpty = p.SeatEmpty,
-                Active = p.Active ?? false ,
+                Active = p.Active ?? false,
                 Status = p.Status ?? false,
                 Image = p.Image,
                 CategoryName = p.Category.Name
@@ -281,7 +281,11 @@ namespace BusBooking_Project.Repository.CsRepository
                 SeatEmpty = p.SeatEmpty,
                 CategoryName = p.Category.Name
             }).ToList();
+<<<<<<< HEAD
 =======
+=======
+        }
+>>>>>>> data Cancel Booking
         // hàm remove bus
         public bool SetStatus(int id)
         {

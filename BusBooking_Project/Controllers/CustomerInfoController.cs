@@ -75,13 +75,14 @@ namespace BusBooking_Project.Controllers
             {
                 BookingView infoBooking = JsonConvert.DeserializeObject<BookingView>(HttpContext.Request.Cookies[CookieSupport.InfoBooking]);
                 customer.Description = AgeCal(Cusage);
+                customer.DayCreate = DateTime.Now;
                 var accid = _IAcc.CreateCustomer(customer);
                 if (accid > 0)
                 {
                     infoBooking.UserId = accid;
                     infoBooking.Code = GenerateCode.RandomPassword(false);
-                    int bookid = _IBook.CreateBooking(infoBooking);
-                    return RedirectToAction("bookingsuccess", "customerinfo");
+                    _IBook.CreateBooking(infoBooking);
+                    return RedirectToAction("bookingsuccess", "customerinfo", new { @Userid = accid});
                 }
             }
 
@@ -122,8 +123,9 @@ namespace BusBooking_Project.Controllers
 
 
         [HttpGet("bookingsuccess")]
-        public IActionResult BookingSuccess()
+        public IActionResult BookingSuccess(int Userid)
         {
+            var d = _IBook.GetInfoBooking(Userid);
             return View();
         }
     }

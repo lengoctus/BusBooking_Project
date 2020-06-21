@@ -18,10 +18,11 @@ namespace BusBooking_Project.Repository.CsRepository
         }
         private string search = ConstantACE.search;
         private int size = ConstantACE.size;
+        private readonly ConnectDbContext _db;
         //int start = size * (page - 1);
         public StationRepo(ConnectDbContext db) : base(db)
         {
-
+            _db = db;
         }
         #endregion
 
@@ -207,8 +208,15 @@ namespace BusBooking_Project.Repository.CsRepository
         public bool SetStatus(int id)
         {
             Station station = GetById(id).Result;
-            station.Status = !station.Status;
-            return Update(station.Id, station).Result;
+            if (_db.Routes.FirstOrDefault(p => ((p.StationFrom == station.Id) || (p.StationTo == station.Id)) && p.Status == true) == null)
+            {
+                station.Status = !station.Status;
+                return Update(station.Id, station).Result;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public bool SetActive(int id)
