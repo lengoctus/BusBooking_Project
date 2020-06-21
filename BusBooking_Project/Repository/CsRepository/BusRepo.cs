@@ -282,11 +282,8 @@ namespace BusBooking_Project.Repository.CsRepository
                 CategoryName = p.Category.Name
             }).ToList();
 <<<<<<< HEAD
-=======
-=======
+            // hàm remove bus
         }
->>>>>>> data Cancel Booking
-        // hàm remove bus
         public bool SetStatus(int id)
         {
             Bus bus = GetById(id).Result;
