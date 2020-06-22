@@ -1,8 +1,7 @@
-﻿
-@{
-    ViewData["Title"] = "Index";
-    Layout = "~/Areas/Employee/Views/Shared/_LayoutEmployee.cshtml";
-}
+﻿@model List<BookingView>
+
+@{ ViewData["Title"] = "Index";
+    Layout = "~/Areas/Employee/Views/Shared/_LayoutEmployee.cshtml"; }
 
 
 <!-- Content Header (Page header) -->
@@ -37,40 +36,43 @@
                             <thead>
                                 <tr>
                                     <th>Booking Code</th>
+                                    <th>FullName</th>
+                                    <th>Station From</th>
+                                    <th>Station To</th>
                                     <th>Day Create</th>
                                     <th>Day Start</th>
                                     <th>Bus Code</th>
                                     <th>Seat Code</th>
-                                    <th>From Address</th>
-                                    <th>To Address</th>
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>B01</td>
-                                    <td>
-                                        6/5/2020
-                                    </td>
-                                    <td>7/5/2020</td>
-                                    <td>XE 1</td>
-                                    <td>Seat 00</td>
-                                    <td> Hà Nội</td>
-                                    <td>Hồ Chí Minh</td>
-
-                                    <td style="width:160px" class="item-record" align="center">
-                                        <a asp-area="employee" asp-controller="bookticket" asp-action="bookticket" class="btn btn-info btn-sm">
-                                            <i class="fa fa-ticket">
-                                            </i> &nbsp;
-                                            <span class="view-edit" style="font-size:1rem;">Next Booking</span>
-                                        </a>
-                                    </td>
-
-
-
-
-                                </tr>
-
+                                @if (Model != null && Model.Count > 0)
+                                {
+                                    foreach (var item in Model)
+                                    {
+                    <tr>
+                        <td>@item.Code</td>
+                        <td>@item.ClientName</td>
+                        <td>@item.StationNameFrom</td>
+                        <td>@item.StationNameTo</td>
+                        <td>@item.DayCreate.ToString("f")</td>
+                        <td>@item.DayStart.ToString("D")</td>
+                        <td>@item.BusCode</td>
+                        <td>@item.SeatCode</td>
+                        <td>
+                            <!-- Call to action buttons -->
+                            <ul class="list-inline m-0">
+                                <li class="list-inline-item">
+                                    <a role="button" class="btn btn-success btn-sm" asp-area="employee" asp-controller="bookticket" asp-action="detail" asp-route-bookid="@item.Id" data-placement="top" title="Edit"><i class="far fa-eye"></i></a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a class="btn btn-danger btn-sm" role="button" data-placement="top" title="Delete"><i class="fa fa-trash"></i></a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>}
+                                }
                             </tbody>
                         </table>
                     </div>

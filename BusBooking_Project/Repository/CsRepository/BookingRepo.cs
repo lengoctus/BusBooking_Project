@@ -22,7 +22,7 @@ namespace BusBooking_Project.Repository.CsRepository
             var d = entity.DayCreate.ToString("dd/MM/yyyy");
             try
             {
-                var check = GetAll().Result.FirstOrDefault(p => p.DayCreate.Day == entity.DayCreate.Day && p.DayCreate.Month == entity.DayCreate.Month && p.DayCreate.Year == entity.DayCreate.Year && p.RouteId == entity.RouteId && p.BusId == entity.BusId && p.SeatId == entity.SeatId);
+                var check = GetAll().Result.FirstOrDefault(p => p.DayStart.Day == entity.DayStart.Day && p.DayStart.Month == entity.DayCreate.Month && p.DayCreate.Year == entity.DayCreate.Year && p.RouteId == entity.RouteId && p.BusId == entity.BusId && p.SeatId == entity.SeatId);
                 if (check != null)
                 {
                     return true;
@@ -50,17 +50,21 @@ namespace BusBooking_Project.Repository.CsRepository
                 SeatId = bookingView.SeatId,
                 Code = bookingView.Code
             };
-
-            return Create(booking, CheckIsExists(booking)).Result.Id;
+            var book = Create(booking, CheckIsExists(booking)).Result;
+            if (book == null)
+            {
+                return 0;
+            }
+            return book.Id;
         }
-        #endregion
+        #endregion  
 
         #region Get Info Booking
-        public List<BookingView> GetInfoBooking(int UserId)
+        public BookingView GetInfoBooking(int bookingId)
         {
             try
             {
-                var list = GetAll().Result.Where(p => p.UserId == UserId).Join(_db.Bus, book => book.BusId, bus => bus.Id, (book, bus) => new BookingView
+                var booking = GetAll().Result.Where(p => p.Id == bookingId).Join(_db.Bus, book => book.BusId, bus => bus.Id, (book, bus) => new BookingView
                 {
                     Id = book.Id,
                     Code = book.Code,
@@ -71,7 +75,9 @@ namespace BusBooking_Project.Repository.CsRepository
                     SeatId = book.SeatId,
                     UserId = book.UserId,
                     CategoryPrice = bus.Category.Price,
-                    RoutePrice = book.Route.Price
+                    RoutePrice = book.Route.Price,
+                    StationFrom = book.Route.StationFrom,
+                    StationTo = book.Route.StationTo
                 }).Join(_db.Seat, book => book.SeatId, seat => seat.Id, (book, seat) => new BookingView
                 {
                     Id = book.Id,
@@ -84,7 +90,109 @@ namespace BusBooking_Project.Repository.CsRepository
                     UserId = book.UserId,
                     SeatCode = seat.Code,
                     CategoryPrice = book.CategoryPrice,
-                    RoutePrice = book.RoutePrice
+                    RoutePrice = book.RoutePrice,
+                    StationFrom = book.StationFrom,
+                    StationTo = book.StationTo
+                }).Join(_db.Account, book => book.UserId, acc => acc.Id, (book, acc) => new BookingView
+                {
+                    Id = book.Id,
+                    Code = book.Code,
+                    BusCode = book.BusCode,
+                    DayCreate = book.DayCreate,
+                    DayStart = book.DayStart,
+                    Active = book.Active,
+                    SeatId = book.SeatId,
+                    UserId = book.UserId,
+                    ClientPhone = acc.Phone,
+                    ClientEmail = acc.Email,
+                    SeatCode = book.SeatCode,
+                    ClientName = acc.Name,
+                    ClientDescription = acc.Description,
+                    CategoryPrice = book.CategoryPrice,
+                    RoutePrice = book.RoutePrice,
+                    StationFrom = book.StationFrom,
+                    StationTo = book.StationTo
+                }).Join(_db.Station, book => book.StationFrom, sta => sta.Id, (book, sta) => new BookingView
+                {
+                    Id = book.Id,
+                    Code = book.Code,
+                    BusCode = book.BusCode,
+                    DayCreate = book.DayCreate,
+                    DayStart = book.DayStart,
+                    Active = book.Active,
+                    SeatId = book.SeatId,
+                    UserId = book.UserId,
+                    SeatCode = book.SeatCode,
+                    ClientPhone = book.ClientPhone,
+                    ClientEmail = book.ClientEmail,
+                    ClientName = book.ClientName,
+                    ClientDescription = book.ClientDescription,
+                    CategoryPrice = book.CategoryPrice,
+                    RoutePrice = book.RoutePrice,
+                    StationNameFrom = sta.Name,
+                    StationTo = book.StationTo
+                }).Join(_db.Station, book => book.StationTo, sta => sta.Id, (book, sta) => new BookingView
+                {
+                    Id = book.Id,
+                    Code = book.Code,
+                    BusCode = book.BusCode,
+                    DayCreate = book.DayCreate,
+                    DayStart = book.DayStart,
+                    ClientName = book.ClientName,
+                    ClientEmail = book.ClientEmail,
+                    ClientPhone = book.ClientPhone,
+                    Active = book.Active,
+                    SeatId = book.SeatId,
+                    UserId = book.UserId,
+                    SeatCode = book.SeatCode,
+                    ClientDescription = book.ClientDescription.Substring(4, book.ClientDescription.Length),
+                    CategoryPrice = book.CategoryPrice,
+                    RoutePrice = book.RoutePrice,
+                    StationNameFrom = book.StationNameFrom,
+                    StationNameTo = sta.Name
+                }).FirstOrDefault();
+                return booking;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+        #endregion
+
+        public List<BookingView> GetAllInfoBooking()
+        {
+            try
+            {
+                var listAll = GetAll().Result.Where(p => p.Active == false).Join(_db.Bus, book => book.BusId, bus => bus.Id, (book, bus) => new BookingView
+                {
+                    Id = book.Id,
+                    Code = book.Code,
+                    BusCode = bus.Code,
+                    DayCreate = book.DayCreate,
+                    DayStart = book.DayStart,
+                    Active = book.Active,
+                    SeatId = book.SeatId,
+                    UserId = book.UserId,
+                    CategoryPrice = bus.Category.Price,
+                    RoutePrice = book.Route.Price,
+                    StationFrom = book.Route.StationFrom,
+                    StationTo = book.Route.StationTo
+                }).Join(_db.Seat, book => book.SeatId, seat => seat.Id, (book, seat) => new BookingView
+                {
+                    Id = book.Id,
+                    Code = book.Code,
+                    BusCode = book.BusCode,
+                    DayCreate = book.DayCreate,
+                    DayStart = book.DayStart,
+                    Active = book.Active,
+                    SeatId = book.SeatId,
+                    UserId = book.UserId,
+                    SeatCode = seat.Code,
+                    CategoryPrice = book.CategoryPrice,
+                    RoutePrice = book.RoutePrice,
+                    StationFrom = book.StationFrom,
+                    StationTo = book.StationTo
                 }).Join(_db.Account, book => book.UserId, acc => acc.Id, (book, acc) => new BookingView
                 {
                     Id = book.Id,
@@ -96,12 +204,54 @@ namespace BusBooking_Project.Repository.CsRepository
                     SeatId = book.SeatId,
                     UserId = book.UserId,
                     SeatCode = book.SeatCode,
+                    ClientPhone = acc.Phone,
+                    ClientEmail = acc.Email,
                     ClientName = acc.Name,
                     ClientDescription = acc.Description,
                     CategoryPrice = book.CategoryPrice,
-                    RoutePrice = book.RoutePrice
-                }).ToList();
-                return list;
+                    RoutePrice = book.RoutePrice,
+                    StationFrom = book.StationFrom,
+                    StationTo = book.StationTo
+                }).Join(_db.Station, book => book.StationFrom, sta => sta.Id, (book, sta) => new BookingView
+                {
+                    Id = book.Id,
+                    Code = book.Code,
+                    BusCode = book.BusCode,
+                    DayCreate = book.DayCreate,
+                    DayStart = book.DayStart,
+                    Active = book.Active,
+                    SeatId = book.SeatId,
+                    UserId = book.UserId,
+                    ClientEmail = book.ClientEmail,
+                    ClientPhone = book.ClientPhone,
+                    SeatCode = book.SeatCode,
+                    ClientName = book.ClientName,
+                    ClientDescription = book.ClientDescription,
+                    CategoryPrice = book.CategoryPrice,
+                    RoutePrice = book.RoutePrice,
+                    StationNameFrom = sta.Name,
+                    StationTo = book.StationTo
+                }).Join(_db.Station, book => book.StationTo, sta => sta.Id, (book, sta) => new BookingView
+                {
+                    Id = book.Id,
+                    Code = book.Code,
+                    BusCode = book.BusCode,
+                    DayCreate = book.DayCreate,
+                    DayStart = book.DayStart,
+                    ClientName = book.ClientName,
+                    Active = book.Active,
+                    SeatId = book.SeatId,
+                    ClientEmail = book.ClientEmail,
+                    ClientPhone = book.ClientPhone,
+                    UserId = book.UserId,
+                    SeatCode = book.SeatCode,
+                    ClientDescription = book.ClientDescription.Substring(4, book.ClientDescription.Length),
+                    CategoryPrice = book.CategoryPrice,
+                    RoutePrice = book.RoutePrice,
+                    StationNameFrom = book.StationNameFrom,
+                    StationNameTo = sta.Name
+                }).OrderByDescending(p => p.Id).ToList();
+                return listAll;
             }
             catch (Exception e)
             {
@@ -109,6 +259,5 @@ namespace BusBooking_Project.Repository.CsRepository
                 throw;
             }
         }
-        #endregion
     }
 }

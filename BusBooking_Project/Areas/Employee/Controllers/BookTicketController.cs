@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BusBooking_Project.Models.ModelsView;
+using BusBooking_Project.Repository.IRepository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,28 +12,42 @@ namespace BusBooking_Project.Areas.Employee.Controllers
     [Authorize(Roles = "E", AuthenticationSchemes = "SCHEME_EMP")]
     [Area("employee")]
     [Route("employee/bookticket")]
-    public class BookTicketController : Controller  
+    public class BookTicketController : Controller
     {
-       
+        private readonly IBookingRepo _IBook;
+
+        public BookTicketController(IBookingRepo iBook)
+        {
+            _IBook = iBook;
+        }
+
         [HttpGet("")]
         [HttpGet("index")]
         public IActionResult Index()
         {
-            return View();
-        }   
-        
-        [HttpGet("bookticket")]
-        public IActionResult Bookticket()
-        {
-            return View();
+            var listBook = _IBook.GetAllInfoBooking();
+            return View(listBook);
         }
 
-        [HttpGet("sendmail")]
-        public IActionResult Sendmail()
+        [HttpGet("detail")]
+        public IActionResult Detail([FromQuery] int bookid)
         {
-            return View();
+            var detail = _IBook.GetInfoBooking(bookid);
+            if (detail != null)
+            {
+                return View(detail);
+            }
+            return View("index");
         }
-       
+
+        [HttpPost("sendmail")]
+        public IActionResult Sendmail(BookingView bookView)
+        {
+            return View(bookView);
+        }
+
+
+
     }
     //login thành công
 }
