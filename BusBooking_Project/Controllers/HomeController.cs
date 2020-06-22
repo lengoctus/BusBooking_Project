@@ -33,8 +33,13 @@ namespace BusBooking_Project.Controllers
         [HttpGet("~/")]
         public IActionResult Index()
         {
-            ViewBag.RoutesFrom = _IRou.GetRoutesFrom();
-            ViewBag.RouteTo = _IRou.GetRoutesTo(ViewBag.RoutesFrom[0].StationFrom);
+
+            var routeFrom = _IRou.GetRoutesFrom();
+            if (routeFrom != null && routeFrom.Count > 0)
+            {
+                ViewBag.RoutesFrom = routeFrom;
+                ViewBag.RouteTo = _IRou.GetRoutesTo(routeFrom[0].StationFrom);
+            }
             return View();
         }
 
