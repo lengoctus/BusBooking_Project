@@ -13,6 +13,7 @@
 //Active menu item
 function activeMenu() {
     var href = window.location.pathname;
+<<<<<<< HEAD
     var currentItemMenu = href.split('/')[2];
     switch (currentItemMenu) {
         case 'home':

@@ -53,13 +53,11 @@ namespace BusBooking_Project.Controllers
         [HttpGet("gettimeandroutes")]
         public IActionResult GetTimeAndRoutes([FromQuery] int fr, [FromQuery] int to, [FromQuery] string dDate, [FromQuery] int QtyTicket, [FromQuery] string frname, [FromQuery] string toname)
         {
-            CultureInfo provider = CultureInfo.InvariantCulture;
-
             var InfoBooking = new BookingView
             {
                 StationFrom = fr,
                 StationTo = to,
-                DayStart = DateTime.Parse(dDate),
+                DayStart = DateTime.ParseExact(dDate, "dd-MM-yyyy", null),
                 QuantityTicket = QtyTicket,
                 StationNameFrom = frname,
                 StationNameTo = toname

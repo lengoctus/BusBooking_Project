@@ -203,6 +203,8 @@ namespace BusBooking_Project.Repository.CsRepository
                     Active = book.Active,
                     SeatId = book.SeatId,
                     UserId = book.UserId,
+                    ClientPhone = acc.Phone,
+                    ClientEmail = acc.Email,
                     SeatCode = book.SeatCode,
                     ClientPhone = acc.Phone,
                     ClientEmail = acc.Email,
@@ -256,7 +258,6 @@ namespace BusBooking_Project.Repository.CsRepository
             catch (Exception e)
             {
                 return null;
-                throw;
             }
         }
     }
