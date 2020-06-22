@@ -96,7 +96,7 @@ $(document).ready(function () {
     var origin = $("select[name=idOrigin]").empty();
     origin.append(makeUpOption(fromPoints));
     //origin.append(fromPoints);
-    
+
 
     origin.on("change", function () {
         var vl = origin.val();
@@ -214,7 +214,7 @@ $(document).ready(function () {
     //    autoclose: true
     //});
 
-    
+
 });
 
 

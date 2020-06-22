@@ -82,8 +82,13 @@ namespace BusBooking_Project.Controllers
                 {
                     infoBooking.UserId = accid;
                     infoBooking.Code = GenerateCode.RandomPassword(false);
+<<<<<<< HEAD
                     var bookingid = _IBook.CreateBooking(infoBooking);
                     return RedirectToAction("bookingsuccess", "customerinfo", new {@BookingId = bookingid });
+=======
+                    var bookingid=_IBook.CreateBooking(infoBooking);
+                    return RedirectToAction("bookingsuccess", "customerinfo", new { @BookingId = bookingid});
+>>>>>>> bookingsuccess, cancel book
                 }
             }
 
@@ -126,8 +131,26 @@ namespace BusBooking_Project.Controllers
         [HttpGet("bookingsuccess")]
         public IActionResult BookingSuccess(int bookingid)
         {
+<<<<<<< HEAD
             var d = _IBook.GetInfoBooking(bookingid);
+=======
+            ViewBag.d = _IBook.GetInfoBooking(bookingid);
+>>>>>>> bookingsuccess, cancel book
             return View();
+        }
+
+        [HttpGet("cancel/{id}")]
+        public IActionResult Cancel(int id)
+        {
+            var rs = _IBook.Delete(id).Result;
+            if (rs)
+            {
+                return RedirectToAction("index", "home");
+            }
+            else
+            {
+                return RedirectToAction("bookingsuccess", "customerinfo");
+            }
         }
     }
 }

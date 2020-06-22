@@ -160,11 +160,20 @@ namespace BusBooking_Project.Repository.CsRepository
         }
         #endregion
 
+<<<<<<< HEAD
         public List<BookingView> GetAllInfoBooking()
         {
             try
             {
                 var listAll = GetAll().Result.Where(p => p.Active == false).Join(_db.Bus, book => book.BusId, bus => bus.Id, (book, bus) => new BookingView
+=======
+        #region Get Info Booking
+        public BookingView GetInfoBooking(int bookingId)
+        {
+            try
+            {
+                var booking = GetAll().Result.Where(p => p.Id == bookingId).Join(_db.Bus, book => book.BusId, bus => bus.Id, (book, bus) => new BookingView
+>>>>>>> bookingsuccess, cancel book
                 {
                     Id = book.Id,
                     Code = book.Code,
@@ -203,6 +212,8 @@ namespace BusBooking_Project.Repository.CsRepository
                     Active = book.Active,
                     SeatId = book.SeatId,
                     UserId = book.UserId,
+                    ClientPhone = acc.Phone,
+                    ClientEmail = acc.Email,
                     SeatCode = book.SeatCode,
                     ClientPhone = acc.Phone,
                     ClientEmail = acc.Email,
@@ -222,9 +233,15 @@ namespace BusBooking_Project.Repository.CsRepository
                     Active = book.Active,
                     SeatId = book.SeatId,
                     UserId = book.UserId,
+<<<<<<< HEAD
                     ClientEmail = book.ClientEmail,
                     ClientPhone = book.ClientPhone,
                     SeatCode = book.SeatCode,
+=======
+                    SeatCode = book.SeatCode,
+                    ClientPhone = book.ClientPhone,
+                    ClientEmail = book.ClientEmail,
+>>>>>>> bookingsuccess, cancel book
                     ClientName = book.ClientName,
                     ClientDescription = book.ClientDescription,
                     CategoryPrice = book.CategoryPrice,
@@ -239,10 +256,17 @@ namespace BusBooking_Project.Repository.CsRepository
                     DayCreate = book.DayCreate,
                     DayStart = book.DayStart,
                     ClientName = book.ClientName,
+<<<<<<< HEAD
                     Active = book.Active,
                     SeatId = book.SeatId,
                     ClientEmail = book.ClientEmail,
                     ClientPhone = book.ClientPhone,
+=======
+                    ClientEmail = book.ClientEmail,
+                    ClientPhone = book.ClientPhone,
+                    Active = book.Active,
+                    SeatId = book.SeatId,
+>>>>>>> bookingsuccess, cancel book
                     UserId = book.UserId,
                     SeatCode = book.SeatCode,
                     ClientDescription = book.ClientDescription.Substring(4, book.ClientDescription.Length),
@@ -250,13 +274,17 @@ namespace BusBooking_Project.Repository.CsRepository
                     RoutePrice = book.RoutePrice,
                     StationNameFrom = book.StationNameFrom,
                     StationNameTo = sta.Name
+<<<<<<< HEAD
                 }).OrderByDescending(p => p.Id).ToList();
                 return listAll;
+=======
+                }).FirstOrDefault();
+                return booking;
+>>>>>>> bookingsuccess, cancel book
             }
             catch (Exception e)
             {
                 return null;
-                throw;
             }
         }
     }
