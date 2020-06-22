@@ -27,13 +27,13 @@ function activeMenu() {
         case 'category':
             $($('.item_menu')[3]).addClass('active');
             break;  
-        case 'seats':
+        case 'bus':
             $($('.item_menu')[4]).addClass('active');
             break;    
-        case 'routes':
+        case 'seats':
             $($('.item_menu')[5]).addClass('active');
             break;     
-        case 'bus':
+        case 'routes':
             $($('.item_menu')[6]).addClass('active');
             break;       
     }
