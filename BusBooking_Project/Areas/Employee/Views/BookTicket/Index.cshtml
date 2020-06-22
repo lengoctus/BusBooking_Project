@@ -1,9 +1,16 @@
+<<<<<<< HEAD
 ﻿
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Employee/Views/Shared/_LayoutEmployee.cshtml";
 }
 }
+=======
+﻿@model List<BookingView>
+
+@{ ViewData["Title"] = "Index";
+    Layout = "~/Areas/Employee/Views/Shared/_LayoutEmployee.cshtml"; }
+>>>>>>> Send Mail
 
 
 <<<<<<< HEAD
@@ -134,16 +141,18 @@
                             <thead>
                                 <tr>
                                     <th>Booking Code</th>
+                                    <th>FullName</th>
+                                    <th>Station From</th>
+                                    <th>Station To</th>
                                     <th>Day Create</th>
                                     <th>Day Start</th>
                                     <th>Bus Code</th>
                                     <th>Seat Code</th>
-                                    <th>From Address</th>
-                                    <th>To Address</th>
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody>
+<<<<<<< HEAD
                                 <tr>
                                     <td>B01</td>
                                     <td>
@@ -195,6 +204,34 @@
 
                                 </tr>
 
+=======
+                                @if (Model != null && Model.Count > 0)
+                                {
+                                    foreach (var item in Model)
+                                    {
+                    <tr>
+                        <td>@item.Code</td>
+                        <td>@item.ClientName</td>
+                        <td>@item.StationNameFrom</td>
+                        <td>@item.StationNameTo</td>
+                        <td>@item.DayCreate.ToString("f")</td>
+                        <td>@item.DayStart.ToString("D")</td>
+                        <td>@item.BusCode</td>
+                        <td>@item.SeatCode</td>
+                        <td>
+                            <!-- Call to action buttons -->
+                            <ul class="list-inline m-0">
+                                <li class="list-inline-item">
+                                    <a role="button" class="btn btn-success btn-sm" asp-area="employee" asp-controller="bookticket" asp-action="detail" asp-route-bookid="@item.Id" data-placement="top" title="Edit"><i class="far fa-eye"></i></a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a class="btn btn-danger btn-sm" role="button" data-placement="top" title="Delete"><i class="fa fa-trash"></i></a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>}
+                                }
+>>>>>>> Send Mail
                             </tbody>
                         </table>
                     </div>
