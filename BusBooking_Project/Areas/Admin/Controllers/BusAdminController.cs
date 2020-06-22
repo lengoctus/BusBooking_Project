@@ -46,7 +46,7 @@ namespace BusBooking_Project.Areas.Admin.Controllers
             }
             string strPage = HttpContext.Request.Query["page"].ToString();
             int page = Convert.ToInt32(strPage == "" ? "1" : strPage);
-            ViewBag.cs = _ICategoryrepo.GetDataACE();
+            ViewBag.cs = _ICategoryrepo.GetDataACE().Where(p => p.Status == true).ToList().Where(p => p.Status == true).ToList();
             List<BusView> listBus = _IBusrepo.GetAllBus(page);
             ViewBag.Rows = _IBusrepo.CountAllBus();
             return View(listBus);
@@ -55,8 +55,13 @@ namespace BusBooking_Project.Areas.Admin.Controllers
         [HttpGet("create")]
         public IActionResult Create()
         {
+<<<<<<< HEAD
             ViewBag.categories = _ICategoryrepo.GetDataACE();
             return View(new BusView { Active = true });
+=======
+            ViewBag.categories = _ICategoryrepo.GetDataACE().Where(p => p.Status == true).ToList();
+            return View(new BusView {Active = true });
+>>>>>>> sửa lại
         }
 
         [HttpPost("create")]
@@ -86,7 +91,7 @@ namespace BusBooking_Project.Areas.Admin.Controllers
                 default:
                     return RedirectToAction("index");
             }
-            ViewBag.categories = _ICategoryrepo.GetDataACE();
+            ViewBag.categories = _ICategoryrepo.GetDataACE().Where(p => p.Status == true).ToList();
             return View(busView);
         }
 
@@ -96,7 +101,7 @@ namespace BusBooking_Project.Areas.Admin.Controllers
         {
             int id = Convert.ToInt32(HttpContext.Request.Query["id"].ToString());
             BusView busView = _IBusrepo.GetByIdBus(id);
-            ViewBag.categories = _ICategoryrepo.GetDataACE();
+            ViewBag.categories = _ICategoryrepo.GetDataACE().Where(p => p.Status == true).ToList();
             return View(busView);
 
         }
@@ -130,7 +135,7 @@ namespace BusBooking_Project.Areas.Admin.Controllers
                     TempData["ModifySuccess"] = CheckError.Success;
                     return RedirectToAction("index");
             }
-            ViewBag.categories = _ICategoryrepo.GetDataACE();
+            ViewBag.categories = _ICategoryrepo.GetDataACE().Where(p => p.Status == true).ToList();
             return View(busView);
         }
 
@@ -164,7 +169,7 @@ namespace BusBooking_Project.Areas.Admin.Controllers
                     ViewBag.Rows = _IBusrepo.CountSearchData(textsearch, (int)SearchBus.Code);
                     break;
             }
-            ViewBag.cs = _ICategoryrepo.GetDataACE();
+            ViewBag.cs = _ICategoryrepo.GetDataACE().Where(p => p.Status == true).ToList();
             return View("index", listBus);
 
         }
@@ -178,7 +183,7 @@ namespace BusBooking_Project.Areas.Admin.Controllers
             int page = Convert.ToInt32(strPage == "" ? "1" : strPage);
             var seatsbycate = _IBusrepo.SearchByCategory(page, id);
             ViewBag.Rows = _IBusrepo.CountSearchByCategory(id);
-            ViewBag.cs = _ICategoryrepo.GetDataACE();
+            ViewBag.cs = _ICategoryrepo.GetDataACE().Where(p => p.Status == true).ToList();
             return View("index", seatsbycate);
         }
         // thêm hàm remove bus

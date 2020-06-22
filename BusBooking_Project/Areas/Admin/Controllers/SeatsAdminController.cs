@@ -32,7 +32,7 @@ namespace BusBooking_Project.Areas.Admin.Controllers
         {
             string strPage = HttpContext.Request.Query["page"].ToString();
             int page = Convert.ToInt32(strPage == "" ? "1" : strPage);
-            ViewBag.buses = _IBus.GetDataACE();
+            ViewBag.buses = _IBus.GetDataACE().Where(p => p.Status == true).ToList();
             var seats = _ISeat.GetAllSeat(page);
             ViewBag.Rows = _ISeat.CountAllSeat();
             return View(seats);
@@ -42,12 +42,16 @@ namespace BusBooking_Project.Areas.Admin.Controllers
         [Route("create")]
         public IActionResult Create()
         {
-            ViewBag.buses = _IBus.GetDataACE();
+            var listBus = _IBus.GetDataACE().Where(p => p.Status == true).ToList().Where(p => p.Status == true).ToList();
+            if (listBus != null && listBus.Count > 0)
+            {
+                ViewBag.buses = listBus;
+            }
             return View("Create");
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> Create([FromBody]SeatView seatView)
+        public async Task<IActionResult> Create([FromBody] SeatView seatView)
         {
             if (seatView != null)
             {
@@ -70,7 +74,7 @@ namespace BusBooking_Project.Areas.Admin.Controllers
         }
 
         [HttpPost("getbyid")]
-        public IActionResult GetById([FromBody]int idSeat)
+        public IActionResult GetById([FromBody] int idSeat)
         {
             if (idSeat > 0)
             {
@@ -85,7 +89,7 @@ namespace BusBooking_Project.Areas.Admin.Controllers
 
         [HttpPost]
         [Route("modify")]
-        public IActionResult Modify([FromBody]SeatView seatView)
+        public IActionResult Modify([FromBody] SeatView seatView)
         {
             var rs = _ISeat.Update(seatView.Id, new Seat
             {
@@ -110,12 +114,12 @@ namespace BusBooking_Project.Areas.Admin.Controllers
             int page = Convert.ToInt32(strPage == "" ? "1" : strPage);
             var seatsbybus = _ISeat.SearchByBus(page, id);
             ViewBag.Rows = _ISeat.CountSearchByBus(id);
-            ViewBag.buses = _IBus.GetDataACE();
+            ViewBag.buses = _IBus.GetDataACE().Where(p => p.Status == true).ToList();
             return View("index", seatsbybus);
         }
 
         [HttpPost("deleteseat")]
-        public IActionResult DeleteSeat([FromBody]string[] arrId)
+        public IActionResult DeleteSeat([FromBody] string[] arrId)
         {
             int[] arrIdNew = Array.ConvertAll(arrId, p => Convert.ToInt32(p));
             var d = _ISeat.Delete(arrIdNew);

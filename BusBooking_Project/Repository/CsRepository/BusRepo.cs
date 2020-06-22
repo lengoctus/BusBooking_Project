@@ -284,6 +284,12 @@ namespace BusBooking_Project.Repository.CsRepository
 <<<<<<< HEAD
             // hàm remove bus
         }
+<<<<<<< HEAD
+=======
+
+
+        // hàm remove bus
+>>>>>>> sửa lại
         public bool SetStatus(int id)
         {
             Bus bus = GetById(id).Result;
