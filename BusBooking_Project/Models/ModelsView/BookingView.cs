@@ -29,6 +29,8 @@ namespace BusBooking_Project.Models.ModelsView
         public string SeatCode { get; set; }
         public string ClientName { get; set; }
         public string ClientDescription { get; set; }
+        public string ClientPhone { get; set; }
+        public string ClientEmail { get; set; }
 
     }
 }
