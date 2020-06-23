@@ -1,0 +1,147 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+
+            </div>
+            <!-- left column -->
+            <div class="col-md-6">
+                <div class="card card-info">
+                    <!-- /.card-header -->
+                    <!-- form start -->
+                    <form class="form-horizontal" asp-controller="ticketinfo" asp-action="search">
+                        <div class="card-body">
+                            <div class="form-group row" style="margin-top: 30px;margin-bottom: 10px">
+                                <label for="inputEmail3" class="col-sm-2 col-form-label">Email:</label>
+                                <div class="col-sm-10">
+                                    <input type="email" class="form-control" name="email" id="inputEmail3" placeholder="Email">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputPassword3" class="col-sm-2 col-form-label">Phone:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="inputPassword3" name="phone" placeholder="Phone Number">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputPassword3" class="col-sm-2 col-form-label">Booking Code:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="inputPassword3" name="bookingCode" placeholder="Booking Code">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer" align="center">
+                            <button type="submit" class="btn btn-success">Search</button>
+                        </div>
+                        <!-- /.card-footer -->
+                    </form>
+                    <div class="col-md-3">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</section>
+
+@if (Model != null)
+{
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-2">
+
+                </div>
+                <!-- left column -->
+                <div class="col-md-8">
+                    <div class="card card-info">
+                        <!-- /.card-header -->
+                        <!-- form start -->
+
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr class="text-white bg-light-green">
+                                        <td>Book Code</td>
+                                        <td>FullName</td>
+                                        <td>Email</td>
+                                        <td>Phone</td>
+                                        <td>Age</td>
+                                        <td>Bus Code</td>
+                                        <td>Seat Code</td>
+                                        <td>Day Start</td>
+                                        <td>Station From</td>
+                                        <td>Station To</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    <tr class="route-row1375">
+                                        <td>@Model.Code</td>
+                                        <td>@Model.ClientName</td>
+                                        <td>@Model.ClientEmail</td>
+                                        <td>@Model.ClientPhone</td>
+                                        <td>@Model.ClientDescription</td>
+                                        <td>@Model.BusCode</td>
+                                        <td>@Model.SeatCode</td>
+                                        <td>@Model.DayStart</td>
+                                        <td>@Model.StationNameFrom</td>
+                                        <td>@Model.StationNameTo</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                        <div class="col-md-3">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+
+                </div>
+            </div>
+
+
+        </div>
+    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!--<div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-ms-12">-->
+                @*<h3 class="text-primary text-uppercase">Booking Success</h3>*@
+
+
+                <!--<div class="section-list">
+                    <h3 class="text-uppercase text-success">
+                        <span class="sprite ico-drive"></span><i class="fa fa-exchange"></i>
+                    </h3>
+                    
+                </div>
+            </div>
+        </div>
+    </div>-->
+
+
+}

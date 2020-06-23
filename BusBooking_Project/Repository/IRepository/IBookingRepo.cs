@@ -13,6 +13,7 @@ namespace BusBooking_Project.Repository.IRepository
         int CreateBooking(BookingView bookingView);
         List<BookingView> GetAllInfoBooking();
         BookingView GetInfoBooking(int UserId);
+        BookingView GetInfoBookingClient(string email, string phone, string bookingCode);
         bool UpdateActive(int bookId);
     }
 }

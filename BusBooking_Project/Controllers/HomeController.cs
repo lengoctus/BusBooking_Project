@@ -84,5 +84,7 @@ namespace BusBooking_Project.Controllers
 
             return RedirectToAction("index", "selectedSeat");
         }
+
+
     }
 }

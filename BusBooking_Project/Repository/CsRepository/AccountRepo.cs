@@ -412,7 +412,7 @@ namespace BusBooking_Project.Repository.CsRepository
                 Password = "0",
                 Dob = DateTime.Now,
                 Address = "",
-                Images = "",
+                Images = "dui.jpg",
                 DayCreate = accountView.DayCreate,
                 DayEdited = DateTime.Now,
                 EditerId = 0,
