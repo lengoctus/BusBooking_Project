@@ -29,6 +29,7 @@ namespace Supports
             claims.Add(new Claim("img", user.Images));
             claims.Add(new Claim(ClaimTypes.Email, user.Email));
             claims.Add(new Claim(ClaimTypes.Role, user.RoleName));
+            claims.Add(new Claim("pw", user.Password));
             return claims;
         }
     }

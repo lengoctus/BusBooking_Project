@@ -98,7 +98,6 @@ namespace BusBooking_Project.Areas.Admin.Controllers
             BusView busView = _IBusrepo.GetByIdBus(id);
             ViewBag.categories = _ICategoryrepo.GetDataACE();
             return View(busView);
-
         }
 
         [HttpPost("edit")]
@@ -106,7 +105,7 @@ namespace BusBooking_Project.Areas.Admin.Controllers
         {
             busView.Status = true;
             busView.Active = true;
-            string FileNameSave = "abc.jpg";
+            string FileNameSave = busView.Image;
             if (inputphoto != null)
             {
                 FileNameSave = FileACE.SaveFile(webHostEnvironment, inputphoto, "admin/image");

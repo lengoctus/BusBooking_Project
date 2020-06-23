@@ -10,6 +10,9 @@
     <link href="~/employee/css/jquery-ui.css" rel="stylesheet" />
     <link href="~/employee/css/bootstrap-toggle.min.css" rel="stylesheet" />
 </head>
+@{
+    AccountView user = new AccountView { Images = User.FindFirst("img").Value, Name = User.FindFirst(System.Security.Claims.ClaimTypes.Name).Value, Password = User.FindFirst("pw").Value };
+}
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
     <div class="wrapper">
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -96,6 +99,20 @@
                         <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
                     </div>
                 </li>
+                @*Profile*@
+                <li class="nav-item dropdown">
+                    <a class="nav-link" data-toggle="dropdown" href="#">
+                        <i class="far fa-user-circle"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">                       
+                        <div class="dropdown-divider"></div>
+                        <a href="/employee/logout" class="dropdown-item">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span class="float-right text-muted text-sm">Log out</span>
+                        </a>
+                    </div>
+                </li>
+                @*End Profile*@
                 <li class="nav-item">
                     <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
                         <i class="fas fa-th-large"></i>
@@ -112,10 +129,10 @@
             <div class="sidebar">
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="~/employee/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                        <img src="~/admin/image/@user.Images" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">Mr.Kien</a>
+                        <a href="#" class="d-block">@user.Name</a>
                     </div>
                 </div>
                 <nav class="mt-2">
@@ -130,7 +147,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a asp-area="employee" asp-controller="employee" asp-action="changepw" class="nav-link item_menu">
+                            <a asp-area="employee" asp-controller="changepw" asp-action="index" asp-route-id="@(User.FindFirst("id").Value)" class="nav-link item_menu">
                                 <i class="nav-icon fas fa-users"></i>
                                 <p>
                                     Change PW
