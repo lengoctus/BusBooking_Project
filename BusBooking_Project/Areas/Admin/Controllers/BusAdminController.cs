@@ -98,7 +98,6 @@ namespace BusBooking_Project.Areas.Admin.Controllers
             BusView busView = _IBusrepo.GetByIdBus(id);
             ViewBag.categories = _ICategoryrepo.GetDataACE().Where(p => p.Status == true).ToList();
             return View(busView);
-
         }
 
         [HttpPost("edit")]

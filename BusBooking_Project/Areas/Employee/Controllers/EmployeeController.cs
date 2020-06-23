@@ -77,41 +77,7 @@ namespace BusBooking_Project.Areas.Employee.Controllers
         public IActionResult Logout()
         {
             SercurityManagerACE.Logout(HttpContext, "SCHEME_EMP");
-            return RedirectToAction("login");
-        }
-
-        [HttpGet("forgotpw")]
-        public IActionResult ForgotPassword()
-        {
-            
-            return View();
-        }
-
-        [HttpPost("forgotpw")]
-        public IActionResult ForgotPassword(string email)
-        {
-            
-            return View();
-        }
-
-        [HttpGet("changepw")]
-        public IActionResult ChangePW()
-        {
-            return View();
-        }
-
-        [HttpPost("changepw")]
-        public IActionResult ChangePW(AccountView account)
-        {
-
-            if (accountRepository.UpdatePassword(account))
-            {
-                return Json("200");
-            }
-            else
-            {
-                return Json("500");
-            }
+            return RedirectToAction("login", "employee");
         }
 
         [HttpGet("accessDenied")]

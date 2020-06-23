@@ -1,10 +1,12 @@
-﻿
+﻿@model BusBooking_Project.Models.ModelsView.AccountView
 
 @{
     ViewData["Title"] = "Changepw";
     Layout = "~/Areas/Employee/Views/Shared/_LayoutEmployee.cshtml";
 }
-
+@{
+    AccountView user = new AccountView { Id= int.Parse(User.FindFirst("id").Value) ,Password = User.FindFirst("pw").Value};
+}
 
 
 <!-- /.login-box -->
@@ -42,10 +44,11 @@
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->
-                    <form role="form">
+                    <form method="post" role="form">
+                        <input type="hidden" asp-for="@(User.FindFirst("id").Value)" />
                         <div class="card-body">
                             <div class="input-group mb-3">
-                                <input type="password" class="form-control" placeholder="Old Password">
+                                <input type="password" class="form-control" name="oldpw" id="curpw" placeholder="Old Password">
                                 <div class="input-group-append">
                                     <div class="input-group-text">
                                         <span class="fas fa-lock"></span>
@@ -53,7 +56,7 @@
                                 </div>
                             </div>
                             <div class="input-group mb-3">
-                                <input type="password" class="form-control" placeholder="New Password">
+                                <input type="password" class="form-control" asp-for="Password" id="npw" placeholder="New Password">
                                 <div class="input-group-append">
                                     <div class="input-group-text">
                                         <span class="fas fa-lock"></span>
@@ -61,20 +64,16 @@
                                 </div>
                             </div>
                             <div class="input-group mb-3">
-                                <input type="password" class="form-control" placeholder="Confirm Password">
+                                <input type="password" class="form-control" id="rpw" placeholder="Confirm Password">
                                 <div class="input-group-append">
                                     <div class="input-group-text">
-                                        <span class="fas fa-lock"></span>
+                                        <span id="span-confirm" class="fas"></span>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-3">
-                                <button type="submit" style="margin-left: 300px" class="btn btn-success btn-block">Change password</button>
+                            <div class="input-group mb-3">
+                                <button type="submit" class="btn btn-success btn-block btn-ch">Change</button>
                             </div>
-                            <!-- /.col -->
                         </div>
                         <!-- /.card-body -->
                     </form>
@@ -90,5 +89,63 @@
         <!-- /.row -->
     </div><!-- /.container-fluid -->
 </section>
+
+@section script{
+    <script>
+        $(document).ready(function () {
+            $('#rpw').keyup(function () {
+                if ($('#newpw').val() == $('#rpw').val()) {
+                    $('#span-confirm').removeClass('fa-times');
+                    $('#span-confirm').addClass('fa-check');
+                } else {
+                    $('#span-confirm').removeClass('fa-check');
+                    $('#span-confirm').addClass('fa-times');
+                }
+            });          
+            if (@(ViewBag.rs) == "1") {
+                alert("Successfull");
+            } else if(@(ViewBag.rs) == "0") {
+                alert("Fail...");
+            }
+            $(document).keypress(function (e) {
+                if (e.which == 13) {
+                    ChangePW();
+                }
+            });
+            $('.btn-ch').click(function () {
+                ChangePW();
+            })
+        })
+        
+        
+
+        function ChangePW() {
+            var rgPassword = new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/);
+            var r = $("#rpw").val();
+            var n = $("#npw").val();
+            var c = $("#curpw").val();
+            var rpw = document.getElementById("rpw");
+            var npw = document.getElementById("npw");
+            var curpw = document.getElementById("curpw");
+            //Pw: Aa1234567
+            //ít nhất 1 chữ thường
+            //ít nhất 1 chữ hoá
+            //ít nhất 1 số
+            //chuỗi ít nhất 8 ký tự
+            if (!rgPassword.test(r) || !rgPassword.test(n) || !rgPassword.test(c)) {
+                alertError('Password or Newpassword invalid. Please check again');
+                //alert("Password or Newpassword invalid. Please check again");
+            } else if (rpw.val == "" && curpw == "" && npw.val == "") {
+                alert("Password or Newpassword is not empty");
+            } else if (@(ViewBag.rs) == "1") {
+                alert("Successfull");
+            } else if(@(ViewBag.rs) == "0") {
+                alert("Fail...");
+            }
+        }
+    </script>
+}
+
+
 
 

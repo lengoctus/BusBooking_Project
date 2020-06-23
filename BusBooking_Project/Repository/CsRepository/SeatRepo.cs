@@ -101,7 +101,7 @@ namespace BusBooking_Project.Repository.CsRepository
         {
             try
             {
-                var seatCheck = GetAll().Result.AsNoTracking().FirstOrDefault(p => p.Code == entity.Code);
+                var seatCheck = GetAll().Result.AsNoTracking().FirstOrDefault(p => p.Code.ToLower() == entity.Code.ToLower());
 
                 if (seatCheck != null)
                 {
