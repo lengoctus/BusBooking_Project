@@ -258,5 +258,25 @@ namespace BusBooking_Project.Repository.CsRepository
                 return null;
             }
         }
+
+        public bool UpdateActive(int bookId)
+        {
+            try
+            {
+                var book = GetById(bookId).Result;
+                book.Active = true;
+                var result = Update(book.Id, book).Result;
+                if (result)
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception e)
+            {
+                return false;
+                throw;
+            }
+        }
     }
 }

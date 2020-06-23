@@ -103,7 +103,7 @@ namespace BusBooking_Project.Areas.Admin.Controllers
         {
             ViewBag.StationList = stationRepository.GetDataACE();
             ViewBag.RoleList = roleRepository.GetDataACE();
-            return View(new AccountView { Images = "dui.jpg", Active = true, RoleId=2 });
+            return View(new AccountView { Images = "dui.jpg", Active = true, RoleId = 2 });
         }
 
         [HttpPost("create")]
@@ -186,6 +186,7 @@ namespace BusBooking_Project.Areas.Admin.Controllers
                     return RedirectToAction("index");
             }
             ViewBag.StationList = stationRepository.GetDataACE();
+            ViewBag.RoleList = roleRepository.GetDataACE();
             return View(accountView);
         }
 

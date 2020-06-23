@@ -38,6 +38,7 @@ namespace BusBooking_Project
             services.AddScoped<IRoutesRepo, RoutesRepo>();
             services.AddScoped<IBookingRepo, BookingRepo>();
             services.AddScoped<ISeatRePo, SeatRepo>();
+            services.AddScoped<ITicketRepo, TicketRepo>();
             services.AddScoped<IRoleRepo, RoleRepo>();
             services.AddScoped<IStationRepo, StationRepo>();
 
@@ -103,6 +104,13 @@ namespace BusBooking_Project
                 {
                     principal.AddIdentities(result.Principal.Identities);
                 }
+
+                var resultEmp = await context.AuthenticateAsync("SCHEME_EMP");
+                if (resultEmp.Principal != null)
+                {
+                    principal.AddIdentities(resultEmp.Principal.Identities);
+                }
+
                 context.User = principal;
                 await next();
             });

@@ -43,12 +43,15 @@
         var seats = [];
         var selectedSeat = [];
         $('.seat').click(function (e) {
+
             if ($(this).hasClass('selected') == false && $(this).hasClass('choosed') == false && $('#content-steps > div > div.col-sm-8.col-xs-12.col-ms-12 > div > div:nth-child(2) > div > table > tbody tr').find('.selected').length == 0) {
                 $(this).addClass("selected");
                 e.preventDefault();
                 seats.push($(this).attr('data-id'));
                 selectedSeat.push($(this).text());
                 $('.ng-show').text(selectedSeat.toString());
+
+                $("#content-steps > div > div.col-sm-8.col-xs-12.col-ms-12 > div > div:nth-child(1) > table > tbody > tr > td.text-right > span").text($("#form-steps > fieldset > div:nth-child(2) > div > div > div > p > span.f-right > span").text())
 
             }
             else if ($(this).hasClass('selected')) {
@@ -58,6 +61,7 @@
                 selectedSeat.splice($.inArray($(this).text(), selectedSeat), 1);
                 $('.ng-show').text(selectedSeat.toString());
 
+                $("#content-steps > div > div.col-sm-8.col-xs-12.col-ms-12 > div > div:nth-child(1) > table > tbody > tr > td.text-right > span").html("0<sup>₫</sup>")
             }
         });
     }
@@ -115,6 +119,7 @@
             success: function (data) {
                 var contain = $('#content-steps > div > div.col-sm-8.col-xs-12.col-ms-12 > div > div:nth-child(2) > div > table > tbody');
                 contain.children('tr').remove();
+
                 for (var i = 0; data.length != 0 || i <= data.length; i++) {
                     var arr = []
                     var str = '';
@@ -127,9 +132,15 @@
                     }
 
                     for (var j = 0; j < arr.length; j++) {
-                        str += '<td>';
-                        str += '<div class="seat" id="' + arr[j].id + '">' + arr[j].code + '</div>';
-                        str += '</td>';
+                        if (arr[j].selected) {
+                            str += '<td>';
+                            str += '<div class="seat choosed" id="' + arr[j].id + '">' + arr[j].code + '</div>';
+                            str += '</td>';
+                        } else {
+                            str += '<td>';
+                            str += '<div class="seat" id="' + arr[j].id + '">' + arr[j].code + '</div>';
+                            str += '</td>';
+                        }
                     }
                     str += '</tr>';
                     contain.append(str);

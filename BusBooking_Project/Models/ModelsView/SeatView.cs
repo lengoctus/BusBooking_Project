@@ -18,5 +18,8 @@ namespace BusBooking_Project.Models.ModelsView
         public string Code { get; set; }
         public bool Status { get; set; }
         public string BusCode { get; set; }
+
+        public bool Selected { get; set; }
+        public DateTime DateSelected { get; set; }
     }
 }

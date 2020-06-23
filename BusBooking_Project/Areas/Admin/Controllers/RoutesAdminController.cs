@@ -93,7 +93,7 @@ namespace BusBooking_Project.Areas.Admin.Controllers
             if (Id > 0)
             {
                 var routeBus = _IRout.GetRoutesBusById(Id);
-                routeBus.CategoryView.BusView = _IBus.GetBusByCateId(routeBus.CategoryView.Id).Where(p => p.Status == true).ToList();
+                routeBus.CategoryView.BusView = _IBus.GetBusByCateId(routeBus.CategoryView.Id).ToList();
                 if (routeBus != null)
                 {
                     return Json(routeBus);
@@ -110,6 +110,20 @@ namespace BusBooking_Project.Areas.Admin.Controllers
             if (rs)
             {
                 return Json("1");
+            }
+            return Json("0");
+        }
+
+        [HttpPost("updatestatus")]
+        public IActionResult UpdateStatus([FromBody] int[] arridRoute)
+        {
+            if (arridRoute.Length > 0)
+            {
+                var rs = _IRout.UpdateStatus(arridRoute);
+                if (rs)
+                {
+                    return Json("1");
+                }
             }
             return Json("0");
         }

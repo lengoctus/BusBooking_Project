@@ -155,5 +155,25 @@ namespace BusBooking_Project.Repository.CsRepository
             }
         }
 
+
+        public List<int> GetSeatInBooking(int busId, DateTime dayStart)
+        {
+            try
+            {
+                var listSeat = GetAll().Result.Where(p => p.Status == true).Join(_db.Booking, sea => sea.Id, book => book.SeatId, (sea, book) => new SeatView
+                {
+                    Id = sea.Id,
+                    BusId = sea.BusId,
+                    DateSelected = book.DayStart
+                }).Where(p => p.DateSelected == dayStart && p.BusId == busId).Select(p => p.Id).ToList();
+                return listSeat;
+            }
+            catch (Exception e)
+            {
+                return null;
+                throw;
+            }
+        }
+
     }
 }

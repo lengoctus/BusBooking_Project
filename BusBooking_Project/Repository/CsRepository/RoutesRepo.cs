@@ -313,7 +313,8 @@ namespace BusBooking_Project.Repository.CsRepository
         {
             try
             {
-                var route = GetAll().Result.FirstOrDefault(p => p.StationFrom == routesView.StationFrom && p.StationTo == routesView.StationTo && p.BusId == routesView.BusId);
+                var route = GetAll().Result.FirstOrDefault(p => p.StationFrom == routesView.StationFrom && p.StationTo == routesView.StationTo && p.BusId == routesView.BusId && p.Id != routesView.Id);
+
                 if (route != null)
                 {
                     return false;
@@ -340,6 +341,38 @@ namespace BusBooking_Project.Repository.CsRepository
                 return false;
                 throw;
             }
+        }
+
+        public bool UpdateStatus(int[] arridroute)
+        {
+            var listroute = new List<Routes>();
+
+            foreach (var item in arridroute)
+            {
+                var checkbooking = _db.Booking.FirstOrDefault(p => p.RouteId == item && p.Active == false);
+                if (checkbooking != null)
+                {
+                    return false;
+                }
+
+                var route = GetById(item).Result;
+                if (route == null)
+                {
+                    return false;
+                }
+                route.Status = false;
+                listroute.Add(route);
+
+            }
+            if (listroute.Count > 0)
+            {
+                var rs = UpdateMultiField(listroute).Result;
+                if (rs)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

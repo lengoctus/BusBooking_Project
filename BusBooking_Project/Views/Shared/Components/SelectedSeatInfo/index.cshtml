@@ -35,7 +35,36 @@
                         </tr>
                     </thead>
                     <tbody>
-                        
+                        @if (ViewBag.listSeat != null)
+                        {
+                            for (int i = 0; i < ViewBag.listSeat.Count;)
+                            {
+                                <tr>
+                                    @for (int j = 0; j < 4; j++)
+                                    {
+                                        if (ViewBag.listSeat[i].Selected)
+                                        {
+                                            <td>
+                                                <div class="seat choosed" id="@ViewBag.listSeat[i].Id">@ViewBag.listSeat[i].Code</div>
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td>
+                                                <div class="seat" id="@ViewBag.listSeat[i].Id">@ViewBag.listSeat[i].Code</div>
+                                            </td>
+                                        }
+
+                                        i++;
+                                        if (i == ViewBag.listSeat.Count)
+                                        {
+                                            break;
+                                        }
+
+                                    }
+                                </tr>
+                            }
+                        }
                     </tbody>
 
                 </table>

@@ -107,9 +107,9 @@
 
                                         <th>Bus Code</th>
                                         <th>Category</th>
-                                        <th>Distance</th>
+                                        <th>Distance (Km)</th>
                                         <th>TimeGo</th>
-                                        <th>TimeRun</th>
+                                        <th>TimeRun (Hour)</th>
                                         <th>Price</th>
                                         <th>Action</th>
                                     </tr>
@@ -120,7 +120,7 @@
                                         foreach (var item in Model)
                                         {
                                             <tr style="text-align: center">
-                                                <td><input type="checkbox" value="@item.RoutesView.Id" class="cbCate" /></td>
+                                                <td><input type="checkbox" value="@item.RoutesView.Id" class="cbCateRoute" /></td>
                                                 <td>@item.BusView.Code</td>
                                                 <td>@item.CategoryView.Name</td>
                                                 <td>@item.RoutesView.Length</td>
@@ -144,10 +144,10 @@
 
                     <div class="row">
                         <div class="col-md-6">
-                            <button type="button" class="btn btn-danger btnRemove"><i class="fas fa-trash"></i> &nbsp; Remove</button>
+                            <button type="button" class="btn btn-danger btnRemoveRoute"><i class="fas fa-trash"></i> &nbsp; Remove</button>
                         </div>
                         <div class="col-md-6">
-                            <div id="page-nav"></div>
+                            <div id="page-nav" style="float:right"></div>
                         </div>
                     </div>
                 </div>
@@ -226,8 +226,9 @@
                     <div>
                         <div class="form-group" style="display: inline-block; width: 50%">
                             <label for="Add_TimeRun" class="control-label">Time Run:</label>
-                            <input type="text" class="form-control" id="Add_TimeRun" style="width: fit-content" />
+                            <input type="number" class="form-control" id="Add_TimeRun" style="width: 30%" />(Hour)
                         </div>
+
                         <div class="form-group" style="display: inline-block; width: 49%">
                             <label for="Add_TimeGo" class="control-label">Time Go:</label>
                             <div class="input-group clockpicker2" data-autoclose="true">
@@ -269,7 +270,7 @@
                 <form method="post" id="formEditRoutes">
                     <div>
                         <div class="form-group" style="display: inline-block; width: 50%">
-                            <label for="Add_RouteFrom" class="control-label">Route From: </label>
+                            <label for="Edit_RouteFrom" class="control-label">Route From: </label>
                             <select class="form-control" style="width: 75%" id="Edit_RouteFrom">
                                 @foreach (var item in ViewBag.Station)
                                 {
@@ -278,7 +279,7 @@
                             </select>
                         </div>
                         <div class="form-group" style="display: inline-block; width: 49%">
-                            <label for="Add_RouteTo" class="control-label">Route To:</label>
+                            <label for="Edit_RouteTo" class="control-label">Route To:</label>
                             <select class="form-control" style="width: 75%" id="Edit_RouteTo">
                                 @foreach (var item in ViewBag.Station)
                                 {
@@ -289,7 +290,7 @@
                     </div>
                     <div>
                         <div class="form-group" style="display: inline-block; width: 50%">
-                            <label for="Add_CategoryBus" class="control-label">Category Bus:</label>
+                            <label for="Edit_CategoryBus" class="control-label">Category Bus:</label>
                             <select class="form-control" style="width: 70%" id="Edit_CategoryBus">
                                 <option selected value="0">Choose Category Bus</option>
                                 @if (ViewBag.Category != null)
@@ -302,7 +303,7 @@
                             </select>
                         </div>
                         <div class="form-group" style="display: inline-block; width: 49%">
-                            <label for="Add_BusId" class="control-label">Bus Code:</label>
+                            <label for="Edit_BusId" class="control-label">Bus Code:</label>
                             <select class="form-control" style="width: 70%" id="Edit_BusId">
                                 <option value="0">Choose Bus</option>
                             </select>
@@ -311,22 +312,23 @@
 
                     <div>
                         <div class="form-group" style="display: inline-block; width: 50%">
-                            <label for="Add_Price" class="control-label">Price:</label>
+                            <label for="Edit_Price" class="control-label">Price:</label>
                             <input type="text" class="form-control" id="Edit_Price" style="width: fit-content" />
                         </div>
                         <div class="form-group" style="display: inline-block; width: 49%">
-                            <label for="Add_Length" class="control-label">Length:</label>
+                            <label for="Edit_Length" class="control-label">Length:</label>
                             <input type="text" class="form-control" placeholder="Kilometer" id="Edit_Length" style="width: fit-content" />
                         </div>
                     </div>
 
                     <div>
                         <div class="form-group" style="display: inline-block; width: 50%">
-                            <label for="Add_TimeRun" class="control-label">Time Run:</label>
-                            <input type="text" class="form-control" id="Edit_TimeRun" style="width: fit-content" />
+                            <label for="Edit_TimeRun" class="control-label">Time Run:</label>
+                            <input type="number" class="form-control" id="Edit_TimeRun" style="width: 30%" />(Hour)
                         </div>
+
                         <div class="form-group" style="display: inline-block; width: 49%">
-                            <label for="Add_TimeGo" class="control-label">Time Go:</label>
+                            <label for="Edit_TimeGo" class="control-label">Time Go:</label>
                             <div class="input-group clockpicker2" data-autoclose="true">
                                 <input type="text" class="form-control" id="Edit_TimeGo" style="width: fit-content">
                                 <span class="input-group-addon">
@@ -344,6 +346,7 @@
                                 <span class="teleport-switch-control-indicator"></span>
                             </label>
                         </div>
+
                     </div>
                 </form>
             </div>

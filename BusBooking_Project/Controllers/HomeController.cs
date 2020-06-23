@@ -33,6 +33,7 @@ namespace BusBooking_Project.Controllers
         [HttpGet("~/")]
         public IActionResult Index()
         {
+            CookieSupport.Remove(HttpContext, CookieSupport.InfoBooking);
 
             var routeFrom = _IRou.GetRoutesFrom();
             if (routeFrom != null && routeFrom.Count > 0)
@@ -72,11 +73,11 @@ namespace BusBooking_Project.Controllers
             if (CookieSupport.CheckCookieExists(HttpContext, CookieSupport.InfoBooking))
             {
                 CookieSupport.Remove(HttpContext, CookieSupport.InfoBooking);
-                CookieSupport.Set(HttpContext, CookieSupport.InfoBooking, JsonConvert.SerializeObject(InfoBooking), today.Minute + 5);
+                CookieSupport.Set(HttpContext, CookieSupport.InfoBooking, JsonConvert.SerializeObject(InfoBooking), today.Minute + 10);
             }
             else
             {
-                CookieSupport.Set(HttpContext, CookieSupport.InfoBooking, JsonConvert.SerializeObject(InfoBooking), today.Minute + 5);
+                CookieSupport.Set(HttpContext, CookieSupport.InfoBooking, JsonConvert.SerializeObject(InfoBooking), today.Minute + 10);
 
             }
 

@@ -69,7 +69,6 @@
                     <th>TotalSeat</th>
                     <th>SeatEmpty</th>
                     <th>Brand</th>
-                    <th>Status</th>
                     <th>Active</th>
                     <th>Action</th>
                 </tr>
@@ -86,7 +85,6 @@
                         <td class="item-record">@item.TotalSeat</td>
                         <td class="item-record">@item.SeatEmpty</td>
                         <td class="item-record">@item.CategoryName</td>
-                        <td class="item-record">@(item.Status ? "On" : "Off")</td>
                         <td class="item-record">
                             <input type="checkbox" @(item.Active ? "checked" : "") data-bus-id="@item.Id" onchange="ActiveBus(this);">
                         </td>

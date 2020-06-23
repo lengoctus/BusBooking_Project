@@ -254,6 +254,16 @@
 
     //=====================================     Routes   ========================
 
+    // Search Routes
+    $('#searchRoutes select[name=fromid]').on('change', function () {
+
+        $('#searchRoutes select[name=toid] option').prop('disabled', false);
+        $('#searchRoutes select[name=toid] option[value="' + $(this).val() + '"]').attr('disabled', true);
+
+        $('#searchRoutes select[name=toid] option').eq($(this).find('option:selected').index() + 1).prop('selected', true)
+
+    })
+
     //  Add Routes
     $('#addRoutes').on('show.bs.modal', function (event) {
 
@@ -263,6 +273,13 @@
         //  Load clock for Add_TimeGo
         var dt = new Date();
         clockTimePicker($('.clockpicker2 #Add_TimeGo'), $('.clockpicker2'), dt.getHours() + ":" + dt.getMinutes());
+
+        $('#Add_RouteFrom').on('change', function () {
+            $('#Add_RouteTo option').prop('disabled', false);
+            $('#Add_RouteTo option[value="' + $(this).val() + '"]').attr('disabled', true);
+
+            $('#Add_RouteTo option').eq($(this).find('option:selected').index() + 1).prop('selected', true)
+        })
 
         //  Event submit data add routes
         var modal = $(this);
@@ -371,6 +388,13 @@
         var txtTimeRun = modal.find('.modal-body #formEditRoutes #Edit_TimeRun');
         var txtTimeGo = modal.find('.modal-body #formEditRoutes .clockpicker2 #Edit_TimeGo');
         var cbActive = modal.find('.modal-body #formEditRoutes #Edit_Active');
+
+        $('.modal-body #formEditRoutes #Edit_RouteFrom').on('change', function () {
+            $('.modal-body #formEditRoutes #Edit_RouteTo option').prop('disabled', false);
+            $('.modal-body #formEditRoutes #Edit_RouteTo option[value="' + $(this).val() + '"]').attr('disabled', true);
+
+            $('.modal-body #formEditRoutes #Edit_RouteTo option').eq($(this).find('option:selected').index() + 1).prop('selected', true)
+        })
 
         $.ajax({
             url: '/admin/routes/getbyrouteid',
@@ -485,6 +509,59 @@
     })
 
 
+    var arridRoute = [];
+    $('.cbCateRoute').on('change', function () {
+        if ($(this).is(':checked') == true) {
+            arridRoute.push(parseInt($(this).val()));
+
+        } else if ($(this).is(':checked') == false) {
+            arridRoute.splice($.inArray(parseInt($(this).val()), arridRoute), 1);
+        }
+    })
+
+    $('.btnRemoveRoute').on('click', function () {
+        if (arridRoute.length > 0) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: 'Remove ' + arr.length + ' Routes permanently !!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.value) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/admin/routes/updatestatus',
+                        cache: false,
+                        contentType: 'application/json, charset=UTF-8',
+                        dataType: 'json',
+                        data: JSON.stringify(arridRoute),
+                        success: function (data) {
+                            if (data == "1") {
+                                Swal.fire(
+                                    'Deleted!',
+                                    'Route has been deleted.',
+                                    'success'
+                                )
+
+                                setTimeout(function () { location.reload() }, 1550);
+                            }
+                            else if (data == "0") {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error !!',
+                                    text: 'Route can not remove!!',
+                                })
+                            }
+
+                        }
+                    });
+                }
+            })
+        };
+    });
     //  ====================================    Pagination  ==============================
 
     $.fn.PaginationPage = function (options) {

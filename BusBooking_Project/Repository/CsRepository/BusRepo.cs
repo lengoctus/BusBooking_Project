@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Policy;
 using System.Threading.Tasks;
 
 namespace BusBooking_Project.Repository.CsRepository
@@ -254,9 +255,23 @@ namespace BusBooking_Project.Repository.CsRepository
             }).Count();
         }
 
+
+
+        // hàm remove bus
+        public bool SetStatus(int id)
+        {
+            Bus bus = GetById(id).Result;
+            bus.Status = !bus.Status;
+            return Update(bus.Id, bus).Result;
+        }
+
+
+        //=====================================
+
+
         public List<BusView> GetBusByCateId(int CateId)
         {
-            return GetAll().Result.Where(p => p.CateId == CateId).Select(p => new BusView
+            return GetAll().Result.Where(p => p.CateId == CateId && p.Status == true).Select(p => new BusView
             {
                 Id = p.Id,
                 CateId = p.CateId,
@@ -270,14 +285,23 @@ namespace BusBooking_Project.Repository.CsRepository
             }).ToList();
         }
 
-
-        // hàm remove bus
-        public bool SetStatus(int id)
+        public void UpdateSeatEmpty(int BusId, int quantity, string action)
         {
-            Bus bus = GetById(id).Result;
-            bus.Status = !bus.Status;
-            return Update(bus.Id, bus).Result;
+            var bus = GetById(BusId).Result;
+            switch (action.ToLower().Trim())
+            {
+                case "cong":
+                    bus.SeatEmpty = bus.SeatEmpty + quantity;
+                    break;
+                case "tru":
+                    bus.SeatEmpty = bus.SeatEmpty - quantity;
+                    break;
+            }
+
+            var d = Update(BusId, bus).Result;
         }
+
+        
     }
 
 }

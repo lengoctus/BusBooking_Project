@@ -17,6 +17,7 @@ using System.Security.Policy;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 using System.Configuration;
 using System.Text.RegularExpressions;
+using System.Net;
 
 namespace BusBooking_Project.Controllers
 {
@@ -27,13 +28,15 @@ namespace BusBooking_Project.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IAccountRepo _IAcc;
         private readonly IRoutesRepo _IRou;
+        private readonly IBusRePo _IBus;
         private readonly IBookingRepo _IBook;
 
-        public CustomerInfoController(ILogger<HomeController> logger, IAccountRepo iAcc, IRoutesRepo iRou, IBookingRepo iBook)
+        public CustomerInfoController(ILogger<HomeController> logger, IAccountRepo iAcc, IRoutesRepo iRou, IBusRePo iBus, IBookingRepo iBook)
         {
             _logger = logger;
             _IAcc = iAcc;
             _IRou = iRou;
+            _IBus = iBus;
             _IBook = iBook;
         }
 
@@ -82,8 +85,15 @@ namespace BusBooking_Project.Controllers
                 {
                     infoBooking.UserId = accid;
                     infoBooking.Code = GenerateCode.RandomPassword(false);
-                    var bookingid=_IBook.CreateBooking(infoBooking);
-                    return RedirectToAction("bookingsuccess", "customerinfo", new { @BookingId = bookingid});
+
+                    infoBooking.Id = _IBook.CreateBooking(infoBooking);           // Create Booking
+
+                    ActionBooking(infoBooking.BusId, "create");
+
+                    CookieSupport.Remove(HttpContext, CookieSupport.InfoBooking);
+
+                    CookieSupport.Set(HttpContext, CookieSupport.InfoBooking, JsonConvert.SerializeObject(infoBooking), DateTime.Now.Minute + 10);
+                    return RedirectToAction("bookingsuccess", "customerinfo");
                 }
             }
 
@@ -100,47 +110,70 @@ namespace BusBooking_Project.Controllers
         }
 
         [NonAction]
-        public string AgeCal(int age)
+        private string AgeCal(int age)
         {
             string strage = null;
-            if (0 < age && age <= 5)
+
+            switch (age)
             {
-                strage = "Age:Children";
-            }
-            else if (5 < age && age < 12)
-            {
-                strage = "Age:Young";
-            }
-            else if (12 <= age && age < 50)
-            {
-                strage = "Age:Middle-age";
-            }
-            else if (age >= 50)
-            {
-                strage = "Age:Adults";
+                case 1:    // Children
+                    strage = "Age:Children";
+                    break;
+                case 2:         // Young
+                    strage = "Age:Young";
+                    break;
+                case 4:         // Old
+                    strage = "Age:Adults";
+                    break;
+                default:        // Middle-age
+                    strage = "Age:Middle-age";
+                    break;
             }
             return strage;
+
         }
 
 
         [HttpGet("bookingsuccess")]
-        public IActionResult BookingSuccess(int bookingid)
+        public IActionResult BookingSuccess()
         {
-            ViewBag.d = _IBook.GetInfoBooking(bookingid);
-            return View();
+            BookingView infoBooking = JsonConvert.DeserializeObject<BookingView>(HttpContext.Request.Cookies[CookieSupport.InfoBooking]);
+            if (infoBooking.Id != 0)
+            {
+                var infbook = _IBook.GetInfoBooking(infoBooking.Id);
+                infbook.BusId = infoBooking.BusId;
+                ViewBag.d = infbook;
+                return View();
+            }
+            return RedirectToAction("index", "home");
         }
 
-        [HttpGet("cancel/{id}")]
-        public IActionResult Cancel(int id)
+        [HttpGet("cancel")]
+        public IActionResult Cancel([FromQuery] int idBook, [FromQuery] int busid)
         {
-            var rs = _IBook.Delete(id).Result;
+            var rs = _IBook.Delete(idBook).Result;
             if (rs)
             {
+                ActionBooking(busid, "cancel");
                 return RedirectToAction("index", "home");
             }
             else
             {
                 return RedirectToAction("bookingsuccess", "customerinfo");
+            }
+        }
+
+        private void ActionBooking(int BusId, string action)
+        {
+            switch (action.ToLower().Trim())
+            {
+                case "create":
+                    _IBus.UpdateSeatEmpty(BusId, 1, "tru");
+                    break;
+
+                case "cancel":
+                    _IBus.UpdateSeatEmpty(BusId, 1, "cong");
+                    break;
             }
         }
     }

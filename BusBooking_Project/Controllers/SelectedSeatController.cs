@@ -13,6 +13,7 @@ using BusBooking_Project.Models.Entities;
 using BusBooking_Project.SupportsTu;
 using System.Net;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace BusBooking_Project.Controllers
 {
@@ -53,6 +54,20 @@ namespace BusBooking_Project.Controllers
                 var Route = _IRou.GetRouteById(RouteId);
 
                 var listSeat = _ISeat.GetAllByBusId(Route.BusId);
+
+                DateTime daystart = Convert.ToDateTime(JObject.Parse(HttpContext.Request.Cookies[CookieSupport.InfoBooking]).GetValue("DayStart"));
+
+                List<int> listSeatSelected = _ISeat.GetSeatInBooking(Route.BusId, daystart);
+
+                foreach (var item in listSeat)
+                {
+                    if (listSeatSelected.Contains(item.Id))
+                    {
+                        item.Selected = true;
+                    }
+                }
+
+
                 return Json(listSeat);
             }
             return Json("0");
@@ -104,8 +119,21 @@ namespace BusBooking_Project.Controllers
 
             var Route = _IRou.GetRouteById(ViewBag.listRouteTimeGoRun[0].Id);
 
-            ViewBag.listSeat = _ISeat.GetAllByBusId(Route.BusId);
+            List<SeatView> listSeatbyBus = _ISeat.GetAllByBusId(Route.BusId);
+            List<int> listSeatSelected = _ISeat.GetSeatInBooking(Route.BusId, inforBooking.DayStart);
+
+            foreach (var item in listSeatbyBus)
+            {
+                if (listSeatSelected.Contains(item.Id))
+                {
+                    item.Selected = true;
+                }
+            }
+
+            ViewBag.listSeat = listSeatbyBus;
         }
+
+
 
     }
 }

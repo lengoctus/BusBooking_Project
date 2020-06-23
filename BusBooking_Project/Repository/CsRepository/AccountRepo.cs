@@ -299,7 +299,7 @@ namespace BusBooking_Project.Repository.CsRepository
                     columnSearch = "[phone]";
                     break;
             }
-            return GetDataRawSqlACE($"SELECT * FROM [account] WHERE {columnSearch} {search} like  N'%{textsearch}%' AND [status] = 1")
+            return GetDataRawSqlACE($"SELECT * FROM [account] WHERE {columnSearch} {search} like  N'%{textsearch}%' AND [status] = 1 AND [roleid] != 1")
                 .Skip(start)
                 .Take(size)
                 .Select(s => new AccountView
@@ -347,7 +347,7 @@ namespace BusBooking_Project.Repository.CsRepository
                     columnSearch = "[phone]";
                     break;
             }
-            return GetDataRawSqlACE($"SELECT * FROM [account] WHERE {columnSearch} {search} like  N'%{textsearch}%' AND [status] = 1").Count();
+            return GetDataRawSqlACE($"SELECT * FROM [account] WHERE {columnSearch} {search} like  N'%{textsearch}%' AND [status] = 1 AND    [roleid] != 1").Count();
         }
 
         #endregion
@@ -409,7 +409,15 @@ namespace BusBooking_Project.Repository.CsRepository
             var account = new Account
             {
                 Email = accountView.Email,
+                Password = "0",
+                Dob = DateTime.Now,
+                Address = "",
+                Images = "",
+                DayCreate = accountView.DayCreate,
+                DayEdited = DateTime.Now,
+                EditerId = 0,
                 Phone = accountView.Phone,
+                RoleId = accountView.RoleId,
                 Name = accountView.Name,
                 Gender = accountView.Gender,
                 Description = accountView.Description,

@@ -33,6 +33,7 @@ namespace BusBooking_Project.Models.ModelsView
         public string ClientDescription { get; set; }
         public string ClientPhone { get; set; }
         public string ClientEmail { get; set; }
+        public string TicketCode { get; set; }
 
     }
 }

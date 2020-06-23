@@ -23,5 +23,6 @@ namespace BusBooking_Project.Repository.IRepository
         int CountSearchByCategory(int cateid);
         List<BusView> GetBusByCateId(int CateId);
         bool SetStatus(int id);
+        void UpdateSeatEmpty(int BusId, int quantity, string action);
     }
 }

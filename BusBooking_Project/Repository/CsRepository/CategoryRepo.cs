@@ -99,8 +99,14 @@ namespace BusBooking_Project.Repository.CsRepository
         #region Update Category
         public bool UpdateCategory(int Id, CategoryView categoryView)
         {
-            var checkCate = GetAll().Result.FirstOrDefault(p => (p.Code.ToLower() == categoryView.Code.ToLower()) && p.Status == true);
-            if (checkCate == null)
+            var checkCate = GetAll().Result.FirstOrDefault(p => (p.Code.ToLower() == categoryView.Code.ToLower()) && p.Id != Id);
+            if (checkCate != null)
+            {
+                return false;
+            }
+
+            var checkCate2 = GetAll().Result.FirstOrDefault(p => (p.Code.ToLower() == categoryView.Code.ToLower()) && p.Id == Id && p.Status == true);
+            if (checkCate2 == null)
             {
                 return false;
             }

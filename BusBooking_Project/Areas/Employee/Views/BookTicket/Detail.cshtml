@@ -49,11 +49,11 @@
                     <hr />
                     <!-- /.card-header -->
                     <div class="card-body" id="DetailBooking">
-                        <form role="form" asp-area="employee" asp-controller="bookticket" asp-action="sendmail" method="post">
+                        <form role="form" asp-area="employee" asp-controller="bookticket" asp-action="createticket" method="post">
                             <div class="row">
                                 <div class="col-md-12">
                                     <label>Customer Information:</label>
-                                    <input type="hidden" asp-for="@Model.Id" />
+                                    <input type="hidden" asp-for="@Model.UserId" />
                                 </div>
                             </div>
                             <div class="row">
@@ -85,7 +85,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Ticket Type: </label>
-                                        <input type="text" class="form-control" id="inputSuccess" value="@Model.ClientDescription" />
+                                        <input type="text" class="form-control" id="inputSuccess" value="@Model.ClientDescription" asp-for="@Model.ClientDescription" />
                                     </div>
                                 </div>
                             </div>
@@ -93,6 +93,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <label>Booking Information:</label>
+                                    <input type="hidden" asp-for="@Model.Id" />
                                 </div>
                             </div>
 
@@ -129,7 +130,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Price:</label>
-                                        <input type="text" class="form-control" value="@Model.CategoryPrice" id="inputSuccess">
+                                        <input type="text" class="form-control" value="@Model.CategoryPrice" asp-for="@Model.CategoryPrice" id="inputSuccess">
                                     </div>
                                 </div>
                             </div>
@@ -157,7 +158,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Price:</label>
-                                        <input type="text" class="form-control" value="@Model.RoutePrice" id="inputSuccess">
+                                        <input type="text" class="form-control" value="@Model.RoutePrice" asp-for="@Model.RoutePrice" id="inputSuccess">
                                     </div>
                                 </div>
                             </div>

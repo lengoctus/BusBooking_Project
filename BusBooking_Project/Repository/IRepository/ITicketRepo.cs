@@ -8,11 +8,8 @@ using System.Threading.Tasks;
 
 namespace BusBooking_Project.Repository.IRepository
 {
-    public interface IBookingRepo : IGenericRepo<Booking>
+    public interface ITicketRepo : IGenericRepo<Ticket>
     {
-        int CreateBooking(BookingView bookingView);
-        List<BookingView> GetAllInfoBooking();
-        BookingView GetInfoBooking(int UserId);
-        bool UpdateActive(int bookId);
+        TicketView CreateTicket(TicketView ticketView);
     }
 }
