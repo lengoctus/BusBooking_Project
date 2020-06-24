@@ -176,5 +176,25 @@ namespace BusBooking_Project.Controllers
                     break;
             }
         }
+
+        [HttpGet("search")]
+        public IActionResult Search()
+        {
+            ViewBag.email = "";
+            ViewBag.phone = "";
+            ViewBag.bookingcode = "";
+            return View();
+        }
+
+
+        [HttpPost("search")]
+        public IActionResult Search(string email, string phone, string bookingCode)
+        {
+            var infoBook = _IBook.GetInfoBookingClient(email.Trim(), phone.Trim(), bookingCode.Trim());
+            ViewBag.email = email;
+            ViewBag.phone = phone;
+            ViewBag.bookingcode = bookingCode;
+            return View("search", infoBook);
+        }
     }
 }

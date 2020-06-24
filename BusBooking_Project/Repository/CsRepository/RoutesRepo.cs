@@ -3,6 +3,7 @@ using BusBooking_Project.Models.ModelsView;
 using BusBooking_Project.Repository.EFCore;
 using BusBooking_Project.Repository.IRepository;
 using BusBooking_Project.SupportsTu;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Routing;
 using System;
 using System.Collections.Generic;
@@ -373,6 +374,63 @@ namespace BusBooking_Project.Repository.CsRepository
                 }
             }
             return false;
+        }
+
+
+
+        #region Get Route Schedule
+        public List<RoutesView> GetRouteSchedule()
+        {
+            var list = GetAll().Result.Where(p => p.Status == true).Join(_db.Station, rou => rou.StationFrom, sta => sta.Id, (rou, sta) => new
+            {
+                StationLocationFrom = sta.Name,
+                Length = rou.Length,
+                TimeRun = rou.TimeRun,
+                Price = rou.Price,
+
+                StationFrom = rou.StationFrom,
+                StationTo = rou.StationTo
+            }).Join(_db.Station, rou => rou.StationTo, sta => sta.Id, (rou, sta) => new RoutesView
+            {
+                StationLocationFrom = rou.StationLocationFrom,
+                Length = rou.Length,
+                TimeRun = rou.TimeRun,
+                Price = rou.Price,
+                StationLocationTo = sta.Name,
+
+                StationFrom = rou.StationFrom,
+                StationTo = rou.StationTo
+            }).Distinct().ToList();
+
+            return list;
+        }
+        #endregion
+
+        public List<RoutesView> GetDetailByFromTo(int from, int to)
+        {
+            var list = GetAll().Result.Where(p => p.Status == true && p.StationFrom == from && p.StationTo == to).Join(_db.Station, rou => rou.StationFrom, sta => sta.Id, (rou, sta) => new
+            {
+                StationLocationFrom = sta.Name,
+                Length = rou.Length,
+                TimeRun = rou.TimeRun,
+                Price = rou.Price,
+                TimeGo = rou.TimeGo,
+
+                StationFrom = rou.StationFrom,
+                StationTo = rou.StationTo
+            }).Join(_db.Station, rou => rou.StationTo, sta => sta.Id, (rou, sta) => new RoutesView
+            {
+                StationLocationFrom = rou.StationLocationFrom,
+                Length = rou.Length,
+                TimeRun = rou.TimeRun,
+                Price = rou.Price,
+                StationLocationTo = sta.Name,
+                TimeGo = rou.TimeGo.ToString(),
+                StationFrom = rou.StationFrom,
+                StationTo = rou.StationTo
+            }).ToList();
+
+            return list;
         }
     }
 }

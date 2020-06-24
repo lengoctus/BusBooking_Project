@@ -21,5 +21,9 @@ namespace BusBooking_Project.Models.ModelsView
         public string From { get; set; }
         public string To { get; set; }
 
+        public string ClientEmail { get; set; }
+        public string ClientPhone { get; set; }
+        public string BookingCode { get; set; }
+
     }
 }

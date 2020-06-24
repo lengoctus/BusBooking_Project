@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Threading.Tasks;
 using BusBooking_Project.Models.ModelsView;
 using BusBooking_Project.Repository.IRepository;
+using BusBooking_Project.SupportsTu;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -63,22 +65,27 @@ namespace BusBooking_Project.Areas.Employee.Controllers
             var resultCreate = _ITicket.CreateTicket(ticketView);
             bookView.TicketCode = resultCreate.Code;
 
-            return RedirectToAction("sendmail", "bookticket", new { @bookingView = bookView });
+            return RedirectToAction("sendmail", "bookticket", new { @CusEmail = bookView.ClientEmail, @ticketCode = bookView.TicketCode });
         }
 
         [HttpGet("sendmail")]
-        public IActionResult SendMail(BookingView bookView)
+        public IActionResult SendMail(string CusEmail, string ticketCode)
         {
-
-            return View(bookView);
+            ViewBag.email = CusEmail;
+            ViewBag.ticketCode = ticketCode;
+            return View();
         }
 
-        //[HttpPost("sendmail")]
-        //public IActionResult SendMail(BookingView bookingView)
-        //{
-        //    return View();
-        //}
+        [HttpPost("sendmail")]
+        public IActionResult SendMail(string email, string Subject, string contentEmail)
+        {
 
+            var mail = new SendMail(_IConf);
+            var rs = mail.Send(email, Subject, contentEmail);
+
+            return RedirectToAction("index");
+
+        }
 
         private decimal CalTotalPrice(string age, decimal categoryPrice, decimal RoutePrice)
         {

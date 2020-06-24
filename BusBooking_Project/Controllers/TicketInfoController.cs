@@ -21,14 +21,10 @@ namespace BusBooking_Project.Controllers
         [HttpGet("index")]
         public IActionResult Index()
         {
-            return View();
+      
+            return View();  
         }
 
-        [HttpPost("search")]
-        public IActionResult Search(string email, string phone, string bookingCode)
-        {
-            var infoBook = _IBook.GetInfoBookingClient(email, phone, bookingCode);
-            return View("Index", infoBook);
-        }
+     
     }
 }

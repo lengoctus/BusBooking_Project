@@ -14,5 +14,8 @@ namespace BusBooking_Project.Controllers
         {
             return View();
         }
+
+        [HttpPost("search")]
+        public IActionResult Search() { }
     }
 }

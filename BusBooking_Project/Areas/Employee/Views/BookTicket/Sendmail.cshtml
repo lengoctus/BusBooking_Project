@@ -48,33 +48,24 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Email address</label>
-                                <input type="email" value="@Model.ClientEmail" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                                <input type="email" value="@ViewBag.email" class="form-control" name="email" placeholder="Enter email">
                             </div>
-                            @*<div class="form-group">
-                                    <label for="exampleInputFile">File input</label>
-                                    <div class="input-group">
-                                        <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="exampleInputFile">
-                                            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                                        </div>
-                                        <div class="input-group-append">
-                                            <span class="input-group-text" id="">Upload</span>
-                                        </div>
-                                    </div>
-                                </div>*@
+
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Title: </label>
+                                <input type="text" value="Test" class="form-control" name="Subject" placeholder="Title Email">
+                            </div>
+
+
                             <div class="form-group">
                                 <label for="contentEmail">Decription:</label>
-                                @*<div class="container-fluid">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <input type="radio" class="rdpayment" name="payment" value="1" checked /> Payment
-                                            </div>
-                                            <div class="col-md-6">
-                                                <input type="radio" class="rdpayment" name="payment" value="0" /> Cancel
-                                            </div>
-                                        </div>
-                                    </div>*@
-                                <textarea type="text" class="form-control" name="contentEmail" id="contentEmail"></textarea>
+                                <textarea type="text" class="form-control" name="contentEmail" id="contentEmail">
+                                    <p>
+                                        Ticket successfully booked. Click <a href="https://localhost:44304">HERE</a> to pay
+                                    </p>
+                                
+                                
+                                </textarea>
                             </div>
                             <div class="form-check">
                                 <input type="checkbox" class="form-check-input" id="exampleCheck1">
@@ -105,7 +96,8 @@
         $(document).ready(function () {
             CKEDITOR.replace('contentEmail');
                 var editor = CKEDITOR.instances['contentEmail'];
-            editor.setData('<p>'+@Model.+'</p>');
+            @*editor.setData('<p>Booking Sucess.<br> Click link to payment: <br> <a href="dsfs">'+@ViewBag.ticketCode+'</a></p>');*@
+
 
 
             @*$('.rdpayment').on('change', function () {*@

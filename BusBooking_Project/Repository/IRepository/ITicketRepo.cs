@@ -11,5 +11,6 @@ namespace BusBooking_Project.Repository.IRepository
     public interface ITicketRepo : IGenericRepo<Ticket>
     {
         TicketView CreateTicket(TicketView ticketView);
+        TicketView GetTicketClient(string email, string ticketCode);
     }
 }

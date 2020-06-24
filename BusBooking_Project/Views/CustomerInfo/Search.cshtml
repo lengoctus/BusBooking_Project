@@ -1,0 +1,134 @@
+﻿@model BookingView
+@{
+    ViewData["Title"] = "Search";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+
+            </div>
+            <!-- left column -->
+            <div class="col-md-6">
+                <div class="card card-info">
+                    <!-- /.card-header -->
+                    <!-- form start -->
+                    <form class="form-horizontal" asp-controller="customerinfo" asp-action="search">
+                        <div class="card-body">
+                            <div class="form-group row" style="margin-top: 30px;margin-bottom: 10px">
+                                <label for="inputEmail3" class="col-sm-2 col-form-label">Email:</label>
+                                <div class="col-sm-10">
+
+                                    <input type="email" value="@ViewBag.email" class="form-control" name="email" placeholder="Email">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputPassword3" class="col-sm-2 col-form-label">Phone:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" value="@ViewBag.phone" name="phone" placeholder="Phone Number">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputPassword3" class="col-sm-2 col-form-label">Booking Code:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" value="@ViewBag.bookingcode" name="bookingCode" placeholder="Booking Code">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer" align="center">
+                            <button type="submit" class="btn btn-success">Search</button>
+                        </div>
+                        <!-- /.card-footer -->
+                    </form>
+                    <div class="col-md-3">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</section>
+
+@if (Model != null)
+{
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-1">
+
+                </div>
+                <!-- left column -->
+                <div class="col-md-10">
+                    <div class="card card-info">
+                        <!-- /.card-header -->
+                        <!-- form start -->
+
+                        <div class="table-responsive">
+                            <table class="table" style="text-align:center">
+                                <thead>
+                                    <tr class="text-white bg-light-green">
+                                        <th>Book Code</th>
+                                        <th>FullName</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>Bus Code</th>
+                                        <th>Seat Code</th>
+                                        <th>Day Start</th>
+                                        <th>Station From</th>
+                                        <th>Station To</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    <tr class="route-row1375">
+                                        <td>@Model.Code</td>
+                                        <td>@Model.ClientName</td>
+                                        <td>@Model.ClientEmail</td>
+                                        <td>@Model.ClientPhone</td>
+                                        <td>@Model.BusCode</td>
+                                        <td>@Model.SeatCode</td>
+                                        <td>@Model.DayStart</td>
+                                        <td>@Model.StationNameFrom</td>
+                                        <td>@Model.StationNameTo</td>
+                                        <td>
+                                            @if (Model.Active)
+                                            {
+                                                <ul class="list-inline m-0">
+                                                    <li class="list-inline-item">
+                                                        <a role="button" class="btn btn-success btn-sm" asp-area="employee" asp-controller="bookticket" asp-action="detail" data-placement="top" title="Edit"><i class="far fa-check-circle"></i>Payment</a>
+                                                    </li>
+                                                    <li class="list-inline-item">
+                                                        <a asp-controller="customerinfo" asp-action="cancel" asp-route-busid="@Model.BusId" asp-route-idBook="@Model.Id" class="btn btn-danger btn-sm" role="button" data-placement="top" title="Delete"><i class="far fa-window-close"></i>Cancel</a>
+                                                    </li>
+                                                </ul>
+                                            }
+                                            else
+                                            {
+                                                <span>Waiting ...</span>
+                                            }
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                        <div class="col-md-3">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-1">
+
+                </div>
+            </div>
+
+
+        </div>
+    </section>
+}

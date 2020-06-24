@@ -3,6 +3,7 @@ using BusBooking_Project.Models.ModelsView;
 using BusBooking_Project.Repository.EFCore;
 using BusBooking_Project.Repository.IRepository;
 using BusBooking_Project.SupportsTu;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,6 +42,20 @@ namespace BusBooking_Project.Repository.CsRepository
                 return ticketView;
             }
             return null;
+        }
+
+        public TicketView GetTicketClient(string email, string ticketCode)
+        {
+            var tk = GetAll().Result.Include(p => p.User).Where(p => p.Code == ticketCode && p.User.Email == email).Select(p => new TicketView
+            {
+                Code = p.Code,
+                TotalPrice = p.TotalPrice,
+                PaymentStatus = p.PaymentStatus,
+                ClientEmail = p.User.Email,
+                ClientPhone = p.User.Phone
+            }).FirstOrDefault();
+            return tk;
+
         }
     }
 }

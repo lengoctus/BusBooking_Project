@@ -287,6 +287,7 @@ namespace BusBooking_Project.Repository.CsRepository
             var list = GetAll().Result.Where(p => email == p.User.Email && phone == p.User.Phone && bookingCode == p.Code)
                 .Join(_db.Account, book => book.UserId, acc => acc.Id, (book, acc) => new
                 {
+                    Id = book.Id,
                     Code = book.Code,
                     ClientName = acc.Name,
                     ClientEmail = acc.Email,
@@ -300,6 +301,7 @@ namespace BusBooking_Project.Repository.CsRepository
                     SeatId = book.SeatId
                 }).Join(_db.Routes, book => book.RouteId, rou => rou.Id, (book, rou) => new
                 {
+                    Id = book.Id,
                     Code = book.Code,
                     ClientName = book.ClientName,
                     ClientEmail = book.ClientEmail,
@@ -315,6 +317,7 @@ namespace BusBooking_Project.Repository.CsRepository
                     SeatId = book.SeatId
                 }).Join(_db.Station, book => book.StationFrom, sta => sta.Id, (book, sta) => new
                 {
+                    Id = book.Id,
                     Code = book.Code,
                     ClientName = book.ClientName,
                     ClientEmail = book.ClientEmail,
@@ -330,6 +333,7 @@ namespace BusBooking_Project.Repository.CsRepository
                 })
                 .Join(_db.Station, book => book.StationTo, sta => sta.Id, (book, sta) => new
                 {
+                    Id = book.Id,
                     Code = book.Code,
                     ClientName = book.ClientName,
                     ClientEmail = book.ClientEmail,
@@ -344,6 +348,7 @@ namespace BusBooking_Project.Repository.CsRepository
                     SeatId = book.SeatId
                 }).Join(_db.Bus, book => book.BusId, bus => bus.Id, (book, bus) => new
                 {
+                    Id = book.Id,
                     Code = book.Code,
                     ClientName = book.ClientName,
                     ClientEmail = book.ClientEmail,
@@ -354,10 +359,12 @@ namespace BusBooking_Project.Repository.CsRepository
                     StationNameFrom = book.StationNameFrom,
                     StationNameTo = book.StationNameTo,
                     BusCode = bus.Code,
+                    BusId = book.BusId,
 
                     SeatId = book.SeatId
                 }).Join(_db.Seat, book => book.SeatId, sea => sea.Id, (book, sea) => new BookingView
                 {
+                    Id = book.Id,
                     Code = book.Code,
                     ClientName = book.ClientName,
                     ClientEmail = book.ClientEmail,
@@ -368,7 +375,8 @@ namespace BusBooking_Project.Repository.CsRepository
                     StationNameFrom = book.StationNameFrom,
                     StationNameTo = book.StationNameTo,
                     BusCode = book.BusCode,
-                    SeatCode = sea.Code
+                    SeatCode = sea.Code,
+                    BusId = book.BusId,
                 })
                 .FirstOrDefault();
             return list;

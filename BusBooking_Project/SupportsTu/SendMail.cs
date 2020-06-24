@@ -27,9 +27,9 @@ namespace BusBooking_Project.SupportsTu
 
                 var smtp = new SmtpClient
                 {
-                    Host = Configuration["Gmail:Port"],
+                    Host = Configuration["Gmail:Host"],
                     Port = Convert.ToInt32(Configuration["Gmail:Port"]),
-                    EnableSsl = Convert.ToBoolean(Configuration["SMTP:starttls:enable"]),
+                    EnableSsl = Convert.ToBoolean(Configuration["Gmail:SMTP:starttls:enable"]),
                     Credentials = new NetworkCredential(username, password)
                 };
 
