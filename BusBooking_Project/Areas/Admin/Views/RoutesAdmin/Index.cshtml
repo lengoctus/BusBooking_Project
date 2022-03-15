@@ -1,0 +1,373 @@
+﻿@model IEnumerable<RoutesBusView>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">Routes</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Routes</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+
+        <!-- /.row -->
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="container">
+                    <form asp-controller="routes" asp-area="admin" asp-action="search" method="get" id="searchRoutes">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div style="font-weight: bold">From:</div>
+                                <select class="form-control" style="width: 70%" name="fromid">
+                                    @if (ViewBag.fromid == null)
+                                    {
+                                        <option selected>Choose Station</option>
+                                    }
+                                    @if (ViewBag.Station != null)
+                                    {
+                                        @foreach (var item in ViewBag.Station)
+                                        {
+                                            if (item.Id == ViewBag.fromid)
+                                            {
+                                                <option value="@item.Id" selected>@item.Location</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@item.Id">@item.Location</option>
+                                            }
+                                        }
+                                    }
+                                </select>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div style="font-weight: bold">To:</div>
+                                <select class="form-control" style="width: 70%" name="toid">
+                                    @if (ViewBag.toid == null)
+                                    {
+                                        <option selected>Choose Station</option>
+                                    }
+                                    @if (ViewBag.Station != null)
+                                    {
+                                        @foreach (var item in ViewBag.Station)
+                                        {
+                                            if (item.Id == ViewBag.toid)
+                                            {
+                                                <option value="@item.Id" selected>@item.Location</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@item.Id">@item.Location</option>
+                                            }
+                                        }
+                                    }
+                                </select>
+                            </div>
+
+
+                            <div class="col-md-3">
+                                <div>&nbsp;</div>
+                                <input type="submit" class="btn btn-success" value="Search" style="float: left" />
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="row">
+                        <div class="col-md-7"></div>
+                        <div class="col-md-5">
+                            <input type="button" class="btn btn-primary" data-toggle="modal" data-target="#addRoutes" value="New Routes" style="float: right" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-striped" id="tableCate">
+                                <thead>
+                                    <tr style="text-align: center">
+                                        <th>
+                                            <input type="checkbox" id="AllCbCategory" />
+                                        </th>
+
+                                        <th>Bus Code</th>
+                                        <th>Category</th>
+                                        <th>Distance</th>
+                                        <th>TimeGo</th>
+                                        <th>TimeRun</th>
+                                        <th>Price</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model != null)
+                                    {
+                                        foreach (var item in Model)
+                                        {
+                                            <tr style="text-align: center">
+                                                <td><input type="checkbox" value="@item.RoutesView.Id" class="cbCate" /></td>
+                                                <td>@item.BusView.Code</td>
+                                                <td>@item.CategoryView.Name</td>
+                                                <td>@item.RoutesView.Length</td>
+                                                <td>@item.RoutesView.TimeGo</td>
+                                                <td>@item.RoutesView.TimeRun</td>
+                                                <td>@item.RoutesView.Price</td>
+                                                <td>
+                                                    <button type="button" class="btn btn-info" data-id="@item.RoutesView.Id" data-toggle="modal" data-target="#editRoutes">
+                                                        <i class="fas fa-edit"></i>
+                                                        Edit
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-danger btnRemove"><i class="fas fa-trash"></i> &nbsp; Remove</button>
+                        </div>
+                        <div class="col-md-6">
+                            <div id="page-nav"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+        <!-- /.row -->
+    </div><!--/. container-fluid -->
+</section>
+<!-- /.content -->
+
+<div class="modal fade" id="addRoutes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">New Routes</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body" style="display: block">
+                <form method="post" id="formaddRoutes">
+                    <div>
+                        <div class="form-group" style="display: inline-block; width: 50%">
+                            <label for="Add_RouteFrom" class="control-label">Route From:</label>
+                            <select class="form-control" style="width: 70%" id="Add_RouteFrom">
+                                @foreach (var item in ViewBag.Station)
+                                {
+                                    <option value="@item.Id">@item.Location</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group" style="display: inline-block; width: 49%">
+                            <label for="Add_RouteTo" class="control-label">Route To:</label>
+                            <select class="form-control" style="width: 70%" id="Add_RouteTo">
+                                @foreach (var item in ViewBag.Station)
+                                {
+                                    <option value="@item.Id">@item.Location</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-group" style="display: inline-block; width: 50%">
+                            <label for="Add_CategoryBus" class="control-label">Category Bus:</label>
+                            <select class="form-control" style="width: 70%" id="Add_CategoryBus">
+                                <option selected value="0">Choose Category Bus</option>
+                                @if (ViewBag.Category != null)
+                                {
+                                    @foreach (var item in ViewBag.Category)
+                                    {
+                                        <option value="@item.Id">@item.Name</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group" style="display: inline-block; width: 49%">
+                            <label for="Add_BusId" class="control-label">Bus Code:</label>
+                            <select class="form-control" style="width: 70%" id="Add_BusId">
+                                <option value="0">Choose Bus</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="form-group" style="display: inline-block; width: 50%">
+                            <label for="Add_Price" class="control-label">Price:</label>
+                            <input type="text" class="form-control" id="Add_Price" style="width: fit-content" />
+                        </div>
+                        <div class="form-group" style="display: inline-block; width: 49%">
+                            <label for="Add_Length" class="control-label">Length:</label>
+                            <input type="text" class="form-control" placeholder="Kilometer" id="Add_Length" style="width: fit-content" />
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="form-group" style="display: inline-block; width: 50%">
+                            <label for="Add_TimeRun" class="control-label">Time Run:</label>
+                            <input type="text" class="form-control" id="Add_TimeRun" style="width: fit-content" />
+                        </div>
+                        <div class="form-group" style="display: inline-block; width: 49%">
+                            <label for="Add_TimeGo" class="control-label">Time Go:</label>
+                            <div class="input-group clockpicker2" data-autoclose="true">
+                                <input type="text" class="form-control" id="Add_TimeGo" style="width: fit-content">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-time"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="form-group" style="display: inline-block; width: 50%">
+                            <label class="custom-control teleport-switch">
+                                <span class="teleport-switch-control-description">Active:</span>
+                                <input type="checkbox" checked id="Add_Active" class="teleport-switch-control-input">
+                                <span class="teleport-switch-control-indicator"></span>
+                            </label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" id="send" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editRoutes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width: 150%">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">Edit Routes</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body" style="display: block">
+                <form method="post" id="formEditRoutes">
+                    <div>
+                        <div class="form-group" style="display: inline-block; width: 50%">
+                            <label for="Add_RouteFrom" class="control-label">Route From: </label>
+                            <select class="form-control" style="width: 75%" id="Edit_RouteFrom">
+                                @foreach (var item in ViewBag.Station)
+                                {
+                                    <option value="@item.Id">@item.Location</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group" style="display: inline-block; width: 49%">
+                            <label for="Add_RouteTo" class="control-label">Route To:</label>
+                            <select class="form-control" style="width: 75%" id="Edit_RouteTo">
+                                @foreach (var item in ViewBag.Station)
+                                {
+                                    <option value="@item.Id">@item.Location</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-group" style="display: inline-block; width: 50%">
+                            <label for="Add_CategoryBus" class="control-label">Category Bus:</label>
+                            <select class="form-control" style="width: 70%" id="Edit_CategoryBus">
+                                <option selected value="0">Choose Category Bus</option>
+                                @if (ViewBag.Category != null)
+                                {
+                                    @foreach (var item in ViewBag.Category)
+                                    {
+                                        <option value="@item.Id">@item.Name</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group" style="display: inline-block; width: 49%">
+                            <label for="Add_BusId" class="control-label">Bus Code:</label>
+                            <select class="form-control" style="width: 70%" id="Edit_BusId">
+                                <option value="0">Choose Bus</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="form-group" style="display: inline-block; width: 50%">
+                            <label for="Add_Price" class="control-label">Price:</label>
+                            <input type="text" class="form-control" id="Edit_Price" style="width: fit-content" />
+                        </div>
+                        <div class="form-group" style="display: inline-block; width: 49%">
+                            <label for="Add_Length" class="control-label">Length:</label>
+                            <input type="text" class="form-control" placeholder="Kilometer" id="Edit_Length" style="width: fit-content" />
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="form-group" style="display: inline-block; width: 50%">
+                            <label for="Add_TimeRun" class="control-label">Time Run:</label>
+                            <input type="text" class="form-control" id="Edit_TimeRun" style="width: fit-content" />
+                        </div>
+                        <div class="form-group" style="display: inline-block; width: 49%">
+                            <label for="Add_TimeGo" class="control-label">Time Go:</label>
+                            <div class="input-group clockpicker2" data-autoclose="true">
+                                <input type="text" class="form-control" id="Edit_TimeGo" style="width: fit-content">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-time"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="form-group" style="display: inline-block; width: 50%">
+                            <label class="custom-control teleport-switch">
+                                <span class="teleport-switch-control-description">Active:</span>
+                                <input type="checkbox" checked id="Edit_Active" class="teleport-switch-control-input">
+                                <span class="teleport-switch-control-indicator"></span>
+                            </label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" id="update" class="btn btn-primary">Update</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section script{
+    <script>
+        $(document).ready(function () {
+        //  Ẩn số dòng trong table
+            var totalPage = @(ViewBag.totalPage == null ? 0 : ViewBag.totalPage);  // Tổng số trang.
+            var numberRow = @(ViewBag.pagesize == null ? 0 : ViewBag.pagesize);          // Số dòng mỗi trang.
+            var currentP = @(ViewBag.currentPage == null ? 0 : ViewBag.currentPage);    //  Lấy số trang được click.
+
+            $('#page-nav').PaginationPage({
+                totalPage: totalPage,
+                numberRow: numberRow,
+                currentP: currentP
+            });
+
+        });
+    </script>
+} 

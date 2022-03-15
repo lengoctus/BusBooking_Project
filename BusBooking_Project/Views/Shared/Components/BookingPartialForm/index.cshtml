@@ -2,7 +2,6 @@
     <!-- Nav tabs -->
     <ul class="v-tabs clearfix" role="tablist">
         <li role="presentation" class="active"><a href="#booking" aria-controls="home" role="tab" data-toggle="tab">Mua vé trực tuyến</a></li>
-        <li><a href="/vi-VN/ve-xe-phuong-trang-huong-dan-dat-ve.html" class="text-default">Hướng dẫn đặt vé</a></li>
 
     </ul>
     <!-- Tab panes -->
@@ -16,8 +15,25 @@
                             <div class="controls">
                                 <i class="fa fa-bus text-primary"></i>
 
-                                <select name="idOrigin" id="idOrigin" class="form-control selectpicker">
-                                    <option value="">Chọn điểm khởi hành</option>
+                                <select class="form-control" name="cbbRouteFrom" id="cbbRouteFrom">
+                                    @if (ViewBag.RoutesFrom == null)
+                                    {
+                                        <option value="">Chọn điểm khởi hành</option>
+                                    }
+                                    @if (ViewBag.RoutesFrom != null)
+                                    {
+                                        foreach (var item in ViewBag.RoutesFrom)
+                                        {
+                                            if (ViewBag.RoutesFrom.IndexOf(item) == 0)
+                                            {
+                                                <option value="@item.StationFrom" selected>@item.StationLocationFrom</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@item.StationFrom">@item.StationLocationFrom</option>
+                                            }
+                                        }
+                                    }
                                 </select>
                             </div>
 
@@ -28,9 +44,14 @@
                             <label for="">Điểm đến</label>
                             <div class="controls">
                                 <i class="fa fa-bus text-primary"></i>
-
-                                <select name="idDest" id="idDest" class="form-control  selectpicker">
-                                    <option value="">Chọn điểm đến</option>
+                                <select class="form-control" name="cbbRouteTo" id="cbbRouteTo">
+                                    @if (ViewBag.RouteTo != null)
+                                    {
+                                        foreach (var item in ViewBag.RouteTo)
+                                        {
+                                            <option value="@item.StationTo">@item.StationLocationTo</option>
+                                        }
+                                    }
                                 </select>
                             </div>
                         </div>
@@ -42,8 +63,7 @@
                             <label for="">Ngày khởi hành</label>
                             <div class="controls">
                                 <i class="fa fa-clock-o text-primary"></i>
-
-                                <input type="text" name="dDate" placeholder=" dd/mm/yyyy" class="form-control dDate date-readonly" value="30-05-2020" readonly="">
+                                <input type="text" name="dDate" placeholder="dd/mm/yyyy" class="form-control dDate date-readonly" readonly="">
                                 <small><em>Định dạng: dd-mm-yyyy</em></small>
                             </div>
                         </div>
@@ -54,14 +74,15 @@
                             <div class="controls">
                                 <i class="fa fa-ticket text-primary"></i>
 
-                                <input type="number" name="numOfTicket" placeholder="1" value="1" class="form-control" min="1" max="5">
+                                <input type="number" name="numOfTicket" placeholder="1" value="1" class="form-control" readonly>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-5 col-md-5 col-sm-6 col-xs-6 col-ms-12">
-                        <button type="button" class="btn btn-primary btn-block btn-flat btn-booking"><i class="fa fa-ticket icon-flat bg-btn-actived"></i>Mua vé</button>
+                        @*<a asp-controller="selectedSeat" asp-action="index" class="btn btn-primary btn-block btn-flat"><i class="fa fa-ticket icon-flat bg-btn-actived"></i>Mua vé</a>*@
+                        <button type="button" class="btn btn-primary btn-block btn-flat pageselectSeats"><i class="fa fa-ticket icon-flat bg-btn-actived"></i>Mua vé</button>
                     </div>
                 </div>
             </form>

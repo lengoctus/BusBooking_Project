@@ -10,8 +10,11 @@
     <link href="~/admin/css/simplePagination.css" rel="stylesheet" />
     <link href="~/admin/css/jquery-ui.css" rel="stylesheet" />
     <link href="~/admin/css/bootstrap-toggle.min.css" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="~/admin/dist/css/bootstrap-clockpicker.min.css">
+
     <link href="~/admin/css/ACE.css" rel="stylesheet" />
-    <link href="~/admin/css/styleNTU.css" rel="stylesheet" />
+    <link href="~/admin/css/styleNTU.css" rel="stylesheet" />   
 </head>
 @{
     AccountView user = new AccountView { Images = User.FindFirst("img").Value, Name = User.FindFirst(System.Security.Claims.ClaimTypes.Name).Value };
@@ -131,15 +134,15 @@
             </ul>
         </nav>
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
-            <a href="index3.html" class="brand-link">
+            <a asp-area="admin" asp-controller="home" asp-action="index" class="brand-link">
                 <img src="~/admin/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
                      style="opacity: .8">
-                <span class="brand-text font-weight-light">AdminLTE 3</span>
+                <span class="brand-text font-weight-light">ADMIN</span>
             </a>
             <div class="sidebar">
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="~/admin/dist/img/@user.Images" class="img-circle elevation-2" alt="User Image">
+                        <img src="~/admin/image/@user.Images" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
                         <a href="#" class="d-block">@user.Name</a>
@@ -172,18 +175,34 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a asp-area="admin" asp-controller="spacing" asp-action="index" class="nav-link item_menu">
-                                <i class="nav-icon fas fa-users"></i>
+                            <a asp-area="admin" asp-controller="category" asp-action="index" class="nav-link item_menu">
+                                <i class="nav-icon fas fa-tasks"></i>
                                 <p>
-                                    SPACING
+                                    CATEGORY
                                 </p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a asp-area="admin" asp-controller="home" asp-action="manager" class="nav-link item_menu">
-                                <i class="nav-icon fas fa-tasks"></i>
+                            <a asp-area="admin" asp-controller="seats" asp-action="index" class="nav-link item_menu">
+                                <i class="nav-icon fas fa-wheelchair"></i>
                                 <p>
-                                    MANAGER
+                                    SEATS
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-area="admin" asp-controller="routes" asp-action="index" class="nav-link item_menu">
+                                <i class="nav-icon fas fa-route"></i>
+                                <p>
+                                    ROUTES
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-area="admin" asp-controller="bus" asp-action="index" class="nav-link item_menu">
+                                <i class="nav-icon fa fa-bus-alt"></i>
+                                <p>
+                                    BUSES
                                 </p>
                             </a>
                         </li>
@@ -191,12 +210,11 @@
                 </nav>
             </div>
         </aside>
+
         <div class="content-wrapper">
             @RenderBody()
         </div>
-        <div class="clear"></div>
-        <aside class="control-sidebar control-sidebar-dark">
-        </aside>
+
         <footer class="main-footer">
             <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong>
             All rights reserved.
@@ -223,8 +241,12 @@
     <script src="~/admin/js/jquery-ui.js"></script>
     <script src="~/admin/js/bootstrap-toggle.min.js"></script>
     <script src="~/admin/ckeditor/ckeditor.js"></script>
+
+    <script type="text/javascript" src="~/admin/dist/js/bootstrap-clockpicker.min.js"></script>
+
     <script src="~/admin/js/ACE.js"></script>
     <script src="~/admin/js/scriptNTU.js"></script>
+    <script src="~/admin/js/scriptHS.js"></script>
     @RenderSection("script", required: false)
 </body>
 </html>

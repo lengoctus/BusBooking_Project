@@ -21,5 +21,6 @@ namespace BusBooking_Project.Repository.IRepository
         bool SetStatus(int id);
         bool SetActive(int id);
         bool RemoveACE(int stationId);
+        List<StationView> GetAllForRoutes();
     }
 }

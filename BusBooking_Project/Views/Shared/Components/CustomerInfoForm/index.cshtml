@@ -1,0 +1,114 @@
+﻿@model AccountView
+<div class="row" id="step2">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-ms-12">
+        <div class="panel" style="min-height: 390px;">
+            <p class="text-center text-primary text-uppercase">
+                <strong>Customer Information</strong>
+            </p>
+            <form id="form-steps" name="form" novalidate="" class="ng-dirty ng-valid-parse ng-valid-maxlength ng-invalid ng-invalid-required ng-valid-email" asp-controller="customerinfo" asp-action="saveinfo">
+                <fieldset>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-ms-12">
+                            <div class="form-group clearfix">
+                                <label for="">Full Name<span class="text-primary">*</span></label>
+                                <div class="controls no-icon">
+                                    <input type="text" class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-maxlength" asp-for="Name" placeholder="Enter your full name">
+                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-ms-12">
+                            <div class="form-group clearfix">
+                                <label for="">Ages:</label>
+                                <div class="controls no-icon">
+                                    <select class="form-control" name="Cusage">
+                                        <option value="1">Under 5 years old</option>
+                                        <option value="2">5-12 years old</option>
+                                        <option value="3" selected>12-50 years old</option>
+                                        <option value="4">Over 50 years old</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-ms-12">
+                            <div class="form-group clearfix">
+                                <label for="">Email <span class="text-primary">*</span></label>
+                                <div class="controls no-icon">
+                                    <input type="email" class="form-control ng-pristine ng-untouched ng-valid-email ng-invalid ng-invalid-required" asp-for="Email" placeholder="Enter your email">
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-ms-12">
+                            <div class="form-group clearfix">
+                                <label for="">
+                                    Gender
+                                </label>
+                                <div class="controls no-icon">
+                                    <input type="radio" asp-for="Gender" value="1" style="margin-right:3%" checked /> Male
+                                    <input type="radio" asp-for="Gender" value="0" /> Female
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-ms-12">
+                            <div class="form-group clearfix">
+                                <label for="">Phone <span class="text-primary">*</span></label>
+                                <div class="controls no-icon">
+                                    <input type="text" class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-maxlength" asp-for="Phone" placeholder="Enter your phone number">
+                                    <span asp-validation-for="Phone" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    @*<div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-ms-12">
+                                <div class="form-group clearfix">
+                                    <div class="controls no-icon">
+                                        <input name="AcceptCondition" value="1" type="checkbox" required="" class="ng-pristine ng-untouched ng-invalid ng-invalid-required invalid"> Agree with <a class="view-policy" title="Xem điều khoản">our terms and policies</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>*@
+
+                    <div class="form-section">
+                        <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12 col-ms-12">
+                            <a asp-controller="selectedSeat" asp-action="index" class="btn btn-primary btn-flat"><i class="fa fa-arrow-left icon-flat bg-btn-actived"></i>Back</a>
+                            <button type="submit" class="btn btn-success btn-flat">
+                                <i class="fa fa-arrow-right icon-flat bg-success"></i>Finish
+                            </button>
+
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-ms-12">
+        <div class="panel" style="min-height: 390px;">
+            <p class="text-center text-uppercase text-primary">
+                <strong>Tearm &amp; Policies</strong>
+            </p>
+            <div>
+                <p class="text-primary text-justify">(*) Please bring the confirmed email which contain reservation code in order to take the ticket before departing time 60 minutes for shuttle bus.</p>
+                <p class=" text-justify">(*) Passenger's Information must be correct.</p>
+                <p class=" text-justify"><strong>(*) Passengers can not exchange/cancel the tickets during the festival/holiday time (Normal days passengers can exchange/cancel the tickets once, and before 24 hours), cancel fee 10%.</strong></p>
+                <p class=" text-justify">(*) Please call <strong class="text-primary" style="font-size: 1.2em;">1900 6067</strong> for shuttle bus service. Shuttle bus services range is limited, therefore, we will not pick passengers who are outside the range of service. Thank you!</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

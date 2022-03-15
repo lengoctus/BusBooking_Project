@@ -6,9 +6,17 @@
 
   <ItemGroup>
     <Compile Remove="Areas\Admin\Data\**" />
+    <Compile Remove="Areas\Employee\Data\**" />
+    <Compile Remove="Areas\Employee\Models\**" />
     <Content Remove="Areas\Admin\Data\**" />
+    <Content Remove="Areas\Employee\Data\**" />
+    <Content Remove="Areas\Employee\Models\**" />
     <EmbeddedResource Remove="Areas\Admin\Data\**" />
+    <EmbeddedResource Remove="Areas\Employee\Data\**" />
+    <EmbeddedResource Remove="Areas\Employee\Models\**" />
     <None Remove="Areas\Admin\Data\**" />
+    <None Remove="Areas\Employee\Data\**" />
+    <None Remove="Areas\Employee\Models\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,16 +33,14 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.3" />
-    <PackageReference Include="PayPal" Version="1.9.0" />
+    <PackageReference Include="PayPal" Version="1.9.1" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Employee\Controllers\" />
-    <Folder Include="Areas\Employee\Data\" />
-    <Folder Include="Areas\Employee\Models\" />
-    <Folder Include="Areas\Employee\Views\" />
     <Folder Include="wwwroot\customer\font-awesome\fonts\" />
+    <Folder Include="wwwroot\customer\uploads\useravatar\thumb\" />
+    <Folder Include="wwwroot\employee\image\" />
   </ItemGroup>
 
   <ItemGroup>

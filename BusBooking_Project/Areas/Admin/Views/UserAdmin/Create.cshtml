@@ -12,8 +12,8 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a asp-area="admin" asp-controller="user" asp-action="index">USER</a></li>
-                        <li class="breadcrumb-item active">CREATE</li>
+                        <li class="breadcrumb-item"><a asp-area="admin" asp-controller="user" asp-action="index">User</a></li>
+                        <li class="breadcrumb-item active">Create Acount</li>
                     </ol>
                 </div>
             </div>
@@ -48,7 +48,7 @@
                     <div class="form-group row">
                         <label class="col-sm-1 col-form-label" align="right">Password: </label>
                         <div class="col-sm-10">
-                            <input type="password" asp-for="Password" class="form-control">
+                            <input type="password" value="Aa12345678" asp-for="Password" class="form-control">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -88,10 +88,14 @@
                         <label class="col-sm-1 col-form-label" align="right">Role: </label>
                         <div class="col-sm-10">
                             <select asp-for="RoleId" class="input-ace form-control">
-                                @foreach (Role item in ViewBag.RoleList)
+                                @if (ViewBag.RoleList != null)
                                 {
-                                    <option value="@item.Id">@item.Name</option>
+                                    foreach (Role item in ViewBag.RoleList)
+                                    {
+                                        <option value="@item.Id">@item.Name</option>
+                                    }
                                 }
+
                             </select>
                         </div>
                     </div>

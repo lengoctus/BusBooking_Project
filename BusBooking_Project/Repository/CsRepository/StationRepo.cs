@@ -234,5 +234,26 @@ namespace BusBooking_Project.Repository.CsRepository
             }
         }
         #endregion
+
+        //======================
+
+        #region Get All For Routes 
+        public List<StationView> GetAllForRoutes()
+        {
+            var listStation = GetAll().Result.Where(p => p.Status == true && p.Active == true).Select(p => new StationView
+            {
+                Id = p.Id,
+                Name = p.Name,
+                Location = p.Location,
+                Phone = p.Phone,
+                Active = p.Active,
+                Status = p.Status,
+                City = p.City,
+                District = p.District,
+            }).ToList();
+
+            return listStation;
+        }
+        #endregion
     }
 }

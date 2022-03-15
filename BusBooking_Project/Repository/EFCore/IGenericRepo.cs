@@ -18,14 +18,12 @@ namespace BusBooking_Project.Repository.EFCore
 
         Task<T> GetById(int Id);
 
-
-        //Task<bool> Check
-
-
         Task<bool> Update(int Id, T entity);
 
+        Task<bool> DeleteMultiField(int[] Id);
 
         Task<bool> Delete(int Id);
+        Task<bool> UpdateMultiField(List<T> entity);
 
         /// Của Sáng ở here
         IQueryable<T> GetDataRawSqlACE(string query);

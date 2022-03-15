@@ -38,5 +38,6 @@ namespace BusBooking_Project.Repository.IRepository
         AccountView CompareCodeChangePW(string email_phone, string code);
 
         bool UpdatePassword(AccountView account);
+        int CreateCustomer(AccountView accountView);
     }
 }

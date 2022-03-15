@@ -20,7 +20,7 @@ namespace BusBooking_Project.Models.Entities
         public int SeatEmpty { get; set; }
         public int CateId { get; set; }
 
-        public virtual Category Cate { get; set; }
+        public virtual Category Category { get; set; }
         public virtual ICollection<Booking> Booking { get; set; }
         public virtual ICollection<Seat> Seat { get; set; }
     }

@@ -23,10 +23,19 @@ function activeMenu() {
             break;
         case 'station'.toLowerCase():
             $($('.item_menu')[2]).addClass('active');
-            break;
-        case 'spacing'.toLowerCase():
+            break; 
+        case 'category':
             $($('.item_menu')[3]).addClass('active');
-            break;
+            break;  
+        case 'seats':
+            $($('.item_menu')[4]).addClass('active');
+            break;    
+        case 'routes':
+            $($('.item_menu')[5]).addClass('active');
+            break;     
+        case 'bus':
+            $($('.item_menu')[6]).addClass('active');
+            break;       
     }
 }
 

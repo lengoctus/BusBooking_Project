@@ -29,11 +29,13 @@ namespace BusBooking_Project.Areas.Admin.Controllers
         [HttpGet("index")]
         public IActionResult Index()
         {
+            ViewBag.listCate = _CateRepo.GetAllCategory();
             return View();
         }
 
+        
         [HttpPost("add")]
-        public async Task<IActionResult> Add([FromBody]CategoryView categoryView)
+        public  IActionResult Add([FromBody]CategoryView categoryView)
         {
             if (categoryView != null)
             {
@@ -43,16 +45,13 @@ namespace BusBooking_Project.Areas.Admin.Controllers
                     Name = categoryView.Name,
                     Price = categoryView.Price,
                     Active = categoryView.Active,
-                    Status = categoryView.Status
+                    Status = true
                 };
 
-                var check = _CateRepo.CheckIsExists(category);
-
-                if (await _CateRepo.Create(category, check) != null)
+                if ( _CateRepo.CreateCate(category) != null)
                 {
                     return Json("1");
                 }
-                return Json("0");
             }
             return Json("0");
         }
@@ -62,7 +61,7 @@ namespace BusBooking_Project.Areas.Admin.Controllers
         {
             if (idCate > 0)
             {
-                var category = _CateRepo.GetById(Convert.ToInt32(idCate)).Result;
+                var category = _CateRepo.GetByidCate(Convert.ToInt32(idCate));
                 if (category != null)
                 {
                     return Json(category);
@@ -75,7 +74,8 @@ namespace BusBooking_Project.Areas.Admin.Controllers
         [HttpPost("update")]
         public IActionResult Update([FromBody]CategoryView categoryView)
         {
-            var rs = _CateRepo.Update(categoryView.Id, new Category { Id = categoryView.Id, Name = categoryView.Name, Active = categoryView.Active, Status = categoryView.Status, Code = categoryView.Code, Price = categoryView.Price }).Result;
+            categoryView.Status = true;
+            var rs = _CateRepo.UpdateCategory(categoryView.Id, categoryView);
             if (rs)
             {
                 return Json("1");
@@ -85,9 +85,16 @@ namespace BusBooking_Project.Areas.Admin.Controllers
         }
 
 
-        [HttpPost("getidremove")]
-        public async Task<IActionResult> GetIdRemove([FromBody]string[] arr)
+        [HttpPost("upatestatus")]
+        public IActionResult UpdateStatus([FromBody]int[] arr)
         {
+
+            var rs = _CateRepo.UpdateStatus(arr);
+            if (rs)
+            {
+                return Json("1");
+            }
+
             return Json("0");
         }
 

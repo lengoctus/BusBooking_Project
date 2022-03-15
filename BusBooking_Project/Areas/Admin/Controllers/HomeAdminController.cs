@@ -16,11 +16,11 @@ namespace BusBooking_Project.Areas.Admin.Controllers
     [Route("admin/home")]
     public class HomeAdminController : Controller
     {
-        private readonly ICategoryRepo _Cate;
+        
 
-        public HomeAdminController(ICategoryRepo cate)
+        public HomeAdminController()
         {
-            _Cate = cate;
+           
         }
 
         [HttpGet("")]
@@ -30,19 +30,6 @@ namespace BusBooking_Project.Areas.Admin.Controllers
             return View();
         }
 
-        [HttpGet("manager")]
-        public IActionResult Manager()
-        {
-            ViewBag.listCate = _Cate.GetAll().Result.Select(p => new CategoryView
-            {
-                Id = p.Id,
-                Name = p.Name,
-                Price = p.Price,
-                Active = p.Active ?? false,
-                Status = p.Status ?? false,
-                Code = p.Code
-            }).ToList();
-            return View();
-        }
+        
     }
 }

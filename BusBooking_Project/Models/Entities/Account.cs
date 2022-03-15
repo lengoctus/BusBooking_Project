@@ -7,19 +7,19 @@ namespace BusBooking_Project.Models.Entities
     {
         public Account()
         {
-            BookingUser = new HashSet<Booking>();
-            BookingUserId2Navigation = new HashSet<Booking>();
+            Booking = new HashSet<Booking>();
+            Ticket = new HashSet<Ticket>();
         }
 
         public int Id { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
         public string Name { get; set; }
-        public DateTime Dob { get; set; }
+        public DateTime? Dob { get; set; }
         public string Address { get; set; }
         public string Phone { get; set; }
         public string Images { get; set; }
-        public byte? Gender { get; set; }
+        public int Gender { get; set; }
         public DateTime? DayCreate { get; set; }
         public DateTime? DayEdited { get; set; }
         public int? EditerId { get; set; }
@@ -28,12 +28,12 @@ namespace BusBooking_Project.Models.Entities
         public bool? Active { get; set; }
         public string Description { get; set; }
         public string ForgotPass { get; set; }
-        public int StationId { get; set; }
+        public int? StationId { get; set; }
         public string Code { get; set; }
 
         public virtual Role Role { get; set; }
         public virtual Station Station { get; set; }
-        public virtual ICollection<Booking> BookingUser { get; set; }
-        public virtual ICollection<Booking> BookingUserId2Navigation { get; set; }
+        public virtual ICollection<Booking> Booking { get; set; }
+        public virtual ICollection<Ticket> Ticket { get; set; }
     }
 }

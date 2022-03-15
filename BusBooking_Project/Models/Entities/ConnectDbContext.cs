@@ -20,8 +20,8 @@ namespace BusBooking_Project.Models.Entities
         public virtual DbSet<Bus> Bus { get; set; }
         public virtual DbSet<Category> Category { get; set; }
         public virtual DbSet<Role> Role { get; set; }
+        public virtual DbSet<Routes> Routes { get; set; }
         public virtual DbSet<Seat> Seat { get; set; }
-        public virtual DbSet<Spacing> Spacing { get; set; }
         public virtual DbSet<Station> Station { get; set; }
         public virtual DbSet<Ticket> Ticket { get; set; }
 
@@ -58,27 +58,24 @@ namespace BusBooking_Project.Models.Entities
                     .HasColumnType("date");
 
                 entity.Property(e => e.Email)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                    .IsRequired()
+                    .HasMaxLength(50);
 
                 entity.Property(e => e.ForgotPass).HasMaxLength(50);
 
                 entity.Property(e => e.Gender).HasDefaultValueSql("((1))");
 
-                entity.Property(e => e.Images)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                entity.Property(e => e.Images).HasMaxLength(50);
 
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(50);
 
-                entity.Property(e => e.Password)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                entity.Property(e => e.Password).HasMaxLength(50);
 
-                entity.Property(e => e.Phone).HasMaxLength(50);
+                entity.Property(e => e.Phone)
+                    .IsRequired()
+                    .HasMaxLength(50);
 
                 entity.Property(e => e.Status)
                     .IsRequired()
@@ -92,32 +89,38 @@ namespace BusBooking_Project.Models.Entities
                 entity.HasOne(d => d.Station)
                     .WithMany(p => p.Account)
                     .HasForeignKey(d => d.StationId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Account_Station");
             });
 
             modelBuilder.Entity<Booking>(entity =>
             {
-                entity.Property(e => e.DayCreate).HasColumnType("datetime");
+                entity.Property(e => e.Code)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.DayCreate)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.DayStart).HasColumnType("datetime");
-
-                entity.Property(e => e.FromCity).HasColumnName("FromCIty");
 
                 entity.HasOne(d => d.Bus)
                     .WithMany(p => p.Booking)
                     .HasForeignKey(d => d.BusId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Booking_Bus");
 
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.BookingUser)
-                    .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK_Booking_Account");
+                entity.HasOne(d => d.Route)
+                    .WithMany(p => p.Booking)
+                    .HasForeignKey(d => d.RouteId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Booking_Routes");
 
-                entity.HasOne(d => d.UserId2Navigation)
-                    .WithMany(p => p.BookingUserId2Navigation)
-                    .HasForeignKey(d => d.UserId2)
-                    .HasConstraintName("FK_Booking_Account1");
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Booking)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Booking_Account");
             });
 
             modelBuilder.Entity<Bus>(entity =>
@@ -140,7 +143,7 @@ namespace BusBooking_Project.Models.Entities
                     .IsRequired()
                     .HasDefaultValueSql("((1))");
 
-                entity.HasOne(d => d.Cate)
+                entity.HasOne(d => d.Category)
                     .WithMany(p => p.Bus)
                     .HasForeignKey(d => d.CateId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
@@ -171,8 +174,6 @@ namespace BusBooking_Project.Models.Entities
 
             modelBuilder.Entity<Role>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedOnAdd();
-
                 entity.Property(e => e.Active).HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.Name).HasMaxLength(50);
@@ -180,25 +181,7 @@ namespace BusBooking_Project.Models.Entities
                 entity.Property(e => e.Status).HasDefaultValueSql("((1))");
             });
 
-            modelBuilder.Entity<Seat>(entity =>
-            {
-                entity.HasIndex(e => e.Code)
-                    .HasName("Code_Seat")
-                    .IsUnique();
-
-                entity.Property(e => e.Code)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.HasOne(d => d.Bus)
-                    .WithMany(p => p.Seat)
-                    .HasForeignKey(d => d.BusId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Seat_Bus");
-            });
-
-            modelBuilder.Entity<Spacing>(entity =>
+            modelBuilder.Entity<Routes>(entity =>
             {
                 entity.Property(e => e.Active)
                     .IsRequired()
@@ -209,6 +192,27 @@ namespace BusBooking_Project.Models.Entities
                 entity.Property(e => e.Status)
                     .IsRequired()
                     .HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.TimeGo).HasColumnType("time(0)");
+
+                entity.Property(e => e.TimeRun)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<Seat>(entity =>
+            {
+                entity.Property(e => e.Code)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.Bus)
+                    .WithMany(p => p.Seat)
+                    .HasForeignKey(d => d.BusId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Seat_Bus");
             });
 
             modelBuilder.Entity<Station>(entity =>
@@ -235,17 +239,11 @@ namespace BusBooking_Project.Models.Entities
 
                 entity.Property(e => e.TotalPrice).HasColumnType("decimal(18, 0)");
 
-                entity.HasOne(d => d.Booking)
+                entity.HasOne(d => d.User)
                     .WithMany(p => p.Ticket)
-                    .HasForeignKey(d => d.BookingId)
+                    .HasForeignKey(d => d.Userid)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Ticket_Booking");
-
-                entity.HasOne(d => d.Spacing)
-                    .WithMany(p => p.Ticket)
-                    .HasForeignKey(d => d.SpacingId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Ticket_Spacing");
+                    .HasConstraintName("FK_Ticket_Account");
             });
 
             OnModelCreatingPartial(modelBuilder);

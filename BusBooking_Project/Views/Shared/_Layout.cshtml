@@ -8,16 +8,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="format-detection" content="telephone=no" />
 
-
     <title>SRC Travel</title>
 
 
     <!-- HTML Meta Tags -->
 
+
     <link rel="stylesheet" id="theme-style-css" href="~/customer/Content/css/style.min.css" type="text/css" media="all" />
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
     <link href="~/customer/Content/css/fontawesome-stars.css" rel="stylesheet" />
 
     <link href="~/customer/Content/plugins/sidebar/slidebars.css" rel="stylesheet" />
@@ -56,7 +55,7 @@
     </noscript>
     <!-- End Google Tag Manager -->
 
-    <img src="~/customer/Content/img/private/button-19006067-03.png" class="hotlinebutton-fixed" alt="hotline futabus" />
+
 
     <div id="br-cover-content">
         <div id="myModal" class="modal fade" role="dialog">
@@ -69,9 +68,9 @@
                 <div id="top-nav" class="hidden-xs">
                     <div class="container">
                         <ul class="clearfix">
-                            <li class="pull-right diff"><a href="/en-US"><img src="~/customer/Content/res/GB.png" style="padding-bottom: 2px;" alt="English" />&nbsp;<span class="hidden-xs">English</span></a></li>
+                            <li class="pull-right diff"><a href="#"><img src="~/customer/Content/res/GB.png" style="padding-bottom: 2px;" alt="English" />&nbsp;<span class="hidden-xs">English</span></a></li>
                             <li class="pull-right">
-                                <a target="_blank" href="https://www.facebook.com/xephuongtrang">
+                                <a target="_blank" href="#">
                                     <i class="fa fa-facebook-square"></i>&ensp;Fanpage
                                 </a>
                             </li>
@@ -95,103 +94,116 @@
 
                         </div>
                         <ul class="pull-right hidden-xs">
-                            <li><a href="/vi-VN/ve-xe-phuong-trang-lich-trinh.html">Lịch trình</a></li>
-                            <li><a href="/vi-VN/cac-chuong-trinh-khuyen-mai.html">Khuyến mãi</a></li>
-                            <li><a href="/vi-VN/ve-xe-phuong-trang-tin-tuc.html">Tin tức</a></li>
-                            <li><a href="/vi-VN/ve-xe-phuong-trang-lien-he.html">Liên hệ</a></li>
+                            <li><a asp-controller="home" asp-action="index">Home</a></li>
+                            <li><a asp-controller="schedule" asp-action="index">Lịch trình</a></li>
+                            <li><a href="#">Tin tức</a></li>
+                            <li><a href="#">Liên hệ</a></li>
 
-                            <li><a href="https://id.futabus.vn">Đăng nhập</a></li>
-                            <li><a target="_blank" href="https://hoadon.futabus.vn/">Hóa đơn</a></li>
+                            <li><a asp-controller="bill" asp-action="index">Hóa đơn</a></li>
 
                         </ul>
                     </div>
                 </nav>
             </div>
 
+            <section id="body-top" style="margin-bottom: 50px">
+                @RenderBody()
+            </section>
 
+            <section class="br-download-v2"></section>
 
-            @RenderBody()
+            <div class="sb-slidebar sb-left">
 
+                <ul>
+                    <li class="first text-center">
+                        <a href="/">
+                            <img width="200" src="Content/img/logo.png" alt="">
+                        </a>
+                    </li>
+                    <li><a href="/en-US"><img src="~/customer/Content/res/GB.png" style="padding-bottom: 2px;" alt="English" />&nbsp;<span>English</span></a></li>
+                    <li><a href="#">Giá vé</a></li>
+                    <li><a href="#">Khuyến mãi</a></li>
+                    <li><a href="#">Tin tức</a></li>
+                    <li><a href="#">Liên hệ</a></li>
+                    <li><a asp-controller="bill" asp-action="index">Hóa đơn</a></li>
+                </ul>
+
+            </div>
             <footer>
 
-                    <div id="footer-body">
-                        <div class="f-body-wrap container">
+                <div id="footer-body">
+                    <div class="f-body-wrap container">
 
-                            <nav id="nav-f">
-                                <ul>
-                                    <li><a href="/vi-VN/ve-xe-phuong-trang-lich-trinh.html">Lịch trình</a></li>
-                                    <li><a href="/vi-VN/ve-xe-phuong-trang-ve-chung-toi.html">Về chúng tôi</a></li>
-                                    <li><a href="/vi-VN/ve-xe-phuong-trang-dieu-khoan-su-dung.html">Điều khoản sử dụng</a></li>
+                        <nav id="nav-f">
+                            <ul>
+                                <li><a asp-controller="schedule" asp-action="index">Lịch trình</a></li>
+                                <li><a href="#">Về chúng tôi</a></li>
+                                <li><a href="#">Điều khoản sử dụng</a></li>
 
-                                    <li><a href="/vi-VN/ve-xe-phuong-trang-tin-tuc.html">Tin tức</a></li>
-                                    <li><a href="/vi-VN/cau-hoi-thuong-gap.html">Hỏi &amp; Đáp</a></li>
-                                </ul>
-                            </nav>
+                                <li><a href="#">Tin tức</a></li>
+                                <li><a href="#">Hỏi &amp; Đáp</a></li>
+                            </ul>
+                        </nav>
 
-                            <div id="f-info" class="row">
-                                <div class="col-md-5 col-md-offset-2">
-                                    <div id="download_btn">
-                                        <ul>
-                                            <li>Tải app SRCBUS tại</li>
-                                            <li>
-                                                <a href="https://itunes.apple.com/us/app/futa/id1049039667" target="_blank">
-                                                    <img src="~/customer/Content/img/app-store.png">
-                                                </a>
-                                                <a href="https://play.google.com/store/apps/details?id=com.futabus.activity" target="_blank">
-                                                    <img src="~/customer/Content/img/an-droid.png">
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div id="social">
-                                        <ul style="text-align:left">
-                                            <li>Kết nối với chúng tôi</li>
-                                            <li>
-                                                <a target="_blank" href="https://www.facebook.com/xephuongtrang">
-                                                    <i class="fa fa-facebook-square"></i>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="">
-                                                    <i class="fa fa-google-plus-square"></i>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="">
-                                                    <i class="fa fa-twitter-square"></i>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
+                        <div id="f-info" class="row">
+                            <div class="col-md-5 col-md-offset-2">
+                                <div id="download_btn">
+                                    <ul>
+                                        <li>Tải app SRCBUS tại</li>
+                                        <li>
+                                            <a href="https://itunes.apple.com/us/app/futa/id1049039667" target="_blank">
+                                                <img src="~/customer/Content/img/app-store.png">
+                                            </a>
+                                            <a href="https://play.google.com/store/apps/details?id=com.futabus.activity" target="_blank">
+                                                <img src="~/customer/Content/img/an-droid.png">
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </div>
-
-                                <div class="col-md-5 text-left">
-                                    <a target="_blank" href="http://www.online.gov.vn/CustomWebsiteDisplay.aspx?DocId=14037">
-                                        <img src="~/customer/Content/img/private/dathongbao-bocongthuong.png" class="logo-bocongthuong">
-                                    </a>
+                                <div id="social">
+                                    <ul style="text-align:left">
+                                        <li>Kết nối với chúng tôi</li>
+                                        <li>
+                                            <a target="_blank" href="https://www.facebook.com/xephuongtrang">
+                                                <i class="fa fa-facebook-square"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="">
+                                                <i class="fa fa-google-plus-square"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="">
+                                                <i class="fa fa-twitter-square"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </div>
-
                             </div>
 
-                            <div class="f-copy">
-
-
-                                <p>&copy; 2001-2016 | Bản quyền thuộc về Công ty Cổ Phần Xe Khách SRC| <a href="/">www.srcbus.vn</a></p>
+                            <div class="col-md-5 text-left">
+                                <a target="_blank" href="#">
+                                    <img src="~/customer/Content/img/private/dathongbao-bocongthuong.png" class="logo-bocongthuong">
+                                </a>
                             </div>
+
+                        </div>
+
+                        <div class="f-copy">
+
+                            <p>&copy; 2001-2016 | Bản quyền thuộc về Công ty Cổ Phần Xe Khách SRC| <a href="/">www.srcbus.vn</a></p>
                         </div>
                     </div>
+                </div>
 
-                </footer>
-        
+            </footer>
+
         </div>
     </div>
 
     <script type="text/javascript" src="~/customer/Content/js/jquery-1.11.3.min.js"></script>
-
-
     <script type="text/javascript" src="~/customer/Content/js/bootstrap.min.js"></script>
-
-
     <script src="~/customer/Content/plugins/sidebar/slidebars.js"></script>
     <script src="~/customer/Content/js/main.js"></script>
     <script src="~/customer/Content/js/modernizr.js"></script>
@@ -205,6 +217,7 @@
     </script>
 
     <script>
+
         (function ($) {
             $(document).ready(function () {
                 $.slidebars({
@@ -217,48 +230,19 @@
         })(jQuery);
 
     </script>
-
-
-
-
-
-
-
-
     <script type="text/javascript" src="~/customer/Content/plugins/flexslider/jquery.flexslider-min.js"></script>
-
     <script type="text/javascript" src="~/customer/Content/plugins/sliderTabs/jquery.sliderTabs.min.js"></script>
-
-
     <script type="text/javascript" src="~/customer/bower_components/bootstrap-select/js/bootstrap-select.min.js"></script>
-
     <script type="text/javascript" src="~/customer/Content/js/moment.min.js"></script>
-
     <script type="text/javascript" src="~/customer/Content/js/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
-
     <script type="text/javascript" src="~/customer/Content/js/bootstrap-datepicker/locales/bootstrap-datepicker.vi.min.js"></script>
-
     <script src="~/customer/Content/js/jquery.bootstrap.newsbox.min.js"></script>
     <script type="text/javascript" src="~/customer/Content/js/helper.min.js"></script>
-
-
-
-
-
     <script type="text/javascript" src="https://api2.futabus.vn/api/getsettings.js?v=1&a=webApp"></script>
-
-
-
-
     <script type="text/javascript" src="~/customer/Content/js/booking-partials.js"></script>
-
-
-
-
     <script src="~/customer/Content/js/waypoints.min.js"></script>
     <script src="~/customer/Content/js/jquery.counterup.min.js"></script>
     <script src="~/customer/Content/js/wow.js"></script>
-
     <script type="text/javascript">
         wow = new WOW(
             {
@@ -318,45 +302,18 @@
                 });
             });
 
-            $(document).ready(function () {
-                $('a.futa-book-ticket').on('click', function (e) {
-                    e.preventDefault();
-                    var productObj = $(this).attr('data-obj');
-                    var url = $(this).attr("href");
-                    dataLayer.push({
-                        'event': 'productClick',
-                        'ecommerce': {
-                            'click': {
-                                'actionField': { 'list': productObj.list },      // Optional list property.
-                                'products': [{
-                                    'name': productObj.name,                      // Name or ID is required.
-                                    'id': productObj.id,
-                                    'price': productObj.price,
-                                    'brand': productObj.brand,
-                                    'category': productObj.cat,
-                                    'variant': productObj.variant
-                                }]
-                            }
-                        },
-                        'eventCallback': function () {
-                            document.location = url;
-                        }
-                    });
-                });
-            });
-        })
-            //$(window).load(function () {
-            //    setCookie('showPop', '0');
-            //});
+
+
+        });
+                        //$(window).load(function () {
+                        //    setCookie('showPop', '0');
+                        //});
     </script>
-
-
-
-
+    <script src="~/customer/js/scriptClientNTU.js"></script>
 
     <!-- GA Tracking -->
     <!-- End GA Tracking -->
-
+    @RenderSection("scriptCus", required: false)
 </body>
 </html>
 
